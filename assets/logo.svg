@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <radialGradient id="kasLogoRed" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#D32F2F"/>
+      <stop offset="65%" stop-color="#8B1116"/>
+      <stop offset="100%" stop-color="#4F0509"/>
+    </radialGradient>
+    <linearGradient id="kasLogoGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF176"/>
+      <stop offset="50%" stop-color="#FBC02D"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <circle cx="50" cy="50" r="48" fill="url(#kasLogoRed)" stroke="#FBC02D" stroke-width="2.5"/>
+  <!-- Beaded Inner Ring -->
+  <circle cx="50" cy="50" r="43.5" fill="none" stroke="#FFE082" stroke-width="1" stroke-dasharray="2.5 2.5"/>
+  <!-- Rays / Mandala -->
+  <g stroke="#FFE082" stroke-width="1" opacity="0.45">
+    <line x1="50" y1="7" x2="50" y2="11"/>
+    <line x1="50" y1="89" x2="50" y2="93"/>
+    <line x1="7" y1="50" x2="11" y2="50"/>
+    <line x1="89" y1="50" x2="93" y2="50"/>
+    <line x1="19" y1="19" x2="22" y2="22"/>
+    <line x1="78" y1="78" x2="81" y2="81"/>
+    <line x1="19" y1="81" x2="22" y2="78"/>
+    <line x1="78" y1="22" x2="81" y2="19"/>
+  </g>
+  <!-- Sacred Trishul Center & Tilak -->
+  <path d="M50 15 L53.5 26 L50 25 L46.5 26 Z" fill="url(#kasLogoGold)"/>
+  <line x1="50" y1="25" x2="50" y2="72" stroke="url(#kasLogoGold)" stroke-width="2.8" stroke-linecap="round"/>
+  <!-- Trishul Curved Prongs -->
+  <path d="M47 31 C37 29 32 37 32 42 C37 42 41 38 46 36" fill="none" stroke="url(#kasLogoGold)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M32 39 L29 42.5 L34 42.5 Z" fill="url(#kasLogoGold)"/>
+  <path d="M53 31 C63 29 68 37 68 42 C63 42 59 38 54 36" fill="none" stroke="url(#kasLogoGold)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M68 39 L71 42.5 L66 42.5 Z" fill="url(#kasLogoGold)"/>
+  <!-- Divine Trinayan (Third Eye & Tilak) -->
+  <path d="M50 34 C48 38 48 42 50 45 C52 42 52 38 50 34 Z" fill="#FFE082"/>
+  <path d="M42 50 C45 44 55 44 58 50 C55 56 45 56 42 50 Z" fill="#FFFDE7"/>
+  <circle cx="50" cy="50" r="3.2" fill="#8B1116"/>
+  <circle cx="51" cy="49" r="1.2" fill="#FFFFFF"/>
+  <!-- Sacred Kamal (Lotus) Base -->
+  <path d="M50 75 C43 71 39 66 41 62 C45 63 48 65 50 68 C52 65 55 63 59 62 C61 66 57 71 50 75 Z" fill="url(#kasLogoGold)"/>
+  <!-- ESTD 1968 Ribbon Text -->
+  <text x="50" y="87" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="6.8" font-weight="800" fill="#FFE082" text-anchor="middle" letter-spacing="1.2">ESTD 1968</text>
+</svg>
