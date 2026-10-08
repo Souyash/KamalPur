@@ -18,8 +18,11 @@
 
   <!-- ══════════ REAL-TIME ANIMATED CINEMATIC VIDEO OVERLAY ══════════ -->
   <div id="intro-overlay" role="dialog" aria-label="Sharodotsav Realtime Animated Cinematic Scene">
-    <!-- Realtime Animated Cinematic Canvas (Full Screen 60fps WebGL/2D Video Engine) -->
+    <!-- Real-time Animated Video Player with Canvas Particles & Atmospheric Vignette -->
     <div class="intro-canvas-wrap">
+      <video id="introDurgaVideo" class="intro-bg-video" autoplay muted loop playsinline preload="auto">
+        <source src="assets/durga-animated-shutterstock.mp4" type="video/mp4">
+      </video>
       <canvas id="realtimeVideoCanvas" class="intro-realtime-canvas"></canvas>
       <div class="intro-cinematic-vignette"></div>
       <div class="intro-lens-flare"></div>

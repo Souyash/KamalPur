@@ -84,14 +84,19 @@ function dismissIntro() {
 ══════════════════════════════════════════════════════════════ */
 function initRealtimeVideoCanvas() {
   const canvas = document.getElementById('realtimeVideoCanvas');
+  const video = document.getElementById('introDurgaVideo');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  // Load High-Res Durga Festive Artwork
-  const img = new Image();
-  img.src = 'assets/durga-scene.jpg';
+  // Make sure video plays automatically
+  if (video) {
+    video.muted = true;
+    video.play().catch(() => {
+      // Browsers allow muted autoplay, but catch silently
+    });
+  }
 
   let width = 0;
   let height = 0;
@@ -105,7 +110,7 @@ function initRealtimeVideoCanvas() {
 
   // Particle & Spark Physics System
   const particles = [];
-  const particleCount = Math.min(width > 768 ? 90 : 45, 120);
+  const particleCount = Math.min(width > 768 ? 80 : 40, 100);
 
   for (let i = 0; i < particleCount; i++) {
     particles.push({
@@ -115,80 +120,51 @@ function initRealtimeVideoCanvas() {
       speedY: -(Math.random() * 1.8 + 0.6),
       speedX: (Math.random() - 0.5) * 1.2,
       opacity: Math.random() * 0.8 + 0.2,
-      fadeSpeed: Math.random() * 0.015 + 0.005,
-      hue: Math.random() > 0.4 ? 42 : 18, // Gold or fiery amber
+      hue: Math.random() > 0.35 ? 42 : 18, // Gold or fiery amber
       pulse: Math.random() * Math.PI
     });
   }
 
-  // Volumetric Smoke Puffs System (Rising from Dhunuchi)
-  const smokePuffs = [];
-  const smokeCount = 28;
-  for (let i = 0; i < smokeCount; i++) {
-    smokePuffs.push({
-      x: width * 0.76 + (Math.random() - 0.5) * 80,
-      y: height * 0.6 + Math.random() * 200,
-      radius: Math.random() * 45 + 25,
-      maxRadius: Math.random() * 140 + 80,
-      speedY: -(Math.random() * 1.4 + 0.8),
-      speedX: (Math.random() - 0.3) * 0.9,
-      alpha: Math.random() * 0.22 + 0.08,
-      rotation: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.015
-    });
-  }
+  // Backup Artwork if video fails to load
+  const fallbackImg = new Image();
+  fallbackImg.src = 'assets/durga-scene.jpg';
+  let imgLoaded = false;
+  fallbackImg.onload = () => { imgLoaded = true; };
 
   let startTime = performance.now();
-  let imgLoaded = false;
-  img.onload = () => { imgLoaded = true; };
 
   function renderVideoFrame(now) {
     const elapsed = (now - startTime) / 1000;
 
-    // Clear black screen
-    ctx.fillStyle = '#060302';
-    ctx.fillRect(0, 0, width, height);
+    // Clear canvas
+    ctx.clearRect(0, 0, width, height);
 
-    /* ── A. Cinematic Camera Motion (Ken Burns: Smooth Pan & Zoom) ── */
-    const zoomProgress = Math.min(elapsed / 10, 1);
-    const scale = 1.05 + Math.sin(elapsed * 0.45) * 0.04 + (zoomProgress * 0.06);
-    const panX = Math.sin(elapsed * 0.3) * 20;
-    const panY = Math.cos(elapsed * 0.35) * 14;
+    // If video is not playing / errored, draw fallback image with Ken Burns motion
+    if (!video || video.paused || video.ended || video.readyState < 2) {
+      if (imgLoaded) {
+        ctx.save();
+        const scale = 1.05 + Math.sin(elapsed * 0.45) * 0.04;
+        const panX = Math.sin(elapsed * 0.3) * 18;
+        const panY = Math.cos(elapsed * 0.35) * 12;
 
-    ctx.save();
+        const imgAspect = fallbackImg.width / fallbackImg.height;
+        const canvasAspect = width / height;
+        let drawW, drawH;
 
-    if (imgLoaded) {
-      // Calculate aspect ratio cover
-      const imgAspect = img.width / img.height;
-      const canvasAspect = width / height;
-      let drawW, drawH;
+        if (canvasAspect > imgAspect) {
+          drawW = width;
+          drawH = width / imgAspect;
+        } else {
+          drawH = height;
+          drawW = height * imgAspect;
+        }
 
-      if (canvasAspect > imgAspect) {
-        drawW = width;
-        drawH = width / imgAspect;
-      } else {
-        drawH = height;
-        drawW = height * imgAspect;
+        ctx.translate(width / 2 + panX, height / 2 + panY);
+        ctx.scale(scale, scale);
+        ctx.drawImage(fallbackImg, -drawW / 2, -drawH / 2, drawW, drawH);
+        ctx.restore();
       }
-
-      ctx.translate(width / 2 + panX, height / 2 + panY);
-      ctx.scale(scale, scale);
-      ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
-
-      // Subtle dynamic camera heat-shimmer on altar
-      const shimmer = Math.sin(elapsed * 4) * 0.03;
-      ctx.fillStyle = `rgba(255, 120, 20, ${0.04 + shimmer})`;
-      ctx.fillRect(-drawW / 2, -drawH / 2, drawW, drawH);
-    } else {
-      // Fallback ambient golden gradient before image arrives
-      const grad = ctx.createRadialGradient(width/2, height/2, 50, width/2, height/2, width/2);
-      grad.addColorStop(0, '#5A1E0B');
-      grad.addColorStop(0.6, '#1A0804');
-      grad.addColorStop(1, '#000000');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
     }
-    ctx.restore();
 
     /* ── B. Real-time Volumetric Dhunuchi Smoke Physics ── */
     ctx.save();
