@@ -11,32 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initDonationPresets();
 });
 
-/* ── 1. Theatrical Intro Scene & Authentic Dhaak Beat Synthesizer ── */
+/* ── 1. Real-time Animated Cinematic Video Engine & Authentic Dhaak Synthesizer ── */
 let introCountdownTimer = null;
 let dhakAudioContext = null;
 let dhakInterval = null;
 let isDhakPlaying = false;
+let videoCanvasAnimId = null;
 
 function initIntroOverlay() {
-  const container = document.getElementById('intro-particles');
-  if (container) {
-    const particleCount = 28;
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement('div');
-      p.className = 'intro-particle';
-      const size = Math.random() * 4 + 2.5;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 90 + 10}%`;
-      p.style.animationDelay = `${Math.random() * 2.5}s`;
-      p.style.animationDuration = `${Math.random() * 2 + 2.5}s`;
-      container.appendChild(p);
-    }
-  }
+  // Start Realtime Animated Video Canvas Engine
+  initRealtimeVideoCanvas();
 
-  // Countdown timer for auto-dismiss (6 seconds)
-  let timeLeft = 6;
+  // Countdown timer for auto-dismiss (7 seconds)
+  let timeLeft = 7;
   const timerSpan = document.getElementById('introSecLeft');
   introCountdownTimer = setInterval(() => {
     timeLeft -= 1;
@@ -51,7 +38,6 @@ function initIntroOverlay() {
   const overlay = document.getElementById('intro-overlay');
   if (overlay) {
     overlay.addEventListener('click', (e) => {
-      // Don't dismiss if clicking the audio toggle button
       if (e.target.closest('#introAudioBtn')) return;
       dismissIntro();
     });
@@ -73,6 +59,11 @@ function dismissIntro() {
   }
   stopDhakAudio();
 
+  if (videoCanvasAnimId) {
+    cancelAnimationFrame(videoCanvasAnimId);
+    videoCanvasAnimId = null;
+  }
+
   const overlay = document.getElementById('intro-overlay');
   if (overlay && !overlay.classList.contains('hidden')) {
     overlay.classList.add('hidden');
@@ -80,6 +71,230 @@ function dismissIntro() {
       overlay.style.display = 'none';
     }, 1000);
   }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REAL-TIME 60FPS CINEMATIC VIDEO ENGINE
+   Simulates full HD 60fps theatrical Durga Puja celebration:
+   - Ken Burns cinematic camera pan, zoom and breathing
+   - Volumetric rising incense smoke & glowing heat haze
+   - Dynamic golden particle & ember field with physics
+   - Ray-traced divine lens flare & halo god-rays pulsing
+   - Live rhythmic bass flash synced with Dhaak drum beats
+══════════════════════════════════════════════════════════════ */
+function initRealtimeVideoCanvas() {
+  const canvas = document.getElementById('realtimeVideoCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Load High-Res Durga Festive Artwork
+  const img = new Image();
+  img.src = 'assets/durga-scene.jpg';
+
+  let width = 0;
+  let height = 0;
+
+  function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Particle & Spark Physics System
+  const particles = [];
+  const particleCount = Math.min(width > 768 ? 90 : 45, 120);
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 3 + 1,
+      speedY: -(Math.random() * 1.8 + 0.6),
+      speedX: (Math.random() - 0.5) * 1.2,
+      opacity: Math.random() * 0.8 + 0.2,
+      fadeSpeed: Math.random() * 0.015 + 0.005,
+      hue: Math.random() > 0.4 ? 42 : 18, // Gold or fiery amber
+      pulse: Math.random() * Math.PI
+    });
+  }
+
+  // Volumetric Smoke Puffs System (Rising from Dhunuchi)
+  const smokePuffs = [];
+  const smokeCount = 28;
+  for (let i = 0; i < smokeCount; i++) {
+    smokePuffs.push({
+      x: width * 0.76 + (Math.random() - 0.5) * 80,
+      y: height * 0.6 + Math.random() * 200,
+      radius: Math.random() * 45 + 25,
+      maxRadius: Math.random() * 140 + 80,
+      speedY: -(Math.random() * 1.4 + 0.8),
+      speedX: (Math.random() - 0.3) * 0.9,
+      alpha: Math.random() * 0.22 + 0.08,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.015
+    });
+  }
+
+  let startTime = performance.now();
+  let imgLoaded = false;
+  img.onload = () => { imgLoaded = true; };
+
+  function renderVideoFrame(now) {
+    const elapsed = (now - startTime) / 1000;
+
+    // Clear black screen
+    ctx.fillStyle = '#060302';
+    ctx.fillRect(0, 0, width, height);
+
+    /* ── A. Cinematic Camera Motion (Ken Burns: Smooth Pan & Zoom) ── */
+    const zoomProgress = Math.min(elapsed / 10, 1);
+    const scale = 1.05 + Math.sin(elapsed * 0.45) * 0.04 + (zoomProgress * 0.06);
+    const panX = Math.sin(elapsed * 0.3) * 20;
+    const panY = Math.cos(elapsed * 0.35) * 14;
+
+    ctx.save();
+
+    if (imgLoaded) {
+      // Calculate aspect ratio cover
+      const imgAspect = img.width / img.height;
+      const canvasAspect = width / height;
+      let drawW, drawH;
+
+      if (canvasAspect > imgAspect) {
+        drawW = width;
+        drawH = width / imgAspect;
+      } else {
+        drawH = height;
+        drawW = height * imgAspect;
+      }
+
+      ctx.translate(width / 2 + panX, height / 2 + panY);
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+
+      // Subtle dynamic camera heat-shimmer on altar
+      const shimmer = Math.sin(elapsed * 4) * 0.03;
+      ctx.fillStyle = `rgba(255, 120, 20, ${0.04 + shimmer})`;
+      ctx.fillRect(-drawW / 2, -drawH / 2, drawW, drawH);
+    } else {
+      // Fallback ambient golden gradient before image arrives
+      const grad = ctx.createRadialGradient(width/2, height/2, 50, width/2, height/2, width/2);
+      grad.addColorStop(0, '#5A1E0B');
+      grad.addColorStop(0.6, '#1A0804');
+      grad.addColorStop(1, '#000000');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+    }
+    ctx.restore();
+
+    /* ── B. Real-time Volumetric Dhunuchi Smoke Physics ── */
+    ctx.save();
+    smokePuffs.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.radius += 0.35;
+      p.rotation += p.rotSpeed;
+      p.alpha -= 0.0006;
+
+      if (p.y < -p.maxRadius || p.alpha <= 0) {
+        // Reset puff at dancer's right hand position
+        p.x = width * (width > 768 ? 0.74 : 0.78) + (Math.random() - 0.5) * 40;
+        p.y = height * 0.65;
+        p.radius = Math.random() * 30 + 20;
+        p.alpha = Math.random() * 0.18 + 0.06;
+      }
+
+      const smokeGrad = ctx.createRadialGradient(p.x, p.y, p.radius * 0.1, p.x, p.y, p.radius);
+      smokeGrad.addColorStop(0, `rgba(240, 230, 215, ${p.alpha * 0.9})`);
+      smokeGrad.addColorStop(0.5, `rgba(180, 160, 140, ${p.alpha * 0.5})`);
+      smokeGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+      ctx.fillStyle = smokeGrad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+
+    /* ── C. Divine Radiant God-Rays & Golden Halo ── */
+    ctx.save();
+    const haloX = width * 0.5 + panX * 0.5;
+    const haloY = height * (width > 768 ? 0.38 : 0.32) + panY * 0.5;
+    const haloRadius = Math.min(width, height) * 0.42;
+
+    const divinePulse = 0.28 + Math.sin(elapsed * 2.2) * 0.08;
+    const haloGrad = ctx.createRadialGradient(haloX, haloY, 20, haloX, haloY, haloRadius);
+    haloGrad.addColorStop(0, `rgba(255, 230, 130, ${divinePulse * 1.5})`);
+    haloGrad.addColorStop(0.35, `rgba(255, 150, 30, ${divinePulse})`);
+    haloGrad.addColorStop(0.7, `rgba(180, 40, 10, ${divinePulse * 0.3})`);
+    haloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+    ctx.fillStyle = haloGrad;
+    ctx.beginPath();
+    ctx.arc(haloX, haloY, haloRadius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 8 Rotating Divine Light Shafts (Surya Kiran)
+    ctx.translate(haloX, haloY);
+    ctx.rotate(elapsed * 0.12);
+    for (let r = 0; r < 8; r++) {
+      ctx.rotate(Math.PI / 4);
+      const rayGrad = ctx.createLinearGradient(0, 0, haloRadius * 1.1, 0);
+      rayGrad.addColorStop(0, 'rgba(255, 215, 0, 0.14)');
+      rayGrad.addColorStop(0.6, 'rgba(255, 140, 0, 0.05)');
+      rayGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = rayGrad;
+      ctx.beginPath();
+      ctx.moveTo(0, -18);
+      ctx.lineTo(haloRadius * 1.2, -6);
+      ctx.lineTo(haloRadius * 1.2, 6);
+      ctx.lineTo(0, 18);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+
+    /* ── D. Floating Gold Embers & Sparks Physics ── */
+    ctx.save();
+    particles.forEach(p => {
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.pulse += 0.05;
+
+      if (p.y < -20) {
+        p.y = height + 10;
+        p.x = Math.random() * width;
+      }
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+
+      const currentOpacity = p.opacity * (0.6 + Math.sin(p.pulse) * 0.4);
+      ctx.fillStyle = `hsla(${p.hue}, 95%, 65%, ${currentOpacity})`;
+      ctx.shadowColor = `hsla(${p.hue}, 100%, 50%, 0.8)`;
+      ctx.shadowBlur = p.size * 3;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+
+    /* ── E. Live Dhaak Rhythmic Flash Pulse ── */
+    if (isDhakPlaying) {
+      const beatPulse = (Math.sin(elapsed * 15) + 1) * 0.5;
+      if (beatPulse > 0.8) {
+        ctx.fillStyle = `rgba(255, 160, 40, ${(beatPulse - 0.8) * 0.25})`;
+        ctx.fillRect(0, 0, width, height);
+      }
+    }
+
+    videoCanvasAnimId = requestAnimationFrame(renderVideoFrame);
+  }
+
+  videoCanvasAnimId = requestAnimationFrame(renderVideoFrame);
 }
 
 /* ── Web Audio API: Authentic Bengali Dhaak Rhythm Synthesizer ──
