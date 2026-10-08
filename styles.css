@@ -266,7 +266,7 @@ body {
 /* ═══════════════════════════════
    NAVIGATION
 ═══════════════════════════════ */
-nav {
+#nav {
   position: sticky;
   top: 0;
   z-index: 900;
@@ -280,7 +280,7 @@ nav {
   transition: box-shadow 0.3s, height 0.3s;
 }
 
-nav.elevated {
+#nav.elevated {
   box-shadow: 0 4px 32px rgba(30, 42, 58, 0.12);
 }
 
@@ -2942,7 +2942,7 @@ footer {
    RESPONSIVE MEDIA QUERIES
 ═══════════════════════════════ */
 @media (max-width: 1080px) {
-  nav {
+  #nav {
     padding: 0 32px;
   }
   .container {
@@ -2969,7 +2969,7 @@ footer {
 }
 
 @media (max-width: 820px) {
-  nav {
+  #nav {
     padding: 0 24px;
     height: 74px;
   }
@@ -3100,8 +3100,14 @@ footer {
   max-width: 900px;
 }
 
+.subpage-hero .hero-eyebrow {
+  opacity: 1;
+  margin-bottom: 16px;
+  animation: none;
+}
+
 .breadcrumb {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 12px;
@@ -3110,6 +3116,11 @@ footer {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 14px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: auto !important;
+  padding: 0 !important;
 }
 
 .breadcrumb a {
