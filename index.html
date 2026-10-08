@@ -16,51 +16,50 @@
 </head>
 <body class="home">
 
-  <!-- ══════════ REAL-TIME ANIMATED CINEMATIC VIDEO OVERLAY ══════════ -->
-  <div id="intro-overlay" role="dialog" aria-label="Sharodotsav Realtime Animated Cinematic Scene">
-    <!-- Real-time Animated Video Player with Canvas Particles & Atmospheric Vignette -->
+  <!-- ══════════ FULLSCREEN REAL-TIME ANIMATED VIDEO OVERLAY ══════════ -->
+  <div id="intro-overlay" role="dialog" aria-label="Sharodotsav Fullscreen Animated Scene">
+    <!-- Full-Bleed 100vw x 100vh Video Player with Overlay Canvas -->
     <div class="intro-canvas-wrap">
       <video id="introDurgaVideo" class="intro-bg-video" autoplay muted loop playsinline preload="auto">
         <source src="assets/durga-animated-shutterstock.mp4" type="video/mp4">
       </video>
       <canvas id="realtimeVideoCanvas" class="intro-realtime-canvas"></canvas>
       <div class="intro-cinematic-vignette"></div>
-      <div class="intro-lens-flare"></div>
     </div>
 
-    <!-- Theatrical Reveal Title & Cultural Typography -->
-    <div class="intro-theatre-caption">
+    <!-- Top Floating Live Brand Badge -->
+    <div class="intro-top-bar">
       <div class="intro-live-badge">
         <span class="live-dot"></span>
-        <span>LIVE CINEMATIC PROJECTION &bull; শারদোৎসব ২০২৬</span>
+        <span>SHARODOTSAV 2026 &bull; শারদোৎসব ২০২৬</span>
       </div>
-      <div class="intro-shlok-badge">
-        <span class="intro-shlok-icon">ॐ</span>
-        <span>যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা</span>
-      </div>
-      <h1 class="intro-scene-title">
-        <span class="intro-scene-bengali">কামালপুর অভিযান সংঘ</span>
-        <span class="intro-scene-english"><em>Kamalpur</em> Abhijaan Sangha</span>
-      </h1>
-      <p class="intro-scene-sub">
-        <span class="intro-pandal-location">Ranaghat, Nadia &bull; Est. 1970</span>
-        <span class="intro-sep">&bull;</span>
-        <span class="intro-festive-tag">55th Sharodotsav &bull; শারদোৎসব ২০২৬</span>
-      </p>
+      <button type="button" class="intro-audio-btn" id="introAudioBtn" onclick="toggleDhakAudio()" aria-label="Toggle Dhaak drum beats">
+        <span class="audio-icon" id="audioBtnIcon">🔊</span>
+        <span class="audio-label" id="audioBtnText">Play Dhaak</span>
+      </button>
+    </div>
 
-      <!-- Interactive Controls: Sound & Enter Pandal -->
-      <div class="intro-action-group">
-        <button type="button" class="intro-audio-btn" id="introAudioBtn" onclick="toggleDhakAudio()" aria-label="Toggle Dhaak drum beats">
-          <span class="audio-icon" id="audioBtnIcon">🔊</span>
-          <span class="audio-label" id="audioBtnText">Play Dhaak Beats</span>
-        </button>
-        <button type="button" class="intro-enter-btn" id="introSkipBtn" onclick="dismissIntro()">
-          <span>Enter Website &rarr;</span>
-        </button>
-      </div>
+    <!-- Bottom Floating Minimal Theatrical Overlay -->
+    <div class="intro-bottom-bar">
+      <div class="intro-bar-content">
+        <div class="intro-bar-titles">
+          <div class="intro-shlok-mini">ॐ যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা ॐ</div>
+          <h1 class="intro-title-text">
+            <span>কামালপুর অভিযান সংঘ</span>
+            <span class="intro-title-sep">&bull;</span>
+            <em>Kamalpur Abhijaan Sangha</em>
+          </h1>
+          <div class="intro-sub-text">Ranaghat, Nadia &bull; Est. 1970 &bull; 55+ Years of Heritage</div>
+        </div>
 
-      <div class="intro-countdown-hint" id="introCountdownHint">
-        Cinematic intro playing &bull; Auto-entering in <span id="introSecLeft">7</span>s &bull; Click anywhere to enter now
+        <div class="intro-bar-actions">
+          <button type="button" class="intro-enter-btn" id="introSkipBtn" onclick="dismissIntro()">
+            <span>Enter Website &rarr;</span>
+          </button>
+          <div class="intro-countdown-mini">
+            Auto-entering in <span id="introSecLeft">7</span>s
+          </div>
+        </div>
       </div>
     </div>
   </div>
