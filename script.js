@@ -326,15 +326,31 @@ function openArtistModal() {
   if (modal) modal.classList.add('open');
 }
 
-function openLightbox(title, caption, icon) {
+function openLightbox(titleOrEl, caption, icon) {
   const modal = document.getElementById('lightboxModal');
   const lbTitle = document.getElementById('lbTitle');
   const lbCaption = document.getElementById('lbCaption');
   const lbIcon = document.getElementById('lbIcon');
 
-  if (lbTitle) lbTitle.textContent = title;
-  if (lbCaption) lbCaption.textContent = caption;
-  if (lbIcon) lbIcon.textContent = icon;
+  if (titleOrEl && titleOrEl.nodeType === 1) {
+    const el = titleOrEl;
+    const t = el.getAttribute('data-title') || el.querySelector('.gi-caption strong')?.textContent || '';
+    const d = el.getAttribute('data-desc') || el.querySelector('.gi-caption span')?.textContent || '';
+    const iconEl = el.querySelector('.gi-icon');
+    if (lbTitle) lbTitle.textContent = t;
+    if (lbCaption) lbCaption.textContent = d;
+    if (lbIcon && iconEl) lbIcon.innerHTML = iconEl.innerHTML;
+  } else {
+    if (lbTitle) lbTitle.textContent = titleOrEl || '';
+    if (lbCaption) lbCaption.textContent = caption || '';
+    if (lbIcon && icon) {
+      if (typeof icon === 'string' && icon.trim().startsWith('<')) {
+        lbIcon.innerHTML = icon;
+      } else {
+        lbIcon.textContent = icon;
+      }
+    }
+  }
 
   if (modal) modal.classList.add('open');
 }
