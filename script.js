@@ -196,21 +196,22 @@ function moveCarousel(id, dir) {
 const eventDatabase = {
   durga: {
     badge: 'SHARODOTSAV 2026',
-    title: 'Ranaghat Kamalpur Durgotsav 2026',
+    title: 'Ranaghat Durgotsav 2026 (Conducted by Kamalpur Abhijan Sangha)',
     html: `
+      <p><strong>Conducted by:</strong> Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ)</p>
       <p><strong>Dates:</strong> Maha Shasthi to Vijaya Dashami (October 16–20, 2026)</p>
-      <p><strong>Venue:</strong> Kamalpur Sangha Prangon, Ranaghat, Nadia</p>
+      <p><strong>Venue:</strong> Kamalpur Sangha Prangon (Near Primary Health Centre), Ranaghat, Nadia</p>
       <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:16px 0; border:1px solid var(--border);">
         <h4 style="color:var(--eg); margin-bottom:8px; font-family:var(--serif); font-size:18px;">Key Highlights:</h4>
         <ul style="padding-left:20px; line-height:1.7;">
-          <li>Presentation of the historic <strong>117 Divine Forms of Durga</strong> exhibition.</li>
-          <li>Architectural Pandal designed by legendary artisans of Bengal.</li>
+          <li>Historic presentation of <strong>117 Divine Forms of Durga housed within 80 Temple Pavilions</strong>.</li>
+          <li>Crafted by master sculptors from Krishnanagar and Kumartuli.</li>
           <li>World-renowned Chandannagar illuminated gates stretching across 1.5 km of approach roads.</li>
-          <li>Daily Sandhya Aarti with 108 pradips and devotional Dhak competitions.</li>
-          <li>Maha Bhog distribution for over 25,000 pilgrims on Ashtami and Nabami.</li>
+          <li>Daily Sandhya Aarti with 108 pradips, dhunuchi naach, and devotional Dhak performances.</li>
+          <li>Maha Bhog distribution for over 25,000 pilgrims on Ashtami and Nabami afternoons.</li>
         </ul>
       </div>
-      <p style="font-size:13px; color:var(--text-3);">Devotees wishing to offer pushpanjali or chanda are requested to collect tokens from the Sangha camp desk.</p>
+      <p style="font-size:13px; color:var(--text-3);">Devotees wishing to offer pushpanjali or chanda are requested to collect tokens from the Sangha camp desk or online.</p>
     `
   },
   bijoya: {
