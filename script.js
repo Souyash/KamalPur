@@ -11,7 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initDonationPresets();
 });
 
-/* ── 1. Intro Overlay & Floating Particles ── */
+/* ── 1. Theatrical Intro Scene & Authentic Dhaak Beat Synthesizer ── */
+let introCountdownTimer = null;
+let dhakAudioContext = null;
+let dhakInterval = null;
+let isDhakPlaying = false;
+
 function initIntroOverlay() {
   const container = document.getElementById('intro-particles');
   if (container) {
@@ -19,31 +24,189 @@ function initIntroOverlay() {
     for (let i = 0; i < particleCount; i++) {
       const p = document.createElement('div');
       p.className = 'intro-particle';
-      const size = Math.random() * 5 + 3;
+      const size = Math.random() * 4 + 2.5;
       p.style.width = `${size}px`;
       p.style.height = `${size}px`;
       p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 100}%`;
+      p.style.top = `${Math.random() * 90 + 10}%`;
       p.style.animationDelay = `${Math.random() * 2.5}s`;
-      p.style.animationDuration = `${Math.random() * 2.5 + 2}s`;
+      p.style.animationDuration = `${Math.random() * 2 + 2.5}s`;
       container.appendChild(p);
     }
   }
 
-  // Auto dismiss after 2.6s
-  setTimeout(() => {
-    dismissIntro();
-  }, 2600);
+  // Countdown timer for auto-dismiss (6 seconds)
+  let timeLeft = 6;
+  const timerSpan = document.getElementById('introSecLeft');
+  introCountdownTimer = setInterval(() => {
+    timeLeft -= 1;
+    if (timerSpan) timerSpan.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(introCountdownTimer);
+      dismissIntro();
+    }
+  }, 1000);
+
+  // Allow clicking anywhere outside buttons to enter
+  const overlay = document.getElementById('intro-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      // Don't dismiss if clicking the audio toggle button
+      if (e.target.closest('#introAudioBtn')) return;
+      dismissIntro();
+    });
+  }
+
+  // Allow escape key to dismiss
+  document.addEventListener('keydown', function handleIntroEsc(e) {
+    if (e.key === 'Escape') {
+      dismissIntro();
+      document.removeEventListener('keydown', handleIntroEsc);
+    }
+  });
 }
 
 function dismissIntro() {
+  if (introCountdownTimer) {
+    clearInterval(introCountdownTimer);
+    introCountdownTimer = null;
+  }
+  stopDhakAudio();
+
   const overlay = document.getElementById('intro-overlay');
   if (overlay && !overlay.classList.contains('hidden')) {
     overlay.classList.add('hidden');
     setTimeout(() => {
       overlay.style.display = 'none';
-    }, 850);
+    }, 1000);
   }
+}
+
+/* ── Web Audio API: Authentic Bengali Dhaak Rhythm Synthesizer ──
+   Dhaak beats pattern: Classic Sharodotsav "Dha - Kur - Kur - Dha"
+   Produces wooden barrel resonance + skin membrane tap without external files. */
+function playSingleDhaakHit(time, type = 'heavy') {
+  if (!dhakAudioContext) return;
+
+  const now = time || dhakAudioContext.currentTime;
+
+  if (type === 'heavy') {
+    // Deep barrel hit ("DHA")
+    const osc = dhakAudioContext.createOscillator();
+    const gain = dhakAudioContext.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(145, now);
+    osc.frequency.exponentialRampToValueAtTime(58, now + 0.18);
+
+    gain.gain.setValueAtTime(0.7, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+
+    osc.connect(gain);
+    gain.connect(dhakAudioContext.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.28);
+
+    // Membrane snap / slap
+    const snapOsc = dhakAudioContext.createOscillator();
+    const snapGain = dhakAudioContext.createGain();
+    snapOsc.type = 'sawtooth';
+    snapOsc.frequency.setValueAtTime(420, now);
+    snapOsc.frequency.exponentialRampToValueAtTime(120, now + 0.05);
+
+    snapGain.gain.setValueAtTime(0.35, now);
+    snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+    snapOsc.connect(snapGain);
+    snapGain.connect(dhakAudioContext.destination);
+    snapOsc.start(now);
+    snapOsc.stop(now + 0.06);
+  } else {
+    // Sharp stick tap on rim/edge ("KUR")
+    const tapOsc = dhakAudioContext.createOscillator();
+    const tapGain = dhakAudioContext.createGain();
+
+    tapOsc.type = 'sine';
+    tapOsc.frequency.setValueAtTime(320, now);
+    tapOsc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
+
+    tapGain.gain.setValueAtTime(0.4, now);
+    tapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+
+    tapOsc.connect(tapGain);
+    tapGain.connect(dhakAudioContext.destination);
+
+    tapOsc.start(now);
+    tapOsc.stop(now + 0.09);
+  }
+}
+
+function startDhakRhythm() {
+  if (!dhakAudioContext) {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      dhakAudioContext = new AudioCtx();
+    }
+  }
+
+  if (dhakAudioContext && dhakAudioContext.state === 'suspended') {
+    dhakAudioContext.resume();
+  }
+
+  isDhakPlaying = true;
+  updateAudioBtnUI(true);
+
+  // Bengali Dhaak pattern sequence:
+  // Step 0: DHA! (heavy)
+  // Step 1: kur (tap)
+  // Step 2: kur (tap)
+  // Step 3: DHA! (heavy)
+  // Step 4: DHA! (heavy)
+  // Step 5: kur (tap)
+  let step = 0;
+  const tempoInterval = 210; // ms per strike
+
+  if (dhakInterval) clearInterval(dhakInterval);
+
+  dhakInterval = setInterval(() => {
+    if (!dhakAudioContext) return;
+    const now = dhakAudioContext.currentTime;
+
+    if (step === 0 || step === 3 || step === 4) {
+      playSingleDhaakHit(now, 'heavy');
+    } else {
+      playSingleDhaakHit(now, 'tap');
+    }
+
+    step = (step + 1) % 6;
+  }, tempoInterval);
+}
+
+function stopDhakAudio() {
+  if (dhakInterval) {
+    clearInterval(dhakInterval);
+    dhakInterval = null;
+  }
+  isDhakPlaying = false;
+  updateAudioBtnUI(false);
+}
+
+function toggleDhakAudio() {
+  if (isDhakPlaying) {
+    stopDhakAudio();
+  } else {
+    startDhakRhythm();
+  }
+}
+
+function updateAudioBtnUI(playing) {
+  const btn = document.getElementById('introAudioBtn');
+  const icon = document.getElementById('audioBtnIcon');
+  const text = document.getElementById('audioBtnText');
+  if (btn) btn.classList.toggle('playing', playing);
+  if (icon) icon.textContent = playing ? '🔊' : '🔈';
+  if (text) text.textContent = playing ? 'Mute Dhaak' : 'Play Dhaak Beats';
 }
 
 /* ── 2. Sticky Nav & Mobile Menu ── */

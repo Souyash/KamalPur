@@ -16,25 +16,422 @@
 </head>
 <body class="home">
 
-  <!-- ══════════ INTRO CINEMATIC OVERLAY ══════════ -->
-  <div id="intro-overlay" role="dialog" aria-label="Welcome overlay">
+  <!-- ══════════ INTRO CINEMATIC SCENE OVERLAY ══════════ -->
+  <div id="intro-overlay" role="dialog" aria-label="Sharodotsav Welcome Scene">
+    <!-- Atmospheric background layers -->
+    <div class="intro-bg-glow"></div>
     <div class="intro-particles" id="intro-particles"></div>
-    <div class="intro-emblem">
-      <div class="intro-emblem-badge">
-        <svg viewBox="0 0 120 120" class="intro-svg-logo" aria-hidden="true">
-          <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(212,149,106,0.35)" stroke-width="2" stroke-dasharray="4 4" />
-          <circle cx="60" cy="60" r="48" fill="#1E2A3A" stroke="#D4956A" stroke-width="3" />
-          <path d="M60 20 L65 32 L78 35 L68 44 L71 57 L60 50 L49 57 L52 44 L42 35 L55 32 Z" fill="#D4956A" opacity="0.3"/>
-          <text x="60" y="74" font-family="'Noto Serif Bengali', serif" font-size="52" fill="#D4956A" font-weight="bold" text-anchor="middle">অ</text>
-        </svg>
+    <div class="intro-smoke-canvas" id="intro-smoke-container"></div>
+
+    <!-- Theatrical Scene Stage (Pure Scalable Vector Illustration) -->
+    <div class="intro-scene-stage">
+      <svg class="intro-scene-svg" viewBox="0 0 1000 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <!-- Radiant Chaalchitra & Divine Glow Gradients -->
+          <radialGradient id="divineGlow" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#FFDF73" stop-opacity="0.9" />
+            <stop offset="40%" stop-color="#E27227" stop-opacity="0.5" />
+            <stop offset="80%" stop-color="#8B1E0F" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="#0c0705" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="haloGold" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF4B8" />
+            <stop offset="60%" stop-color="#E5A638" />
+            <stop offset="100%" stop-color="#9C520C" />
+          </radialGradient>
+          <linearGradient id="chaalchitraArch" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFE885" />
+            <stop offset="50%" stop-color="#C97A1E" />
+            <stop offset="100%" stop-color="#5A1508" />
+          </linearGradient>
+          <!-- Diya & Smoke Gradients -->
+          <radialGradient id="flameGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFFFF" />
+            <stop offset="25%" stop-color="#FFE066" />
+            <stop offset="65%" stop-color="#FF6B1A" />
+            <stop offset="100%" stop-color="#B31D00" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="dhunuchiSmokeGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.65" />
+            <stop offset="35%" stop-color="#E8E0D5" stop-opacity="0.45" />
+            <stop offset="70%" stop-color="#C2B8AC" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+          </linearGradient>
+          <!-- Saree & Dhoti Gradients -->
+          <linearGradient id="sareeRedBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#B51921" />
+            <stop offset="50%" stop-color="#E62734" />
+            <stop offset="100%" stop-color="#8A0E14" />
+          </linearGradient>
+          <linearGradient id="dhotiFabric" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFDF7" />
+            <stop offset="100%" stop-color="#E8DEC8" />
+          </linearGradient>
+          <!-- Filter for glowing flames & divine aura -->
+          <filter id="divineBloom" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="8" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <!-- ═══ AMBIENT BACKDROP GLOW ═══ -->
+        <circle cx="500" cy="220" r="260" fill="url(#divineGlow)" class="scene-divine-aura" />
+
+        <!-- ═══ BACKGROUND KASH PHOOL (AUTUMN REEDS - FAR LAYER) ═══ -->
+        <g class="kash-group kash-bg" opacity="0.45">
+          <!-- Left Far Reeds -->
+          <path d="M 40,480 Q 55,340 75,230" stroke="#7A9A60" stroke-width="2.5" fill="none" />
+          <path d="M 60,240 C 72,210 82,215 90,225 C 80,238 65,250 60,240 Z" fill="#F4F4EE" />
+          <path d="M 68,230 C 80,195 94,200 98,215 C 88,225 72,240 68,230 Z" fill="#E8ECE0" />
+          <path d="M 80,480 Q 95,360 115,260" stroke="#7A9A60" stroke-width="2" fill="none" />
+          <path d="M 105,270 C 118,245 130,250 132,265 C 122,275 110,282 105,270 Z" fill="#F4F4EE" />
+          <!-- Right Far Reeds -->
+          <path d="M 940,480 Q 920,340 895,230" stroke="#7A9A60" stroke-width="2.5" fill="none" />
+          <path d="M 905,240 C 890,210 880,215 872,225 C 885,238 900,250 905,240 Z" fill="#F4F4EE" />
+          <path d="M 920,480 Q 900,360 875,260" stroke="#7A9A60" stroke-width="2" fill="none" />
+          <path d="M 885,270 C 872,245 860,250 858,265 C 868,275 880,282 885,270 Z" fill="#F4F4EE" />
+        </g>
+
+        <!-- ═══ CENTRAL DEVI DURGA IDOL & CHAALCHITRA ═══ -->
+        <g class="scene-durga-group" transform="translate(500, 240)">
+          <!-- Chaalchitra (Ornate Bengali Arch) -->
+          <g class="durga-chaalchitra">
+            <path d="M -160,180 C -170,40 -150,-100 0,-150 C 150,-100 170,40 160,180" fill="none" stroke="url(#chaalchitraArch)" stroke-width="14" stroke-linecap="round" />
+            <path d="M -145,180 C -155,55 -135,-85 0,-135 C 135,-85 155,55 145,180" fill="none" stroke="#FFE680" stroke-width="3" stroke-dasharray="6,6" opacity="0.8" />
+            <!-- Chaalchitra Motifs / Kalash finials -->
+            <circle cx="0" cy="-155" r="9" fill="#FFD700" stroke="#8A4A00" stroke-width="2" />
+            <circle cx="-110" cy="-105" r="6" fill="#FFD700" />
+            <circle cx="110" cy="-105" r="6" fill="#FFD700" />
+            <circle cx="-155" cy="0" r="5" fill="#FFD700" />
+            <circle cx="155" cy="0" r="5" fill="#FFD700" />
+          </g>
+
+          <!-- Golden Halo (Surya-Mandal) -->
+          <circle cx="0" cy="-35" r="95" fill="url(#haloGold)" opacity="0.35" class="durga-halo-pulse" />
+          <circle cx="0" cy="-35" r="82" fill="none" stroke="#FFE27A" stroke-width="2.5" stroke-dasharray="8,4" />
+
+          <!-- Divine Mukut (Traditional Bengali Crown / Sholar Mukut) -->
+          <g class="durga-mukut" transform="translate(0, -90)">
+            <path d="M -42,30 Q 0,-30 42,30 Q 25,24 0,26 Q -25,24 -42,30 Z" fill="#FFFDF0" stroke="#C98B1B" stroke-width="2.5" />
+            <path d="M -28,26 Q 0,-15 28,26" fill="none" stroke="#B81414" stroke-width="2" />
+            <polygon points="0,-42 -8,-15 8,-15" fill="#FFD700" stroke="#8A4A00" stroke-width="1" />
+            <circle cx="0" cy="-44" r="4.5" fill="#D32F2F" />
+            <circle cx="-32" cy="15" r="3.5" fill="#FFD700" />
+            <circle cx="32" cy="15" r="3.5" fill="#FFD700" />
+          </g>
+
+          <!-- Devi's Face & Serene Countenance -->
+          <g class="durga-face" transform="translate(0, -42)">
+            <!-- Face Contour -->
+            <path d="M -24,-15 C -26,18 -16,38 0,44 C 16,38 26,18 24,-15 C 20,-22 -20,-22 -24,-15 Z" fill="#FFE2B8" stroke="#D99B62" stroke-width="1.5" />
+            <!-- Traditional Bengali Almond Eyes (Patal-Chera Chokh) -->
+            <path d="M -18,0 Q -11,-7 -4,1 Q -11,6 -18,0 Z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1" />
+            <ellipse cx="-11" cy="0.5" rx="3.5" ry="3.5" fill="#1A1A1A" />
+            <path d="M 4,1 Q 11,-7 18,0 Q 11,6 4,1 Z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="1" />
+            <ellipse cx="11" cy="0.5" rx="3.5" ry="3.5" fill="#1A1A1A" />
+            <!-- Arching Eyebrows -->
+            <path d="M -20,-6 Q -12,-13 -3,-5" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round" />
+            <path d="M 3,-5 Q 12,-13 20,-6" stroke="#1A1A1A" stroke-width="2" fill="none" stroke-linecap="round" />
+            <!-- Sacred Trinayani (Third Eye on Forehead) -->
+            <g class="durga-trinayani">
+              <path d="M 0,-24 C -5,-16 -5,-10 0,-4 C 5,-10 5,-16 0,-24 Z" fill="#C61C1C" stroke="#FFD54F" stroke-width="1" />
+              <circle cx="0" cy="-14" r="2.2" fill="#FFE885" class="trinayani-pulse" />
+            </g>
+            <!-- Red Chandan & Tilak Dots -->
+            <circle cx="-14" cy="-10" r="1.3" fill="#C61C1C" />
+            <circle cx="-10" cy="-12" r="1.3" fill="#C61C1C" />
+            <circle cx="10" cy="-12" r="1.3" fill="#C61C1C" />
+            <circle cx="14" cy="-10" r="1.3" fill="#C61C1C" />
+            <!-- Golden Nose Ring (Nolokh) & Graceful Lips -->
+            <circle cx="-3" cy="14" r="5" fill="none" stroke="#FFC107" stroke-width="1.2" />
+            <path d="M -8,22 Q 0,27 8,22 Q 0,30 -8,22 Z" fill="#C62828" />
+          </g>
+
+          <!-- Ten Divine Arms (Dashabhuja) & Sacred Weapons (Shashthra) -->
+          <g class="durga-arms" stroke="#E2A66D" stroke-width="4.5" stroke-linecap="round" fill="none">
+            <!-- Left 5 Arms holding Shankha, Chakra, Arrow, Bow, Lotus -->
+            <path d="M -22,12 Q -65,0 -95,-28" />
+            <path d="M -22,18 Q -75,18 -110,-5" />
+            <path d="M -20,24 Q -80,38 -108,22" />
+            <path d="M -18,30 Q -70,55 -98,58" />
+            <path d="M -15,36 Q -55,70 -80,95" />
+            <!-- Right 5 Arms holding Trishula, Sword, Gada, Kharga, Abhaya Mudra -->
+            <path d="M 22,12 Q 65,0 95,-28" />
+            <path d="M 22,18 Q 75,18 110,-5" />
+            <path d="M 20,24 Q 80,38 108,22" />
+            <path d="M 18,30 Q 70,55 98,58" />
+            <path d="M 15,36 Q 55,70 80,95" />
+          </g>
+
+          <!-- Golden Weapons at Hand Tips -->
+          <g class="durga-weapons" fill="#FFD700" stroke="#A86C00" stroke-width="1.2">
+            <!-- Conch (Shankha) -->
+            <path d="M -102,-32 C -112,-40 -115,-25 -100,-22 Z" fill="#FFFDF0" />
+            <!-- Sudarshana Chakra -->
+            <circle cx="-116" cy="-8" r="9" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-dasharray="3,2" />
+            <!-- Bow (Dhanush) -->
+            <path d="M -115,10 Q -128,26 -115,42" fill="none" stroke="#D79A20" stroke-width="3" />
+            <!-- Sacred Lotus (Padma) -->
+            <path d="M -85,102 C -92,92 -96,104 -88,110 C -80,104 -82,92 -85,102 Z" fill="#FF6B93" stroke="#C2185B" />
+
+            <!-- Mighty Trishula (Trident - piercing Mahishasura) -->
+            <g class="weapon-trishula">
+              <line x1="-30" y1="180" x2="108" y2="-45" stroke="#FFE082" stroke-width="4.5" />
+              <!-- Trident Head -->
+              <path d="M 98,-40 L 115,-62 L 132,-40 Q 115,-32 98,-40 Z" fill="#FFE57F" stroke="#E65100" stroke-width="2" />
+              <line x1="115" y1="-62" x2="115" y2="-25" stroke="#E65100" stroke-width="2.5" />
+            </g>
+            <!-- Scimitar (Kharga) -->
+            <path d="M 112,-8 Q 135,-3 140,-22" fill="none" stroke="#FFF" stroke-width="3.5" />
+            <!-- Mace (Gada) -->
+            <ellipse cx="114" cy="24" rx="7" ry="12" fill="#FFD700" />
+            <!-- Abhaya Mudra (Blessing Palm with Alta mark) -->
+            <circle cx="84" cy="98" r="5" fill="#E22634" />
+          </g>
+
+          <!-- Royal Red & Gold Banarasi Saree Drape -->
+          <g class="durga-saree">
+            <path d="M -35,35 L 35,35 L 55,175 L -55,175 Z" fill="#C21825" stroke="#7F0A11" stroke-width="2" />
+            <!-- Saree Golden Zari Border (Paar) -->
+            <path d="M -35,35 L -55,175" stroke="#FFD54F" stroke-width="6" stroke-linecap="round" />
+            <path d="M 35,35 L 55,175" stroke="#FFD54F" stroke-width="6" stroke-linecap="round" />
+            <!-- Saree Pleats (Kochi) -->
+            <path d="M -15,70 L -20,175 M 0,65 L 0,175 M 15,70 L 20,175" stroke="#8E0F17" stroke-width="3" />
+            <!-- Gold Ornaments & Necklaces (Chik, Haar) -->
+            <path d="M -18,12 Q 0,26 18,12" stroke="#FFD700" stroke-width="3" fill="none" />
+            <path d="M -22,22 Q 0,40 22,22" stroke="#FFD700" stroke-width="3.5" fill="none" />
+          </g>
+        </g>
+
+        <!-- ═══ LEFT SIDE: TRADITIONAL DHAKI (DRUMMER) ═══ -->
+        <g class="scene-dhaki-group" transform="translate(180, 260)">
+          <!-- Dhak Feathers / White Plumes (Kash & Chomor Shola decor) -->
+          <g class="dhak-plumes">
+            <path d="M 35,-30 Q 70,-80 110,-105 Q 65,-60 45,-25" fill="#FFFFFF" stroke="#DDD" stroke-width="1.2" />
+            <path d="M 30,-35 Q 50,-95 80,-125 Q 45,-75 32,-30" fill="#F8F8F4" stroke="#D5D5CF" stroke-width="1" />
+            <path d="M 25,-32 Q 30,-90 40,-130 Q 25,-75 22,-28" fill="#FFFFFF" opacity="0.9" />
+            <path d="M 38,-28 Q 80,-70 120,-85 Q 75,-50 48,-20" fill="#F4F4EE" stroke="#E2E2DA" stroke-width="1" />
+            <!-- Red ritual ribbon tied around feathers -->
+            <circle cx="34" cy="-28" r="6" fill="#D32F2F" />
+            <path d="M 34,-24 Q 40,-5 36,15" stroke="#D32F2F" stroke-width="3" fill="none" />
+          </g>
+
+          <!-- Large Barrel Drum (Dhaak) -->
+          <g class="the-dhak" transform="translate(10, 40) rotate(-15)">
+            <!-- Wooden Drum Body -->
+            <ellipse cx="0" cy="0" rx="36" ry="60" fill="#9E4712" stroke="#4A1E05" stroke-width="3" />
+            <!-- Leather Straps & Tension Cords (Dhaak's Chaam & Dori) -->
+            <line x1="-32" y1="-40" x2="32" y2="40" stroke="#EBD8B7" stroke-width="2.5" />
+            <line x1="-32" y1="40" x2="32" y2="-40" stroke="#EBD8B7" stroke-width="2.5" />
+            <line x1="-36" y1="0" x2="36" y2="0" stroke="#FFE7BA" stroke-width="2.5" />
+            <line x1="0" y1="-58" x2="0" y2="58" stroke="#DDB880" stroke-width="2" />
+            <!-- Left / Right Drum Heads -->
+            <ellipse cx="-28" cy="0" rx="9" ry="52" fill="#D2B48C" stroke="#3E1A00" stroke-width="2.5" />
+            <ellipse cx="28" cy="0" rx="9" ry="52" fill="#D2B48C" stroke="#3E1A00" stroke-width="2.5" />
+            <!-- Traditional Red gamchha drape over drum -->
+            <path d="M -15,-45 Q 0,-40 15,-45 L 12,-10 Q 0,-5 -12,-10 Z" fill="#D32F2F" opacity="0.9" />
+          </g>
+
+          <!-- Dhaki (Musician Figure) in Dhoti & Kurta -->
+          <g class="dhaki-body">
+            <!-- Legs in pleated white dhoti -->
+            <path d="M -40,110 L -45,190 L -30,195 L -25,120 Z" fill="url(#dhotiFabric)" stroke="#BDB59C" stroke-width="1.5" />
+            <path d="M -15,115 L -10,190 L 5,195 L -2,120 Z" fill="url(#dhotiFabric)" stroke="#BDB59C" stroke-width="1.5" />
+            <!-- Torso / Kurta -->
+            <path d="M -50,30 L -10,25 L -5,120 L -55,115 Z" fill="#FFF9E6" stroke="#D1C4A5" stroke-width="2" />
+            <!-- Dhaki Head & Turban/Gamchha tied on head -->
+            <circle cx="-32" cy="-5" r="16" fill="#C88E58" />
+            <!-- Red/White Gamcha headband -->
+            <path d="M -48,-14 Q -32,-22 -16,-14 Q -16,-6 -32,-8 Q -48,-6 -48,-14 Z" fill="#C62828" stroke="#8E0000" stroke-width="1" />
+            <!-- Dhaki Face Profile -->
+            <ellipse cx="-24" cy="-5" rx="3" ry="4" fill="#3E1A00" />
+            <path d="M -22,0 Q -18,2 -20,6" stroke="#8C4A15" stroke-width="1.5" fill="none" />
+          </g>
+
+          <!-- Dhaki Arms & Animated Drumsticks (Kathi) -->
+          <g class="dhaki-drumstick-arm">
+            <!-- Left Arm holding thin bamboo stick hitting top/side -->
+            <path d="M -30,35 Q -10,10 15,15" stroke="#C88E58" stroke-width="7" fill="none" stroke-linecap="round" />
+            <!-- Bamboo Drum Stick (Kathi) striking drum head -->
+            <line x1="12" y1="14" x2="38" y2="-5" stroke="#E2B158" stroke-width="3" stroke-linecap="round" class="dhak-stick-right" />
+            <!-- Right Hand striking with curved stick -->
+            <path d="M -45,45 Q -25,60 0,65" stroke="#C88E58" stroke-width="6" fill="none" stroke-linecap="round" />
+            <line x1="-2" y1="65" x2="25" y2="48" stroke="#E2B158" stroke-width="3" stroke-linecap="round" class="dhak-stick-left" />
+          </g>
+
+          <!-- Rhythm Impact Sparkles -->
+          <circle cx="28" cy="20" r="10" fill="#FFE082" opacity="0" class="dhak-hit-glow" />
+        </g>
+
+        <!-- ═══ RIGHT SIDE: DHUNUCHI NACH DANCER ═══ -->
+        <g class="scene-dancer-group" transform="translate(790, 250)">
+          <!-- Rising Dhunuchi Incense Fragrant Smoke Waves -->
+          <g class="dhunuchi-smoke">
+            <path d="M -15,-40 C -35,-80 -5,-120 -30,-170 C -5,-210 -40,-260 -15,-300" stroke="url(#dhunuchiSmokeGrad)" stroke-width="18" fill="none" stroke-linecap="round" class="smoke-wave-1" />
+            <path d="M -5,-45 C 20,-85 -10,-135 15,-185 C -15,-230 20,-275 -5,-320" stroke="url(#dhunuchiSmokeGrad)" stroke-width="14" fill="none" stroke-linecap="round" class="smoke-wave-2" />
+            <path d="M -20,-35 C -50,-65 -30,-105 -60,-145" stroke="url(#dhunuchiSmokeGrad)" stroke-width="10" fill="none" stroke-linecap="round" class="smoke-wave-3" />
+            <!-- Incense Ember Sparks rising -->
+            <circle cx="-12" cy="-60" r="2.5" fill="#FF7043" class="smoke-spark-1" />
+            <circle cx="2" cy="-85" r="2" fill="#FFA726" class="smoke-spark-2" />
+            <circle cx="-25" cy="-115" r="1.8" fill="#FFD54F" class="smoke-spark-3" />
+          </g>
+
+          <!-- Glowing Terracotta Dhunuchi (Clay Incense Burner) -->
+          <g class="the-dhunuchi" transform="translate(-15, -25)">
+            <!-- Burning Coconut Husk Coals / Dhuno Embers inside -->
+            <ellipse cx="0" cy="-12" rx="20" ry="8" fill="#FF3D00" filter="url(#divineBloom)" />
+            <ellipse cx="0" cy="-12" rx="14" ry="5" fill="#FFE57F" />
+            <polygon points="-8,-12 0,-26 8,-12" fill="#FF9100" class="dhunuchi-flame-flicker" />
+            <!-- Clay Flare Bowl -->
+            <path d="M -24,-12 Q 0,-6 24,-12 L 14,14 L -14,14 Z" fill="#B34724" stroke="#68210A" stroke-width="2" />
+            <!-- Dhunuchi Stem & Pedestal Base -->
+            <path d="M -6,14 L -6,28 L -14,36 L 14,36 L 6,28 L 6,14 Z" fill="#9C3A1A" stroke="#5E1A06" stroke-width="1.8" />
+            <!-- Ornamental Clay Rings -->
+            <line x1="-12" y1="2" x2="12" y2="2" stroke="#FFAB91" stroke-width="1.5" />
+          </g>
+
+          <!-- Dancer Figure in Red-Bordered White Bengali Saree (Lal-Paar) -->
+          <g class="dancer-figure">
+            <!-- Raised Arm Holding Dhunuchi aloft in ecstasy -->
+            <path d="M -50,60 Q -35,15 -18,10" stroke="#DE9B6D" stroke-width="6.5" fill="none" stroke-linecap="round" />
+            <!-- Red Glass Bangles (Shakha-Pola) -->
+            <circle cx="-20" cy="12" r="5" fill="none" stroke="#D32F2F" stroke-width="3" />
+            <circle cx="-20" cy="12" r="3.5" fill="none" stroke="#FFFFFF" stroke-width="2" />
+
+            <!-- Graceful Dancer Head & Traditional Bun (Khopa) with Flowers -->
+            <g class="dancer-head" transform="translate(-48, 48)">
+              <circle cx="0" cy="0" r="14" fill="#DE9B6D" />
+              <!-- Hair Bun with Jasmine garland (Beli phuler mala) -->
+              <circle cx="-13" cy="2" r="9" fill="#1A1A1A" />
+              <circle cx="-13" cy="2" r="9" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-dasharray="3,3" />
+              <path d="M -8,-6 Q 0,-14 8,-6 Q 4,6 -8,-6 Z" fill="#1A1A1A" />
+              <!-- Profile Face & Big Red Bindi -->
+              <circle cx="8" cy="-2" r="2.2" fill="#D32F2F" />
+              <path d="M 12,2 Q 10,6 6,7" stroke="#9C3A1A" stroke-width="1.2" fill="none" />
+            </g>
+
+            <!-- Graceful Arching Torso & Red Blouse -->
+            <path d="M -56,62 L -32,62 L -30,110 L -62,110 Z" fill="#C62828" stroke="#8A0E14" stroke-width="1.5" />
+
+            <!-- Flaring Swirling Bengali Saree (Kora Silk White with Crimson Border) -->
+            <g class="dancer-saree-skirt">
+              <!-- Swirling Saree Hem -->
+              <path d="M -62,110 Q -80,160 -105,200 Q 5,215 45,190 Q -20,150 -30,110 Z" fill="#FFFDF5" stroke="#E2DAC7" stroke-width="1.8" />
+              <!-- Iconic Broad Red Border (Lal Paar) following swirl -->
+              <path d="M -105,200 Q 5,215 45,190" stroke="url(#sareeRedBorder)" stroke-width="11" fill="none" stroke-linecap="round" />
+              <path d="M -105,195 Q 5,210 45,185" stroke="#FFD54F" stroke-width="2" fill="none" stroke-linecap="round" />
+              <!-- Aachol / Pallu flowing behind the dancer -->
+              <path d="M -50,75 Q -85,95 -115,130 Q -110,145 -80,120 Z" fill="#C62828" stroke="#FFD54F" stroke-width="1.5" />
+            </g>
+
+            <!-- Dancer Feet with Red Alta Stain & Ankle Bells (Ghungroo) -->
+            <g class="dancer-feet" transform="translate(0, 195)">
+              <ellipse cx="-45" cy="5" rx="8" ry="4" fill="#DE9B6D" />
+              <path d="M -48,5 L -38,5" stroke="#D32F2F" stroke-width="3" />
+              <line x1="-50" y1="2" x2="-40" y2="2" stroke="#FFC107" stroke-width="2" stroke-dasharray="2,2" />
+            </g>
+          </g>
+        </g>
+
+        <!-- ═══ FOREGROUND: BENGALI ALPANA FLOOR & DIK/PRADIP (FLICKERING DIYAS) ═══ -->
+        <g class="scene-floor-alpana" transform="translate(0, 470)">
+          <!-- Ground Base -->
+          <rect x="0" y="0" width="1000" height="50" fill="#140D09" />
+          <line x1="0" y1="0" x2="1000" y2="0" stroke="#8D3E1A" stroke-width="3" />
+
+          <!-- Traditional White Rice Paste Alpana Border across the bottom stage -->
+          <g class="alpana-motifs" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.85">
+            <!-- Continuous Floral Wave -->
+            <path d="M 0,16 Q 25,6 50,16 Q 75,26 100,16 Q 125,6 150,16 Q 175,26 200,16 Q 225,6 250,16 Q 275,26 300,16 Q 325,6 350,16 Q 375,26 400,16 Q 425,6 450,16 Q 475,26 500,16 Q 525,6 550,16 Q 575,26 600,16 Q 625,6 650,16 Q 675,26 700,16 Q 725,6 750,16 Q 775,26 800,16 Q 825,6 850,16 Q 875,26 900,16 Q 925,6 950,16 Q 975,26 1000,16" />
+            <!-- Circular Alpana medallions -->
+            <circle cx="200" cy="18" r="7" />
+            <circle cx="350" cy="18" r="7" />
+            <circle cx="500" cy="18" r="9" stroke-width="2.5" />
+            <circle cx="650" cy="18" r="7" />
+            <circle cx="800" cy="18" r="7" />
+            <!-- Lotus Petals in Central Medallion -->
+            <path d="M 495,18 C 495,12 505,12 505,18 C 505,24 495,24 495,18 Z" fill="#FFF" />
+          </g>
+
+          <!-- Flickering Terracotta Clay Diyas (Mrit-Pradip) -->
+          <!-- Diya 1 (Left-Center) -->
+          <g class="scene-diya diya-1" transform="translate(300, -2)">
+            <ellipse cx="0" cy="8" rx="14" ry="5" fill="#8D3E1A" stroke="#4A1E05" stroke-width="1.2" />
+            <circle cx="0" cy="2" r="16" fill="url(#flameGlow)" class="diya-flame-glow" />
+            <path d="M -4,6 Q 0,-8 4,6 Q 0,10 -4,6 Z" fill="#FFE57F" class="diya-flame-core flame-flicker-1" />
+          </g>
+
+          <!-- Diya 2 (Under Devi Durga - Center) -->
+          <g class="scene-diya diya-2" transform="translate(500, -4)">
+            <ellipse cx="0" cy="9" rx="18" ry="6" fill="#A0451E" stroke="#4A1E05" stroke-width="1.5" />
+            <circle cx="0" cy="1" r="22" fill="url(#flameGlow)" class="diya-flame-glow" />
+            <path d="M -5,6 Q 0,-12 5,6 Q 0,11 -5,6 Z" fill="#FFE57F" class="diya-flame-core flame-flicker-2" />
+          </g>
+
+          <!-- Diya 3 (Right-Center) -->
+          <g class="scene-diya diya-3" transform="translate(700, -2)">
+            <ellipse cx="0" cy="8" rx="14" ry="5" fill="#8D3E1A" stroke="#4A1E05" stroke-width="1.2" />
+            <circle cx="0" cy="2" r="16" fill="url(#flameGlow)" class="diya-flame-glow" />
+            <path d="M -4,6 Q 0,-8 4,6 Q 0,10 -4,6 Z" fill="#FFE57F" class="diya-flame-core flame-flicker-3" />
+          </g>
+        </g>
+
+        <!-- ═══ FOREGROUND KASH PHOOL (AUTUMN GRASS SWAYING IN FRONT) ═══ -->
+        <g class="kash-group kash-fg">
+          <!-- Foreground Left Plumes swaying gently -->
+          <g class="kash-cluster-left">
+            <path d="M 0,510 Q 40,410 70,320" stroke="#5C7A45" stroke-width="3" fill="none" />
+            <path d="M 60,335 C 75,305 90,312 95,328 C 82,342 66,350 60,335 Z" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
+            <path d="M 68,325 C 82,285 102,295 106,312 C 92,325 76,338 68,325 Z" fill="#F9F9F2" />
+
+            <path d="M 30,510 Q 80,420 120,340" stroke="#5C7A45" stroke-width="2.5" fill="none" />
+            <path d="M 110,355 C 128,325 142,330 148,345 C 132,360 118,368 110,355 Z" fill="#FFFFFF" />
+          </g>
+
+          <!-- Foreground Right Plumes swaying in sync with autumn breeze -->
+          <g class="kash-cluster-right">
+            <path d="M 1000,510 Q 950,400 910,310" stroke="#5C7A45" stroke-width="3" fill="none" />
+            <path d="M 920,325 C 905,295 890,302 885,318 C 898,332 914,340 920,325 Z" fill="#FFFFFF" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
+            <path d="M 912,315 C 898,275 878,285 874,302 C 888,315 904,328 912,315 Z" fill="#F9F9F2" />
+
+            <path d="M 970,510 Q 920,420 875,340" stroke="#5C7A45" stroke-width="2.5" fill="none" />
+            <path d="M 885,355 C 868,325 852,330 848,345 C 862,360 878,368 885,355 Z" fill="#FFFFFF" />
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Theatrical Reveal Title & Cultural Typography -->
+    <div class="intro-theatre-caption">
+      <div class="intro-shlok-badge">
+        <span class="intro-shlok-icon">ॐ</span>
+        <span>যা দেবী সর্বভূতেষু শক্তিরূপেণ সংস্থিতা</span>
+      </div>
+      <h1 class="intro-scene-title">
+        <span class="intro-scene-bengali">কামালপুর অভিযান সংঘ</span>
+        <span class="intro-scene-english"><em>Kamalpur</em> Abhijaan Sangha</span>
+      </h1>
+      <p class="intro-scene-sub">
+        <span class="intro-pandal-location">Ranaghat, Nadia &bull; Est. 1970</span>
+        <span class="intro-sep">&bull;</span>
+        <span class="intro-festive-tag">55th Sharodotsav &bull; শারদোৎসব ২০২৬</span>
+      </p>
+
+      <!-- Interactive Controls: Sound & Enter Pandal -->
+      <div class="intro-action-group">
+        <button type="button" class="intro-audio-btn" id="introAudioBtn" onclick="toggleDhakAudio()" aria-label="Toggle Dhaak drum beats">
+          <span class="audio-icon" id="audioBtnIcon">🔊</span>
+          <span class="audio-label" id="audioBtnText">Play Dhaak Beats</span>
+        </button>
+        <button type="button" class="intro-enter-btn" id="introSkipBtn" onclick="dismissIntro()">
+          <span>Enter Pandal &rarr;</span>
+        </button>
+      </div>
+
+      <div class="intro-countdown-hint" id="introCountdownHint">
+        Entering celebration in <span id="introSecLeft">6</span>s &bull; Click anywhere to enter now
       </div>
     </div>
-    <div class="intro-name"><em>Kamalpur</em> Abhijaan Sangha</div>
-    <div class="intro-bengali-title">কামালপুর অভিযান সংঘ</div>
-    <div class="intro-tagline">Cultural, Sports &amp; Community Club &nbsp;·&nbsp; Ranaghat, Nadia &nbsp;·&nbsp; Est. 1970</div>
-    <div class="intro-bar"></div>
-    <div class="intro-year">Celebrating 55+ years of heritage, devotion &amp; community service</div>
-    <button type="button" class="intro-skip" id="introSkipBtn" onclick="dismissIntro()">Enter Website →</button>
   </div>
 
   <!-- ══════════ ANNOUNCEMENT BAR ══════════ -->
