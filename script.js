@@ -35,10 +35,10 @@ function initIntroOverlay() {
     });
   }
 
-  // Fallback auto-dismiss after 4.5 seconds
+  // Auto-dismiss after 2.5 seconds (2-3 sec duration)
   introTimer = setTimeout(() => {
     dismissIntro();
-  }, 4500);
+  }, 2500);
 
   // Click or tap anywhere to dismiss immediately
   overlay.addEventListener('click', () => {
