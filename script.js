@@ -4,68 +4,11 @@
 ══════════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initIntroOverlay();
   initNav();
   initScrollReveal();
   initCarousels();
   initDonationPresets();
 });
-
-/* ── 1. Fullscreen Video Loading Screen (animation.mp4) ── */
-let introTimer = null;
-
-function initIntroOverlay() {
-  const overlay = document.getElementById('intro-overlay');
-  const video = document.getElementById('introAnimationVideo');
-  if (!overlay) return;
-
-  // Ensure autoplay starts reliably
-  if (video) {
-    video.muted = true;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Autoplay policy handled silently
-      });
-    }
-
-    // Dismiss when video finishes playing once
-    video.addEventListener('ended', () => {
-      dismissIntro();
-    });
-  }
-
-  // Auto-dismiss after 2.5 seconds (2-3 sec duration)
-  introTimer = setTimeout(() => {
-    dismissIntro();
-  }, 2500);
-
-  // Click or tap anywhere to dismiss immediately
-  overlay.addEventListener('click', () => {
-    dismissIntro();
-  });
-
-  // Any key press dismisses immediately
-  window.addEventListener('keydown', function onKeyDismiss() {
-    dismissIntro();
-    window.removeEventListener('keydown', onKeyDismiss);
-  });
-}
-
-function dismissIntro() {
-  if (introTimer) {
-    clearTimeout(introTimer);
-    introTimer = null;
-  }
-
-  const overlay = document.getElementById('intro-overlay');
-  if (overlay && !overlay.classList.contains('hidden')) {
-    overlay.classList.add('hidden');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-    }, 850);
-  }
-}
 
 /* ── 2. Sticky Nav & Mobile Menu ── */
 function initNav() {
