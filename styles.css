@@ -71,10 +71,43 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--gold);
   border-radius: 3px;
+}/* ═══════════════════════════════
+   MODERN VECTOR ICONS (.kas-icon)
+═══════════════════════════════ */
+.kas-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  position: relative;
+  top: -0.06em;
 }
 
+.kas-icon.solid {
+  fill: currentColor;
+  stroke: none;
+}
 
+.pillar-icon .kas-icon,
+.impact-icon .kas-icon,
+.perk-icon-wrap .kas-icon,
+.gi-icon .kas-icon,
+.flyer-icon .kas-icon {
+  width: 1.35em;
+  height: 1.35em;
+  top: 0;
+}
 
+.date-chip .kas-icon {
+  width: 18px;
+  height: 18px;
+  top: 0;
+}
 /* ═══════════════════════════════
    ANNOUNCE BAR
 ═══════════════════════════════ */
