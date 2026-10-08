@@ -11,17 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initDonationPresets();
 });
 
-/* ── 1. Fullscreen Image Loading Screen (Maa Durga Papercraft Art) ── */
+/* ── 1. Fullscreen Video Loading Screen (animation.mp4) ── */
 let introTimer = null;
 
 function initIntroOverlay() {
   const overlay = document.getElementById('intro-overlay');
+  const video = document.getElementById('introAnimationVideo');
   if (!overlay) return;
 
-  // Auto-dismiss after 3.2 seconds
+  // Ensure autoplay starts reliably
+  if (video) {
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy handled silently
+      });
+    }
+
+    // Dismiss when video finishes playing once
+    video.addEventListener('ended', () => {
+      dismissIntro();
+    });
+  }
+
+  // Fallback auto-dismiss after 4.5 seconds
   introTimer = setTimeout(() => {
     dismissIntro();
-  }, 3200);
+  }, 4500);
 
   // Click or tap anywhere to dismiss immediately
   overlay.addEventListener('click', () => {

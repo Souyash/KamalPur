@@ -16,9 +16,12 @@
 </head>
 <body class="home">
 
-  <!-- ══════════ FULLSCREEN LOADING PAGE (IMAGE ONLY) ══════════ -->
-  <div id="intro-overlay" role="dialog" aria-label="Welcome screen" onclick="dismissIntro()">
-    <img src="assets/durga-papercraft.jpg" alt="Maa Durga" class="intro-pure-image" />
+  <!-- ══════════ FULLSCREEN LOADING PAGE (ANIMATION.MP4) ══════════ -->
+  <div id="intro-overlay" role="dialog" aria-label="Welcome animation" onclick="dismissIntro()">
+    <video id="introAnimationVideo" class="intro-pure-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/animation.mp4" type="video/mp4">
+      <source src="animation.mp4" type="video/mp4">
+    </video>
   </div>
 
   <!-- ══════════ ANNOUNCEMENT BAR ══════════ -->
