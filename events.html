@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events &amp; Programs — Kamalpur Abhijaan Sangha | Ranaghat</title>
+  <meta name="description" content="Explore annual festivals, sports tournaments, blood donation camps, and cultural events organized by Kamalpur Abhijaan Sangha in Ranaghat, West Bengal.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231E2A3A' stroke='%23D4956A' stroke-width='4'/%3E%3Ctext x='50' y='64' font-family='serif' font-size='44' fill='%23D4956A' font-weight='bold' text-anchor='middle'%3Eঅ%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announce-bar">
+    <span><strong>Annual Event Calendar 2026&ndash;2027</strong> is now published!</span>
+    <span class="announce-divider">·</span>
+    <a href="#sports-events">Check upcoming Kamalpur Football Gold Cup dates &rarr;</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 80 80" width="46" height="46" aria-hidden="true">
+          <circle cx="40" cy="40" r="38" fill="#1E2A3A" stroke="#B06A4A" stroke-width="3"/>
+          <text x="40" y="52" font-family="'Noto Serif Bengali', serif" font-size="34" fill="#D4956A" font-weight="bold" text-anchor="middle">অ</text>
+        </svg>
+      </div>
+      <div>
+        <span class="nav-name">Kamalpur Abhijaan Sangha</span>
+        <span class="nav-est">Est. 1970 · Ranaghat, Nadia · Community Club</span>
+      </div>
+    </a>
+
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="durgotsav.html" class="nav-link">Durgotsav</a></li>
+      <li><a href="events.html" class="nav-link active">Events</a></li>
+      <li><a href="president.html" class="nav-link">President's Desk</a></li>
+      <li><a href="heritage.html" class="nav-link">Heritage</a></li>
+      <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="partners.html" class="nav-link">Partners</a></li>
+      <li><a href="donate.html" class="nav-link">Donate</a></li>
+      <li><a href="join.html" class="nav-cta">Join Sangha</a></li>
+    </ul>
+  </nav>
+
+  <!-- Subpage Hero -->
+  <header class="subpage-hero">
+    <div class="container">
+      <div class="subpage-hero-inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>Events &amp; Programs</span>
+        </nav>
+        <h1 class="subpage-title">Festivals, Sports &amp;<br><em>Seva</em> Around the Year</h1>
+        <p class="subpage-subtitle">
+          At Kamalpur Abhijaan Sangha, every season brings a new celebration of devotion, athletic energy, or social giving. Explore our complete annual schedule.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="page-content-wrap">
+    <div class="container">
+      <!-- Dual Tabs Switcher -->
+      <div class="event-tabs" style="margin-bottom: 50px;">
+        <button type="button" class="etab active-c" id="tab-c" onclick="switchTab('c')">
+          🎭 &nbsp;Cultural &amp; Festival Calendar
+        </button>
+        <button type="button" class="etab" id="tab-s" onclick="switchTab('s')">
+          🤝 &nbsp;Sports &amp; Community Welfare
+        </button>
+      </div>
+
+      <!-- Panel 1: Cultural & Festival Events -->
+      <div class="tab-panel show" id="panel-c">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:24px;">
+          <!-- Event 1 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('durga')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip gold-chip"><span class="dm">Oct</span><span class="dd">16–20</span></div>
+              <span class="ev-card-label inv">Flagship Festival · 2026</span>
+            </div>
+            <div class="ev-card-body theme-durga">
+              <div class="ev-cat">Cultural &amp; Devotional</div>
+              <div class="ev-name">Ranaghat Sharodotsav: Durgotsav 2026</div>
+              <p class="ev-desc">Nadia’s celebrated Durga Puja featuring 117 forms of Goddess Durga, Chandannagar lights, Maha Bhog seva, and nightly concerts.</p>
+              <span class="ev-link">View full schedule &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('bijoya')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip"><span class="dm">Oct</span><span class="dd">25</span></div>
+              <span class="ev-card-label">Community Tradition · 2026</span>
+            </div>
+            <div class="ev-card-body theme-bijoya">
+              <div class="ev-cat">Reunion &amp; Harmony</div>
+              <div class="ev-name">Grand Bijoya Sammilanee</div>
+              <p class="ev-desc">Post-Puja fraternal reunion at Sangha Auditorium. Sweet distribution, felicitation of senior residents, and musical recitals.</p>
+              <span class="ev-link">View program details &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('laxmi')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip gold-chip"><span class="dm">Nov</span><span class="dd">01</span></div>
+              <span class="ev-card-label">Traditional Worship · 2026</span>
+            </div>
+            <div class="ev-card-body theme-laxmi">
+              <div class="ev-cat">Devotional</div>
+              <div class="ev-name">Kojagori Lakshmi &amp; Kali Puja</div>
+              <p class="ev-desc">Devotional observation of Lakshmi Puja followed by Shyama Puja with midnight aarti, handmade alpana art, and sacred bhog.</p>
+              <span class="ev-link">Puja timings &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Event 4 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('saraswati')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip gold-chip"><span class="dm">Jan</span><span class="dd">24</span></div>
+              <span class="ev-card-label inv">Youth &amp; Students · 2027</span>
+            </div>
+            <div class="ev-card-body theme-youth">
+              <div class="ev-cat">Knowledge &amp; Arts</div>
+              <div class="ev-name">Saraswati Puja &amp; Art Fair</div>
+              <p class="ev-desc">Organized by our youth wing. Features hate-khori rituals for children, district sit-and-draw art competition, and book distributions.</p>
+              <span class="ev-link">Student activities &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Event 5 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('rabindra')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip"><span class="dm">May</span><span class="dd">09</span></div>
+              <span class="ev-card-label inv">Literary Heritage</span>
+            </div>
+            <div class="ev-card-body theme-picnic">
+              <div class="ev-cat">Heritage &amp; Literature</div>
+              <div class="ev-name">Pochishe Boishakh &mdash; Rabindra Jayanti</div>
+              <p class="ev-desc">An evening of Rabindra Sangeet, Nazrul Geeti, dance drama, and recitations paying homage to Bengal’s great literary stalwarts.</p>
+              <span class="ev-link">Program details &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Event 6 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('bijoya')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip gold-chip"><span class="dm">Apr</span><span class="dd">14</span></div>
+              <span class="ev-card-label">Bengali New Year</span>
+            </div>
+            <div class="ev-card-body theme-picnic">
+              <div class="ev-cat">Tradition &amp; Festivity</div>
+              <div class="ev-name">Pohela Boishakh Borshoboron</div>
+              <p class="ev-desc">Morning Prabhat Pheri through Ranaghat, traditional breakfast of luchi and mishti, and cultural welcoming of the new Bengali year.</p>
+              <span class="ev-link">Morning procession &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Sports & Social Welfare Events -->
+      <div class="tab-panel" id="panel-s">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:24px;">
+          <!-- Sport 1 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('blood')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip"><span class="dm">Annual</span><span class="dd">🩸</span></div>
+              <span class="ev-card-label">Giving Back · Life Seva</span>
+            </div>
+            <div class="ev-card-body theme-blood">
+              <div class="ev-cat">Community Healthcare</div>
+              <div class="ev-name">Annual Mega Blood Donation Camp</div>
+              <p class="ev-desc">Recognized by Nadia District Red Cross. Over 300+ units collected annually to support thalassemia patients and local blood banks.</p>
+              <span class="ev-link">Register as donor &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Sport 2 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('football')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip gold-chip"><span class="dm">Aug</span><span class="dd">⚽</span></div>
+              <span class="ev-card-label inv">Athletics &amp; Youth</span>
+            </div>
+            <div class="ev-card-body theme-sports">
+              <div class="ev-cat">Sports Tournament</div>
+              <div class="ev-name">Kamalpur Gold Cup Football League</div>
+              <p class="ev-desc">16 top clubs from Nadia, North 24 Parganas and Kolkata compete on our grounds under floodlights, attended by thousands of fans.</p>
+              <span class="ev-link">Match fixture &amp; standings &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Sport 3 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('health')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip gold-chip"><span class="dm">Ongoing</span><span class="dd">🩺</span></div>
+              <span class="ev-card-label">Free Seva Clinic</span>
+            </div>
+            <div class="ev-card-body theme-toastmasters">
+              <div class="ev-cat">Public Health Service</div>
+              <div class="ev-name">Free Eye &amp; Diagnostic Checkup Camp</div>
+              <p class="ev-desc">Quarterly medical checkups with specialist physicians, free spectacles distribution, and cataract screening for elderly residents.</p>
+              <span class="ev-link">View upcoming clinic dates &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Sport 4 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('relief')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip"><span class="dm">Winter</span><span class="dd">🧥</span></div>
+              <span class="ev-card-label inv">Social Aid</span>
+            </div>
+            <div class="ev-card-body theme-bijoya">
+              <div class="ev-cat">Welfare Initiative</div>
+              <div class="ev-name">Winter Blanket &amp; Cloth Distribution</div>
+              <p class="ev-desc">Annual drive delivering 1,500+ warm blankets, woolens, and groceries to underprivileged families and railway-platform dwellers.</p>
+              <span class="ev-link">Participate &amp; donate &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Sport 5 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('sports_meet')">
+            <div class="ev-card-top gold-top">
+              <div class="date-chip gold-chip"><span class="dm">Dec</span><span class="dd">🏆</span></div>
+              <span class="ev-card-label">Annual Meet</span>
+            </div>
+            <div class="ev-card-body theme-picnic">
+              <div class="ev-cat">Community Sports</div>
+              <div class="ev-name">Annual Athletic Sports Meet &amp; Marathon</div>
+              <p class="ev-desc">Track and field events, races for toddlers and seniors, and the 5 km Ranaghat Friendship Mini Marathon.</p>
+              <span class="ev-link">Participant registration &rarr;</span>
+            </div>
+          </div>
+
+          <!-- Sport 6 -->
+          <div class="ev-card" tabindex="0" onclick="openEventModal('football')">
+            <div class="ev-card-top dark-top">
+              <div class="date-chip"><span class="dm">Feb</span><span class="dd">🏸</span></div>
+              <span class="ev-card-label inv">Indoor Sports</span>
+            </div>
+            <div class="ev-card-body theme-youth">
+              <div class="ev-cat">Badminton &amp; Carrom</div>
+              <div class="ev-name">Inter-Club Badminton Championship</div>
+              <p class="ev-desc">Exciting doubles and singles badminton tournament held inside the Sangha indoor court with trophies for winners and runners-up.</p>
+              <span class="ev-link">Tournament rules &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Volunteer & Participation Box -->
+      <div style="margin-top: 80px; background:var(--white); border:1.5px solid var(--border); border-radius:18px; padding:44px; text-align:center;">
+        <h3 style="font-family:var(--serif); font-size:30px; color:var(--eg-dark); margin-bottom:12px;">Want to Participate or Organize an Event?</h3>
+        <p style="font-family:var(--sans); font-size:15px; color:var(--text-2); max-width:600px; margin:0 auto 20px; line-height:1.7;">
+          Our cultural, athletic, and medical sub-committees actively welcome volunteers, performers, sponsors, and participants.
+        </p>
+        <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+          <a href="join.html" class="hero-btn primary">Join as a Volunteer &rarr;</a>
+          <a href="donate.html" class="hero-btn warm">Sponsor an Event</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Interactive Event Modal -->
+  <div class="modal-overlay" id="eventModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button type="button" class="modal-close" onclick="closeModal('eventModal')" aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <span class="modal-badge" id="eventModalBadge">SCHEDULE &amp; HIGHLIGHTS</span>
+        <h3 class="modal-title" id="eventModalTitle">Event Information</h3>
+      </div>
+      <div class="modal-body" id="eventModalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="modal-action-btn" onclick="closeModal('eventModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-stripe"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-img">
+              <svg viewBox="0 0 80 80" width="50" height="50" aria-hidden="true">
+                <circle cx="40" cy="40" r="38" fill="#1E2A3A" stroke="#D4956A" stroke-width="3"/>
+                <text x="40" y="52" font-family="'Noto Serif Bengali', serif" font-size="34" fill="#D4956A" font-weight="bold" text-anchor="middle">অ</text>
+              </svg>
+            </div>
+            <div>
+              <div class="footer-brandname">Kamalpur Abhijaan Sangha</div>
+              <div class="footer-est">Est. 1970 · Ranaghat, Nadia</div>
+            </div>
+          </div>
+          <p class="footer-tagline">
+            Celebrating Bengali culture, architectural pandal art, grassroots sports, and year-round community seva for over 55 unbroken years.
+          </p>
+          <address class="footer-addr">
+            Kamalpur Sangha Bhavan, Kamalpur Road,<br>
+            Ranaghat, Nadia, West Bengal &mdash; 741201<br>
+            <strong>Club Desk:</strong> <a href="tel:+919830012345">+91 (03473) 210987 / +91 98300 12345</a><br>
+            <strong>Email:</strong> <a href="mailto:contact@kamalpurabhijaan.org">contact@kamalpurabhijaan.org</a>
+          </address>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Our Club</a></li>
+            <li><a href="durgotsav.html">Sharodotsav 2026</a></li>
+            <li><a href="events.html">Events &amp; Programs</a></li>
+            <li><a href="president.html">President's Desk</a></li>
+            <li><a href="heritage.html">Heritage &amp; Timeline</a></li>
+            <li><a href="gallery.html">Photo Gallery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Get Involved</div>
+          <ul class="footer-menu">
+            <li><a href="join.html">New Member Sign Up</a></li>
+            <li><a href="donate.html">Donate / Puja Chanda</a></li>
+            <li><a href="events.html">Blood Donation Camp</a></li>
+            <li><a href="partners.html">Corporate Sponsorship</a></li>
+            <li><a href="about.html">Executive Committee</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Annual Highlights</div>
+          <ul class="footer-menu">
+            <li><a href="durgotsav.html">Ranaghat Durga Puja</a></li>
+            <li><a href="events.html">Bijoya Sammilanee</a></li>
+            <li><a href="events.html">Kamalpur Football Cup</a></li>
+            <li><a href="events.html">Free Health Clinic</a></li>
+            <li><a href="events.html">Winter Blanket Drive</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          &copy; 2026 Kamalpur Abhijaan Sangha. All rights reserved. Registered under West Bengal Societies Act.
+        </div>
+        <div class="footer-copy">
+          Ranaghat, Nadia, West Bengal, India &nbsp;·&nbsp;
+          <a href="#">Back to top &uarr;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
