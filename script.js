@@ -11,57 +11,34 @@ document.addEventListener('DOMContentLoaded', () => {
   initDonationPresets();
 });
 
-/* ── 1. Real-time Animated Cinematic Video Engine & Authentic Dhaak Synthesizer ── */
-let introCountdownTimer = null;
-let dhakAudioContext = null;
-let dhakInterval = null;
-let isDhakPlaying = false;
-let videoCanvasAnimId = null;
+/* ── 1. Fullscreen Image Loading Screen (Maa Durga Papercraft Art) ── */
+let introTimer = null;
 
 function initIntroOverlay() {
-  // Start Realtime Animated Video Canvas Engine
-  initRealtimeVideoCanvas();
-
-  // Countdown timer for auto-dismiss (7 seconds)
-  let timeLeft = 7;
-  const timerSpan = document.getElementById('introSecLeft');
-  introCountdownTimer = setInterval(() => {
-    timeLeft -= 1;
-    if (timerSpan) timerSpan.textContent = timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(introCountdownTimer);
-      dismissIntro();
-    }
-  }, 1000);
-
-  // Allow clicking anywhere outside buttons to enter
   const overlay = document.getElementById('intro-overlay');
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target.closest('#introAudioBtn')) return;
-      dismissIntro();
-    });
-  }
+  if (!overlay) return;
 
-  // Allow escape key to dismiss
-  document.addEventListener('keydown', function handleIntroEsc(e) {
-    if (e.key === 'Escape') {
-      dismissIntro();
-      document.removeEventListener('keydown', handleIntroEsc);
-    }
+  // Auto-dismiss after 3.2 seconds
+  introTimer = setTimeout(() => {
+    dismissIntro();
+  }, 3200);
+
+  // Click or tap anywhere to dismiss immediately
+  overlay.addEventListener('click', () => {
+    dismissIntro();
+  });
+
+  // Any key press dismisses immediately
+  window.addEventListener('keydown', function onKeyDismiss() {
+    dismissIntro();
+    window.removeEventListener('keydown', onKeyDismiss);
   });
 }
 
 function dismissIntro() {
-  if (introCountdownTimer) {
-    clearInterval(introCountdownTimer);
-    introCountdownTimer = null;
-  }
-  stopDhakAudio();
-
-  if (videoCanvasAnimId) {
-    cancelAnimationFrame(videoCanvasAnimId);
-    videoCanvasAnimId = null;
+  if (introTimer) {
+    clearTimeout(introTimer);
+    introTimer = null;
   }
 
   const overlay = document.getElementById('intro-overlay');
@@ -69,335 +46,8 @@ function dismissIntro() {
     overlay.classList.add('hidden');
     setTimeout(() => {
       overlay.style.display = 'none';
-    }, 1000);
+    }, 850);
   }
-}
-
-/* ══════════════════════════════════════════════════════════════
-   REAL-TIME 60FPS CINEMATIC VIDEO ENGINE
-   Simulates full HD 60fps theatrical Durga Puja celebration:
-   - Ken Burns cinematic camera pan, zoom and breathing
-   - Volumetric rising incense smoke & glowing heat haze
-   - Dynamic golden particle & ember field with physics
-   - Ray-traced divine lens flare & halo god-rays pulsing
-   - Live rhythmic bass flash synced with Dhaak drum beats
-══════════════════════════════════════════════════════════════ */
-function initRealtimeVideoCanvas() {
-  const canvas = document.getElementById('realtimeVideoCanvas');
-  const video = document.getElementById('introDurgaVideo');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  // Make sure video plays automatically
-  if (video) {
-    video.muted = true;
-    video.play().catch(() => {
-      // Browsers allow muted autoplay, but catch silently
-    });
-  }
-
-  let width = 0;
-  let height = 0;
-
-  function resizeCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  // Particle & Spark Physics System
-  const particles = [];
-  const particleCount = Math.min(width > 768 ? 80 : 40, 100);
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 3 + 1,
-      speedY: -(Math.random() * 1.8 + 0.6),
-      speedX: (Math.random() - 0.5) * 1.2,
-      opacity: Math.random() * 0.8 + 0.2,
-      hue: Math.random() > 0.35 ? 42 : 18, // Gold or fiery amber
-      pulse: Math.random() * Math.PI
-    });
-  }
-
-  // Backup Artwork if video fails to load
-  const fallbackImg = new Image();
-  fallbackImg.src = 'assets/durga-scene.jpg';
-  let imgLoaded = false;
-  fallbackImg.onload = () => { imgLoaded = true; };
-
-  let startTime = performance.now();
-
-  function renderVideoFrame(now) {
-    const elapsed = (now - startTime) / 1000;
-
-    // Clear canvas
-    ctx.clearRect(0, 0, width, height);
-
-    // If video is not playing / errored, draw fallback image with Ken Burns motion
-    if (!video || video.paused || video.ended || video.readyState < 2) {
-      if (imgLoaded) {
-        ctx.save();
-        const scale = 1.05 + Math.sin(elapsed * 0.45) * 0.04;
-        const panX = Math.sin(elapsed * 0.3) * 18;
-        const panY = Math.cos(elapsed * 0.35) * 12;
-
-        const imgAspect = fallbackImg.width / fallbackImg.height;
-        const canvasAspect = width / height;
-        let drawW, drawH;
-
-        if (canvasAspect > imgAspect) {
-          drawW = width;
-          drawH = width / imgAspect;
-        } else {
-          drawH = height;
-          drawW = height * imgAspect;
-        }
-
-        ctx.translate(width / 2 + panX, height / 2 + panY);
-        ctx.scale(scale, scale);
-        ctx.drawImage(fallbackImg, -drawW / 2, -drawH / 2, drawW, drawH);
-        ctx.restore();
-      }
-    }
-
-    /* ── B. Real-time Volumetric Dhunuchi Smoke Physics ── */
-    ctx.save();
-    smokePuffs.forEach(p => {
-      p.y += p.speedY;
-      p.x += p.speedX;
-      p.radius += 0.35;
-      p.rotation += p.rotSpeed;
-      p.alpha -= 0.0006;
-
-      if (p.y < -p.maxRadius || p.alpha <= 0) {
-        // Reset puff at dancer's right hand position
-        p.x = width * (width > 768 ? 0.74 : 0.78) + (Math.random() - 0.5) * 40;
-        p.y = height * 0.65;
-        p.radius = Math.random() * 30 + 20;
-        p.alpha = Math.random() * 0.18 + 0.06;
-      }
-
-      const smokeGrad = ctx.createRadialGradient(p.x, p.y, p.radius * 0.1, p.x, p.y, p.radius);
-      smokeGrad.addColorStop(0, `rgba(240, 230, 215, ${p.alpha * 0.9})`);
-      smokeGrad.addColorStop(0.5, `rgba(180, 160, 140, ${p.alpha * 0.5})`);
-      smokeGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-      ctx.fillStyle = smokeGrad;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.restore();
-
-    /* ── C. Divine Radiant God-Rays & Golden Halo ── */
-    ctx.save();
-    const haloX = width * 0.5 + panX * 0.5;
-    const haloY = height * (width > 768 ? 0.38 : 0.32) + panY * 0.5;
-    const haloRadius = Math.min(width, height) * 0.42;
-
-    const divinePulse = 0.28 + Math.sin(elapsed * 2.2) * 0.08;
-    const haloGrad = ctx.createRadialGradient(haloX, haloY, 20, haloX, haloY, haloRadius);
-    haloGrad.addColorStop(0, `rgba(255, 230, 130, ${divinePulse * 1.5})`);
-    haloGrad.addColorStop(0.35, `rgba(255, 150, 30, ${divinePulse})`);
-    haloGrad.addColorStop(0.7, `rgba(180, 40, 10, ${divinePulse * 0.3})`);
-    haloGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-    ctx.fillStyle = haloGrad;
-    ctx.beginPath();
-    ctx.arc(haloX, haloY, haloRadius, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 8 Rotating Divine Light Shafts (Surya Kiran)
-    ctx.translate(haloX, haloY);
-    ctx.rotate(elapsed * 0.12);
-    for (let r = 0; r < 8; r++) {
-      ctx.rotate(Math.PI / 4);
-      const rayGrad = ctx.createLinearGradient(0, 0, haloRadius * 1.1, 0);
-      rayGrad.addColorStop(0, 'rgba(255, 215, 0, 0.14)');
-      rayGrad.addColorStop(0.6, 'rgba(255, 140, 0, 0.05)');
-      rayGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = rayGrad;
-      ctx.beginPath();
-      ctx.moveTo(0, -18);
-      ctx.lineTo(haloRadius * 1.2, -6);
-      ctx.lineTo(haloRadius * 1.2, 6);
-      ctx.lineTo(0, 18);
-      ctx.closePath();
-      ctx.fill();
-    }
-    ctx.restore();
-
-    /* ── D. Floating Gold Embers & Sparks Physics ── */
-    ctx.save();
-    particles.forEach(p => {
-      p.y += p.speedY;
-      p.x += p.speedX;
-      p.pulse += 0.05;
-
-      if (p.y < -20) {
-        p.y = height + 10;
-        p.x = Math.random() * width;
-      }
-      if (p.x < 0) p.x = width;
-      if (p.x > width) p.x = 0;
-
-      const currentOpacity = p.opacity * (0.6 + Math.sin(p.pulse) * 0.4);
-      ctx.fillStyle = `hsla(${p.hue}, 95%, 65%, ${currentOpacity})`;
-      ctx.shadowColor = `hsla(${p.hue}, 100%, 50%, 0.8)`;
-      ctx.shadowBlur = p.size * 3;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.restore();
-
-    /* ── E. Live Dhaak Rhythmic Flash Pulse ── */
-    if (isDhakPlaying) {
-      const beatPulse = (Math.sin(elapsed * 15) + 1) * 0.5;
-      if (beatPulse > 0.8) {
-        ctx.fillStyle = `rgba(255, 160, 40, ${(beatPulse - 0.8) * 0.25})`;
-        ctx.fillRect(0, 0, width, height);
-      }
-    }
-
-    videoCanvasAnimId = requestAnimationFrame(renderVideoFrame);
-  }
-
-  videoCanvasAnimId = requestAnimationFrame(renderVideoFrame);
-}
-
-/* ── Web Audio API: Authentic Bengali Dhaak Rhythm Synthesizer ──
-   Dhaak beats pattern: Classic Sharodotsav "Dha - Kur - Kur - Dha"
-   Produces wooden barrel resonance + skin membrane tap without external files. */
-function playSingleDhaakHit(time, type = 'heavy') {
-  if (!dhakAudioContext) return;
-
-  const now = time || dhakAudioContext.currentTime;
-
-  if (type === 'heavy') {
-    // Deep barrel hit ("DHA")
-    const osc = dhakAudioContext.createOscillator();
-    const gain = dhakAudioContext.createGain();
-
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(145, now);
-    osc.frequency.exponentialRampToValueAtTime(58, now + 0.18);
-
-    gain.gain.setValueAtTime(0.7, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-
-    osc.connect(gain);
-    gain.connect(dhakAudioContext.destination);
-
-    osc.start(now);
-    osc.stop(now + 0.28);
-
-    // Membrane snap / slap
-    const snapOsc = dhakAudioContext.createOscillator();
-    const snapGain = dhakAudioContext.createGain();
-    snapOsc.type = 'sawtooth';
-    snapOsc.frequency.setValueAtTime(420, now);
-    snapOsc.frequency.exponentialRampToValueAtTime(120, now + 0.05);
-
-    snapGain.gain.setValueAtTime(0.35, now);
-    snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-
-    snapOsc.connect(snapGain);
-    snapGain.connect(dhakAudioContext.destination);
-    snapOsc.start(now);
-    snapOsc.stop(now + 0.06);
-  } else {
-    // Sharp stick tap on rim/edge ("KUR")
-    const tapOsc = dhakAudioContext.createOscillator();
-    const tapGain = dhakAudioContext.createGain();
-
-    tapOsc.type = 'sine';
-    tapOsc.frequency.setValueAtTime(320, now);
-    tapOsc.frequency.exponentialRampToValueAtTime(160, now + 0.08);
-
-    tapGain.gain.setValueAtTime(0.4, now);
-    tapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-    tapOsc.connect(tapGain);
-    tapGain.connect(dhakAudioContext.destination);
-
-    tapOsc.start(now);
-    tapOsc.stop(now + 0.09);
-  }
-}
-
-function startDhakRhythm() {
-  if (!dhakAudioContext) {
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (AudioCtx) {
-      dhakAudioContext = new AudioCtx();
-    }
-  }
-
-  if (dhakAudioContext && dhakAudioContext.state === 'suspended') {
-    dhakAudioContext.resume();
-  }
-
-  isDhakPlaying = true;
-  updateAudioBtnUI(true);
-
-  // Bengali Dhaak pattern sequence:
-  // Step 0: DHA! (heavy)
-  // Step 1: kur (tap)
-  // Step 2: kur (tap)
-  // Step 3: DHA! (heavy)
-  // Step 4: DHA! (heavy)
-  // Step 5: kur (tap)
-  let step = 0;
-  const tempoInterval = 210; // ms per strike
-
-  if (dhakInterval) clearInterval(dhakInterval);
-
-  dhakInterval = setInterval(() => {
-    if (!dhakAudioContext) return;
-    const now = dhakAudioContext.currentTime;
-
-    if (step === 0 || step === 3 || step === 4) {
-      playSingleDhaakHit(now, 'heavy');
-    } else {
-      playSingleDhaakHit(now, 'tap');
-    }
-
-    step = (step + 1) % 6;
-  }, tempoInterval);
-}
-
-function stopDhakAudio() {
-  if (dhakInterval) {
-    clearInterval(dhakInterval);
-    dhakInterval = null;
-  }
-  isDhakPlaying = false;
-  updateAudioBtnUI(false);
-}
-
-function toggleDhakAudio() {
-  if (isDhakPlaying) {
-    stopDhakAudio();
-  } else {
-    startDhakRhythm();
-  }
-}
-
-function updateAudioBtnUI(playing) {
-  const btn = document.getElementById('introAudioBtn');
-  const icon = document.getElementById('audioBtnIcon');
-  const text = document.getElementById('audioBtnText');
-  if (btn) btn.classList.toggle('playing', playing);
-  if (icon) icon.textContent = playing ? '🔊' : '🔈';
-  if (text) text.textContent = playing ? 'Mute Dhaak' : 'Play Dhaak Beats';
 }
 
 /* ── 2. Sticky Nav & Mobile Menu ── */
