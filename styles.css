@@ -24,15 +24,15 @@
   --gold-dark:   #7A3A20;
   --gold-mid:    #C87A58;
   --gold-light:  #F0DDD5;
-  --gold-pale:   #FAF2EE;
+  --gold-pale:   #FDF1E7;
   --gold-bright: #D4956A;
 
-  /* Backgrounds & Neutrals */
+  /* Backgrounds & Neutrals — Light Orangish Warm Tone */
   --white:       #FFFFFF;
-  --off-white:   #F8F5F0;
-  --light:       #F2EEE8;
-  --border:      #DDD5C8;
-  --border-2:    #EDE8E0;
+  --off-white:   #FFF8F2;
+  --light:       #FDF0E4;
+  --border:      #EBD9C8;
+  --border-2:    #F7EBE0;
 
   /* Typography Colors */
   --text:        #1A1410;
@@ -692,7 +692,10 @@ svg.kas-icon.solid {
 ═══════════════════════════════ */
 .durga-spotlight {
   padding: 80px 0;
-  background: linear-gradient(180deg, #16202d 0%, #1e2a3a 100%);
+  background: 
+    radial-gradient(circle at 12% 25%, rgba(225, 112, 40, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 88% 75%, rgba(245, 150, 60, 0.12) 0%, transparent 45%),
+    linear-gradient(180deg, #18202b 0%, #1f2735 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: white;
   position: relative;
