@@ -27,12 +27,12 @@
   --gold-pale:   #FDF1E7;
   --gold-bright: #D4956A;
 
-  /* Backgrounds & Neutrals — Light Orangish Warm Tone */
-  --white:       #FFFFFF;
-  --off-white:   #FFF8F2;
-  --light:       #FDF0E4;
-  --border:      #EBD9C8;
-  --border-2:    #F7EBE0;
+  /* Backgrounds & Neutrals — Warm Light Orangish Palette */
+  --white:       #FFF6EE; /* subtle light orangish tone replacing stark white */
+  --off-white:   #FDF0E2; /* warm peach-cream background */
+  --light:       #FAECDC; /* warm apricot-amber background */
+  --border:      #EBD7C4;
+  --border-2:    #F5E3D2;
 
   /* Typography Colors */
   --text:        #1A1410;
