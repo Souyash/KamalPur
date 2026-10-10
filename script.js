@@ -328,21 +328,58 @@ function openArtistModal() {
   if (modal) modal.classList.add('open');
 }
 
+function filterHomeGallery(category, btnElement) {
+  const container = document.getElementById('homeGalleryGrid');
+  if (!container) return;
+
+  const items = container.querySelectorAll('.gallery-item');
+  const buttons = document.querySelectorAll('.gallery-filter-btn');
+
+  buttons.forEach(btn => btn.classList.remove('active'));
+  if (btnElement) btnElement.classList.add('active');
+
+  items.forEach(item => {
+    const itemCat = item.getAttribute('data-cat');
+    if (category === 'all' || itemCat === category) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
 function openLightbox(titleOrEl, caption, icon) {
   const modal = document.getElementById('lightboxModal');
   const lbTitle = document.getElementById('lbTitle');
   const lbCaption = document.getElementById('lbCaption');
   const lbIcon = document.getElementById('lbIcon');
+  const lbImgBox = document.getElementById('lbImgBox');
+  const lbImg = document.getElementById('lbImg');
 
   if (titleOrEl && titleOrEl.nodeType === 1) {
     const el = titleOrEl;
     const t = el.getAttribute('data-title') || el.querySelector('.gi-caption strong')?.textContent || '';
     const d = el.getAttribute('data-desc') || el.querySelector('.gi-caption span')?.textContent || '';
+    const imgSrc = el.getAttribute('data-img') || el.querySelector('img')?.getAttribute('src');
     const iconEl = el.querySelector('.gi-icon');
+
     if (lbTitle) lbTitle.textContent = t;
     if (lbCaption) lbCaption.textContent = d;
-    if (lbIcon && iconEl) lbIcon.innerHTML = iconEl.innerHTML;
+
+    if (imgSrc && lbImgBox && lbImg) {
+      lbImg.src = imgSrc;
+      lbImgBox.style.display = 'block';
+      if (lbIcon) lbIcon.style.display = 'none';
+    } else {
+      if (lbImgBox) lbImgBox.style.display = 'none';
+      if (lbIcon) {
+        lbIcon.style.display = 'inline-flex';
+        if (iconEl) lbIcon.innerHTML = iconEl.innerHTML;
+      }
+    }
   } else {
+    if (lbImgBox) lbImgBox.style.display = 'none';
+    if (lbIcon) lbIcon.style.display = 'inline-flex';
     if (lbTitle) lbTitle.textContent = titleOrEl || '';
     if (lbCaption) lbCaption.textContent = caption || '';
     if (lbIcon && icon) {
@@ -467,10 +504,16 @@ function handleBillingSubmit(event) {
     qrDisplayAmount.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
   }
 
+  // Constants for Official UPI Account (Matching uploaded Google Pay QR)
+  const SANGHA_UPI_ID = 'souyashbiswas20-3@okhdfcbank';
+  const SANGHA_PAYEE_NAME = 'SOUYASH BISWAS';
+  const SANGHA_MERCHANT_AID = 'uGICAgKCuseKpcw';
+  const SANGHA_PHONE = '8637578740';
+
   // Update deep-link UPI pay button for mobile devices
   const directUpiLink = document.getElementById('directUpiLink');
   if (directUpiLink) {
-    const upiUri = `upi://pay?pa=8637578740@sbi&pn=Kamalpur%20Abhijan%20Sangha&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
+    const upiUri = `upi://pay?pa=${SANGHA_UPI_ID}&pn=${encodeURIComponent(SANGHA_PAYEE_NAME)}&aid=${SANGHA_MERCHANT_AID}&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
     directUpiLink.href = upiUri;
   }
 
@@ -478,15 +521,66 @@ function handleBillingSubmit(event) {
   const directWaPayLink = document.getElementById('directWaPayLink');
   if (directWaPayLink) {
     const waDonorName = encodeURIComponent(currentDonorDetails.name || 'Devotee');
-    directWaPayLink.href = `https://wa.me/918637578740?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${currentDonationAmount}%20from%20${waDonorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`;
+    directWaPayLink.href = `https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${currentDonationAmount}%20from%20${waDonorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`;
   }
 
   // Clear optional UTR field in Step 2
   const utrInput = document.getElementById('donorUtr');
   if (utrInput) utrInput.value = '';
 
+  // Hide desktop helper if previously open
+  const desktopHelper = document.getElementById('desktopUpiHelper');
+  if (desktopHelper) desktopHelper.style.display = 'none';
+
   // Advance to Step 2
   goToDonationStep(2);
+}
+
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+}
+
+function handleUpiPayClick(event, appName = 'any') {
+  if (event) {
+    event.preventDefault();
+  }
+  const amount = (typeof currentDonationAmount !== 'undefined' && currentDonationAmount) ? currentDonationAmount : 501;
+  const SANGHA_UPI_ID = 'souyashbiswas20-3@okhdfcbank';
+  const SANGHA_PAYEE_NAME = 'SOUYASH BISWAS';
+  const SANGHA_MERCHANT_AID = 'uGICAgKCuseKpcw';
+  const SANGHA_PHONE = '8637578740';
+
+  const pn = encodeURIComponent(SANGHA_PAYEE_NAME);
+  const tn = encodeURIComponent('KAS Durgotsav Seva');
+  const baseUpi = `upi://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
+
+  if (isMobileDevice()) {
+    let targetUri = baseUpi;
+    if (appName === 'gpay') {
+      targetUri = `tez://upi/pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
+    } else if (appName === 'phonepe') {
+      targetUri = `phonepe://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
+    } else if (appName === 'paytm') {
+      targetUri = `paytmmp://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
+    } else if (appName === 'whatsapp') {
+      const donorName = encodeURIComponent((currentDonorDetails && currentDonorDetails.name) ? currentDonorDetails.name : 'Devotee');
+      window.open(`https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${amount}%20from%20${donorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`, '_blank');
+      return;
+    }
+
+    window.location.href = targetUri;
+  } else {
+    // Desktop devices cannot handle upi:// protocols
+    const desktopHelper = document.getElementById('desktopUpiHelper');
+    if (desktopHelper) {
+      desktopHelper.style.display = 'block';
+      desktopHelper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    if (appName === 'whatsapp') {
+      const donorName = encodeURIComponent((currentDonorDetails && currentDonorDetails.name) ? currentDonorDetails.name : 'Devotee');
+      window.open(`https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${amount}%20from%20${donorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`, '_blank');
+    }
+  }
 }
 
 function copyUpiId(upiId, btnElement) {

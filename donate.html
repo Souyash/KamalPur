@@ -316,8 +316,8 @@
               <span class="qr-amt-val" id="qrDisplayAmount">₹501</span>
             </div>
 
-            <!-- Flashed QR Code Box -->
-            <div class="qr-code-box">
+            <!-- Flashed QR Code Box (Clickable for mobile UPI app trigger) -->
+            <div class="qr-code-box" onclick="handleUpiPayClick(event, 'any')" title="Tap to open in UPI App on mobile, or scan with phone camera" style="cursor:pointer;">
               <div class="qr-corner top-left"></div>
               <div class="qr-corner top-right"></div>
               <div class="qr-corner bottom-left"></div>
@@ -325,16 +325,30 @@
               <img src="assets/gpay-upi-qr.png" alt="Scan to pay with any UPI app - Kamalpur Abhijan Sangha" class="qr-code-img" width="220" height="220">
               <div class="qr-scan-badge">
                 <svg class="kas-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <span>Scan with Any UPI App</span>
+                <span>Tap or Scan with Any UPI App</span>
               </div>
             </div>
 
             <div class="upi-id-box">
-              <span class="upi-id-txt">UPI &amp; WhatsApp Pay: <strong>8637578740@sbi</strong> (Mobile: <strong>8637578740</strong>)</span>
-              <button type="button" class="btn-copy-upi" onclick="copyUpiId('8637578740@sbi', this)">📋 Copy</button>
+              <span class="upi-id-txt">UPI ID: <strong>souyashbiswas20-3@okhdfcbank</strong> (Helpline: <strong>8637578740</strong>)</span>
+              <button type="button" class="btn-copy-upi" onclick="copyUpiId('souyashbiswas20-3@okhdfcbank', this)">📋 Copy</button>
             </div>
 
-            <a href="upi://pay?pa=8637578740@sbi&amp;pn=Kamalpur%20Abhijan%20Sangha&amp;cu=INR&amp;tn=KAS%20Durgotsav%20Seva" id="directUpiLink" class="mobile-upi-pay-btn">
+            <!-- Desktop / Laptop Guidance Helper Box -->
+            <div id="desktopUpiHelper" class="desktop-upi-helper" style="display:none;">
+              <div style="font-weight:700; display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                <span>💡</span> <strong>Payment Instructions for Desktop &amp; Laptop:</strong>
+              </div>
+              <p style="margin:0 0 6px;">UPI apps (GPay, PhonePe, Paytm) run natively on smartphones. Because you are on a computer:</p>
+              <ol>
+                <li>Open your smartphone camera or any UPI app (GPay / PhonePe / Paytm / BHIM).</li>
+                <li>Point it at the QR code above to pay instantly.</li>
+                <li>Or send to UPI ID: <strong>souyashbiswas20-3@okhdfcbank</strong>.</li>
+                <li>Or tap below to continue via <strong>WhatsApp (+91 8637578740)</strong>.</li>
+              </ol>
+            </div>
+
+            <a href="upi://pay?pa=souyashbiswas20-3@okhdfcbank&amp;pn=SOUYASH%20BISWAS&amp;aid=uGICAgKCuseKpcw&amp;cu=INR&amp;tn=KAS%20Durgotsav%20Seva" id="directUpiLink" class="mobile-upi-pay-btn" onclick="handleUpiPayClick(event, 'any')">
               ⚡ Open in GPay / PhonePe / Paytm
             </a>
 
@@ -344,12 +358,12 @@
             </a>
 
             <div class="accepted-apps-row">
-              <span class="app-badge whatsapp">WhatsApp Pay</span>
-              <span class="app-badge gpay">GPay</span>
-              <span class="app-badge phonepe">PhonePe</span>
-              <span class="app-badge paytm">Paytm</span>
-              <span class="app-badge bhim">BHIM</span>
-              <span class="app-badge cred">CRED</span>
+              <button type="button" class="app-badge-btn whatsapp" onclick="handleUpiPayClick(event, 'whatsapp')">WhatsApp Pay</button>
+              <button type="button" class="app-badge-btn gpay" onclick="handleUpiPayClick(event, 'gpay')">GPay</button>
+              <button type="button" class="app-badge-btn phonepe" onclick="handleUpiPayClick(event, 'phonepe')">PhonePe</button>
+              <button type="button" class="app-badge-btn paytm" onclick="handleUpiPayClick(event, 'paytm')">Paytm</button>
+              <button type="button" class="app-badge-btn bhim" onclick="handleUpiPayClick(event, 'any')">BHIM</button>
+              <button type="button" class="app-badge-btn cred" onclick="handleUpiPayClick(event, 'any')">CRED</button>
             </div>
 
             <div class="form-group" style="margin-top:14px; text-align:left;">
