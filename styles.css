@@ -71,14 +71,18 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--gold);
   border-radius: 3px;
-}/* ═══════════════════════════════
+}
+/* ═══════════════════════════════
    MODERN VECTOR ICONS (.kas-icon)
 ═══════════════════════════════ */
-.kas-icon {
+.kas-icon,
+svg.kas-icon {
   display: inline-block;
   vertical-align: middle;
-  width: 1em;
-  height: 1em;
+  width: 1.15em;
+  height: 1.15em;
+  max-width: 24px;
+  max-height: 24px;
   stroke-width: 2;
   stroke: currentColor;
   fill: none;
@@ -86,9 +90,11 @@ body {
   stroke-linejoin: round;
   position: relative;
   top: -0.06em;
+  flex-shrink: 0;
 }
 
-.kas-icon.solid {
+.kas-icon.solid,
+svg.kas-icon.solid {
   fill: currentColor;
   stroke: none;
 }
@@ -97,15 +103,38 @@ body {
 .impact-icon .kas-icon,
 .perk-icon-wrap .kas-icon,
 .gi-icon .kas-icon,
-.flyer-icon .kas-icon {
-  width: 1.35em;
-  height: 1.35em;
+.donate-manual-icon .kas-icon,
+.success-icon .kas-icon {
+  width: 24px;
+  height: 24px;
+  max-width: 24px;
+  max-height: 24px;
   top: 0;
 }
 
-.date-chip .kas-icon {
-  width: 18px;
-  height: 18px;
+.flyer-icon .kas-icon,
+.flyer-icon svg {
+  width: 32px;
+  height: 32px;
+  max-width: 32px;
+  max-height: 32px;
+  top: 0;
+  stroke: var(--gold-bright);
+  color: var(--gold-bright);
+}
+
+.flyer-icon .kas-icon.solid,
+.flyer-icon svg.solid {
+  fill: var(--gold-bright);
+  stroke: none;
+}
+
+.date-chip .kas-icon,
+.date-chip svg {
+  width: 16px;
+  height: 16px;
+  max-width: 16px;
+  max-height: 16px;
   top: 0;
 }
 /* ═══════════════════════════════
@@ -721,17 +750,31 @@ body {
 .ds-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
   margin-bottom: 24px;
 }
 .ds-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
   font-weight: 600;
   color: var(--gold-light);
   background: rgba(255, 255, 255, 0.06);
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+.ds-meta span svg,
+.ds-meta span .kas-icon {
+  width: 16px !important;
+  height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  color: var(--gold-bright);
+  stroke: var(--gold-bright);
+  flex-shrink: 0;
 }
 
 .ds-stripe {
@@ -871,8 +914,21 @@ body {
 }
 
 .flyer-icon {
-  font-size: 28px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 48px;
+  width: auto;
+}
+.flyer-icon svg,
+.flyer-icon img {
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  display: block !important;
+  flex-shrink: 0 !important;
 }
 
 .flyer-title {
