@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261010-v8">
+  <link rel="stylesheet" href="styles.css?v=20261010-v9">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
@@ -180,7 +180,7 @@
           </div>
         </div>
         <p style="font-size:12.5px; color:var(--text-3); margin-top:16px;">
-          * After completing bank transfer, please WhatsApp your transfer UTR / receipt screenshot to <strong>+91 98300 12345</strong> to receive your stamped receipt.
+          * After completing bank transfer, please WhatsApp your transfer UTR / receipt screenshot to <strong>+91 8637578740</strong> to receive your stamped receipt.
         </p>
       </div>
 
@@ -251,7 +251,7 @@
                 <label class="form-lbl" for="donorPhone">WhatsApp Number *</label>
                 <div class="phone-input-wrap">
                   <span class="country-prefix">+91</span>
-                  <input type="tel" id="donorPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="98300 12345" class="form-input" style="padding-left: 52px;">
+                  <input type="tel" id="donorPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="8637578740" class="form-input" style="padding-left: 52px;">
                 </div>
                 <span class="field-hint">📱 Bill &amp; official receipt will be sent here</span>
               </div>
@@ -330,15 +330,21 @@
             </div>
 
             <div class="upi-id-box">
-              <span class="upi-id-txt">UPI ID: <strong>kamalpurabhijansangha@sbi</strong></span>
-              <button type="button" class="btn-copy-upi" onclick="copyUpiId('kamalpurabhijansangha@sbi', this)">📋 Copy</button>
+              <span class="upi-id-txt">UPI &amp; WhatsApp Pay: <strong>8637578740@sbi</strong> (Mobile: <strong>8637578740</strong>)</span>
+              <button type="button" class="btn-copy-upi" onclick="copyUpiId('8637578740@sbi', this)">📋 Copy</button>
             </div>
 
-            <a href="upi://pay?pa=kamalpurabhijansangha@sbi&amp;pn=Kamalpur%20Abhijan%20Sangha&amp;cu=INR&amp;tn=KAS%20Durgotsav%20Seva" id="directUpiLink" class="mobile-upi-pay-btn">
+            <a href="upi://pay?pa=8637578740@sbi&amp;pn=Kamalpur%20Abhijan%20Sangha&amp;cu=INR&amp;tn=KAS%20Durgotsav%20Seva" id="directUpiLink" class="mobile-upi-pay-btn">
               ⚡ Open in GPay / PhonePe / Paytm
             </a>
 
+            <a href="https://wa.me/918637578740?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20donation%20via%20WhatsApp%20Payment." id="directWaPayLink" target="_blank" rel="noopener noreferrer" class="whatsapp-direct-pay-btn">
+              <svg class="kas-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              <span>💬 Pay via WhatsApp / Send Screenshot (+91 8637578740)</span>
+            </a>
+
             <div class="accepted-apps-row">
+              <span class="app-badge whatsapp">WhatsApp Pay</span>
               <span class="app-badge gpay">GPay</span>
               <span class="app-badge phonepe">PhonePe</span>
               <span class="app-badge paytm">Paytm</span>
@@ -413,7 +419,7 @@
                 <span class="receipt-label">Target WhatsApp:</span>
                 <span class="receipt-val whatsapp-pill" id="receiptPhone">
                   <svg class="kas-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                  <strong id="receiptPhoneTxt">+91 98300 12345</strong>
+                  <strong id="receiptPhoneTxt">+91 8637578740</strong>
                 </span>
               </div>
               <div class="receipt-row">
@@ -432,7 +438,7 @@
 
             <div class="review-help-note">
               <svg class="kas-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span>Need immediate assistance? Contact Treasury Cell at <strong>+91 98300 12345</strong> or visit Sangha Bhavan counter.</span>
+              <span>Need immediate assistance? Contact Treasury Cell at <strong>+91 8637578740</strong> or visit Sangha Bhavan counter.</span>
             </div>
 
             <button type="button" class="btn-reset-form" onclick="closeModal('donationModal')" style="margin-top:20px; width:100%;">
@@ -467,7 +473,7 @@
             Kamalpur Sangha Bhavan, Kamalpur Road,<br>
             (Near Kamalpur Primary Health Centre),<br>
             Ranaghat, Nadia, West Bengal &mdash; 741201<br>
-            <strong>Puja &amp; Club Desk:</strong> <a href="tel:+919830012345">+91 (03473) 210987 / +91 98300 12345</a><br>
+            <strong>Puja &amp; WhatsApp Desk:</strong> <a href="tel:+918637578740">+91 8637578740</a> / <a href="https://wa.me/918637578740" target="_blank" rel="noopener noreferrer">WhatsApp</a><br>
             <strong>Email:</strong> <a href="mailto:contact@kamalpurabhijaan.org">contact@kamalpurabhijaan.org</a>
           </address>
         </div>
@@ -520,7 +526,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261010-v8"></script>
+  <script src="script.js?v=20261010-v9"></script>
 </body>
 </html>
 

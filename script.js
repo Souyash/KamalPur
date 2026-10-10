@@ -254,7 +254,7 @@ const eventDatabase = {
       <p><strong>Organized with:</strong> Nadia District Red Cross & Ranaghat Sub-Divisional Hospital Blood Bank</p>
       <p>Our flagship social initiative running for over 38 consecutive years. Over 300 units of blood are donated annually. Free hemoglobin and blood-group testing provided to all participants.</p>
       <div style="margin-top:14px; padding:12px; background:var(--gold-pale); border-radius:8px;">
-        <strong>Want to volunteer or donate?</strong> Contact our Health Cell at +91 98300 12345.
+        <strong>Want to volunteer or donate?</strong> Contact our Health Cell at +91 8637578740.
       </div>
     `
   },
@@ -469,8 +469,15 @@ function handleBillingSubmit(event) {
   // Update deep-link UPI pay button for mobile devices
   const directUpiLink = document.getElementById('directUpiLink');
   if (directUpiLink) {
-    const upiUri = `upi://pay?pa=kamalpurabhijansangha@sbi&pn=Kamalpur%20Abhijan%20Sangha&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
+    const upiUri = `upi://pay?pa=8637578740@sbi&pn=Kamalpur%20Abhijan%20Sangha&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
     directUpiLink.href = upiUri;
+  }
+
+  // Update direct WhatsApp payment link
+  const directWaPayLink = document.getElementById('directWaPayLink');
+  if (directWaPayLink) {
+    const waDonorName = encodeURIComponent(currentDonorDetails.name || 'Devotee');
+    directWaPayLink.href = `https://wa.me/918637578740?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${currentDonationAmount}%20from%20${waDonorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`;
   }
 
   // Clear optional UTR field in Step 2
