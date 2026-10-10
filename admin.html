@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal &amp; Seva Ledger — Kamalpur Abhijan Sangha</title>
+  <meta name="description" content="Official administrative management portal and donation ledger for Kamalpur Abhijan Sangha, Ranaghat.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=20261011-v1">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+</head>
+<body class="admin-body">
+
+  <!-- Top Announcement Bar -->
+  <div class="announce-bar admin-announce">
+    <span><strong>🔒 Sangha Internal Administration:</strong> Secure offline and digital donation ledger &amp; devotee membership tracking.</span>
+    <span class="announce-divider">·</span>
+    <span>Helpline Desk: <strong>+91 8637578740</strong></span>
+  </div>
+
+  <!-- Admin Main Navigation (No public nav links, only desk controls & back link) -->
+  <header class="admin-header">
+    <div class="container admin-header-inner">
+      <div class="admin-brand">
+        <a href="index.html" class="nav-brand">
+          <div class="nav-logo">
+            <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo" width="46" height="46">
+          </div>
+          <div class="nav-brand-text">
+            <span class="nav-name">Kamalpur Abhijan Sangha</span>
+            <span class="nav-est">Est. 1970 · Ranaghat · <em>Admin Portal &amp; Ledger</em></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="admin-header-actions">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">
+          <span>+ Add Offline Chanda</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="exportLedgerCSV()">
+          <span>📥 Export CSV</span>
+        </button>
+        <a href="index.html" class="btn btn-primary btn-sm">
+          <span>&larr; Return to Public Site</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Dashboard -->
+  <main class="admin-main">
+    <div class="container">
+
+      <!-- Header intro banner -->
+      <div class="admin-hero-card">
+        <div class="admin-hero-content">
+          <div class="hero-badge" style="display:inline-flex; align-items:center; gap:6px; margin-bottom:12px;">
+            <span>🔒 Internal Desk · Ranaghat, Nadia</span>
+          </div>
+          <h1 class="admin-title">Puja Chanda Ledger &amp; Verification Desk</h1>
+          <p class="admin-subtitle">
+            Manage incoming online UPI contributions, review transaction UTRs, disburse official WhatsApp seva receipts within 2 hours, and track membership enrollments.
+          </p>
+        </div>
+        <div class="admin-hero-actions">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="refreshAdminData()">
+            <span>🔄 Sync &amp; Refresh Data</span>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()">
+            <span>📦 Reset Demo Records</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-icon-wrap" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
+          <div class="stat-info">
+            <div class="stat-num" id="metricTotalAmount">₹0</div>
+            <div class="stat-title">Total Seva Collections</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-wrap" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
+          <div class="stat-info">
+            <div class="stat-num" id="metricTotalDonations">0</div>
+            <div class="stat-title">Total Donors Logged</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card card-highlight-pending">
+          <div class="stat-icon-wrap" style="background: #FFE8D6; color: #B34100;">⏳</div>
+          <div class="stat-info">
+            <div class="stat-num text-pending" id="metricPendingCount">0</div>
+            <div class="stat-title">Awaiting WhatsApp Receipt</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-wrap" style="background: #E6F4EA; color: #137333;">✓</div>
+          <div class="stat-info">
+            <div class="stat-num text-verified" id="metricVerifiedCount">0</div>
+            <div class="stat-title">Verified &amp; Dispatched</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-wrap" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">👥</div>
+          <div class="stat-info">
+            <div class="stat-num" id="metricMembersCount">0</div>
+            <div class="stat-title">Membership Applicants</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs and Controls Bar -->
+      <div class="admin-section-box">
+        <div class="admin-tabs-row">
+          <div class="admin-tabs" role="tablist">
+            <button type="button" class="admin-tab-btn active" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
+              <span>💰 Donation Ledger</span>
+              <span class="tab-badge" id="tabDonationsBadge">0</span>
+            </button>
+            <button type="button" class="admin-tab-btn" id="tabMembersBtn" onclick="switchAdminTab('members')">
+              <span>👥 Membership Applications</span>
+              <span class="tab-badge" id="tabMembersBadge">0</span>
+            </button>
+          </div>
+
+          <div class="admin-filter-controls">
+            <div class="admin-search-box">
+              <input type="text" id="adminSearchInput" placeholder="Search by name, phone, tracking ID, UTR..." oninput="applyFilters()">
+            </div>
+            <div class="admin-select-box" id="statusFilterWrapper">
+              <select id="statusFilterSelect" onchange="applyFilters()">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending Verification</option>
+                <option value="verified">Verified &amp; Sent</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. DONATIONS TABLE VIEW -->
+        <div id="donationsView" class="admin-tab-content active">
+          <div class="table-responsive">
+            <table class="admin-table" id="donationsTable">
+              <thead>
+                <tr>
+                  <th>Tracking ID &amp; Date</th>
+                  <th>Devotee Details</th>
+                  <th>Purpose / Seva</th>
+                  <th>Amount</th>
+                  <th>UTR / Reference</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="donationsTableBody">
+                <!-- Dynamically populated via script -->
+              </tbody>
+            </table>
+          </div>
+          <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">📭</div>
+            <h3>No Donation Records Found</h3>
+            <p>No transactions match the selected filter, or no donations have been recorded yet.</p>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">+ Record First Donation</button>
+          </div>
+        </div>
+
+        <!-- 2. MEMBERSHIP APPLICATIONS VIEW -->
+        <div id="membersView" class="admin-tab-content" style="display:none;">
+          <div class="table-responsive">
+            <table class="admin-table" id="membersTable">
+              <thead>
+                <tr>
+                  <th>Application ID &amp; Date</th>
+                  <th>Applicant Name</th>
+                  <th>Contact No.</th>
+                  <th>Town / Locality</th>
+                  <th>Wing of Interest</th>
+                  <th>Note / Motivation</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="membersTableBody">
+                <!-- Dynamically populated via script -->
+              </tbody>
+            </table>
+          </div>
+          <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">👥</div>
+            <h3>No Membership Applications Found</h3>
+            <p>New membership forms submitted via the Join page will appear here automatically.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Informational / WhatsApp Dispatch Guide Card -->
+      <div class="admin-guidance-card">
+        <div class="guidance-icon">💡</div>
+        <div class="guidance-text">
+          <h4>2-Hour WhatsApp Receipt Dispatch Protocol</h4>
+          <p>
+            When a devotee scans the Google Pay / UPI QR code on the website and enters their details, their submission arrives here with <strong>Pending</strong> status.
+            Verify the transaction in the Sangha bank statement (UPI ID / UTR), then click <strong class="badge-tag">💬 WhatsApp Bill</strong> to generate an instant pre-filled official bill message to the devotee's phone or helpline <strong>+91 8637578740</strong>. Once sent, toggle status to <strong>Verified</strong>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- OFFLINE DONATION ENTRY MODAL -->
+  <div class="modal-overlay" id="offlineDonationModal" role="dialog" aria-modal="true" aria-labelledby="offlineModalTitle">
+    <div class="modal-card" style="max-width: 580px;">
+      <button type="button" class="modal-close" onclick="closeOfflineDonationModal()" aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <div class="modal-subtitle">Kamalpur Abhijan Sangha · Office Register</div>
+        <h3 class="modal-title" id="offlineModalTitle">Add Manual / Counter Donation</h3>
+      </div>
+      <div class="modal-body">
+        <form id="offlineDonationForm" onsubmit="handleOfflineDonationSubmit(event)">
+          <div class="modal-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="offDonorName">Devotee Full Name *</label>
+              <input type="text" id="offDonorName" required placeholder="e.g., Subhasish Mukherjee">
+            </div>
+            <div class="form-group">
+              <label for="offDonorPhone">Mobile / WhatsApp No. *</label>
+              <input type="tel" id="offDonorPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
+            </div>
+            <div class="form-group">
+              <label for="offDonorAmount">Contribution Amount (₹) *</label>
+              <input type="number" id="offDonorAmount" required min="10" placeholder="e.g., 1001">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="offDonorPurpose">Seva / Contribution Fund *</label>
+              <select id="offDonorPurpose" required>
+                <option value="Sharodotsav Durga Puja Chanda">Sharodotsav Durga Puja Chanda</option>
+                <option value="Maha Bhog &amp; Prasad Annadan">Maha Bhog &amp; Prasad Annadan</option>
+                <option value="Pushpanjali &amp; Sandhi Puja Seva">Pushpanjali &amp; Sandhi Puja Seva</option>
+                <option value="Free Health &amp; Blood Donation Seva">Free Health &amp; Blood Donation Seva</option>
+                <option value="Youth Sports &amp; Football Academy">Youth Sports &amp; Football Academy</option>
+                <option value="Winter Blanket Distribution">Winter Blanket Distribution</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="offPaymentMode">Payment Mode *</label>
+              <select id="offPaymentMode" required>
+                <option value="Cash Counter">Cash at Counter</option>
+                <option value="UPI Direct">UPI Direct (Google Pay/PhonePe)</option>
+                <option value="Bank NEFT/IMPS">Bank Transfer (NEFT/IMPS)</option>
+                <option value="Cheque/Draft">Cheque / Bank Draft</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="offPaymentUtr">UTR / Slip Reference</label>
+              <input type="text" id="offPaymentUtr" placeholder="e.g., Receipt Slip #884 or UTR">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="offDonorAddress">Devotee Address / Locality</label>
+              <input type="text" id="offDonorAddress" placeholder="e.g., Mission Para, Ranaghat">
+            </div>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="closeOfflineDonationModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm">Save &amp; Generate Record</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer admin-footer" style="margin-top:60px;">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          &copy; 2026 Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ). Internal Office Management System.
+        </div>
+        <div class="footer-copy">
+          Ranaghat, Nadia, West Bengal, India &nbsp;·&nbsp;
+          <a href="index.html">Main Website</a> &nbsp;·&nbsp;
+          <a href="#top">Back to top &uarr;</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261011-v1"></script>
+  <script>
+    /* ══════════════════════════════════════════════════════════
+       ADMIN PORTAL JAVASCRIPT CONTROLLER
+    ══════════════════════════════════════════════════════════ */
+    let activeTab = 'donations';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Ensure seed data exists
+      if (typeof initAdminSeedData === 'function') {
+        initAdminSeedData();
+      }
+      renderAdminDashboard();
+    });
+
+    function getStoredDonations() {
+      try {
+        return JSON.parse(localStorage.getItem('kas_donations') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredDonations(data) {
+      localStorage.setItem('kas_donations', JSON.stringify(data));
+    }
+
+    function getStoredMembers() {
+      try {
+        return JSON.parse(localStorage.getItem('kas_members') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStoredMembers(data) {
+      localStorage.setItem('kas_members', JSON.stringify(data));
+    }
+
+    function switchAdminTab(tab) {
+      activeTab = tab;
+      const donationsBtn = document.getElementById('tabDonationsBtn');
+      const membersBtn = document.getElementById('tabMembersBtn');
+      const donationsView = document.getElementById('donationsView');
+      const membersView = document.getElementById('membersView');
+      const statusFilterWrapper = document.getElementById('statusFilterWrapper');
+
+      if (tab === 'donations') {
+        donationsBtn.classList.add('active');
+        membersBtn.classList.remove('active');
+        donationsView.style.display = 'block';
+        membersView.style.display = 'none';
+        statusFilterWrapper.style.display = 'block';
+      } else {
+        membersBtn.classList.add('active');
+        donationsBtn.classList.remove('active');
+        donationsView.style.display = 'none';
+        membersView.style.display = 'block';
+        statusFilterWrapper.style.display = 'none';
+      }
+      applyFilters();
+    }
+
+    function renderAdminDashboard() {
+      const donations = getStoredDonations();
+      const members = getStoredMembers();
+
+      // Compute metrics
+      const totalAmt = donations.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+      const totalCount = donations.length;
+      const pendingCount = donations.filter(d => d.status === 'pending').length;
+      const verifiedCount = donations.filter(d => d.status === 'verified').length;
+
+      document.getElementById('metricTotalAmount').textContent = '₹' + totalAmt.toLocaleString('en-IN');
+      document.getElementById('metricTotalDonations').textContent = totalCount;
+      document.getElementById('metricPendingCount').textContent = pendingCount;
+      document.getElementById('metricVerifiedCount').textContent = verifiedCount;
+      document.getElementById('metricMembersCount').textContent = members.length;
+
+      document.getElementById('tabDonationsBadge').textContent = totalCount;
+      document.getElementById('tabMembersBadge').textContent = members.length;
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const searchQuery = (document.getElementById('adminSearchInput').value || '').toLowerCase().trim();
+      const statusFilter = document.getElementById('statusFilterSelect').value;
+
+      if (activeTab === 'donations') {
+        let list = getStoredDonations();
+
+        if (statusFilter !== 'all') {
+          list = list.filter(d => d.status === statusFilter);
+        }
+
+        if (searchQuery) {
+          list = list.filter(d => {
+            const name = (d.name || '').toLowerCase();
+            const phone = (d.phone || '').toLowerCase();
+            const id = (d.id || '').toLowerCase();
+            const utr = (d.utr || '').toLowerCase();
+            const purpose = (d.purpose || '').toLowerCase();
+            return name.includes(searchQuery) || phone.includes(searchQuery) || id.includes(searchQuery) || utr.includes(searchQuery) || purpose.includes(searchQuery);
+          });
+        }
+
+        renderDonationsTable(list);
+      } else {
+        let list = getStoredMembers();
+        if (searchQuery) {
+          list = list.filter(m => {
+            const name = (m.name || '').toLowerCase();
+            const phone = (m.phone || '').toLowerCase();
+            const city = (m.city || '').toLowerCase();
+            const interest = (m.interest || '').toLowerCase();
+            return name.includes(searchQuery) || phone.includes(searchQuery) || city.includes(searchQuery) || interest.includes(searchQuery);
+          });
+        }
+        renderMembersTable(list);
+      }
+    }
+
+    function renderDonationsTable(list) {
+      const tbody = document.getElementById('donationsTableBody');
+      const emptyState = document.getElementById('donationsEmptyState');
+      const table = document.getElementById('donationsTable');
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '';
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      table.style.display = 'table';
+      emptyState.style.display = 'none';
+
+      tbody.innerHTML = list.map(item => {
+        const isVerified = item.status === 'verified';
+        const formattedDate = item.date ? new Date(item.date).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : 'Recent';
+        const phone = item.phone || '';
+        const safePhone = phone.replace(/[^0-9]/g, '');
+
+        // Preformatted WhatsApp message for bill
+        const billText = `*KAMALPUR ABHIJAN SANGHA — RANAGHAT*
+*OFFICIAL SEVA & DURGA PUJA CHANDA RECEIPT*
+────────────────────────
+Devotee: ${item.name}
+Tracking ID: ${item.id}
+Date: ${formattedDate}
+Fund / Purpose: ${item.purpose}
+Amount: Rs. ${Number(item.amount).toLocaleString('en-IN')}
+UTR / Payment Ref: ${item.utr || 'UPI Direct'}
+Status: ${isVerified ? 'VERIFIED & REGISTERED' : 'RECEIVED (AWAITING AUDIT)'}
+Sangha Office: Ranaghat, Nadia, PIN 741201
+Helpline: +91 8637578740
+────────────────────────
+Maa Durga bless you and your family!
+_Joy Maa Durga · Kamalpur Abhijan Sangha_`;
+
+        const waUrl = safePhone.length >= 10 
+          ? `https://wa.me/91${safePhone}?text=${encodeURIComponent(billText)}`
+          : `https://wa.me/918637578740?text=${encodeURIComponent(billText)}`;
+
+        return `
+          <tr>
+            <td>
+              <div class="row-primary-text font-mono">${escapeHtml(item.id)}</div>
+              <div class="row-sub-text">${formattedDate}</div>
+            </td>
+            <td>
+              <div class="row-primary-text font-bold">${escapeHtml(item.name)}</div>
+              <div class="row-sub-text">
+                ${safePhone ? `<a href="tel:+91${safePhone}" class="donor-link">📞 +91 ${escapeHtml(safePhone)}</a>` : '<span class="text-muted">No phone</span>'}
+                ${item.pan ? ` &middot; <span class="text-pan">PAN: ${escapeHtml(item.pan)}</span>` : ''}
+              </div>
+              ${item.address ? `<div class="row-sub-text text-truncate-loc">📍 ${escapeHtml(item.address)}</div>` : ''}
+            </td>
+            <td>
+              <span class="purpose-pill">${escapeHtml(item.purpose)}</span>
+            </td>
+            <td>
+              <div class="row-amount">₹${Number(item.amount || 0).toLocaleString('en-IN')}</div>
+            </td>
+            <td>
+              <div class="row-primary-text font-mono text-sm">${escapeHtml(item.utr || 'UPI')}</div>
+            </td>
+            <td>
+              <span class="badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
+                ${isVerified ? '✓ Verified' : '⏳ Pending'}
+              </span>
+            </td>
+            <td style="text-align:right;">
+              <div class="action-buttons-cell">
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" title="Send Official Receipt via WhatsApp">
+                  <span>💬 WhatsApp Bill</span>
+                </a>
+                <button type="button" class="btn-action ${isVerified ? 'btn-toggle-pending' : 'btn-toggle-verify'}" onclick="toggleDonationStatus('${escapeAttr(item.id)}')">
+                  <span>${isVerified ? 'Mark Pending' : 'Verify'}</span>
+                </button>
+                <button type="button" class="btn-action btn-delete" onclick="deleteDonation('${escapeAttr(item.id)}')">
+                  <span>&times;</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderMembersTable(list) {
+      const tbody = document.getElementById('membersTableBody');
+      const emptyState = document.getElementById('membersEmptyState');
+      const table = document.getElementById('membersTable');
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '';
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      table.style.display = 'table';
+      emptyState.style.display = 'none';
+
+      tbody.innerHTML = list.map(item => {
+        const formattedDate = item.date ? new Date(item.date).toLocaleDateString('en-IN') : 'Recent';
+        const safePhone = (item.phone || '').replace(/[^0-9]/g, '');
+        const isReviewed = item.status === 'reviewed';
+
+        const waText = `*KAMALPUR ABHIJAN SANGHA — RANAGHAT*
+Namaskar ${item.name},
+We received your membership application (${item.id}) for the ${item.interest}.
+Our executive committee would love to welcome you to our Ranaghat clubhouse!
+Helpline: +91 8637578740`;
+
+        const waUrl = safePhone.length >= 10 
+          ? `https://wa.me/91${safePhone}?text=${encodeURIComponent(waText)}`
+          : `https://wa.me/918637578740?text=${encodeURIComponent(waText)}`;
+
+        return `
+          <tr>
+            <td>
+              <div class="row-primary-text font-mono">${escapeHtml(item.id)}</div>
+              <div class="row-sub-text">${formattedDate}</div>
+            </td>
+            <td>
+              <div class="row-primary-text font-bold">${escapeHtml(item.name)}</div>
+            </td>
+            <td>
+              ${safePhone ? `<a href="tel:+91${safePhone}" class="donor-link">📞 +91 ${escapeHtml(safePhone)}</a>` : '<span class="text-muted">—</span>'}
+            </td>
+            <td>${escapeHtml(item.city || 'Ranaghat')}</td>
+            <td>
+              <span class="purpose-pill">${escapeHtml(item.interest || 'General')}</span>
+            </td>
+            <td>
+              <div class="text-truncate-msg" title="${escapeAttr(item.message || '')}">
+                ${escapeHtml(item.message || 'No additional note')}
+              </div>
+            </td>
+            <td>
+              <span class="badge ${isReviewed ? 'badge-verified' : 'badge-pending'}">
+                ${isReviewed ? 'Reviewed' : 'New'}
+              </span>
+            </td>
+            <td style="text-align:right;">
+              <div class="action-buttons-cell">
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" title="Contact via WhatsApp">
+                  <span>💬 Message</span>
+                </a>
+                <button type="button" class="btn-action btn-toggle-verify" onclick="toggleMemberStatus('${escapeAttr(item.id)}')">
+                  <span>${isReviewed ? 'Mark New' : 'Approve'}</span>
+                </button>
+                <button type="button" class="btn-action btn-delete" onclick="deleteMember('${escapeAttr(item.id)}')">
+                  <span>&times;</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleDonationStatus(id) {
+      const donations = getStoredDonations();
+      const item = donations.find(d => d.id === id);
+      if (item) {
+        item.status = item.status === 'verified' ? 'pending' : 'verified';
+        saveStoredDonations(donations);
+        renderAdminDashboard();
+      }
+    }
+
+    function deleteDonation(id) {
+      if (!confirm('Are you sure you want to remove this donation record?')) return;
+      let donations = getStoredDonations();
+      donations = donations.filter(d => d.id !== id);
+      saveStoredDonations(donations);
+      renderAdminDashboard();
+    }
+
+    function toggleMemberStatus(id) {
+      const members = getStoredMembers();
+      const item = members.find(m => m.id === id);
+      if (item) {
+        item.status = item.status === 'reviewed' ? 'pending' : 'reviewed';
+        saveStoredMembers(members);
+        renderAdminDashboard();
+      }
+    }
+
+    function deleteMember(id) {
+      if (!confirm('Are you sure you want to remove this applicant?')) return;
+      let members = getStoredMembers();
+      members = members.filter(m => m.id !== id);
+      saveStoredMembers(members);
+      renderAdminDashboard();
+    }
+
+    function openOfflineDonationModal() {
+      const modal = document.getElementById('offlineDonationModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeOfflineDonationModal() {
+      const modal = document.getElementById('offlineDonationModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleOfflineDonationSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('offDonorName').value.trim();
+      const phone = document.getElementById('offDonorPhone').value.trim();
+      const amount = Number(document.getElementById('offDonorAmount').value.trim()) || 0;
+      const purpose = document.getElementById('offDonorPurpose').value;
+      const mode = document.getElementById('offPaymentMode').value;
+      const utr = document.getElementById('offPaymentUtr').value.trim() || `${mode} Receipt`;
+      const address = document.getElementById('offDonorAddress').value.trim() || 'Ranaghat';
+
+      const trackingId = '#KAS-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+      const record = {
+        id: trackingId,
+        name: name,
+        phone: phone,
+        email: '',
+        amount: amount,
+        address: address,
+        purpose: purpose,
+        pan: '',
+        utr: utr,
+        date: new Date().toISOString(),
+        status: 'verified' // Manual counter entry is verified immediately
+      };
+
+      const donations = getStoredDonations();
+      donations.unshift(record);
+      saveStoredDonations(donations);
+
+      document.getElementById('offlineDonationForm').reset();
+      closeOfflineDonationModal();
+      renderAdminDashboard();
+      alert(`Donation of ₹${amount} recorded successfully for ${name}!\nReceipt Tracking ID: ${trackingId}`);
+    }
+
+    function exportLedgerCSV() {
+      const donations = getStoredDonations();
+      if (!donations || donations.length === 0) {
+        alert('No donation records available to export.');
+        return;
+      }
+
+      const headers = ['Tracking ID', 'Date', 'Devotee Name', 'Mobile Number', 'Email', 'Amount (INR)', 'Fund / Purpose', 'Address', 'PAN', 'UTR / Ref', 'Status'];
+      const rows = donations.map(d => [
+        `"${(d.id || '').replace(/"/g, '""')}"`,
+        `"${(d.date || '').replace(/"/g, '""')}"`,
+        `"${(d.name || '').replace(/"/g, '""')}"`,
+        `"${(d.phone || '').replace(/"/g, '""')}"`,
+        `"${(d.email || '').replace(/"/g, '""')}"`,
+        d.amount || 0,
+        `"${(d.purpose || '').replace(/"/g, '""')}"`,
+        `"${(d.address || '').replace(/"/g, '""')}"`,
+        `"${(d.pan || '').replace(/"/g, '""')}"`,
+        `"${(d.utr || '').replace(/"/g, '""')}"`,
+        `"${(d.status || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `Kamalpur_Abhijan_Sangha_Ledger_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function refreshAdminData() {
+      renderAdminDashboard();
+    }
+
+    function restoreSampleData() {
+      if (!confirm('This will load original demo entries for testing. Continue?')) return;
+      localStorage.removeItem('kas_donations');
+      localStorage.removeItem('kas_members');
+      initAdminSeedData();
+      renderAdminDashboard();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+  </script>
+</body>
+</html>

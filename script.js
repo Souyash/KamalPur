@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCarousels();
   initDonationPresets();
+  initAdminSeedData();
 });
 
 /* ── 2. Sticky Nav & Mobile Menu ── */
@@ -538,6 +539,31 @@ function handlePaymentCompleted() {
   const randomTracking = Math.floor(1000 + Math.random() * 9000);
   currentDonorDetails.trackingNo = `#KAS-2026-${randomTracking}`;
   currentDonorDetails.utr = utrVal;
+  currentDonorDetails.id = currentDonorDetails.trackingNo;
+  currentDonorDetails.date = new Date().toISOString();
+  currentDonorDetails.status = 'pending';
+
+  // Save to persistent storage for Admin Panel
+  try {
+    const record = {
+      id: currentDonorDetails.trackingNo,
+      name: currentDonorDetails.name || 'Devotee',
+      phone: currentDonorDetails.phone || '',
+      email: currentDonorDetails.email || '',
+      amount: currentDonationAmount,
+      address: currentDonorDetails.address || 'Ranaghat',
+      purpose: currentDonorDetails.purpose || 'Sharodotsav Durga Puja Chanda',
+      pan: currentDonorDetails.pan || '',
+      utr: utrVal || 'UPI Direct',
+      date: currentDonorDetails.date,
+      status: 'pending'
+    };
+    const stored = JSON.parse(localStorage.getItem('kas_donations') || '[]');
+    stored.unshift(record);
+    localStorage.setItem('kas_donations', JSON.stringify(stored));
+  } catch (e) {
+    console.error('Storage error:', e);
+  }
 
   // Populate Step 3 review popup values
   const trackingEl = document.getElementById('receiptTrackingNo');
@@ -581,9 +607,34 @@ function handleMembershipSubmit(event) {
   const form = document.getElementById('membership-form');
   const successBox = document.getElementById('join-success');
 
-  if (form && successBox) {
+  if (form) {
+    const nameEl = form.querySelector('[name="name"]') || form.querySelector('#mName');
+    const phoneEl = form.querySelector('[name="phone"]') || form.querySelector('#mPhone');
+    const cityEl = form.querySelector('[name="city"]') || form.querySelector('#mCity');
+    const interestEl = form.querySelector('[name="interest"]') || form.querySelector('#mInterest');
+    const msgEl = form.querySelector('[name="message"]') || form.querySelector('#mMessage');
+
+    const memberRecord = {
+      id: '#MEM-2026-' + Math.floor(1000 + Math.random() * 9000),
+      name: nameEl ? nameEl.value.trim() : 'Devotee Applicant',
+      phone: phoneEl ? phoneEl.value.trim() : '',
+      city: cityEl ? cityEl.value.trim() : 'Ranaghat',
+      interest: interestEl ? (interestEl.options[interestEl.selectedIndex] ? interestEl.options[interestEl.selectedIndex].text : interestEl.value) : 'Puja & Cultural Wing',
+      message: msgEl ? msgEl.value.trim() : '',
+      date: new Date().toISOString(),
+      status: 'pending'
+    };
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('kas_members') || '[]');
+      stored.unshift(memberRecord);
+      localStorage.setItem('kas_members', JSON.stringify(stored));
+    } catch (e) {
+      console.error('Member storage error:', e);
+    }
+
     form.style.display = 'none';
-    successBox.style.display = 'block';
+    if (successBox) successBox.style.display = 'block';
   }
 }
 
@@ -595,6 +646,110 @@ function resetMembershipForm() {
     form.reset();
     form.style.display = 'block';
     successBox.style.display = 'none';
+  }
+}
+
+/* ── 8. Seed Initial Ledger Data if Storage Empty ── */
+function initAdminSeedData() {
+  try {
+    if (!localStorage.getItem('kas_donations') || JSON.parse(localStorage.getItem('kas_donations') || '[]').length === 0) {
+      const sampleDonations = [
+        {
+          id: '#KAS-2026-9241',
+          name: 'Anirban Bhattacharya',
+          phone: '9830145678',
+          email: 'anirban.b@gmail.com',
+          amount: 2501,
+          address: 'Mission Para, Ranaghat, PIN 741201',
+          purpose: 'Sharodotsav Durga Puja Chanda',
+          pan: 'ABCDB4321K',
+          utr: '429188231904',
+          date: new Date(Date.now() - 3600000 * 2).toISOString(),
+          status: 'pending'
+        },
+        {
+          id: '#KAS-2026-8819',
+          name: 'Priyanka Sen',
+          phone: '9874561230',
+          email: 'priyanka.sen@outlook.com',
+          amount: 5001,
+          address: 'College Road, Ranaghat, PIN 741201',
+          purpose: 'Maha Bhog & Prasad Annadan',
+          pan: '',
+          utr: '429177112049',
+          date: new Date(Date.now() - 3600000 * 5).toISOString(),
+          status: 'verified'
+        },
+        {
+          id: '#KAS-2026-7492',
+          name: 'Sourav Ganguly',
+          phone: '9433120987',
+          email: 'sourav.g@yahoo.com',
+          amount: 11000,
+          address: 'Biswas Para, Ranaghat, PIN 741201',
+          purpose: 'Youth Sports & Football Academy',
+          pan: 'AABCS9876P',
+          utr: '429155098231',
+          date: new Date(Date.now() - 3600000 * 12).toISOString(),
+          status: 'verified'
+        },
+        {
+          id: '#KAS-2026-6120',
+          name: 'Dr. Debabrata Roy',
+          phone: '9836701234',
+          email: 'droy.ranaghat@gmail.com',
+          amount: 501,
+          address: 'Hospital More, Ranaghat, PIN 741201',
+          purpose: 'Free Health & Blood Donation Seva',
+          pan: '',
+          utr: '429144332190',
+          date: new Date(Date.now() - 3600000 * 20).toISOString(),
+          status: 'pending'
+        },
+        {
+          id: '#KAS-2026-5891',
+          name: 'Kakoli Mukherjee',
+          phone: '9732114455',
+          email: '',
+          amount: 1001,
+          address: 'Kamalpur Station Road, Ranaghat',
+          purpose: 'Sharodotsav Durga Puja Chanda',
+          pan: '',
+          utr: '429133981120',
+          date: new Date(Date.now() - 3600000 * 30).toISOString(),
+          status: 'verified'
+        }
+      ];
+      localStorage.setItem('kas_donations', JSON.stringify(sampleDonations));
+    }
+
+    if (!localStorage.getItem('kas_members') || JSON.parse(localStorage.getItem('kas_members') || '[]').length === 0) {
+      const sampleMembers = [
+        {
+          id: '#MEM-2026-1029',
+          name: 'Arindam Ghosh',
+          phone: '9830567890',
+          city: 'Ranaghat',
+          interest: 'Puja & Cultural Wing',
+          message: 'Interested in stage decor and photography coordination during Navami & Dashami.',
+          date: new Date(Date.now() - 3600000 * 24).toISOString(),
+          status: 'reviewed'
+        },
+        {
+          id: '#MEM-2026-2041',
+          name: 'Tanushree Das',
+          phone: '9874112233',
+          city: 'Ranaghat',
+          interest: 'Community Seva & Health',
+          message: 'Nurse by profession. Want to volunteer at the free health camp and blood donation drive.',
+          date: new Date(Date.now() - 3600000 * 48).toISOString(),
+          status: 'pending'
+        }
+      ];
+      localStorage.setItem('kas_members', JSON.stringify(sampleMembers));
+    }
+  } catch (e) {
+    console.error('Seed data error:', e);
   }
 }
 
