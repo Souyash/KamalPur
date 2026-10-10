@@ -2888,6 +2888,11 @@ footer {
   font-weight: 600;
   color: var(--eg);
 }
+.d-confirm-sub {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
 .d-confirm-val {
   font-family: var(--serif);
   font-size: 26px;
@@ -2895,28 +2900,492 @@ footer {
   color: var(--gold-dark);
 }
 
-.payment-mock-options {
+/* ═══════════════════════════════
+   3-STEP DONATION MODAL WORKFLOW
+   1. Billing Form
+   2. Flashed UPI QR Card
+   3. WhatsApp Review & Verification (within 2h)
+═══════════════════════════════ */
+
+/* Step Progress Indicator */
+.modal-steps-indicator {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 16px 0;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background: var(--eg-lighter);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: 50px;
 }
-.pay-option {
-  padding: 12px 14px;
+.step-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-3);
+  transition: color 0.25s;
+}
+.step-pill.active {
+  color: var(--eg);
+}
+.step-pill.done {
+  color: #128C7E;
+}
+.step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+}
+.step-pill.active .step-num {
+  background: var(--eg);
+  color: white;
+}
+.step-pill.done .step-num {
+  background: #128C7E;
+  color: white;
+}
+.step-divider {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 8px;
+  border-radius: 2px;
+}
+.step-divider.done {
+  background: #128C7E;
+}
+
+/* Billing Form Controls */
+.phone-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.country-prefix {
+  position: absolute;
+  left: 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-2);
+  pointer-events: none;
+}
+.field-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+/* Step 2: Flashed UPI QR Payment Card */
+.qr-payment-card {
+  text-align: center;
+  padding: 4px 0;
+}
+.qr-header-banner {
+  background: linear-gradient(135deg, #101924 0%, #1d2b3c 100%);
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(16, 25, 36, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+.qr-header-banner::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 149, 106, 0.25), transparent);
+}
+.qr-bank-tag {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: #79B5EC;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.sbi-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00A3E0;
+}
+.qr-merchant-name {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: 4px;
+}
+.qr-merchant-sub {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.04em;
+}
+
+.qr-amount-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--eg-pale);
+  border: 1.5px solid var(--eg-light);
+  padding: 8px 22px;
+  border-radius: 30px;
+  margin-bottom: 16px;
+}
+.qr-amt-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--eg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.qr-amt-val {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--eg-dark);
+}
+
+.qr-code-box {
+  position: relative;
+  display: inline-block;
+  padding: 14px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(30, 42, 58, 0.12);
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.qr-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--eg);
+  border-style: solid;
+}
+.qr-corner.top-left { top: 6px; left: 6px; border-width: 2.5px 0 0 2.5px; }
+.qr-corner.top-right { top: 6px; right: 6px; border-width: 2.5px 2.5px 0 0; }
+.qr-corner.bottom-left { bottom: 6px; left: 6px; border-width: 0 0 2.5px 2.5px; }
+.qr-corner.bottom-right { bottom: 6px; right: 6px; border-width: 0 2.5px 2.5px 0; }
+
+.qr-code-img {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+.qr-scan-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--eg);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.upi-id-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--light);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  margin-bottom: 12px;
+  max-width: 100%;
+}
+.upi-id-txt {
+  font-size: 12.5px;
+  color: var(--text-2);
+  font-family: monospace;
+}
+.btn-copy-upi {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--eg);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy-upi:hover {
+  background: var(--eg);
+  color: white;
+  border-color: var(--eg);
+}
+
+.mobile-upi-pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin: 10px 0 14px;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.mobile-upi-pay-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(26, 115, 232, 0.35);
+}
+
+.accepted-apps-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.app-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--text-2);
+}
+.app-badge.gpay { border-color: #4285F4; color: #1967D2; }
+.app-badge.phonepe { border-color: #5f259f; color: #5f259f; }
+.app-badge.paytm { border-color: #00BAF2; color: #002970; }
+.app-badge.bhim { border-color: #00796B; color: #004D40; }
+.app-badge.cred { border-color: #000000; color: #111111; }
+
+.qr-actions-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
+  margin-top: 18px;
+}
+.btn-back-step {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-2);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 700;
   font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
-.pay-option.selected {
-  border-color: var(--eg);
-  background: var(--eg-lighter);
+.btn-back-step:hover {
+  background: var(--light);
+  color: var(--text);
+  border-color: var(--text-3);
 }
-.pay-radio {
+
+/* Step 3: WhatsApp Review & Verification Notification */
+.review-popup-container {
+  text-align: center;
+  padding: 8px 0;
+}
+.review-success-icon-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.review-success-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: rgba(18, 140, 126, 0.18);
+  animation: pulseSuccess 2s infinite;
+}
+@keyframes pulseSuccess {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+.review-success-icon {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: white;
+  font-size: 28px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(18, 140, 126, 0.35);
+}
+
+.review-popup-title {
+  font-family: var(--serif);
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--eg-dark);
+  margin-bottom: 6px;
+}
+.review-popup-sub {
+  font-size: 13.5px;
+  color: var(--text-2);
+  margin-bottom: 18px;
+}
+
+/* THE REQUESTED PROMINENT BANNER */
+.whatsapp-review-banner {
+  background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+  color: white;
+  border-radius: 14px;
+  padding: 20px 18px;
+  margin-bottom: 20px;
+  text-align: left;
+  box-shadow: 0 10px 28px rgba(7, 94, 84, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.whatsapp-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.wa-clock-icon {
+  font-size: 12px;
+}
+.whatsapp-banner-heading {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+.whatsapp-banner-desc {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.review-receipt-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-align: left;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+  gap: 10px;
+}
+.receipt-row.header-row {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  padding-bottom: 8px;
+}
+.receipt-row.header-row strong {
+  font-family: monospace;
+  color: var(--gold-dark);
+  font-size: 12.5px;
+}
+.receipt-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0 8px;
+}
+.receipt-label {
+  color: var(--text-3);
+  font-size: 12.5px;
+}
+.receipt-val {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+.receipt-val.highlight {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
   color: var(--eg);
+}
+.whatsapp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #E8F8F5;
+  color: #075E54;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid #A3E4D7;
+  font-size: 12px;
+}
+
+.review-help-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  text-align: left;
+  line-height: 1.5;
+  background: var(--light);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.review-help-note svg {
+  flex-shrink: 0;
+  color: var(--gold);
+  margin-top: 1px;
 }
 
 /* Lightbox Modal */
@@ -3310,6 +3779,32 @@ footer {
   .puja-vendor-card {
     min-width: 240px;
     padding: 12px 16px;
+  }
+  .modal-steps-indicator {
+    padding: 6px 8px;
+    margin-bottom: 16px;
+  }
+  .step-pill {
+    font-size: 10px;
+    gap: 4px;
+  }
+  .step-num {
+    width: 17px;
+    height: 17px;
+    font-size: 9px;
+  }
+  .step-divider {
+    margin: 0 4px;
+  }
+  .qr-code-img {
+    width: 170px;
+    height: 170px;
+  }
+  .whatsapp-banner-heading {
+    font-size: 14px;
+  }
+  .whatsapp-review-banner {
+    padding: 15px 12px;
   }
 }
 

@@ -369,8 +369,19 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-/* ── 6. Donation Presets & Form Handling ── */
+/* ── 6. Donation Presets & Multi-Step Form Handling ── */
 let currentDonationAmount = 501;
+let currentDonorDetails = {
+  name: '',
+  phone: '',
+  email: '',
+  address: '',
+  purpose: 'Sharodotsav Durga Puja Chanda',
+  pan: '',
+  amount: 501,
+  utr: '',
+  trackingNo: ''
+};
 
 function initDonationPresets() {
   const input = document.getElementById('customAmount');
@@ -379,7 +390,6 @@ function initDonationPresets() {
       const val = parseInt(e.target.value, 10);
       if (!isNaN(val) && val > 0) {
         currentDonationAmount = val;
-        // remove active from preset buttons if doesn't match
         document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
       }
     });
@@ -402,26 +412,160 @@ function openDonationModal() {
     amountEl.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
   }
 
-  // Reset success view if open
-  const form = document.getElementById('donation-form');
-  const successView = document.getElementById('donationSuccessView');
-  if (form) form.style.display = 'block';
-  if (successView) successView.style.display = 'none';
+  // Always reset to Step 1 (Billing details) when opened
+  goToDonationStep(1);
 
-  if (modal) modal.classList.add('open');
+  if (modal) {
+    modal.classList.add('open');
+    const card = modal.querySelector('.modal-card');
+    if (card) card.scrollTop = 0;
+  }
 }
 
-function handleDonationSubmit(event) {
+function goToDonationStep(stepNumber) {
+  const step1 = document.getElementById('donationStepBilling');
+  const step2 = document.getElementById('donationStepQR');
+  const step3 = document.getElementById('donationStepSuccess');
+
+  if (step1) step1.style.display = (stepNumber === 1) ? 'block' : 'none';
+  if (step2) step2.style.display = (stepNumber === 2) ? 'block' : 'none';
+  if (step3) step3.style.display = (stepNumber === 3) ? 'block' : 'none';
+
+  const modal = document.getElementById('donationModal');
+  if (modal) {
+    const card = modal.querySelector('.modal-card');
+    if (card) card.scrollTop = 0;
+  }
+}
+
+function handleBillingSubmit(event) {
   event.preventDefault();
-  const form = document.getElementById('donation-form');
-  const successView = document.getElementById('donationSuccessView');
-  const receiptNo = document.getElementById('receiptNo');
 
-  const randomNo = Math.floor(1000 + Math.random() * 9000);
-  if (receiptNo) receiptNo.textContent = `#KAS-2026-${randomNo}`;
+  const nameInput = document.getElementById('donorName');
+  const phoneInput = document.getElementById('donorPhone');
+  const emailInput = document.getElementById('donorEmail');
+  const addressInput = document.getElementById('donorAddress');
+  const purposeInput = document.getElementById('donorPurpose');
+  const panInput = document.getElementById('donorPan');
 
-  if (form) form.style.display = 'none';
-  if (successView) successView.style.display = 'block';
+  currentDonorDetails = {
+    name: nameInput ? nameInput.value.trim() : 'Devotee',
+    phone: phoneInput ? phoneInput.value.trim() : '',
+    email: emailInput ? emailInput.value.trim() : '',
+    address: addressInput ? addressInput.value.trim() : '',
+    purpose: purposeInput ? purposeInput.value : 'Sharodotsav Durga Puja Chanda',
+    pan: panInput ? panInput.value.trim().toUpperCase() : '',
+    amount: currentDonationAmount,
+    utr: '',
+    trackingNo: ''
+  };
+
+  // Update Step 2: Flashed QR code details
+  const qrDisplayAmount = document.getElementById('qrDisplayAmount');
+  if (qrDisplayAmount) {
+    qrDisplayAmount.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
+  }
+
+  // Update deep-link UPI pay button for mobile devices
+  const directUpiLink = document.getElementById('directUpiLink');
+  if (directUpiLink) {
+    const upiUri = `upi://pay?pa=kamalpurabhijansangha@sbi&pn=Kamalpur%20Abhijan%20Sangha&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
+    directUpiLink.href = upiUri;
+  }
+
+  // Clear optional UTR field in Step 2
+  const utrInput = document.getElementById('donorUtr');
+  if (utrInput) utrInput.value = '';
+
+  // Advance to Step 2
+  goToDonationStep(2);
+}
+
+function copyUpiId(upiId, btnElement) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(upiId).then(() => {
+      showCopiedFeedback(btnElement);
+    }).catch(() => {
+      fallbackCopyText(upiId, btnElement);
+    });
+  } else {
+    fallbackCopyText(upiId, btnElement);
+  }
+}
+
+function fallbackCopyText(text, btnElement) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showCopiedFeedback(btnElement);
+  } catch (err) {
+    console.error('Failed to copy UPI ID:', err);
+  }
+  document.body.removeChild(ta);
+}
+
+function showCopiedFeedback(btnElement) {
+  if (!btnElement) return;
+  const origText = btnElement.textContent;
+  btnElement.textContent = '✓ Copied!';
+  btnElement.style.background = '#128C7E';
+  btnElement.style.color = '#FFFFFF';
+  btnElement.style.borderColor = '#128C7E';
+  setTimeout(() => {
+    btnElement.textContent = origText;
+    btnElement.style.background = '';
+    btnElement.style.color = '';
+    btnElement.style.borderColor = '';
+  }, 2200);
+}
+
+function handlePaymentCompleted() {
+  const utrInput = document.getElementById('donorUtr');
+  const utrVal = utrInput ? utrInput.value.trim() : '';
+
+  const randomTracking = Math.floor(1000 + Math.random() * 9000);
+  currentDonorDetails.trackingNo = `#KAS-2026-${randomTracking}`;
+  currentDonorDetails.utr = utrVal;
+
+  // Populate Step 3 review popup values
+  const trackingEl = document.getElementById('receiptTrackingNo');
+  if (trackingEl) trackingEl.textContent = currentDonorDetails.trackingNo;
+
+  const donorNameEl = document.getElementById('receiptDonorName');
+  if (donorNameEl) donorNameEl.textContent = currentDonorDetails.name || 'Devotee';
+
+  const amountEl = document.getElementById('receiptAmount');
+  if (amountEl) amountEl.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
+
+  const phoneEl = document.getElementById('receiptPhoneTxt');
+  if (phoneEl) {
+    phoneEl.textContent = currentDonorDetails.phone ? `+91 ${currentDonorDetails.phone}` : 'Provided Number';
+  }
+
+  const addressEl = document.getElementById('receiptAddress');
+  if (addressEl) addressEl.textContent = currentDonorDetails.address || 'Ranaghat';
+
+  const catEl = document.getElementById('receiptCategory');
+  if (catEl) catEl.textContent = currentDonorDetails.purpose || 'Sharodotsav Durga Puja Chanda';
+
+  const utrRow = document.getElementById('receiptUtrRow');
+  const utrEl = document.getElementById('receiptUtr');
+  if (utrRow && utrEl) {
+    if (utrVal) {
+      utrRow.style.display = 'flex';
+      utrEl.textContent = utrVal;
+    } else {
+      utrRow.style.display = 'none';
+    }
+  }
+
+  // Move to Step 3 (Review & WhatsApp confirmation popup)
+  goToDonationStep(3);
 }
 
 /* ── 7. Membership Application Submit ── */

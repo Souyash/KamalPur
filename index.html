@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261010-v7">
+  <link rel="stylesheet" href="styles.css?v=20261010-v8">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body class="home">
@@ -1335,7 +1335,7 @@
     </div>
   </div>
 
-  <!-- 2. Donation Modal -->
+  <!-- 2. Donation Modal (3-Step Flow) -->
   <div class="modal-overlay" id="donationModal" role="dialog" aria-modal="true" aria-labelledby="donationModalTitle">
     <div class="modal-card">
       <button type="button" class="modal-close" onclick="closeModal('donationModal')" aria-label="Close dialog">&times;</button>
@@ -1344,61 +1344,226 @@
         <h3 class="modal-title" id="donationModalTitle">Complete Your Seva Contribution</h3>
       </div>
       <div class="modal-body">
-        <div class="donation-confirm-box">
-          <div class="d-confirm-lbl">Selected Amount:</div>
-          <div class="d-confirm-val" id="modalDonationAmount">₹501</div>
+
+        <!-- STEP 1: BILLING DETAILS FORM -->
+        <div id="donationStepBilling">
+          <div class="modal-steps-indicator">
+            <div class="step-pill active"><span class="step-num">1</span> Billing Info</div>
+            <div class="step-divider"></div>
+            <div class="step-pill"><span class="step-num">2</span> UPI QR Payment</div>
+            <div class="step-divider"></div>
+            <div class="step-pill"><span class="step-num">3</span> WhatsApp Bill</div>
+          </div>
+
+          <div class="donation-confirm-box">
+            <div>
+              <div class="d-confirm-lbl">Donation Amount</div>
+              <div class="d-confirm-sub">Official receipt issued with tax exemption serial</div>
+            </div>
+            <div class="d-confirm-val" id="modalDonationAmount">₹501</div>
+          </div>
+
+          <form id="donation-billing-form" onsubmit="handleBillingSubmit(event)">
+            <div class="form-group">
+              <label class="form-lbl" for="donorName">Donor Full Name *</label>
+              <input type="text" id="donorName" required placeholder="e.g. Subhamita Mukherjee" class="form-input">
+            </div>
+
+            <div class="join-two-col">
+              <div>
+                <label class="form-lbl" for="donorPhone">WhatsApp Number *</label>
+                <div class="phone-input-wrap">
+                  <span class="country-prefix">+91</span>
+                  <input type="tel" id="donorPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="98300 12345" class="form-input" style="padding-left: 52px;">
+                </div>
+                <span class="field-hint">📱 Bill &amp; official receipt will be sent here</span>
+              </div>
+              <div>
+                <label class="form-lbl" for="donorEmail">Email Address (Optional)</label>
+                <input type="email" id="donorEmail" placeholder="donor@example.com" class="form-input">
+                <span class="field-hint">For digital receipt copy</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-lbl" for="donorAddress">Billing Address &amp; Locality *</label>
+              <input type="text" id="donorAddress" required placeholder="House / Flat No., Road, Ranaghat, PIN 741201" class="form-input">
+              <span class="field-hint">Required for official Sangha billing ledger</span>
+            </div>
+
+            <div class="join-two-col">
+              <div>
+                <label class="form-lbl" for="donorPurpose">Fund Category *</label>
+                <select id="donorPurpose" class="form-select">
+                  <option value="Sharodotsav Durga Puja Chanda">Sharodotsav Durga Puja Chanda</option>
+                  <option value="Maha Bhog & Prasad Annadan">Maha Bhog &amp; Prasad Annadan</option>
+                  <option value="Free Health & Blood Donation Seva">Free Health &amp; Blood Donation Seva</option>
+                  <option value="Youth Sports & Football Academy">Youth Sports &amp; Football Academy</option>
+                  <option value="General Mandir & Sangha Welfare">General Mandir &amp; Sangha Welfare</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-lbl" for="donorPan">PAN Card Number (Optional)</label>
+                <input type="text" id="donorPan" maxlength="10" placeholder="ABCDE1234F" class="form-input" style="text-transform:uppercase;">
+                <span class="field-hint">For 80G tax exemption records</span>
+              </div>
+            </div>
+
+            <button type="submit" class="form-btn" style="margin-top:16px; width:100%;">
+              Proceed to UPI QR Code Payment &rarr;
+            </button>
+          </form>
         </div>
 
-        <form id="donation-form" onsubmit="handleDonationSubmit(event)">
-          <div class="form-group">
-            <label class="form-lbl" for="donorName">Full Name *</label>
-            <input type="text" id="donorName" required placeholder="Arijit Sen" class="form-input">
-          </div>
-          <div class="join-two-col">
-            <div>
-              <label class="form-lbl" for="donorPhone">WhatsApp / Mobile *</label>
-              <input type="tel" id="donorPhone" required placeholder="+91 98765 43210" class="form-input">
-            </div>
-            <div>
-              <label class="form-lbl" for="donorCity">City / Locality *</label>
-              <input type="text" id="donorCity" required placeholder="Ranaghat" class="form-input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-lbl" for="donorPurpose">Fund Category</label>
-            <select id="donorPurpose" class="form-select">
-              <option value="puja">Sharodotsav Durga Puja Chanda</option>
-              <option value="blood">Free Health &amp; Blood Donation Seva</option>
-              <option value="sports">Youth Football &amp; Sports Foundation</option>
-              <option value="bhog">Maha Bhog &amp; Prasad Bitaran</option>
-            </select>
+        <!-- STEP 2: FLASHED UPI QR CODE SCREEN -->
+        <div id="donationStepQR" style="display:none;">
+          <div class="modal-steps-indicator">
+            <div class="step-pill done"><span class="step-num">✓</span> Billing Info</div>
+            <div class="step-divider done"></div>
+            <div class="step-pill active"><span class="step-num">2</span> UPI QR Payment</div>
+            <div class="step-divider"></div>
+            <div class="step-pill"><span class="step-num">3</span> WhatsApp Bill</div>
           </div>
 
-          <div class="payment-mock-options">
-            <div class="pay-option selected">
-              <span class="pay-radio">●</span>
-              <strong>Instant UPI / QR Code Payment</strong>
+          <div class="qr-payment-card">
+            <div class="qr-header-banner">
+              <div class="qr-bank-tag">
+                <span class="sbi-dot"></span> STATE BANK OF INDIA &bull; RANAGHAT
+              </div>
+              <div class="qr-merchant-name">Kamalpur Abhijan Sangha</div>
+              <div class="qr-merchant-sub">Official Seva &amp; Festival Fund</div>
             </div>
-            <div class="pay-option">
-              <span class="pay-radio">○</span>
-              <strong>Net Banking / NEFT / IMPS</strong>
+
+            <div class="qr-amount-pill">
+              <span class="qr-amt-label">Payable Amount:</span>
+              <span class="qr-amt-val" id="qrDisplayAmount">₹501</span>
+            </div>
+
+            <!-- Flashed QR Code Box -->
+            <div class="qr-code-box">
+              <div class="qr-corner top-left"></div>
+              <div class="qr-corner top-right"></div>
+              <div class="qr-corner bottom-left"></div>
+              <div class="qr-corner bottom-right"></div>
+              <img src="assets/kas-upi-qr.svg" alt="Kamalpur Abhijan Sangha UPI QR Code" class="qr-code-img" width="200" height="200">
+              <div class="qr-scan-badge">
+                <svg class="kas-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span>Scan with Any UPI App</span>
+              </div>
+            </div>
+
+            <div class="upi-id-box">
+              <span class="upi-id-txt">UPI ID: <strong>kamalpurabhijansangha@sbi</strong></span>
+              <button type="button" class="btn-copy-upi" onclick="copyUpiId('kamalpurabhijansangha@sbi', this)">📋 Copy</button>
+            </div>
+
+            <a href="upi://pay?pa=kamalpurabhijansangha@sbi&amp;pn=Kamalpur%20Abhijan%20Sangha&amp;cu=INR&amp;tn=KAS%20Durgotsav%20Seva" id="directUpiLink" class="mobile-upi-pay-btn">
+              ⚡ Open in GPay / PhonePe / Paytm
+            </a>
+
+            <div class="accepted-apps-row">
+              <span class="app-badge gpay">GPay</span>
+              <span class="app-badge phonepe">PhonePe</span>
+              <span class="app-badge paytm">Paytm</span>
+              <span class="app-badge bhim">BHIM</span>
+              <span class="app-badge cred">CRED</span>
+            </div>
+
+            <div class="form-group" style="margin-top:14px; text-align:left;">
+              <label class="form-lbl" for="donorUtr">UPI Reference / UTR Number (Optional)</label>
+              <input type="text" id="donorUtr" maxlength="12" placeholder="e.g. 429182736152 (12 digits)" class="form-input">
+              <span class="field-hint">Helps our team match bank credits faster</span>
+            </div>
+
+            <div class="qr-actions-row">
+              <button type="button" class="btn-back-step" onclick="goToDonationStep(1)">&larr; Back to Details</button>
+              <button type="button" class="form-btn" style="flex:1;" onclick="handlePaymentCompleted()">
+                ✓ I Have Completed Payment &rarr;
+              </button>
             </div>
           </div>
-
-          <button type="submit" class="form-btn" style="margin-top:16px;">
-            Confirm Contribution &rarr;
-          </button>
-        </form>
-
-        <div id="donationSuccessView" style="display:none; text-align:center; padding: 20px 0;">
-          <div style="font-size: 52px; margin-bottom: 12px;"><svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"/><path d="M8 7c0-2 2-4 4-4s4 2 4 4v10c0 2-2 4-4 4s-4-2-4-4V7z"/><path d="M6 11c-1 0-2 1-2 2v4c0 2 2 4 4 4"/><path d="M18 11c1 0 2 1 2 2v4c0 2-2 4-4 4"/></svg></div>
-          <h4 style="font-family:var(--serif); font-size:26px; color:var(--eg); margin-bottom:8px;">Dhonnobaad! Your Seva is Received</h4>
-          <p style="font-size:14px; color:var(--text-2); line-height:1.7;">
-            We have generated your formal Sangha Receipt No: <strong id="receiptNo">#KAS-2026-8912</strong>.<br>
-            A confirmation receipt and Puja Anjali blessings will be shared on your WhatsApp.
-          </p>
-          <button type="button" class="btn-reset-form" onclick="closeModal('donationModal')" style="margin-top:18px;">Return to Site</button>
         </div>
+
+        <!-- STEP 3: WHATSAPP REVIEW NOTICE POPUP (UNDER 2 HOURS) -->
+        <div id="donationStepSuccess" style="display:none;">
+          <div class="modal-steps-indicator">
+            <div class="step-pill done"><span class="step-num">✓</span> Billing Info</div>
+            <div class="step-divider done"></div>
+            <div class="step-pill done"><span class="step-num">✓</span> UPI QR Payment</div>
+            <div class="step-divider done"></div>
+            <div class="step-pill active"><span class="step-num">✓</span> Under Review</div>
+          </div>
+
+          <div class="review-popup-container">
+            <div class="review-success-icon-wrap">
+              <div class="review-success-pulse"></div>
+              <div class="review-success-icon">✓</div>
+            </div>
+
+            <h3 class="review-popup-title">Payment Submitted for Verification!</h3>
+            <p class="review-popup-sub">Dhonnobaad! Your contribution request has been registered in our Sangha treasury.</p>
+
+            <!-- PROMINENT WHATSAPP BILL REVIEW NOTICE -->
+            <div class="whatsapp-review-banner">
+              <div class="whatsapp-banner-badge">
+                <span class="wa-clock-icon">⏳</span>
+                <span>REVIEW UNDERWAY</span>
+              </div>
+              <h4 class="whatsapp-banner-heading">
+                Please wait for sometimes! Our team will review &amp; send the bill on WhatsApp within 2 hours!
+              </h4>
+              <p class="whatsapp-banner-desc">
+                Our treasury cell verifies every incoming UPI credit directly with the bank. Once approved, your signed official Sangha receipt, billing invoice, and Puja Anjali token will be delivered directly to your WhatsApp.
+              </p>
+            </div>
+
+            <!-- Transaction Summary Card -->
+            <div class="review-receipt-card">
+              <div class="receipt-row header-row">
+                <span>TRANSACTION TRACKING ID</span>
+                <strong id="receiptTrackingNo">#KAS-2026-8912</strong>
+              </div>
+              <div class="receipt-divider"></div>
+              <div class="receipt-row">
+                <span class="receipt-label">Donor Name:</span>
+                <strong class="receipt-val" id="receiptDonorName">-</strong>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">Contribution Amount:</span>
+                <strong class="receipt-val highlight" id="receiptAmount">₹501</strong>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">Target WhatsApp:</span>
+                <span class="receipt-val whatsapp-pill" id="receiptPhone">
+                  <svg class="kas-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                  <strong id="receiptPhoneTxt">+91 98300 12345</strong>
+                </span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">Billing Address:</span>
+                <span class="receipt-val" id="receiptAddress">-</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">Fund Category:</span>
+                <span class="receipt-val" id="receiptCategory">Sharodotsav Durga Puja Chanda</span>
+              </div>
+              <div class="receipt-row" id="receiptUtrRow" style="display:none;">
+                <span class="receipt-label">UPI Reference / UTR:</span>
+                <span class="receipt-val" id="receiptUtr">-</span>
+              </div>
+            </div>
+
+            <div class="review-help-note">
+              <svg class="kas-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>Need immediate assistance? Contact Treasury Cell at <strong>+91 98300 12345</strong> or visit Sangha Bhavan counter.</span>
+            </div>
+
+            <button type="button" class="btn-reset-form" onclick="closeModal('donationModal')" style="margin-top:20px; width:100%;">
+              ✓ Return to Site
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1413,7 +1578,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20261010-v8"></script>
 </body>
 </html>
 
