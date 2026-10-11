@@ -648,16 +648,13 @@
           <span>Members</span>
           <span class="dribbble-pill-badge" id="tabMembersBadge">0</span>
         </button>
-        <button type="button" class="dribbble-nav-pill-btn" id="tabDatabaseBtn" onclick="switchAdminTab('database')">
-          <span>Database</span>
-        </button>
       </div>
 
       <!-- Top Nav Right Actions -->
       <div class="dribbble-nav-right">
         <div class="admin-db-pill-live" id="dbStatusBadge">
           <span class="admin-db-dot"></span>
-          <span id="dbStatusText">Hostinger MySQL Live</span>
+          <span id="dbStatusText">Live Data Connected</span>
         </div>
 
         <a href="index.html" target="_blank" class="btn-ghost-admin" style="padding:6px 12px; font-size:12px;">
@@ -967,8 +964,8 @@
           <!-- My Notes & Hostinger Backend Card -->
           <div class="dribbble-notes-card">
             <div class="dribbble-notes-head">
-              <h3>My Notes &amp; Hostinger DB</h3>
-              <span style="font-size:14px; cursor:pointer;" title="Edit Note">✏️</span>
+              <h3>Executive Desk &amp; Notes</h3>
+              <span style="font-size:14px; cursor:pointer;" title="Tasks">📋</span>
             </div>
 
             <div class="dribbble-notes-content" style="margin-bottom:14px;">
@@ -976,7 +973,7 @@
               <div style="display:flex; flex-direction:column; gap:6px;">
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="color:#16A34A; font-weight:700;">✓</span>
-                  <span>Hostinger MySQL connected</span>
+                  <span>Devotee online chanda registration active</span>
                 </div>
                 <div style="display:flex; align-items:center; gap:6px;">
                   <span style="color:#16A34A; font-weight:700;">✓</span>
@@ -990,12 +987,12 @@
             </div>
 
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
-                <span>Hostinger phpMyAdmin ↗</span>
-              </a>
-              <a href="database/schema.sql" download class="btn btn-secondary btn-sm" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
-                <span>📥 Download schema.sql</span>
-              </a>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
+                <span>📦 Export Full Backup (JSON)</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="exportDonationsCSV()" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
+                <span>📊 Export Chanda Ledger (CSV)</span>
+              </button>
             </div>
           </div>
 
@@ -1155,57 +1152,6 @@
             <div class="empty-icon">👥</div>
             <h3>No Membership Applications</h3>
             <p>Applications received via the Join page will appear here.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════════════════════════
-         VIEW 6: DATABASE & PHPMYADMIN
-    ══════════════════════════════════════════════════════════ -->
-    <div id="databaseView" class="admin-tab-content" style="display:none;">
-      <div class="dribbble-table-card">
-        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between; flex-wrap:wrap; gap:12px;">
-          <div>
-            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Hostinger MySQL &amp; phpMyAdmin Integration</h2>
-            <p style="font-size:12.5px; color:#64748B; margin:0;">Relational database synchronization for Kamalpur Abhijan Sangha</p>
-          </div>
-          <a href="database/schema.sql" download class="btn btn-primary btn-sm">
-            <span>📥 Download database/schema.sql</span>
-          </a>
-        </div>
-        <div>
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📊 Active Hostinger Connection</h4>
-              <div style="font-size:13px; color:#475569; line-height:1.7;">
-                <div>Database: <strong><code>u197762167_kamalpur</code></strong></div>
-                <div>User: <strong><code>u197762167_admin</code></strong></div>
-                <div>Host: <strong><code>localhost:3306</code></strong></div>
-                <div>Tables: <strong>5 (gallery, artists, donations, members, admin_users)</strong></div>
-              </div>
-            </div>
-
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">🚀 Access Hostinger phpMyAdmin</h4>
-              <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
-                Open Hostinger hPanel &rarr; Databases &rarr; phpMyAdmin &rarr; Click <strong>Enter phpMyAdmin</strong> to view and query tables live.
-              </p>
-              <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;">
-                <span>Open Hostinger hPanel ↗</span>
-              </a>
-            </div>
-
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📦 Backup &amp; Recovery</h4>
-              <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
-                Export full JSON snapshot or reset demo records.
-              </p>
-              <div style="display:flex; gap:10px;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()" style="flex:1; justify-content:center;">JSON Backup</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()" style="flex:1; justify-content:center;">Reset Demo</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1552,14 +1498,14 @@
           isBackendConnected = true;
           const statusText = document.getElementById('dbStatusText');
           if (statusText) {
-            statusText.textContent = `phpMyAdmin / ${json.db ? json.db.type.toUpperCase() : 'MySQL'} Ready`;
+            statusText.textContent = 'Live Data Connected';
           }
         }
       } catch (e) {
         isBackendConnected = false;
         const statusText = document.getElementById('dbStatusText');
         if (statusText) {
-          statusText.textContent = 'Hostinger MySQL Ready';
+          statusText.textContent = 'Storage Ready';
         }
       }
     }
@@ -1667,15 +1613,14 @@
     /* ── 3. Tabs Navigation ── */
     function switchAdminTab(tab) {
       currentAdminTab = tab;
-      const tabBtns = ['overview', 'gallery', 'artists', 'donations', 'members', 'database'];
+      const tabBtns = ['overview', 'gallery', 'artists', 'donations', 'members'];
 
       const titles = {
         overview: { title: 'Dashboard Overview', sub: 'Kamalpur Abhijan Sangha · Central Management Suite' },
         gallery: { title: 'Gallery Photo Archive', sub: 'Publish and manage festival photography & video chronicles' },
         artists: { title: 'Master Artisans Guild', sub: 'Profiles, awards, and craft specializations of Bengal artisans' },
         donations: { title: 'Puja Chanda Ledger', sub: 'Treasury contributions, printed money slips & WhatsApp bills' },
-        members: { title: 'Volunteer & Member Desk', sub: 'Review membership applications and volunteer wing preferences' },
-        database: { title: 'Database & phpMyAdmin', sub: 'Hostinger MySQL connection, phpMyAdmin access & backups' }
+        members: { title: 'Volunteer & Member Desk', sub: 'Review membership applications and volunteer wing preferences' }
       };
 
       const info = titles[tab] || titles.overview;
