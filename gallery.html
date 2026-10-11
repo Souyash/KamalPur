@@ -354,8 +354,12 @@
     </div>
   </div>
 
-  <script src="script.js?v=20261011-v1"></script>
+  <script src="script.js?v=20261011-dribbble-v7"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initPublicGallery === 'function') initPublicGallery();
+    });
+
     function filterGallery(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');

@@ -1,19 +1,20 @@
 <?php
 require_once __DIR__ . '/db.php';
 
+header('Content-Type: application/json; charset=utf-8');
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Method not allowed.']);
     exit;
 }
 
-if (!isset($_FILES['photo']) || $_FILES['photo']['error'] !== UPLOAD_ERR_OK) {
+$file = $_FILES['photo'] ?? ($_FILES['file'] ?? ($_FILES['image'] ?? null));
+if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'No image uploaded or upload error occurred.']);
+    echo json_encode(['success' => false, 'error' => 'No image file uploaded or upload error occurred.']);
     exit;
 }
-
-$file = $_FILES['photo'];
 $allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 

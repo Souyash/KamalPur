@@ -91,10 +91,25 @@ if ($method === 'DELETE') {
         exit;
     }
 
+    try {
+        $sel = $db->prepare("SELECT img_url FROM gallery WHERE id = ?");
+        $sel->execute([$id]);
+        $row = $sel->fetch();
+        if ($row && !empty($row['img_url'])) {
+            $imgPath = $row['img_url'];
+            if (strpos($imgPath, 'assets/uploads/') === 0) {
+                $fullPath = __DIR__ . '/../' . $imgPath;
+                if (file_exists($fullPath)) {
+                    @unlink($fullPath);
+                }
+            }
+        }
+    } catch (Exception $e) {}
+
     $stmt = $db->prepare("DELETE FROM gallery WHERE id = ?");
     $stmt->execute([$id]);
 
-    echo json_encode(['success' => true, 'message' => 'Gallery post deleted successfully.']);
+    echo json_encode(['success' => true, 'message' => 'Gallery post and associated image deleted successfully.']);
     exit;
 }
 

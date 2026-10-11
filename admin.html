@@ -1262,11 +1262,27 @@
             </div>
           </div>
 
+          <!-- 1. Normal File Upload Section -->
           <div class="form-group">
-            <label for="galleryImgUrl">Image Source (URL or Asset Path) *</label>
-            <input type="text" id="galleryImgUrl" required placeholder="assets/durga-scene.jpg or https://..." class="form-input" oninput="updateImagePreview(this.value, 'galleryPreviewImg', 'galleryPreviewBox')">
-            <div style="font-size:11.5px; color:var(--text-3); margin-top:4px;">
-              Tip: You can use existing paths like <code>assets/durga-scene.jpg</code>, <code>assets/gallery/chandannagar-lights.jpg</code>, or an uploaded photo.
+            <label style="font-weight:700; color:#0F172A; display:flex; justify-content:space-between; align-items:center;">
+              <span>Upload Image File *</span>
+              <span style="font-size:11.5px; font-weight:600; color:#B45309;">From Computer / Mobile</span>
+            </label>
+            <div class="custom-file-upload-box" onclick="document.getElementById('galleryFileInput').click()" style="border:2px dashed #CBD5E1; border-radius:14px; padding:18px 14px; text-align:center; background:#F8FAFC; cursor:pointer; transition:all 0.2s ease;">
+              <input type="file" id="galleryFileInput" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif" style="display:none;" onchange="handleAdminImageUpload(event, 'galleryImgUrl', 'galleryPreviewImg', 'galleryPreviewBox', 'galleryUploadStatus')">
+              <div style="font-size:30px; margin-bottom:4px;">📸</div>
+              <div style="font-weight:700; font-size:13.5px; color:#0F172A;">Click to Browse &amp; Upload Photo</div>
+              <div style="font-size:11.5px; color:#64748B; margin-top:3px;">Select JPG, PNG, WEBP, or GIF (Saved to server)</div>
+              <div id="galleryUploadStatus" style="font-size:12px; font-weight:700; margin-top:8px; display:none;"></div>
+            </div>
+          </div>
+
+          <!-- 2. Image Path / Online URL -->
+          <div class="form-group" style="margin-top:12px;">
+            <label for="galleryImgUrl" style="font-size:12.5px; font-weight:600; color:#475569;">Image URL / Server Path *</label>
+            <input type="text" id="galleryImgUrl" required placeholder="assets/uploads/img_... or assets/durga-scene.jpg" class="form-input" oninput="updateImagePreview(this.value, 'galleryPreviewImg', 'galleryPreviewBox')">
+            <div style="font-size:11px; color:#64748B; margin-top:3px;">
+              Auto-filled when you upload above, or paste an existing image link.
             </div>
           </div>
 
@@ -1348,6 +1364,23 @@
           <div class="form-group">
             <label for="artistPhilosophy">Philosophy Quote / Vision</label>
             <input type="text" id="artistPhilosophy" placeholder="e.g., Maa Durga is not mere clay, She is the living soul of Bengal..." class="form-input">
+          </div>
+
+          <div class="form-group" style="margin-top:14px;">
+            <label style="font-weight:700; color:#0F172A; display:flex; justify-content:space-between; align-items:center;">
+              <span>Artisan Photo / Creation Image (Optional)</span>
+              <span style="font-size:11.5px; font-weight:600; color:#B45309;">From Computer / Mobile</span>
+            </label>
+            <div class="custom-file-upload-box" onclick="document.getElementById('artistFileInput').click()" style="border:2px dashed #CBD5E1; border-radius:14px; padding:14px 16px; text-align:center; background:#F8FAFC; cursor:pointer; transition:all 0.2s ease;">
+              <input type="file" id="artistFileInput" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif" style="display:none;" onchange="handleAdminImageUpload(event, 'artistImgUrl', 'artistPreviewImg', 'artistPreviewBox', 'artistUploadStatus')">
+              <div style="font-size:26px; margin-bottom:4px;">🎨</div>
+              <div style="font-weight:700; font-size:13px; color:#0F172A;">Click to Browse Artisan Photo / Creation Image</div>
+              <div id="artistUploadStatus" style="font-size:11.5px; font-weight:700; margin-top:6px; display:none;"></div>
+            </div>
+            <input type="hidden" id="artistImgUrl">
+            <div class="image-preview-container" id="artistPreviewBox" style="margin-top:10px; display:none;">
+              <img src="" id="artistPreviewImg" class="image-preview-img" alt="Preview">
+            </div>
           </div>
 
           <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px;">
@@ -1496,7 +1529,7 @@
     </div>
   </div>
 
-  <script src="script.js?v=20261011-dribbble-v6"></script>
+  <script src="script.js?v=20261011-dribbble-v7"></script>
   <script>
     /* ══════════════════════════════════════════════════════════
        ADMIN CONSOLE CONTROLLER (PHP/MYSQL BACKEND & CRUD)
@@ -1776,6 +1809,8 @@
 
     function saveStoredGallery(list) {
       localStorage.setItem('kas_gallery', JSON.stringify(list));
+      localStorage.setItem('kas_gallery_updated', Date.now());
+      try { window.dispatchEvent(new Event('storage')); } catch (e) {}
       updateKpis();
     }
 
@@ -1842,6 +1877,11 @@
 
     function openGalleryModal(post = null) {
       document.getElementById('galleryForm').reset();
+      const fileInput = document.getElementById('galleryFileInput');
+      if (fileInput) fileInput.value = '';
+      const statusEl = document.getElementById('galleryUploadStatus');
+      if (statusEl) { statusEl.style.display = 'none'; statusEl.textContent = ''; }
+
       const titleEl = document.getElementById('galleryModalTitle');
       const submitBtn = document.getElementById('gallerySubmitBtn');
 
@@ -1954,6 +1994,8 @@
 
     function saveStoredArtists(list) {
       localStorage.setItem('kas_artists', JSON.stringify(list));
+      localStorage.setItem('kas_artists_updated', Date.now());
+      try { window.dispatchEvent(new Event('storage')); } catch (e) {}
       updateKpis();
     }
 
@@ -2019,6 +2061,13 @@
 
     function openArtistModal(art = null) {
       document.getElementById('artistForm').reset();
+      const fileInput = document.getElementById('artistFileInput');
+      if (fileInput) fileInput.value = '';
+      const statusEl = document.getElementById('artistUploadStatus');
+      if (statusEl) { statusEl.style.display = 'none'; statusEl.textContent = ''; }
+      const previewBox = document.getElementById('artistPreviewBox');
+      if (previewBox) previewBox.style.display = 'none';
+
       const titleEl = document.getElementById('artistModalTitle');
       const submitBtn = document.getElementById('artistSubmitBtn');
 
@@ -2435,15 +2484,78 @@ Helpline: +91 8637578740`;
       renderAdminMembers();
     }
 
-    /* ── 10. Image Preview Helper ── */
+    /* ── 10. Normal Image File Upload Handler & Preview ── */
+    async function handleAdminImageUpload(event, urlInputId, previewImgId, previewBoxId, statusId) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const statusEl = document.getElementById(statusId);
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = '#B45309';
+        statusEl.textContent = '⏳ Uploading ' + file.name + '...';
+      }
+
+      // Show immediate local preview
+      try {
+        const localUrl = URL.createObjectURL(file);
+        updateImagePreview(localUrl, previewImgId, previewBoxId);
+      } catch (e) {}
+
+      const box = document.getElementById(previewBoxId);
+      if (box) box.style.display = 'block';
+
+      // 1. Upload via FormData to api/upload.php
+      const formData = new FormData();
+      formData.append('photo', file);
+
+      try {
+        const res = await fetch('api/upload.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.url) {
+            const urlInput = document.getElementById(urlInputId);
+            if (urlInput) urlInput.value = data.url;
+            updateImagePreview(data.url, previewImgId, previewBoxId);
+            if (statusEl) {
+              statusEl.style.color = '#16A34A';
+              statusEl.textContent = '✅ Uploaded to server: ' + data.url;
+            }
+            return;
+          }
+        }
+        throw new Error('Server upload failed');
+      } catch (err) {
+        // Fallback: Read as Base64 Data URL so upload never fails
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const base64Url = e.target.result;
+          const urlInput = document.getElementById(urlInputId);
+          if (urlInput) urlInput.value = base64Url;
+          updateImagePreview(base64Url, previewImgId, previewBoxId);
+          if (statusEl) {
+            statusEl.style.color = '#16A34A';
+            statusEl.textContent = '✅ Image ready (Local mode)';
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
     function updateImagePreview(url, imgId, boxId) {
       const img = document.getElementById(imgId);
+      const box = boxId ? document.getElementById(boxId) : null;
       const placeholder = document.getElementById('galleryPreviewPlaceholder');
       if (!img) return;
 
       if (url && url.trim().length > 3) {
         img.src = url.trim();
         img.style.display = 'block';
+        if (box) box.style.display = 'block';
         if (placeholder) placeholder.style.display = 'none';
         img.onerror = () => {
           img.style.display = 'none';

@@ -503,7 +503,12 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261011-v1"></script>
+  <script src="script.js?v=20261011-dribbble-v7"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initPublicArtists === 'function') initPublicArtists();
+    });
+  </script>
 </body>
 </html>
 

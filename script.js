@@ -891,17 +891,20 @@ async function initPublicGallery() {
   if (!grid) return;
 
   try {
-    const res = await fetch('api/gallery.php');
+    const res = await fetch('api/gallery.php?cb=' + Date.now(), { cache: 'no-store' });
     if (res.ok) {
       const json = await res.json();
-      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+      if (json.success && Array.isArray(json.data)) {
         localStorage.setItem('kas_gallery', JSON.stringify(json.data));
       }
     }
   } catch (e) {}
 
   const galleryList = JSON.parse(localStorage.getItem('kas_gallery') || '[]');
-  if (!galleryList || galleryList.length === 0) return;
+  if (!galleryList || galleryList.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--text-2); font-size: 15px; font-weight: 500;">No gallery photos published yet. Check back soon!</div>';
+    return;
+  }
 
   grid.innerHTML = galleryList.map(item => {
     const cat = item.category || 'Maha Protima';
@@ -947,17 +950,20 @@ async function initPublicArtists() {
   if (!grid) return;
 
   try {
-    const res = await fetch('api/artists.php');
+    const res = await fetch('api/artists.php?cb=' + Date.now(), { cache: 'no-store' });
     if (res.ok) {
       const json = await res.json();
-      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+      if (json.success && Array.isArray(json.data)) {
         localStorage.setItem('kas_artists', JSON.stringify(json.data));
       }
     }
   } catch (e) {}
 
   const artistsList = JSON.parse(localStorage.getItem('kas_artists') || '[]');
-  if (!artistsList || artistsList.length === 0) return;
+  if (!artistsList || artistsList.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--text-2); font-size: 15px; font-weight: 500;">No master artisan profiles published yet. Check back soon!</div>';
+    return;
+  }
 
   grid.innerHTML = artistsList.map((item, idx) => {
     const initials = item.avatar_initials || (item.name ? item.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'AR');
@@ -1025,5 +1031,13 @@ function escapeAttr(str) {
   if (!str) return '';
   return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'kas_gallery' || e.key === 'kas_gallery_updated') initPublicGallery();
+  if (e.key === 'kas_artists' || e.key === 'kas_artists_updated') initPublicArtists();
+});
+
+window.initPublicGallery = initPublicGallery;
+window.initPublicArtists = initPublicArtists;
 
 
