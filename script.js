@@ -443,144 +443,95 @@ function selectDonation(amount, btnElement) {
   if (btnElement) btnElement.classList.add('active');
 }
 
-function openDonationModal() {
+function openDonationModal(amount) {
+  if (amount && typeof amount === 'number') {
+    currentDonationAmount = amount;
+  } else {
+    const input = document.getElementById('customAmount');
+    if (input && input.value) {
+      currentDonationAmount = parseInt(input.value, 10) || 501;
+    }
+  }
+
   const modal = document.getElementById('donationModal');
   const amountEl = document.getElementById('modalDonationAmount');
   if (amountEl) {
     amountEl.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
   }
 
-  // Always reset to Step 1 (Billing details) when opened
-  goToDonationStep(1);
+  const nameInput = document.getElementById('donorName');
+  if (nameInput) {
+    nameInput.value = '';
+  }
 
   if (modal) {
     modal.classList.add('open');
     const card = modal.querySelector('.modal-card');
     if (card) card.scrollTop = 0;
+    setTimeout(() => {
+      if (nameInput) nameInput.focus();
+    }, 150);
   }
 }
 
-function goToDonationStep(stepNumber) {
-  const step1 = document.getElementById('donationStepBilling');
-  const step2 = document.getElementById('donationStepQR');
-  const step3 = document.getElementById('donationStepSuccess');
-
-  if (step1) step1.style.display = (stepNumber === 1) ? 'block' : 'none';
-  if (step2) step2.style.display = (stepNumber === 2) ? 'block' : 'none';
-  if (step3) step3.style.display = (stepNumber === 3) ? 'block' : 'none';
-
-  const modal = document.getElementById('donationModal');
-  if (modal) {
-    const card = modal.querySelector('.modal-card');
-    if (card) card.scrollTop = 0;
-  }
-}
-
-function handleBillingSubmit(event) {
-  event.preventDefault();
+function handleDonationWhatsAppSubmit(event) {
+  if (event) event.preventDefault();
 
   const nameInput = document.getElementById('donorName');
-  const phoneInput = document.getElementById('donorPhone');
-  const emailInput = document.getElementById('donorEmail');
-  const addressInput = document.getElementById('donorAddress');
-  const purposeInput = document.getElementById('donorPurpose');
-  const panInput = document.getElementById('donorPan');
-
-  currentDonorDetails = {
-    name: nameInput ? nameInput.value.trim() : 'Devotee',
-    phone: phoneInput ? phoneInput.value.trim() : '',
-    email: emailInput ? emailInput.value.trim() : '',
-    address: addressInput ? addressInput.value.trim() : '',
-    purpose: purposeInput ? purposeInput.value : 'Sharodotsav Durga Puja Chanda',
-    pan: panInput ? panInput.value.trim().toUpperCase() : '',
-    amount: currentDonationAmount,
-    utr: '',
-    trackingNo: ''
-  };
-
-  // Update Step 2: Flashed QR code details
-  const qrDisplayAmount = document.getElementById('qrDisplayAmount');
-  if (qrDisplayAmount) {
-    qrDisplayAmount.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
-  }
-
-  // Constants for Official UPI Account (Matching uploaded Google Pay QR)
-  const SANGHA_UPI_ID = 'souyashbiswas20-3@okhdfcbank';
-  const SANGHA_PAYEE_NAME = 'SOUYASH BISWAS';
-  const SANGHA_MERCHANT_AID = 'uGICAgKCuseKpcw';
-  const SANGHA_PHONE = '8637578740';
-
-  // Update deep-link UPI pay button for mobile devices
-  const directUpiLink = document.getElementById('directUpiLink');
-  if (directUpiLink) {
-    const upiUri = `upi://pay?pa=${SANGHA_UPI_ID}&pn=${encodeURIComponent(SANGHA_PAYEE_NAME)}&aid=${SANGHA_MERCHANT_AID}&am=${currentDonationAmount}&cu=INR&tn=KAS%20Durgotsav%20Seva`;
-    directUpiLink.href = upiUri;
-  }
-
-  // Update direct WhatsApp payment link
-  const directWaPayLink = document.getElementById('directWaPayLink');
-  if (directWaPayLink) {
-    const waDonorName = encodeURIComponent(currentDonorDetails.name || 'Devotee');
-    directWaPayLink.href = `https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${currentDonationAmount}%20from%20${waDonorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`;
-  }
-
-  // Clear optional UTR field in Step 2
-  const utrInput = document.getElementById('donorUtr');
-  if (utrInput) utrInput.value = '';
-
-  // Hide desktop helper if previously open
-  const desktopHelper = document.getElementById('desktopUpiHelper');
-  if (desktopHelper) desktopHelper.style.display = 'none';
-
-  // Advance to Step 2
-  goToDonationStep(2);
-}
-
-function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
-}
-
-function handleUpiPayClick(event, appName = 'any') {
-  if (event) {
-    event.preventDefault();
-  }
+  const donorName = nameInput && nameInput.value.trim() ? nameInput.value.trim() : 'Devotee';
   const amount = (typeof currentDonationAmount !== 'undefined' && currentDonationAmount) ? currentDonationAmount : 501;
-  const SANGHA_UPI_ID = 'souyashbiswas20-3@okhdfcbank';
-  const SANGHA_PAYEE_NAME = 'SOUYASH BISWAS';
-  const SANGHA_MERCHANT_AID = 'uGICAgKCuseKpcw';
   const SANGHA_PHONE = '8637578740';
 
-  const pn = encodeURIComponent(SANGHA_PAYEE_NAME);
-  const tn = encodeURIComponent('KAS Durgotsav Seva');
-  const baseUpi = `upi://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
-
-  if (isMobileDevice()) {
-    let targetUri = baseUpi;
-    if (appName === 'gpay') {
-      targetUri = `tez://upi/pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
-    } else if (appName === 'phonepe') {
-      targetUri = `phonepe://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
-    } else if (appName === 'paytm') {
-      targetUri = `paytmmp://pay?pa=${SANGHA_UPI_ID}&pn=${pn}&aid=${SANGHA_MERCHANT_AID}&am=${amount}&cu=INR&tn=${tn}`;
-    } else if (appName === 'whatsapp') {
-      const donorName = encodeURIComponent((currentDonorDetails && currentDonorDetails.name) ? currentDonorDetails.name : 'Devotee');
-      window.open(`https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${amount}%20from%20${donorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`, '_blank');
-      return;
-    }
-
-    window.location.href = targetUri;
-  } else {
-    // Desktop devices cannot handle upi:// protocols
-    const desktopHelper = document.getElementById('desktopUpiHelper');
-    if (desktopHelper) {
-      desktopHelper.style.display = 'block';
-      desktopHelper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-    if (appName === 'whatsapp') {
-      const donorName = encodeURIComponent((currentDonorDetails && currentDonorDetails.name) ? currentDonorDetails.name : 'Devotee');
-      window.open(`https://wa.me/91${SANGHA_PHONE}?text=Hello%20Kamalpur%20Abhijan%20Sangha%2C%20I%20am%20making%20a%20seva%20contribution%20of%20Rs.${amount}%20from%20${donorName}.%20Please%20verify%20my%20WhatsApp%20Payment.`, '_blank');
-    }
+  // Save to persistent storage for Sangha Admin Panel ledger
+  try {
+    const record = {
+      id: '#KAS-2026-' + Math.floor(1000 + Math.random() * 9000),
+      name: donorName,
+      phone: '+91 8637578740',
+      email: '',
+      amount: amount,
+      address: 'Ranaghat',
+      purpose: 'Sharodotsav Durga Puja Chanda',
+      pan: '',
+      utr: 'WhatsApp Redirection',
+      date: new Date().toISOString(),
+      status: 'pending'
+    };
+    const stored = JSON.parse(localStorage.getItem('kas_donations') || '[]');
+    stored.unshift(record);
+    localStorage.setItem('kas_donations', JSON.stringify(stored));
+  } catch (e) {
+    console.error('Storage error:', e);
   }
+
+  // Close the modal
+  closeModal('donationModal');
+
+  // Pre-filled WhatsApp message
+  const text = `Hello Kamalpur Abhijan Sangha, my name is ${donorName}. I would like to contribute Rs.${amount} for Durgotsav Seva.`;
+  const waUrl = `https://wa.me/91${SANGHA_PHONE}?text=${encodeURIComponent(text)}`;
+
+  // Redirect to WhatsApp
+  const opened = window.open(waUrl, '_blank');
+  if (!opened || opened.closed || typeof opened.closed === 'undefined') {
+    window.location.href = waUrl;
+  }
+}
+
+// Backward compatibility aliases & safe helpers
+const handleBillingSubmit = handleDonationWhatsAppSubmit;
+
+function goToDonationStep(stepNumber) {
+  // Maintained for backward compatibility
+}
+
+function handleUpiPayClick(event, appName = 'whatsapp') {
+  if (event) event.preventDefault();
+  handleDonationWhatsAppSubmit();
+}
+
+function handlePaymentCompleted() {
+  handleDonationWhatsAppSubmit();
 }
 
 function copyUpiId(upiId, btnElement) {
@@ -624,75 +575,6 @@ function showCopiedFeedback(btnElement) {
     btnElement.style.color = '';
     btnElement.style.borderColor = '';
   }, 2200);
-}
-
-function handlePaymentCompleted() {
-  const utrInput = document.getElementById('donorUtr');
-  const utrVal = utrInput ? utrInput.value.trim() : '';
-
-  const randomTracking = Math.floor(1000 + Math.random() * 9000);
-  currentDonorDetails.trackingNo = `#KAS-2026-${randomTracking}`;
-  currentDonorDetails.utr = utrVal;
-  currentDonorDetails.id = currentDonorDetails.trackingNo;
-  currentDonorDetails.date = new Date().toISOString();
-  currentDonorDetails.status = 'pending';
-
-  // Save to persistent storage for Admin Panel
-  try {
-    const record = {
-      id: currentDonorDetails.trackingNo,
-      name: currentDonorDetails.name || 'Devotee',
-      phone: currentDonorDetails.phone || '',
-      email: currentDonorDetails.email || '',
-      amount: currentDonationAmount,
-      address: currentDonorDetails.address || 'Ranaghat',
-      purpose: currentDonorDetails.purpose || 'Sharodotsav Durga Puja Chanda',
-      pan: currentDonorDetails.pan || '',
-      utr: utrVal || 'UPI Direct',
-      date: currentDonorDetails.date,
-      status: 'pending'
-    };
-    const stored = JSON.parse(localStorage.getItem('kas_donations') || '[]');
-    stored.unshift(record);
-    localStorage.setItem('kas_donations', JSON.stringify(stored));
-  } catch (e) {
-    console.error('Storage error:', e);
-  }
-
-  // Populate Step 3 review popup values
-  const trackingEl = document.getElementById('receiptTrackingNo');
-  if (trackingEl) trackingEl.textContent = currentDonorDetails.trackingNo;
-
-  const donorNameEl = document.getElementById('receiptDonorName');
-  if (donorNameEl) donorNameEl.textContent = currentDonorDetails.name || 'Devotee';
-
-  const amountEl = document.getElementById('receiptAmount');
-  if (amountEl) amountEl.textContent = `₹${currentDonationAmount.toLocaleString('en-IN')}`;
-
-  const phoneEl = document.getElementById('receiptPhoneTxt');
-  if (phoneEl) {
-    phoneEl.textContent = currentDonorDetails.phone ? `+91 ${currentDonorDetails.phone}` : 'Provided Number';
-  }
-
-  const addressEl = document.getElementById('receiptAddress');
-  if (addressEl) addressEl.textContent = currentDonorDetails.address || 'Ranaghat';
-
-  const catEl = document.getElementById('receiptCategory');
-  if (catEl) catEl.textContent = currentDonorDetails.purpose || 'Sharodotsav Durga Puja Chanda';
-
-  const utrRow = document.getElementById('receiptUtrRow');
-  const utrEl = document.getElementById('receiptUtr');
-  if (utrRow && utrEl) {
-    if (utrVal) {
-      utrRow.style.display = 'flex';
-      utrEl.textContent = utrVal;
-    } else {
-      utrRow.style.display = 'none';
-    }
-  }
-
-  // Move to Step 3 (Review & WhatsApp confirmation popup)
-  goToDonationStep(3);
 }
 
 /* ── 7. Membership Application Submit ── */
