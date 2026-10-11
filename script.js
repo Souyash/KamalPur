@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCarousels();
   initDonationPresets();
   initAdminSeedData();
+  initPublicGallery();
+  initPublicArtists();
 });
 
 /* ── 2. Sticky Nav & Mobile Menu ── */
@@ -625,7 +627,7 @@ function resetMembershipForm() {
   }
 }
 
-/* ── 8. Seed Initial Ledger Data if Storage Empty ── */
+/* ── 8. Seed Initial Ledger, Gallery & Artists Data if Storage Empty ── */
 function initAdminSeedData() {
   try {
     if (!localStorage.getItem('kas_donations') || JSON.parse(localStorage.getItem('kas_donations') || '[]').length === 0) {
@@ -724,8 +726,304 @@ function initAdminSeedData() {
       ];
       localStorage.setItem('kas_members', JSON.stringify(sampleMembers));
     }
+
+    if (!localStorage.getItem('kas_gallery') || JSON.parse(localStorage.getItem('kas_gallery') || '[]').length === 0) {
+      const sampleGallery = [
+        {
+          id: 1,
+          title: '117 Forms of Devi Durga — Golden Sanctum',
+          category: 'Maha Protima',
+          year_tag: '2025–2026',
+          desc_text: 'Monumental sanctum featuring 117 unique classical scriptural forms of Devi Durga sculpted from Ganga clay by master artisans of Kumartuli.',
+          img_url: 'assets/durga-scene.jpg'
+        },
+        {
+          id: 2,
+          title: 'Terracotta & Bamboo Mandap Installation',
+          category: 'Theme Architecture',
+          year_tag: '2025',
+          desc_text: 'Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum.',
+          img_url: 'assets/durga-papercraft.jpg'
+        },
+        {
+          id: 3,
+          title: 'Chandannagar 3D Illumination Boulevard',
+          category: 'Illumination Gate',
+          year_tag: 'Night View',
+          desc_text: '1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station.',
+          img_url: 'assets/gallery/chandannagar-lights.jpg'
+        },
+        {
+          id: 4,
+          title: 'Maha Ashtami Sandhi Puja & 108 Pradip Aarati',
+          category: 'Sacred Rituals',
+          year_tag: 'Maha Ashtami',
+          desc_text: 'Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants.',
+          img_url: 'assets/gallery/sandhi-puja.jpg'
+        },
+        {
+          id: 5,
+          title: 'Vijaya Dashami Sindoor Khela & Shobhayatra',
+          category: 'Vijaya Dashami',
+          year_tag: 'Farewell Seva',
+          desc_text: 'Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats by women devotee wing.',
+          img_url: 'assets/gallery/sindoor-khela.jpg'
+        },
+        {
+          id: 6,
+          title: 'Maha Navami Dhunuchi Naach & Dhak Symphony',
+          category: 'Percussion & Dance',
+          year_tag: 'Maha Navami',
+          desc_text: 'Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe.',
+          img_url: 'assets/gallery/dhunuchi-dance.jpg'
+        },
+        {
+          id: 7,
+          title: 'Kamalpur Gold Cup Final Match',
+          category: 'Youth Sports',
+          year_tag: 'Sports Meet',
+          desc_text: 'Packed stadium roaring during the knockout football championship under floodlights.',
+          img_url: 'assets/gallery/football-goldcup.jpg'
+        },
+        {
+          id: 8,
+          title: 'Annual Mega Blood Donation Drive',
+          category: 'Social Seva',
+          year_tag: '44th Edition',
+          desc_text: 'Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society.',
+          img_url: 'assets/gallery/blood-donation.jpg'
+        }
+      ];
+      localStorage.setItem('kas_gallery', JSON.stringify(sampleGallery));
+    }
+
+    if (!localStorage.getItem('kas_artists') || JSON.parse(localStorage.getItem('kas_artists') || '[]').length === 0) {
+      const sampleArtists = [
+        {
+          id: 1,
+          name: 'Pradip Rudra Pal',
+          craft: 'Chief Clay Sculptor & Idol Architect',
+          region: 'Kumartuli, North Kolkata · 4th Gen Dynasty',
+          era_tag: '2005 – 2026',
+          avatar_initials: 'PR',
+          bio: 'Fourth-generation inheritor of the legendary Kumartuli clay sculpting dynasty, Pradip Rudra Pal has spent over 35 years sculpting divine forms for Bengal premier pujas. At Kamalpur Abhijan Sangha, he conceptualized and hand-sculpted the monumental 117 scriptural forms of Devi Durga, marrying traditional Ganga silt clay with classical Sanskrit iconography.',
+          tradition: 'Ganga Clay, Straw Binding & Classical Ekchala / Dhaaker Saaj',
+          accolades: '7x Biswakarma Shilpa Puraskar, Asian Paints Sharad Shamman (2018, 2022)',
+          creations: '117 Forms Sanctum, 108 Durga Avatar Darshan, Mahishasuramardini',
+          philosophy: '"Maa Durga is not mere clay and straw. She is the living mother of Bengal. Each layer of Ganga soil carries centuries of prayer, awakening the divine shakti in every devotee who enters our mandap."'
+        },
+        {
+          id: 2,
+          name: 'Susanta Ray & Subrata Dey',
+          craft: 'Pandal Architects & Spatial Designers',
+          region: 'Kolkata & Ranaghat · Thematic Spatial Studio',
+          era_tag: '2012 – 2026',
+          avatar_initials: 'SR',
+          bio: 'Celebrated architectural visionaries of Bengal contemporary Puja movement, Ray & Dey specialize in massive sustainable installations crafted purely from bamboo, terracotta tiles, Dokra brass accents, and handmade jute fabric. For our 2026 Durgotsav, they engineered the awe-inspiring 80 interconnected temple pavilions across 45,000 square feet.',
+          tradition: 'Nadia Bamboo, Terracotta Relief Tiles, Dokra Brass, Organic Jute',
+          accolades: 'Bengal Thematic Pandal Excellence Award (2024), Nadia Heritage Trophy',
+          creations: '80 Temple Sanctum Complex, Terracotta Whispering Corridor, Vedic Dome',
+          philosophy: 'Zero synthetic plastics, sustainable architecture, over 65,000 seasoned bamboo poles.'
+        },
+        {
+          id: 3,
+          name: 'Babu Pal & Sridam Das',
+          craft: 'Chandannagar Illumination Engineers',
+          region: 'Chandannagar, Hooghly · Lighting Guild Maestros',
+          era_tag: '1994 – Present',
+          avatar_initials: 'BP',
+          bio: 'Carrying forward Chandannagar legendary lighting heritage for 32 continuous years, Babu Pal and Sridam Das design the iconic 1.5-kilometer illuminated grand avenue from Ranaghat Station to the Sangha grounds. Their kinetic computerized arches depict animated mythological sequences from the Ramayana, Mahishasuramardini, and Bengal heritage.',
+          tradition: 'Kinetic 3D LED Arches, Microcontroller Storyboard Illumination',
+          accolades: 'Chandannagar Light Master Guild Gold Medal (2016, 2023)',
+          creations: '1.5 km Station Boulevard Gate, Dancing Peacock 3D Arch, Cosmic Chariot',
+          philosophy: 'Over 250,000 smart LEDs with dedicated green generator safety grid.'
+        },
+        {
+          id: 4,
+          name: 'Gokul Das & Motilal Troupe',
+          craft: 'Traditional Dhak Maestros & Percussion Ensemble',
+          region: 'Murshidabad & Ranaghat · 60-Member Ensemble',
+          era_tag: '1988 – Present',
+          avatar_initials: 'GD',
+          bio: 'A 60-member percussion collective led by master dhaki Gokul Das, this family troupe has provided the heartbeat of Kamalpur Abhijan Sangha for 38 unbroken years. Their hypnotic, resonant rhythms accompany the sacred Bodhon, the 108-lamp Sandhi Puja crescendo, the thrilling Dhunuchi Nritya, and the grand Vijaya Dashami Churni river procession.',
+          tradition: 'Bengal Mango Wood Dhak, Brass Kanshi & Sanctum Shankha Ensemble',
+          accolades: 'State Folk Percussion Honors (2014), Nadia Cultural Heritage Award',
+          creations: 'Mahalaya Bodhon Beats, Sandhi Puja 108 Dhak Aarati, Dashami Bhasan',
+          philosophy: '"The Dhak does not create sound; it summons the soul. When 60 dhaks strike in unison at Sandhi Puja, you feel the heartbeat of Bengal."'
+        },
+        {
+          id: 5,
+          name: 'Maniklal Chitrakar',
+          craft: 'Bengal Pata Chitra & Folk Scroll Murals',
+          region: 'Naya, Pingla, Paschim Medinipur · Patua Guild',
+          era_tag: '2016 – 2026',
+          avatar_initials: 'MC',
+          bio: 'A celebrated master of Bengal ancient Patachitra scroll painting tradition, Maniklal Chitrakar uses exclusively hand-ground organic pigments derived from teak leaves, turmeric, crushed conch shells, and Aparajita flower petals. His massive narrative murals narrate Devi Mahatmya hymns and traditional village folklore.',
+          tradition: 'Organic Vegetable & Mineral Dyes on Handcrafted Cloth-Paper Scrolls',
+          accolades: 'West Bengal State Master Craftsperson Award (2019)',
+          creations: 'Devi Mahatmya 100-foot mural gallery, Navadurga Folk Scroll cycle',
+          philosophy: 'Preserving endangered rural Bengal talas & organic mineral pigments.'
+        },
+        {
+          id: 6,
+          name: 'Pt. Debojyoti Banerjee & Swapan Chakraborty',
+          craft: 'Sacred Soundscape & Theme Music Composers',
+          region: 'Ranaghat & Nadia · Acoustic Heritage Center',
+          era_tag: '2008 – Present',
+          avatar_initials: 'DB',
+          bio: 'Acclaimed classical musicians and acoustic soundscape designers, Pandit Debojyoti Banerjee (sitar & sarod) and Swapan Chakraborty (choral arrangement) compose the custom atmospheric score for Kamalpur Abhijan Sangha every autumn. Blending pure Raag Bhairav, Shankha calls, and Vedic Chandi stotrams.',
+          tradition: 'Classical Indian Ragas, Sanskrit Vedic Stotrams & Spatial Ambient Acoustic',
+          accolades: 'Nadia Classical Music Academy Honors (2020)',
+          creations: 'The 117 Devi Hymn Symphony, Dawn Bodhon Raga, Evening Arati Choir',
+          philosophy: 'Multi-zone 3D spatial acoustic sound field with zero harsh frequencies.'
+        }
+      ];
+      localStorage.setItem('kas_artists', JSON.stringify(sampleArtists));
+    }
   } catch (e) {
     console.error('Seed data error:', e);
   }
 }
+
+/* ── 9. Public Dynamic Renderers for Gallery & Artists ── */
+async function initPublicGallery() {
+  const grid = document.getElementById('mainGalleryGrid');
+  if (!grid) return;
+
+  try {
+    const res = await fetch('api/gallery.php');
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        localStorage.setItem('kas_gallery', JSON.stringify(json.data));
+      }
+    }
+  } catch (e) {}
+
+  const galleryList = JSON.parse(localStorage.getItem('kas_gallery') || '[]');
+  if (!galleryList || galleryList.length === 0) return;
+
+  grid.innerHTML = galleryList.map(item => {
+    const cat = item.category || 'Maha Protima';
+    const catKey = mapCategoryKey(cat);
+    const year = item.year_tag || '2025–2026';
+    const title = item.title || 'Kamalpur Durgotsav';
+    const desc = item.desc_text || '';
+    const img = item.img_url || 'assets/durga-scene.jpg';
+
+    return `
+      <div class="gallery-item" data-cat="${escapeAttr(catKey)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)">
+        <div class="gi-photo-wrap">
+          <img src="${escapeAttr(img)}" alt="${escapeAttr(title)}" class="gi-photo-img" loading="lazy" onerror="this.src='assets/durga-scene.jpg'">
+          <div class="gi-photo-overlay">
+            <div class="gi-photo-tags">
+              <span class="gi-badge">${escapeHtml(cat)}</span>
+              <span class="gi-year-tag">${escapeHtml(year)}</span>
+            </div>
+            <div class="gi-caption">
+              <strong>${escapeHtml(title)}</strong>
+              <span>${escapeHtml(desc)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function mapCategoryKey(cat) {
+  if (!cat) return 'all';
+  const c = cat.toLowerCase();
+  if (c.includes('protima') || c.includes('durga') || c.includes('architecture') || c.includes('mandap') || c.includes('ritual') || c.includes('dashami')) return 'durga';
+  if (c.includes('light') || c.includes('gate') || c.includes('illumination')) return 'lights';
+  if (c.includes('sport') || c.includes('football')) return 'sports';
+  if (c.includes('seva') || c.includes('blood') || c.includes('health')) return 'seva';
+  if (c.includes('culture') || c.includes('natok') || c.includes('dance') || c.includes('dhak') || c.includes('percussion')) return 'culture';
+  return 'all';
+}
+
+async function initPublicArtists() {
+  const grid = document.getElementById('publicArtistsGrid');
+  if (!grid) return;
+
+  try {
+    const res = await fetch('api/artists.php');
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        localStorage.setItem('kas_artists', JSON.stringify(json.data));
+      }
+    }
+  } catch (e) {}
+
+  const artistsList = JSON.parse(localStorage.getItem('kas_artists') || '[]');
+  if (!artistsList || artistsList.length === 0) return;
+
+  grid.innerHTML = artistsList.map((item, idx) => {
+    const initials = item.avatar_initials || (item.name ? item.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'AR');
+    const rdClass = `rd${(idx % 3) + 1}`;
+
+    return `
+      <article class="artist-card reveal visible ${rdClass}">
+        <div class="artist-header">
+          <div class="artist-avatar-wrap">
+            <span class="artist-avatar-initials">${escapeHtml(initials)}</span>
+            <span class="artist-online-dot" title="Active Master Artist"></span>
+          </div>
+          <div class="artist-identity">
+            <h3 class="artist-name">${escapeHtml(item.name)}</h3>
+            <div class="artist-craft">${escapeHtml(item.craft)}</div>
+            <div class="artist-region">📍 ${escapeHtml(item.region)}</div>
+          </div>
+          <span class="artist-era-tag">${escapeHtml(item.era_tag || '2005 – Present')}</span>
+        </div>
+
+        <p class="artist-bio">${escapeHtml(item.bio)}</p>
+
+        ${(item.tradition || item.accolades || item.creations) ? `
+          <div class="artist-credentials">
+            ${item.tradition ? `
+              <div class="artist-cred-row">
+                <span class="artist-cred-label">Tradition / Medium</span>
+                <span class="artist-cred-val">${escapeHtml(item.tradition)}</span>
+              </div>
+            ` : ''}
+            ${item.accolades ? `
+              <div class="artist-cred-row">
+                <span class="artist-cred-label">Accolades</span>
+                <span class="artist-cred-val">${escapeHtml(item.accolades)}</span>
+              </div>
+            ` : ''}
+            ${item.creations ? `
+              <div class="artist-cred-row">
+                <span class="artist-cred-label">Creations</span>
+                <span class="artist-cred-val">${escapeHtml(item.creations)}</span>
+              </div>
+            ` : ''}
+          </div>
+        ` : ''}
+
+        ${item.philosophy ? `
+          <div class="artist-creations-box">
+            <div class="acb-title">Artistic Vision & Philosophy</div>
+            <div class="acb-items">
+              <em>${escapeHtml(item.philosophy)}</em>
+            </div>
+          </div>
+        ` : ''}
+      </article>
+    `;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function escapeAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 
