@@ -1,10 +1,12 @@
 -- ====================================================================
 -- Kamalpur Abhijan Sangha — Official Database Schema
--- Compatible with phpMyAdmin, MySQL 5.7+ & MariaDB 10.3+
+-- Compatible with Hostinger phpMyAdmin, MySQL 5.7+ & MariaDB 10.3+
 -- ====================================================================
 
-CREATE DATABASE IF NOT EXISTS `kamalpur_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `kamalpur_db`;
+-- Note: When importing inside Hostinger phpMyAdmin, the database is already selected.
+-- (If importing on empty local MySQL, uncomment the next two lines):
+-- CREATE DATABASE IF NOT EXISTS `kamalpur_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE `kamalpur_db`;
 
 -- 1. Admin Users Table
 CREATE TABLE IF NOT EXISTS `admin_users` (
@@ -107,3 +109,4 @@ CREATE TABLE IF NOT EXISTS `members` (
 INSERT INTO `members` (`id`, `name`, `phone`, `city`, `interest`, `message`, `status`, `date`) VALUES
 ('#MEM-2026-4412', 'Subhadip Chatterjee', '9831204921', 'Ranaghat', 'Puja & Cultural Wing', 'Eager to volunteer in Durgotsav pandal management and Pushpanjali prasad coordination.', 'pending', NOW() - INTERVAL 1 DAY),
 ('#MEM-2026-3981', 'Moumita Ghosh', '9732118804', 'Santipur', 'Social Welfare & Blood Camps', 'Registered nurse willing to provide healthcare support in free medical camps.', 'reviewed', NOW() - INTERVAL 2 DAY);
+

@@ -14,12 +14,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     exit;
 }
 
-// Configuration (Defaults for local phpMyAdmin / XAMPP / MAMP / LAMP)
+// Configuration (Configured for Hostinger MySQL & phpMyAdmin)
 $db_host = getenv('DB_HOST') ?: 'localhost';
 $db_port = getenv('DB_PORT') ?: '3306';
-$db_name = getenv('DB_NAME') ?: 'kamalpur_db';
-$db_user = getenv('DB_USER') ?: 'root';
-$db_pass = getenv('DB_PASS') ?: '';
+$db_name = getenv('DB_NAME') ?: 'u197762167_kamalpur';
+$db_user = getenv('DB_USER') ?: 'u197762167_admin';
+$db_pass = getenv('DB_PASS') ?: 'Kas#Ranaghat!9472';
 
 $pdo = null;
 $db_type = 'mysql';
