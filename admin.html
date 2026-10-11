@@ -16,12 +16,7 @@
 </head>
 <body class="admin-body">
 
-  <!-- Top Announcement Bar -->
-  <div class="announce-bar admin-announce">
-    <span><strong>🔒 Sangha Central Administration:</strong> Secure post management, devotee chanda ledger &amp; phpMyAdmin database backend.</span>
-    <span class="announce-divider">·</span>
-    <span>Helpline Desk: <strong>+91 8637578740</strong></span>
-  </div>
+
 
   <!-- ══════════════════════════════════════════════════════════
        1. ADMIN LOGIN GATEWAY (Credentials Hidden)
@@ -90,243 +85,377 @@
   <!-- ══════════════════════════════════════════════════════════
        2. REFRAMED ADMIN DASHBOARD (Clean, Simple & Modern UI)
   ══════════════════════════════════════════════════════════ -->
-  <div id="adminDashboardSection" style="display:none;">
-
-    <!-- Top Admin Header -->
-    <header class="admin-header">
-      <div class="container admin-header-inner">
-        <div class="admin-brand">
-          <a href="index.html" class="nav-brand">
-            <div class="nav-logo">
-              <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo" width="46" height="46">
-            </div>
-            <div class="nav-brand-text">
-              <span class="nav-name">Kamalpur Abhijan Sangha</span>
-              <span class="nav-est">Est. 1970 · Ranaghat · <em>Executive Admin Suite</em></span>
-            </div>
-          </a>
+  <div id="adminDashboardSection" style="display:none;" class="admin-shell">
+    
+    <!-- Left Navigation Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar-header">
+        <div class="admin-sidebar-logo">
+          <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo">
         </div>
+        <div>
+          <div class="admin-sidebar-brand-name">Kamalpur Abhijan</div>
+          <div class="admin-sidebar-brand-tag">Executive Suite</div>
+        </div>
+      </div>
 
-        <div class="admin-header-actions">
-          <div class="admin-officer-pill" id="dbStatusBadge" style="background:#E6F4EA; color:#137333; border-color:#B7EB8F;">
-            <span style="font-size:10px;">●</span>
-            <span id="dbStatusText">phpMyAdmin / MySQL Active</span>
+      <div class="admin-sidebar-nav">
+        <div class="admin-nav-section-label">Main Menu</div>
+        
+        <button type="button" class="admin-nav-item active" id="tabOverviewBtn" onclick="switchAdminTab('overview')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">📊</span>
+            <span>Overview</span>
           </div>
+        </button>
 
-          <div class="admin-officer-pill" id="officerDisplayBadge">
-            <span>👤</span>
-            <span>Officer: <strong>Executive Desk</strong></span>
+        <button type="button" class="admin-nav-item" id="tabGalleryBtn" onclick="switchAdminTab('gallery')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">🖼️</span>
+            <span>Gallery Posts</span>
           </div>
+          <span class="admin-nav-badge" id="tabGalleryBadge">0</span>
+        </button>
 
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openGalleryModal()">
+        <button type="button" class="admin-nav-item" id="tabArtistsBtn" onclick="switchAdminTab('artists')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">🎨</span>
+            <span>Master Artisans</span>
+          </div>
+          <span class="admin-nav-badge" id="tabArtistsBadge">0</span>
+        </button>
+
+        <button type="button" class="admin-nav-item" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">💰</span>
+            <span>Chanda Ledger</span>
+          </div>
+          <span class="admin-nav-badge" id="tabDonationsBadge">0</span>
+        </button>
+
+        <button type="button" class="admin-nav-item" id="tabMembersBtn" onclick="switchAdminTab('members')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">👥</span>
+            <span>Volunteers</span>
+          </div>
+          <span class="admin-nav-badge" id="tabMembersBadge">0</span>
+        </button>
+
+        <div class="admin-nav-section-label" style="margin-top:14px;">System &amp; Backend</div>
+        <button type="button" class="admin-nav-item" id="tabDatabaseBtn" onclick="switchAdminTab('database')">
+          <div class="admin-nav-item-left">
+            <span class="admin-nav-icon">🗄️</span>
+            <span>phpMyAdmin &amp; DB</span>
+          </div>
+        </button>
+
+        <div class="admin-nav-section-label" style="margin-top:14px;">Quick Actions</div>
+        <div style="display:flex; flex-direction:column; gap:8px; padding:0 8px;">
+          <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()" style="font-size:12px; padding:8px 12px; justify-content:center;">
             <span>+ Add Photo</span>
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistModal()">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistModal()" style="font-size:12px; padding:8px 12px; justify-content:center; color:#E2E8F0; border-color:rgba(255,255,255,0.15);">
             <span>+ Add Artisan</span>
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()" style="font-size:12px; padding:8px 12px; justify-content:center; color:#E2E8F0; border-color:rgba(255,255,255,0.15);">
             <span>+ Counter Chanda</span>
-          </button>
-          <button type="button" class="admin-btn-logout" onclick="handleAdminLogout()">
-            <span>🚪 Sign Out</span>
           </button>
         </div>
       </div>
-    </header>
 
-    <!-- Main Content Dashboard -->
-    <main class="admin-main">
-      <div class="container">
-
-        <!-- Quick KPI Metrics Bar -->
-        <div class="admin-stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-          <div class="admin-stat-card">
-            <div class="stat-icon-wrap" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
-            <div class="stat-info">
-              <div class="stat-num" id="metricTotalAmount">₹0</div>
-              <div class="stat-title">Total Seva Fund</div>
-            </div>
+      <div class="admin-sidebar-footer">
+        <div class="admin-user-pill">
+          <div class="admin-user-avatar">AD</div>
+          <div class="admin-user-info">
+            <span class="admin-user-name" id="officerDisplayBadge">Executive Desk</span>
+            <span class="admin-user-role">Committee Officer</span>
           </div>
+        </div>
+        <button type="button" onclick="handleAdminLogout()" title="Sign Out" style="background:transparent; border:none; color:#EF4444; font-size:18px; cursor:pointer; padding:6px; border-radius:6px;">
+          🚪
+        </button>
+      </div>
+    </aside>
 
-          <div class="admin-stat-card">
-            <div class="stat-icon-wrap" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
-            <div class="stat-info">
-              <div class="stat-num" id="metricTotalDonations">0</div>
-              <div class="stat-title">Devotee Chanda</div>
-            </div>
-          </div>
-
-          <div class="admin-stat-card card-highlight-pending">
-            <div class="stat-icon-wrap" style="background: #FFE8D6; color: #B34100;">⏳</div>
-            <div class="stat-info">
-              <div class="stat-num text-pending" id="metricPendingCount">0</div>
-              <div class="stat-title">Pending WhatsApp Bills</div>
-            </div>
-          </div>
-
-          <div class="admin-stat-card">
-            <div class="stat-icon-wrap" style="background: rgba(245, 158, 11, 0.15); color: #B45309;">🖼️</div>
-            <div class="stat-info">
-              <div class="stat-num" id="metricGalleryCount">0</div>
-              <div class="stat-title">Gallery Posts</div>
-            </div>
-          </div>
-
-          <div class="admin-stat-card">
-            <div class="stat-icon-wrap" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">🎨</div>
-            <div class="stat-info">
-              <div class="stat-num" id="metricArtistsCount">0</div>
-              <div class="stat-title">Master Artisans</div>
-            </div>
-          </div>
-
-          <div class="admin-stat-card">
-            <div class="stat-icon-wrap" style="background: #E6F4EA; color: #137333;">👥</div>
-            <div class="stat-info">
-              <div class="stat-num text-verified" id="metricMembersCount">0</div>
-              <div class="stat-title">Member Applicants</div>
-            </div>
+    <!-- Main Content Shell -->
+    <div class="admin-main-wrap">
+      
+      <!-- Sleek Topbar -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle Navigation">☰</button>
+          <div class="admin-page-title-wrap">
+            <h1 id="currentViewTitle">Dashboard Overview</h1>
+            <p id="currentViewSub">Kamalpur Abhijan Sangha · Central Management Suite</p>
           </div>
         </div>
 
-        <!-- Master Tabs Box -->
-        <div class="admin-section-box">
-          <div class="admin-tabs-row">
-            <div class="admin-tabs" role="tablist">
-              <button type="button" class="admin-tab-btn active" id="tabOverviewBtn" onclick="switchAdminTab('overview')">
-                <span>📊 Overview</span>
-              </button>
-              <button type="button" class="admin-tab-btn" id="tabGalleryBtn" onclick="switchAdminTab('gallery')">
-                <span>🖼️ Gallery Posts</span>
-                <span class="tab-badge" id="tabGalleryBadge">0</span>
-              </button>
-              <button type="button" class="admin-tab-btn" id="tabArtistsBtn" onclick="switchAdminTab('artists')">
-                <span>🎨 Master Artisans</span>
-                <span class="tab-badge" id="tabArtistsBadge">0</span>
-              </button>
-              <button type="button" class="admin-tab-btn" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
-                <span>💰 Chanda Ledger</span>
-                <span class="tab-badge" id="tabDonationsBadge">0</span>
-              </button>
-              <button type="button" class="admin-tab-btn" id="tabMembersBtn" onclick="switchAdminTab('members')">
-                <span>👥 Members</span>
-                <span class="tab-badge" id="tabMembersBadge">0</span>
-              </button>
-              <button type="button" class="admin-tab-btn" id="tabDatabaseBtn" onclick="switchAdminTab('database')">
-                <span>🗄️ Database &amp; phpMyAdmin</span>
-              </button>
+        <div class="admin-topbar-right">
+          <div class="admin-db-pill-live" id="dbStatusBadge">
+            <span class="admin-db-dot"></span>
+            <span id="dbStatusText">Hostinger MySQL Live</span>
+          </div>
+
+          <a href="index.html" target="_blank" class="btn-ghost-admin">
+            <span>Live Website ↗</span>
+          </a>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="handleAdminLogout()" style="padding:7px 12px; font-size:12.5px;">
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Body Content -->
+      <main class="admin-body-content">
+        
+        <!-- Clean KPI Metrics Bar -->
+        <div class="clean-kpi-grid">
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Total Seva Fund</div>
+              <div class="clean-kpi-val" id="metricTotalAmount">₹0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
+          </div>
+
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Devotee Chanda</div>
+              <div class="clean-kpi-val" id="metricTotalDonations">0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
+          </div>
+
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Pending Bills</div>
+              <div class="clean-kpi-val text-warning" id="metricPendingCount">0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: #FFE8D6; color: #EA580C;">⏳</div>
+          </div>
+
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Gallery Posts</div>
+              <div class="clean-kpi-val" id="metricGalleryCount">0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: rgba(245, 158, 11, 0.15); color: #B45309;">🖼️</div>
+          </div>
+
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Master Artisans</div>
+              <div class="clean-kpi-val" id="metricArtistsCount">0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">🎨</div>
+          </div>
+
+          <div class="clean-kpi-card">
+            <div>
+              <div class="clean-kpi-label">Member Applicants</div>
+              <div class="clean-kpi-val text-success" id="metricMembersCount">0</div>
+            </div>
+            <div class="clean-kpi-icon" style="background: #E6F4EA; color: #16A34A;">👥</div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 1: OVERVIEW & QUICK ACTIONS
+        ════════════════════════════════════════════════════════ -->
+        <div id="overviewView" class="admin-tab-content active">
+          
+          <!-- Quick Action Tiles -->
+          <div class="quick-action-strip">
+            <div class="quick-action-tile">
+              <div>
+                <div class="quick-action-tile-top">
+                  <div class="quick-action-tile-icon" style="background:rgba(245,158,11,0.12); color:#B45309;">📸</div>
+                  <div class="quick-action-tile-info">
+                    <h3>Gallery Management</h3>
+                    <p>Publish festival photos and videos.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:14px;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()" style="flex:1; justify-content:center;">+ Add Photo</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('gallery')" style="flex:1; justify-content:center;">View All &rarr;</button>
+              </div>
+            </div>
+
+            <div class="quick-action-tile">
+              <div>
+                <div class="quick-action-tile-top">
+                  <div class="quick-action-tile-icon" style="background:rgba(200,122,88,0.12); color:var(--gold-mid);">🎨</div>
+                  <div class="quick-action-tile-info">
+                    <h3>Master Artisans</h3>
+                    <p>Manage sculptors, architects &amp; dhak troupes.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:14px;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()" style="flex:1; justify-content:center;">+ Add Artisan</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('artists')" style="flex:1; justify-content:center;">View All &rarr;</button>
+              </div>
+            </div>
+
+            <div class="quick-action-tile">
+              <div>
+                <div class="quick-action-tile-top">
+                  <div class="quick-action-tile-icon" style="background:#E6F4EA; color:#166534;">💰</div>
+                  <div class="quick-action-tile-info">
+                    <h3>Puja Chanda Desk</h3>
+                    <p>Issue printed vouchers &amp; WhatsApp bills.</p>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; margin-top:14px;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="openOfflineDonationModal()" style="flex:1; justify-content:center;">+ Counter Entry</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('donations')" style="flex:1; justify-content:center;">Ledger &rarr;</button>
+              </div>
             </div>
           </div>
 
-          <!-- TAB 1: OVERVIEW & RECENT SUMMARY -->
-          <div id="overviewView" class="admin-tab-content active" style="padding: 24px;">
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
-              
-              <!-- Quick Management Actions Card -->
-              <div style="background:var(--off-white); border:1.5px solid var(--border-2); border-radius:14px; padding:22px;">
-                <h3 style="font-family:var(--serif); font-size:20px; color:var(--eg-dark); margin-bottom:14px; display:flex; align-items:center; gap:8px;">
-                  <span>⚡ Quick Publishing Actions</span>
-                </h3>
-                <p style="font-size:13px; color:var(--text-2); margin-bottom:18px;">
-                  Instantly publish or update media on the public website. Changes synchronize immediately with public pages.
-                </p>
+          <!-- Overview Bottom Grid -->
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+            
+            <!-- Quick Summary Panel -->
+            <div class="clean-card-panel">
+              <div class="clean-card-header">
+                <div class="clean-card-title-group">
+                  <h2>Recent Chanda Entries</h2>
+                  <p>Latest devotee contributions and WhatsApp status</p>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('donations')">Full Ledger &rarr;</button>
+              </div>
+              <div class="clean-card-body" style="padding:0;">
+                <div class="table-responsive">
+                  <table class="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Receipt ID</th>
+                        <th>Devotee</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th style="text-align:right;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="overviewDonationsPreviewBody">
+                      <!-- Rendered by JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hostinger Database Status Card -->
+            <div class="clean-card-panel">
+              <div class="clean-card-header">
+                <div class="clean-card-title-group">
+                  <h2>Database Status</h2>
+                  <p>Hostinger MySQL &amp; phpMyAdmin</p>
+                </div>
+              </div>
+              <div class="clean-card-body">
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:14px; font-size:13px; margin-bottom:16px;">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                    <span style="color:#64748B;">Database:</span>
+                    <strong><code>u197762167_kamalpur</code></strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                    <span style="color:#64748B;">User:</span>
+                    <strong><code>u197762167_admin</code></strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between;">
+                    <span style="color:#64748B;">Engine:</span>
+                    <span style="color:#16A34A; font-weight:700;">● Active / Connected</span>
+                  </div>
+                </div>
                 <div style="display:flex; flex-direction:column; gap:10px;">
-                  <button type="button" class="btn btn-primary" onclick="openGalleryModal()" style="justify-content:center;">
-                    <span>📸 Add New Gallery Photo Post</span>
-                  </button>
-                  <button type="button" class="btn btn-secondary" onclick="openArtistModal()" style="justify-content:center;">
-                    <span>🎨 Add New Master Artisan Profile</span>
-                  </button>
-                  <button type="button" class="btn btn-secondary" onclick="openOfflineDonationModal()" style="justify-content:center;">
-                    <span>🧾 Record Manual / Counter Chanda</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Database & Storage Status Card -->
-              <div style="background:var(--off-white); border:1.5px solid var(--border-2); border-radius:14px; padding:22px;">
-                <h3 style="font-family:var(--serif); font-size:20px; color:var(--eg-dark); margin-bottom:14px; display:flex; align-items:center; gap:8px;">
-                  <span>🗄️ Database &amp; phpMyAdmin Link</span>
-                </h3>
-                <p style="font-size:13px; color:var(--text-2); margin-bottom:12px;">
-                  Configured with MySQL / phpMyAdmin database <strong><code>kamalpur_db</code></strong> and automatic local storage bridge.
-                </p>
-                <div style="background:var(--white); border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin-bottom:16px; font-size:12.5px;">
-                  <div>Database Name: <strong>kamalpur_db</strong></div>
-                  <div style="margin-top:4px;">phpMyAdmin Endpoint: <strong>http://localhost/phpmyadmin</strong></div>
-                  <div style="margin-top:4px;">Schema File: <strong>database/schema.sql</strong></div>
-                </div>
-                <div style="display:flex; gap:10px;">
-                  <a href="database/schema.sql" download class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;">
-                    <span>📥 Download SQL Schema</span>
+                  <a href="database/schema.sql" download class="btn btn-secondary btn-sm" style="justify-content:center;">
+                    <span>📥 Download schema.sql</span>
                   </a>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('database')" style="flex:1; justify-content:center;">
-                    <span>View Setup Guide &rarr;</span>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('database')" style="justify-content:center;">
+                    <span>Database Settings &rarr;</span>
                   </button>
                 </div>
               </div>
-
             </div>
+
           </div>
 
-          <!-- TAB 2: GALLERY POST MANAGEMENT -->
-          <div id="galleryView" class="admin-tab-content" style="display:none;">
-            <div class="admin-posts-header">
-              <div class="admin-posts-title-wrap">
-                <h3 class="admin-posts-title">Gallery Photo Archive Management</h3>
-                <span class="admin-posts-count" id="galleryCountBadge">0 Posts</span>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 2: GALLERY POST MANAGEMENT
+        ════════════════════════════════════════════════════════ -->
+        <div id="galleryView" class="admin-tab-content" style="display:none;">
+          <div class="clean-card-panel">
+            <div class="clean-card-header">
+              <div class="clean-card-title-group">
+                <h2>Gallery Archive Management</h2>
+                <p><span id="galleryCountBadge">0 Posts</span> currently live on public gallery</p>
               </div>
               <div style="display:flex; gap:10px; align-items:center;">
-                <input type="text" id="gallerySearchInput" placeholder="Search gallery title, category..." oninput="renderAdminGallery()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
+                <input type="text" id="gallerySearchInput" placeholder="Search title or category..." oninput="renderAdminGallery()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
                 <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">
                   <span>+ Add New Photo</span>
                 </button>
               </div>
             </div>
-
-            <div class="admin-gallery-grid" id="adminGalleryGrid">
-              <!-- Dynamically populated via script -->
-            </div>
-            <div id="galleryEmptyState" class="admin-empty-state" style="display:none;">
-              <div class="empty-icon">🖼️</div>
-              <h3>No Gallery Posts Found</h3>
-              <p>Add photos to showcase them in the public Gallery archive.</p>
-              <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">+ Add First Photo</button>
+            <div class="clean-card-body">
+              <div class="admin-gallery-grid" id="adminGalleryGrid">
+                <!-- Dynamically populated via script -->
+              </div>
+              <div id="galleryEmptyState" class="admin-empty-state" style="display:none;">
+                <div class="empty-icon">🖼️</div>
+                <h3>No Gallery Posts Found</h3>
+                <p>Add photos to showcase them in the public Gallery archive.</p>
+                <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">+ Add First Photo</button>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- TAB 3: ARTISTS POST MANAGEMENT -->
-          <div id="artistsView" class="admin-tab-content" style="display:none;">
-            <div class="admin-posts-header">
-              <div class="admin-posts-title-wrap">
-                <h3 class="admin-posts-title">Master Artisans &amp; Profiles Management</h3>
-                <span class="admin-posts-count" id="artistsCountBadge">0 Artisans</span>
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 3: ARTISTS POST MANAGEMENT
+        ════════════════════════════════════════════════════════ -->
+        <div id="artistsView" class="admin-tab-content" style="display:none;">
+          <div class="clean-card-panel">
+            <div class="clean-card-header">
+              <div class="clean-card-title-group">
+                <h2>Master Artisans &amp; Profiles</h2>
+                <p><span id="artistsCountBadge">0 Artisans</span> featured on artists showcase</p>
               </div>
               <div style="display:flex; gap:10px; align-items:center;">
-                <input type="text" id="artistSearchInput" placeholder="Search artist name, craft, region..." oninput="renderAdminArtists()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
+                <input type="text" id="artistSearchInput" placeholder="Search artist name or craft..." oninput="renderAdminArtists()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
                 <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">
                   <span>+ Add Master Artisan</span>
                 </button>
               </div>
             </div>
-
-            <div class="admin-artists-grid" id="adminArtistsGrid">
-              <!-- Dynamically populated via script -->
-            </div>
-            <div id="artistsEmptyState" class="admin-empty-state" style="display:none;">
-              <div class="empty-icon">🎨</div>
-              <h3>No Artisans Logged</h3>
-              <p>Create profiles for master sculptors, architects, and light artists.</p>
-              <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">+ Add First Artisan</button>
+            <div class="clean-card-body">
+              <div class="admin-artists-grid" id="adminArtistsGrid">
+                <!-- Dynamically populated via script -->
+              </div>
+              <div id="artistsEmptyState" class="admin-empty-state" style="display:none;">
+                <div class="empty-icon">🎨</div>
+                <h3>No Artisans Logged</h3>
+                <p>Create profiles for master sculptors, architects, and light artists.</p>
+                <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">+ Add First Artisan</button>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- TAB 4: DONATIONS / PUJA CHANDA LEDGER -->
-          <div id="donationsView" class="admin-tab-content" style="display:none;">
-            <div class="admin-posts-header">
-              <div class="admin-posts-title-wrap">
-                <h3 class="admin-posts-title">Puja Chanda &amp; Seva Contributions</h3>
-                <span class="admin-posts-count" id="donationsCountBadge">0 Records</span>
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 4: CHANDA LEDGER & VOUCHERS
+        ════════════════════════════════════════════════════════ -->
+        <div id="donationsView" class="admin-tab-content" style="display:none;">
+          <div class="clean-card-panel">
+            <div class="clean-card-header">
+              <div class="clean-card-title-group">
+                <h2>Puja Chanda &amp; Seva Contributions</h2>
+                <p><span id="donationsCountBadge">0 Records</span> in treasury ledger</p>
               </div>
               <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
                 <input type="text" id="adminSearchInput" placeholder="Search name, phone, UTR..." oninput="renderAdminDonations()" class="form-input" style="width:200px; padding:8px 12px; font-size:13px;">
@@ -343,126 +472,139 @@
                 </button>
               </div>
             </div>
-
-            <div class="table-responsive">
-              <table class="admin-table" id="donationsTable">
-                <thead>
-                  <tr>
-                    <th>Tracking ID &amp; Date</th>
-                    <th>Devotee Details</th>
-                    <th>Fund / Purpose</th>
-                    <th>Amount</th>
-                    <th>Payment Ref</th>
-                    <th>Status</th>
-                    <th style="text-align:right;">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="donationsTableBody">
-                  <!-- Dynamically populated via script -->
-                </tbody>
-              </table>
-            </div>
-            <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
-              <div class="empty-icon">📭</div>
-              <h3>No Donation Records</h3>
-              <p>No transactions match the selected filter.</p>
+            <div class="clean-card-body" style="padding:0;">
+              <div class="table-responsive">
+                <table class="admin-table" id="donationsTable">
+                  <thead>
+                    <tr>
+                      <th>Tracking ID &amp; Date</th>
+                      <th>Devotee Details</th>
+                      <th>Fund / Purpose</th>
+                      <th>Amount</th>
+                      <th>Payment Ref</th>
+                      <th>Status</th>
+                      <th style="text-align:right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="donationsTableBody">
+                    <!-- Dynamically populated via script -->
+                  </tbody>
+                </table>
+              </div>
+              <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
+                <div class="empty-icon">📭</div>
+                <h3>No Donation Records</h3>
+                <p>No transactions match the selected filter.</p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <!-- TAB 5: MEMBERSHIP APPLICATIONS -->
-          <div id="membersView" class="admin-tab-content" style="display:none;">
-            <div class="admin-posts-header">
-              <div class="admin-posts-title-wrap">
-                <h3 class="admin-posts-title">Devotee Volunteer &amp; Member Applications</h3>
-                <span class="admin-posts-count" id="membersCountBadge">0 Applicants</span>
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 5: MEMBERSHIP APPLICATIONS
+        ════════════════════════════════════════════════════════ -->
+        <div id="membersView" class="admin-tab-content" style="display:none;">
+          <div class="clean-card-panel">
+            <div class="clean-card-header">
+              <div class="clean-card-title-group">
+                <h2>Volunteer &amp; Committee Applicants</h2>
+                <p><span id="membersCountBadge">0 Applicants</span> registered</p>
               </div>
               <input type="text" id="memberSearchInput" placeholder="Search applicant, town..." oninput="renderAdminMembers()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
             </div>
-
-            <div class="table-responsive">
-              <table class="admin-table" id="membersTable">
-                <thead>
-                  <tr>
-                    <th>Application ID &amp; Date</th>
-                    <th>Applicant Name</th>
-                    <th>Contact No.</th>
-                    <th>Town / Locality</th>
-                    <th>Wing of Interest</th>
-                    <th>Motivation Note</th>
-                    <th>Status</th>
-                    <th style="text-align:right;">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="membersTableBody">
-                  <!-- Dynamically populated via script -->
-                </tbody>
-              </table>
-            </div>
-            <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
-              <div class="empty-icon">👥</div>
-              <h3>No Membership Applications</h3>
-              <p>Applications received via the Join page will appear here.</p>
-            </div>
-          </div>
-
-          <!-- TAB 6: DATABASE & PHPMYADMIN -->
-          <div id="databaseView" class="admin-tab-content" style="display:none; padding:32px;">
-            <div style="max-width:800px;">
-              <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                <span style="font-size:32px;">🗄️</span>
-                <div>
-                  <h3 style="font-family:var(--serif); font-size:24px; color:var(--eg-dark); margin:0;">phpMyAdmin &amp; MySQL Database Backend</h3>
-                  <div style="font-size:13px; color:var(--text-3);">Integrated Relational Architecture for Kamalpur Abhijan Sangha</div>
-                </div>
+            <div class="clean-card-body" style="padding:0;">
+              <div class="table-responsive">
+                <table class="admin-table" id="membersTable">
+                  <thead>
+                    <tr>
+                      <th>Application ID &amp; Date</th>
+                      <th>Applicant Name</th>
+                      <th>Contact No.</th>
+                      <th>Town / Locality</th>
+                      <th>Wing of Interest</th>
+                      <th>Motivation Note</th>
+                      <th>Status</th>
+                      <th style="text-align:right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="membersTableBody">
+                    <!-- Dynamically populated via script -->
+                  </tbody>
+                </table>
               </div>
-
-              <p style="font-size:14px; color:var(--text-2); line-height:1.6; margin-bottom:24px;">
-                You can manage all tables directly in <strong>phpMyAdmin</strong> or through this executive admin console. Both interfaces synchronize automatically with the database.
-              </p>
-
-              <!-- Step by Step Setup Box -->
-              <div style="background:var(--off-white); border:1.5px solid var(--border); border-radius:14px; padding:24px; margin-bottom:24px;">
-                <h4 style="font-size:16px; font-weight:700; color:var(--eg-dark); margin-bottom:12px;">🚀 1-Click phpMyAdmin Import Instructions:</h4>
-                <ol style="font-size:13.5px; color:var(--text-2); line-height:1.8; margin-left:20px; padding:0;">
-                  <li>Open your local or hosted phpMyAdmin (e.g., <strong><code>http://localhost/phpmyadmin</code></strong> or XAMPP / MAMP / cPanel).</li>
-                  <li>Click on the <strong>Import</strong> tab in the top navigation bar of phpMyAdmin.</li>
-                  <li>Click <strong>Choose File</strong> and select <strong><code>database/schema.sql</code></strong> located in your project folder.</li>
-                  <li>Click <strong>Go</strong> at the bottom. It will automatically create the database <strong><code>kamalpur_db</code></strong> and all 5 tables (<code>admin_users</code>, <code>gallery</code>, <code>artists</code>, <code>donations</code>, <code>members</code>) with complete initial records.</li>
-                  <li>In <code>api/db.php</code>, adjust <code>$db_host</code>, <code>$db_user</code>, and <code>$db_pass</code> if your phpMyAdmin uses non-default MySQL credentials.</li>
-                </ol>
-                <div style="margin-top:16px;">
-                  <a href="database/schema.sql" download class="btn btn-primary btn-sm">
-                    <span>📥 Download database/schema.sql</span>
-                  </a>
-                </div>
+              <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
+                <div class="empty-icon">👥</div>
+                <h3>No Membership Applications</h3>
+                <p>Applications received via the Join page will appear here.</p>
               </div>
-
-              <!-- Backup / JSON Tools -->
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;">
-                <div style="background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px;">
-                  <h5 style="font-size:14.5px; font-weight:700; color:var(--eg-dark); margin-bottom:6px;">📦 Full JSON Backup</h5>
-                  <p style="font-size:12.5px; color:var(--text-2); margin-bottom:12px;">Export all gallery posts, artist profiles, and chanda records as a single JSON archive.</p>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()">
-                    <span>Download JSON Backup</span>
-                  </button>
-                </div>
-
-                <div style="background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px;">
-                  <h5 style="font-size:14.5px; font-weight:700; color:var(--eg-dark); margin-bottom:6px;">🔄 Reset Sample Data</h5>
-                  <p style="font-size:12.5px; color:var(--text-2); margin-bottom:12px;">Restore default records for testing if storage was modified.</p>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()">
-                    <span>Reset Default Seed</span>
-                  </button>
-                </div>
-              </div>
-
             </div>
           </div>
-
         </div>
 
-      </div>
-    </main>
+        <!-- ════════════════════════════════════════════════════════
+             VIEW 6: DATABASE & PHPMYADMIN
+        ════════════════════════════════════════════════════════ -->
+        <div id="databaseView" class="admin-tab-content" style="display:none;">
+          <div class="clean-card-panel">
+            <div class="clean-card-header">
+              <div class="clean-card-title-group">
+                <h2>Hostinger MySQL &amp; phpMyAdmin Integration</h2>
+                <p>Relational database synchronization for Kamalpur Abhijan Sangha</p>
+              </div>
+              <a href="database/schema.sql" download class="btn btn-primary btn-sm">
+                <span>📥 Download database/schema.sql</span>
+              </a>
+            </div>
+            <div class="clean-card-body">
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📊 Active Hostinger Connection</h4>
+                  <div style="font-size:13px; color:#475569; line-height:1.7;">
+                    <div>Database: <strong><code>u197762167_kamalpur</code></strong></div>
+                    <div>User: <strong><code>u197762167_admin</code></strong></div>
+                    <div>Host: <strong><code>localhost:3306</code></strong></div>
+                    <div>Tables: <strong>5 (gallery, artists, donations, members, admin_users)</strong></div>
+                  </div>
+                </div>
+
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">🚀 Access Hostinger phpMyAdmin</h4>
+                  <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
+                    Open Hostinger hPanel &rarr; Databases &rarr; phpMyAdmin &rarr; Click <strong>Enter phpMyAdmin</strong> to view and query tables live.
+                  </p>
+                  <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;">
+                    <span>Open Hostinger hPanel ↗</span>
+                  </a>
+                </div>
+
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📦 Backup &amp; Recovery</h4>
+                  <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
+                    Export full JSON snapshot or reset demo records.
+                  </p>
+                  <div style="display:flex; gap:10px;">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()" style="flex:1; justify-content:center;">JSON Backup</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()" style="flex:1; justify-content:center;">Reset Demo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Clean Admin Footer with Developer Credit -->
+      <footer class="admin-footer" style="padding:20px 32px; border-top:1px solid #E2E8F0; background:#FFFFFF; display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <div style="font-size:12px; color:#64748B;">
+          &copy; 2026 Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ). Executive Office Console.
+        </div>
+        <div class="footer-developer-credit" style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright, #F59E0B);">
+          DEVELOPED BY TEAM SUBHA-ARTHA
+        </div>
+      </footer>
+
+    </div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
@@ -738,25 +880,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer admin-footer" style="margin-top:60px;">
-    <div class="container">
-      <div class="footer-bottom">
-        <div class="footer-copy">
-          &copy; 2026 Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ). Internal Office Management System.
-        </div>
-        <div class="footer-copy">
-          Ranaghat, Nadia, West Bengal, India &nbsp;·&nbsp;
-          <a href="index.html">Main Website</a> &nbsp;·&nbsp;
-          <a href="#top">Back to top &uarr;</a>
-        </div>
-        <div class="footer-developer-credit" style="width:100%; text-align:center; font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright, #F59E0B); padding-top:14px; margin-top:6px; border-top:1px dashed rgba(255,255,255,0.12);">
-          DEVELOPED BY TEAM SUBHA-ARTHA
-        </div>
-      </div>
-    </div>
-  </footer>
-
   <script src="script.js?v=20261011-v3"></script>
   <script>
     /* ══════════════════════════════════════════════════════════
@@ -787,7 +910,7 @@
         isBackendConnected = false;
         const statusText = document.getElementById('dbStatusText');
         if (statusText) {
-          statusText.textContent = 'Local Database Bridge Active';
+          statusText.textContent = 'Hostinger MySQL Ready';
         }
       }
     }
@@ -800,7 +923,7 @@
 
       if (isAuth) {
         if (loginSection) loginSection.style.display = 'none';
-        if (dashboardSection) dashboardSection.style.display = 'block';
+        if (dashboardSection) dashboardSection.style.display = 'flex';
         loadAllDashboardData();
       } else {
         if (loginSection) loginSection.style.display = 'flex';
@@ -855,7 +978,7 @@
         }
         localStorage.setItem('kas_officer_name', officerTitle);
         const badge = document.getElementById('officerDisplayBadge');
-        if (badge) badge.innerHTML = `<span>👤</span><span>Officer: <strong>${escapeHtml(officerTitle)}</strong></span>`;
+        if (badge) badge.textContent = officerTitle;
         checkAdminAuth();
       } else {
         if (alertEl) alertEl.style.display = 'flex';
@@ -887,10 +1010,30 @@
       }
     }
 
+    function toggleSidebar() {
+      const sidebar = document.getElementById('adminSidebar');
+      if (sidebar) sidebar.classList.toggle('open');
+    }
+
     /* ── 3. Tabs Navigation ── */
     function switchAdminTab(tab) {
       currentAdminTab = tab;
       const tabBtns = ['overview', 'gallery', 'artists', 'donations', 'members', 'database'];
+
+      const titles = {
+        overview: { title: 'Dashboard Overview', sub: 'Kamalpur Abhijan Sangha · Central Management Suite' },
+        gallery: { title: 'Gallery Photo Archive', sub: 'Publish and manage festival photography & video chronicles' },
+        artists: { title: 'Master Artisans Guild', sub: 'Profiles, awards, and craft specializations of Bengal artisans' },
+        donations: { title: 'Puja Chanda Ledger', sub: 'Treasury contributions, printed money slips & WhatsApp bills' },
+        members: { title: 'Volunteer & Member Desk', sub: 'Review membership applications and volunteer wing preferences' },
+        database: { title: 'Database & phpMyAdmin', sub: 'Hostinger MySQL connection, phpMyAdmin access & backups' }
+      };
+
+      const info = titles[tab] || titles.overview;
+      const titleEl = document.getElementById('currentViewTitle');
+      const subEl = document.getElementById('currentViewSub');
+      if (titleEl) titleEl.textContent = info.title;
+      if (subEl) subEl.textContent = info.sub;
 
       tabBtns.forEach(t => {
         const btn = document.getElementById(`tab${capitalize(t)}Btn`);
@@ -903,6 +1046,9 @@
           view.style.display = (t === tab) ? 'block' : 'none';
         }
       });
+
+      const sidebar = document.getElementById('adminSidebar');
+      if (sidebar && window.innerWidth <= 960) sidebar.classList.remove('open');
     }
 
     function capitalize(s) {
@@ -917,7 +1063,38 @@
         renderAdminDonations(),
         renderAdminMembers()
       ]);
+      renderOverviewDonationsPreview();
       updateKpis();
+    }
+
+    function renderOverviewDonationsPreview() {
+      const list = getStoredDonations().slice(0, 5);
+      const tbody = document.getElementById('overviewDonationsPreviewBody');
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:18px; color:#64748B;">No donations recorded yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(item => `
+        <tr>
+          <td><span class="font-mono" style="font-weight:700; color:#0F172A; font-size:12px;">${escapeHtml(item.id)}</span></td>
+          <td>
+            <div style="font-weight:700; font-size:13px; color:#0F172A;">${escapeHtml(item.name)}</div>
+            <div style="font-size:11px; color:#64748B;">${item.phone ? '+91 ' + escapeHtml(item.phone) : '—'}</div>
+          </td>
+          <td><span style="font-weight:700; color:#166534; font-size:13px;">₹${Number(item.amount||0).toLocaleString('en-IN')}</span></td>
+          <td>
+            <span class="badge ${item.status === 'verified' ? 'badge-verified' : 'badge-pending'}" style="font-size:11px; padding:3px 8px;">
+              ${item.status === 'verified' ? 'Verified' : 'Pending'}
+            </span>
+          </td>
+          <td style="text-align:right;">
+            <button type="button" class="btn-action btn-slip" onclick="openReceiptVoucherModal('${escapeAttr(item.id)}')">🖨️ Slip</button>
+          </td>
+        </tr>
+      `).join('');
     }
 
     function initAdminConsole() {
@@ -1429,6 +1606,7 @@ _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
           </tr>
         `;
       }).join('');
+      renderOverviewDonationsPreview();
     }
 
     function toggleDonationStatus(id) {

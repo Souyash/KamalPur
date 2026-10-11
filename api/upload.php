@@ -43,3 +43,4 @@ if (move_uploaded_file($file['tmp_name'], $dest)) {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Failed to save uploaded file to disk.']);
 }
+
