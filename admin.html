@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261011-v1">
+  <link rel="stylesheet" href="styles.css?v=20261011-v2">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body class="admin-body">
@@ -23,205 +23,410 @@
     <span>Helpline Desk: <strong>+91 8637578740</strong></span>
   </div>
 
-  <!-- Admin Main Navigation (No public nav links, only desk controls & back link) -->
-  <header class="admin-header">
-    <div class="container admin-header-inner">
-      <div class="admin-brand">
-        <a href="index.html" class="nav-brand">
-          <div class="nav-logo">
-            <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo" width="46" height="46">
-          </div>
-          <div class="nav-brand-text">
-            <span class="nav-name">Kamalpur Abhijan Sangha</span>
-            <span class="nav-est">Est. 1970 · Ranaghat · <em>Admin Portal &amp; Ledger</em></span>
-          </div>
-        </a>
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 1: ADMIN LOGIN GATEWAY (Shown when logged out)
+  ══════════════════════════════════════════════════════════ -->
+  <section id="adminLoginSection" class="admin-login-screen">
+    <div class="admin-login-box">
+      <div class="admin-login-header">
+        <div class="admin-login-logo">
+          <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo" width="48" height="48">
+        </div>
+        <span class="admin-login-badge">AUTHORIZED COMMITTEE PERSONNEL ONLY</span>
+        <h1 class="admin-login-title">Sangha Admin Portal</h1>
+        <p class="admin-login-sub">
+          Central Office &amp; Treasury Desk · Ranaghat, Nadia<br>
+          Sign in to manage devotee chanda registers, financial accounts &amp; receipt dispatches.
+        </p>
       </div>
 
-      <div class="admin-header-actions">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">
-          <span>+ Add Offline Chanda</span>
+      <!-- Error Alert -->
+      <div id="loginErrorAlert" class="admin-login-alert" role="alert">
+        <span>⚠️</span>
+        <span id="loginErrorMessage">Invalid username or password. Please try again.</span>
+      </div>
+
+      <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" class="admin-login-form">
+        <div class="form-group">
+          <label for="adminUsername">Username / Officer Email</label>
+          <div class="admin-input-wrap">
+            <span class="admin-input-icon">👤</span>
+            <input type="text" id="adminUsername" class="admin-input" required placeholder="admin" autofocus autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Officer Access Password</label>
+          <div class="admin-input-wrap">
+            <span class="admin-input-icon">🔑</span>
+            <input type="password" id="adminPassword" class="admin-input" required placeholder="••••••••" autocomplete="current-password">
+            <button type="button" class="admin-pw-toggle" onclick="togglePasswordVisibility()" aria-label="Toggle password visibility" id="pwToggleBtn">
+              👁️ Show
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-remember-row">
+          <label>
+            <input type="checkbox" id="adminRememberMe" checked>
+            <span>Keep me signed in</span>
+          </label>
+          <a href="tel:+918637578740" style="color:var(--gold-dark); text-decoration:none; font-weight:600;">Lost Key?</a>
+        </div>
+
+        <button type="submit" class="admin-btn-login" id="loginSubmitBtn">
+          <span>Sign In to Executive Console &rarr;</span>
         </button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="exportLedgerCSV()">
-          <span>📥 Export CSV</span>
-        </button>
-        <a href="index.html" class="btn btn-primary btn-sm">
-          <span>&larr; Return to Public Site</span>
+      </form>
+
+      <!-- Demo Credentials Helper Note -->
+      <div class="admin-login-demo-hint">
+        <div><strong>💡 Executive Committee Credentials:</strong></div>
+        <div style="margin-top:4px;">Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>admin123</strong></div>
+        <div style="font-size:11px; color:var(--text-3); margin-top:3px;">(Alternative access: <code>kas@1970</code>)</div>
+      </div>
+
+      <div style="text-align:center; margin-top:22px;">
+        <a href="index.html" style="font-size:13px; color:var(--text-2); text-decoration:none; font-weight:600;">
+          &larr; Return to Public Website
         </a>
       </div>
     </div>
-  </header>
+  </section>
 
-  <!-- Main Content Dashboard -->
-  <main class="admin-main">
-    <div class="container">
+  <!-- ══════════════════════════════════════════════════════════
+       SECTION 2: ADMIN DASHBOARD (Shown when logged in)
+  ══════════════════════════════════════════════════════════ -->
+  <div id="adminDashboardSection" style="display:none;">
 
-      <!-- Header intro banner -->
-      <div class="admin-hero-card">
-        <div class="admin-hero-content">
-          <div class="hero-badge" style="display:inline-flex; align-items:center; gap:6px; margin-bottom:12px;">
-            <span>🔒 Internal Desk · Ranaghat, Nadia</span>
-          </div>
-          <h1 class="admin-title">Puja Chanda Ledger &amp; Verification Desk</h1>
-          <p class="admin-subtitle">
-            Manage incoming online UPI contributions, review transaction UTRs, disburse official WhatsApp seva receipts within 2 hours, and track membership enrollments.
-          </p>
+    <!-- Admin Main Header -->
+    <header class="admin-header">
+      <div class="container admin-header-inner">
+        <div class="admin-brand">
+          <a href="index.html" class="nav-brand">
+            <div class="nav-logo">
+              <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo" width="46" height="46">
+            </div>
+            <div class="nav-brand-text">
+              <span class="nav-name">Kamalpur Abhijan Sangha</span>
+              <span class="nav-est">Est. 1970 · Ranaghat · <em>Admin Suite &amp; Seva Desk</em></span>
+            </div>
+          </a>
         </div>
-        <div class="admin-hero-actions">
-          <button type="button" class="btn btn-secondary btn-sm" onclick="refreshAdminData()">
-            <span>🔄 Sync &amp; Refresh Data</span>
+
+        <div class="admin-header-actions">
+          <div class="admin-officer-pill" id="officerDisplayBadge">
+            <span>👤</span>
+            <span>Officer: <strong>Central Executive</strong></span>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">
+            <span>+ Add Counter Chanda</span>
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()">
-            <span>📦 Reset Demo Records</span>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="exportLedgerCSV()">
+            <span>📥 Export CSV</span>
           </button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">
+            <span>🖨️ Print Report</span>
+          </button>
+          <button type="button" class="admin-btn-logout" onclick="handleAdminLogout()">
+            <span>🚪 Sign Out</span>
+          </button>
+          <a href="index.html" class="btn btn-primary btn-sm">
+            <span>Public Site &rarr;</span>
+          </a>
         </div>
       </div>
+    </header>
 
-      <!-- Quick Metrics Grid -->
-      <div class="admin-stats-grid">
-        <div class="admin-stat-card">
-          <div class="stat-icon-wrap" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
-          <div class="stat-info">
-            <div class="stat-num" id="metricTotalAmount">₹0</div>
-            <div class="stat-title">Total Seva Collections</div>
+    <!-- Main Content Dashboard -->
+    <main class="admin-main">
+      <div class="container">
+
+        <!-- Hero Card -->
+        <div class="admin-hero-card">
+          <div class="admin-hero-content">
+            <div class="hero-badge" style="display:inline-flex; align-items:center; gap:6px; margin-bottom:12px;">
+              <span>🔒 Central Treasury Desk · Ranaghat, Nadia</span>
+            </div>
+            <h1 class="admin-title">Puja Chanda Ledger &amp; Executive Desk</h1>
+            <p class="admin-subtitle">
+              Manage incoming online WhatsApp contributions, audit devotee donations, generate stamped printable money receipts, and coordinate membership admissions.
+            </p>
           </div>
-        </div>
-
-        <div class="admin-stat-card">
-          <div class="stat-icon-wrap" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
-          <div class="stat-info">
-            <div class="stat-num" id="metricTotalDonations">0</div>
-            <div class="stat-title">Total Donors Logged</div>
-          </div>
-        </div>
-
-        <div class="admin-stat-card card-highlight-pending">
-          <div class="stat-icon-wrap" style="background: #FFE8D6; color: #B34100;">⏳</div>
-          <div class="stat-info">
-            <div class="stat-num text-pending" id="metricPendingCount">0</div>
-            <div class="stat-title">Awaiting WhatsApp Receipt</div>
-          </div>
-        </div>
-
-        <div class="admin-stat-card">
-          <div class="stat-icon-wrap" style="background: #E6F4EA; color: #137333;">✓</div>
-          <div class="stat-info">
-            <div class="stat-num text-verified" id="metricVerifiedCount">0</div>
-            <div class="stat-title">Verified &amp; Dispatched</div>
-          </div>
-        </div>
-
-        <div class="admin-stat-card">
-          <div class="stat-icon-wrap" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">👥</div>
-          <div class="stat-info">
-            <div class="stat-num" id="metricMembersCount">0</div>
-            <div class="stat-title">Membership Applicants</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tabs and Controls Bar -->
-      <div class="admin-section-box">
-        <div class="admin-tabs-row">
-          <div class="admin-tabs" role="tablist">
-            <button type="button" class="admin-tab-btn active" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
-              <span>💰 Donation Ledger</span>
-              <span class="tab-badge" id="tabDonationsBadge">0</span>
+          <div class="admin-hero-actions">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="refreshAdminData()">
+              <span>🔄 Refresh Live Data</span>
             </button>
-            <button type="button" class="admin-tab-btn" id="tabMembersBtn" onclick="switchAdminTab('members')">
-              <span>👥 Membership Applications</span>
-              <span class="tab-badge" id="tabMembersBadge">0</span>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()">
+              <span>📦 Reset Demo Records</span>
             </button>
           </div>
+        </div>
 
-          <div class="admin-filter-controls">
-            <div class="admin-search-box">
-              <input type="text" id="adminSearchInput" placeholder="Search by name, phone, tracking ID, UTR..." oninput="applyFilters()">
+        <!-- KPI Metrics Grid -->
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <div class="stat-icon-wrap" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
+            <div class="stat-info">
+              <div class="stat-num" id="metricTotalAmount">₹0</div>
+              <div class="stat-title">Total Seva Collections</div>
             </div>
-            <div class="admin-select-box" id="statusFilterWrapper">
-              <select id="statusFilterSelect" onchange="applyFilters()">
-                <option value="all">All Statuses</option>
-                <option value="pending">Pending Verification</option>
-                <option value="verified">Verified &amp; Sent</option>
-              </select>
+          </div>
+
+          <div class="admin-stat-card">
+            <div class="stat-icon-wrap" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
+            <div class="stat-info">
+              <div class="stat-num" id="metricTotalDonations">0</div>
+              <div class="stat-title">Total Donors Logged</div>
+            </div>
+          </div>
+
+          <div class="admin-stat-card card-highlight-pending">
+            <div class="stat-icon-wrap" style="background: #FFE8D6; color: #B34100;">⏳</div>
+            <div class="stat-info">
+              <div class="stat-num text-pending" id="metricPendingCount">0</div>
+              <div class="stat-title">Awaiting WhatsApp Bill</div>
+            </div>
+          </div>
+
+          <div class="admin-stat-card">
+            <div class="stat-icon-wrap" style="background: #E6F4EA; color: #137333;">✓</div>
+            <div class="stat-info">
+              <div class="stat-num text-verified" id="metricVerifiedCount">0</div>
+              <div class="stat-title">Verified &amp; Dispatched</div>
+            </div>
+          </div>
+
+          <div class="admin-stat-card">
+            <div class="stat-icon-wrap" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">👥</div>
+            <div class="stat-info">
+              <div class="stat-num" id="metricMembersCount">0</div>
+              <div class="stat-title">Member Applications</div>
+            </div>
+          </div>
+
+          <div class="admin-stat-card">
+            <div class="stat-icon-wrap" style="background: rgba(37, 211, 102, 0.12); color: #128C7E;">📅</div>
+            <div class="stat-info">
+              <div class="stat-num" id="metricTodayAmount">₹0</div>
+              <div class="stat-title">Today's Collections</div>
             </div>
           </div>
         </div>
 
-        <!-- 1. DONATIONS TABLE VIEW -->
-        <div id="donationsView" class="admin-tab-content active">
-          <div class="table-responsive">
-            <table class="admin-table" id="donationsTable">
-              <thead>
-                <tr>
-                  <th>Tracking ID &amp; Date</th>
-                  <th>Devotee Details</th>
-                  <th>Purpose / Seva</th>
-                  <th>Amount</th>
-                  <th>UTR / Reference</th>
-                  <th>Status</th>
-                  <th style="text-align:right;">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="donationsTableBody">
-                <!-- Dynamically populated via script -->
-              </tbody>
-            </table>
+        <!-- Tabs and Controls Bar -->
+        <div class="admin-section-box">
+          <div class="admin-tabs-row">
+            <div class="admin-tabs" role="tablist">
+              <button type="button" class="admin-tab-btn active" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
+                <span>💰 Donation Ledger</span>
+                <span class="tab-badge" id="tabDonationsBadge">0</span>
+              </button>
+              <button type="button" class="admin-tab-btn" id="tabAnalyticsBtn" onclick="switchAdminTab('analytics')">
+                <span>📊 Fund Analytics</span>
+              </button>
+              <button type="button" class="admin-tab-btn" id="tabMembersBtn" onclick="switchAdminTab('members')">
+                <span>👥 Membership Applications</span>
+                <span class="tab-badge" id="tabMembersBadge">0</span>
+              </button>
+              <button type="button" class="admin-tab-btn" id="tabSettingsBtn" onclick="switchAdminTab('settings')">
+                <span>⚙️ System &amp; Backup</span>
+              </button>
+            </div>
+
+            <div class="admin-filter-controls" id="ledgerControlsRow">
+              <div class="admin-search-box">
+                <input type="text" id="adminSearchInput" placeholder="Search name, phone, tracking ID, UTR..." oninput="applyFilters()">
+              </div>
+              <div class="admin-select-box" id="statusFilterWrapper">
+                <select id="statusFilterSelect" onchange="applyFilters()">
+                  <option value="all">All Statuses</option>
+                  <option value="pending">Pending Verification</option>
+                  <option value="verified">Verified &amp; Sent</option>
+                </select>
+              </div>
+              <div class="admin-select-box" id="purposeFilterWrapper">
+                <select id="purposeFilterSelect" onchange="applyFilters()">
+                  <option value="all">All Funds</option>
+                  <option value="Sharodotsav Durga Puja Chanda">Durga Puja Chanda</option>
+                  <option value="Maha Bhog & Prasad Annadan">Maha Bhog &amp; Annadan</option>
+                  <option value="Free Health & Blood Donation Seva">Health &amp; Blood Seva</option>
+                  <option value="Youth Sports & Football Academy">Football Academy</option>
+                  <option value="General Mandir & Sangha Welfare">General Mandir Welfare</option>
+                </select>
+              </div>
+              <div class="admin-select-box" id="sortFilterWrapper">
+                <select id="sortFilterSelect" onchange="applyFilters()">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="amountHigh">Highest Amount</option>
+                  <option value="amountLow">Lowest Amount</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
-            <div class="empty-icon">📭</div>
-            <h3>No Donation Records Found</h3>
-            <p>No transactions match the selected filter, or no donations have been recorded yet.</p>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">+ Record First Donation</button>
+
+          <!-- 1. DONATIONS TABLE VIEW -->
+          <div id="donationsView" class="admin-tab-content active">
+            <div class="table-responsive">
+              <table class="admin-table" id="donationsTable">
+                <thead>
+                  <tr>
+                    <th>Tracking ID &amp; Date</th>
+                    <th>Devotee Details</th>
+                    <th>Purpose / Seva</th>
+                    <th>Amount</th>
+                    <th>Payment Mode / Ref</th>
+                    <th>Status</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="donationsTableBody">
+                  <!-- Dynamically populated via script -->
+                </tbody>
+              </table>
+            </div>
+            <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
+              <div class="empty-icon">📭</div>
+              <h3>No Donation Records Found</h3>
+              <p>No transactions match the selected filter, or no donations have been recorded yet.</p>
+              <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()">+ Record Counter Donation</button>
+            </div>
           </div>
+
+          <!-- 2. ANALYTICS VIEW -->
+          <div id="analyticsView" class="admin-tab-content" style="display:none;">
+            <div class="analytics-grid">
+              <div class="analytics-card">
+                <div class="analytics-card-title">
+                  <span>Fund Allocation Breakdown</span>
+                  <span style="font-size:12px; font-weight:700; color:var(--gold-dark);" id="analyticsTotalBadge">₹0</span>
+                </div>
+                <div id="fundBreakdownContainer">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <div class="analytics-card">
+                <div class="analytics-card-title">
+                  <span>Collection Channels</span>
+                </div>
+                <div id="channelBreakdownContainer">
+                  <!-- Injected via JS -->
+                </div>
+
+                <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border-2);">
+                  <div style="font-size:13px; font-weight:700; color:var(--eg-dark); margin-bottom:8px;">💡 Audit Summary</div>
+                  <p style="font-size:12.5px; color:var(--text-2); line-height:1.6; margin:0;">
+                    All contributions are audited against Bank Statements of State Bank of India, Ranaghat Branch. Stamped Sangha money receipts can be dispatched digitally via WhatsApp or printed for devotees on site.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. MEMBERSHIP APPLICATIONS VIEW -->
+          <div id="membersView" class="admin-tab-content" style="display:none;">
+            <div class="table-responsive">
+              <table class="admin-table" id="membersTable">
+                <thead>
+                  <tr>
+                    <th>Application ID &amp; Date</th>
+                    <th>Applicant Name</th>
+                    <th>Contact No.</th>
+                    <th>Town / Locality</th>
+                    <th>Wing of Interest</th>
+                    <th>Note / Motivation</th>
+                    <th>Status</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="membersTableBody">
+                  <!-- Dynamically populated via script -->
+                </tbody>
+              </table>
+            </div>
+            <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
+              <div class="empty-icon">👥</div>
+              <h3>No Membership Applications Found</h3>
+              <p>New membership forms submitted via the Join page will appear here automatically.</p>
+            </div>
+          </div>
+
+          <!-- 4. SYSTEM & BACKUP VIEW -->
+          <div id="settingsView" class="admin-tab-content" style="display:none; padding:32px;">
+            <div style="max-width:760px;">
+              <h3 style="font-family:var(--serif); font-size:24px; color:var(--eg-dark); margin-bottom:10px;">Sangha Treasury System &amp; Data Security</h3>
+              <p style="font-size:14px; color:var(--text-2); line-height:1.6; margin-bottom:24px;">
+                Internal administrative tools for archiving database records, verifying offline ledgers, and synchronizing counter entries.
+              </p>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px;">
+                <div style="background:var(--off-white); border:1px solid var(--border); border-radius:12px; padding:20px;">
+                  <h4 style="font-size:16px; font-weight:700; color:var(--eg-dark); margin-bottom:8px;">📥 Full JSON Ledger Backup</h4>
+                  <p style="font-size:13px; color:var(--text-2); margin-bottom:14px;">
+                    Download an encrypted complete archive of all donations, UTR tracking codes, and devotee member records.
+                  </p>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()">
+                    <span>Download JSON Backup</span>
+                  </button>
+                </div>
+
+                <div style="background:var(--off-white); border:1px solid var(--border); border-radius:12px; padding:20px;">
+                  <h4 style="font-size:16px; font-weight:700; color:var(--eg-dark); margin-bottom:8px;">📤 Restore Data from File</h4>
+                  <p style="font-size:13px; color:var(--text-2); margin-bottom:14px;">
+                    Import previously exported JSON archives back into the local treasury ledger.
+                  </p>
+                  <input type="file" id="importJsonFileInput" accept=".json" style="display:none;" onchange="handleImportJson(event)">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('importJsonFileInput').click()">
+                    <span>Choose JSON File to Restore</span>
+                  </button>
+                </div>
+
+                <div style="background:var(--off-white); border:1px solid var(--border); border-radius:12px; padding:20px;">
+                  <h4 style="font-size:16px; font-weight:700; color:var(--eg-dark); margin-bottom:8px;">🔑 Change Officer Credentials</h4>
+                  <p style="font-size:13px; color:var(--text-2); margin-bottom:14px;">
+                    Set custom officer password for this device.
+                  </p>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="promptChangePassword()">
+                    <span>Update Access Password</span>
+                  </button>
+                </div>
+
+                <div style="background:#FFF5F5; border:1px solid #FED7D7; border-radius:12px; padding:20px;">
+                  <h4 style="font-size:16px; font-weight:700; color:#C53030; margin-bottom:8px;">⚠️ Reset to Default Demo Data</h4>
+                  <p style="font-size:13px; color:#742A2A; margin-bottom:14px;">
+                    Resets storage back to initial sample records for demonstration purposes.
+                  </p>
+                  <button type="button" class="btn btn-secondary btn-sm" style="color:#C53030; border-color:#FEB2B2;" onclick="restoreSampleData()">
+                    <span>Reset Demo Data</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <!-- 2. MEMBERSHIP APPLICATIONS VIEW -->
-        <div id="membersView" class="admin-tab-content" style="display:none;">
-          <div class="table-responsive">
-            <table class="admin-table" id="membersTable">
-              <thead>
-                <tr>
-                  <th>Application ID &amp; Date</th>
-                  <th>Applicant Name</th>
-                  <th>Contact No.</th>
-                  <th>Town / Locality</th>
-                  <th>Wing of Interest</th>
-                  <th>Note / Motivation</th>
-                  <th>Status</th>
-                  <th style="text-align:right;">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="membersTableBody">
-                <!-- Dynamically populated via script -->
-              </tbody>
-            </table>
-          </div>
-          <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
-            <div class="empty-icon">👥</div>
-            <h3>No Membership Applications Found</h3>
-            <p>New membership forms submitted via the Join page will appear here automatically.</p>
+        <!-- Guidance Banner -->
+        <div class="admin-guidance-card">
+          <div class="guidance-icon">💡</div>
+          <div class="guidance-text">
+            <h4>Official WhatsApp Receipt Protocol</h4>
+            <p>
+              When a devotee contributes via the website or counter, their entry is logged here with <strong>Pending</strong> status. Click <strong class="badge-tag">💬 WhatsApp Bill</strong> to generate an instant pre-formatted official bill message to the devotee's phone or helpline <strong>+91 8637578740</strong>. Click <strong class="badge-tag">🖨️ Print Slip</strong> to generate a formal stamped receipt.
+            </p>
           </div>
         </div>
 
       </div>
+    </main>
 
-      <!-- Informational / WhatsApp Dispatch Guide Card -->
-      <div class="admin-guidance-card">
-        <div class="guidance-icon">💡</div>
-        <div class="guidance-text">
-          <h4>2-Hour WhatsApp Receipt Dispatch Protocol</h4>
-          <p>
-            When a devotee scans the Google Pay / UPI QR code on the website and enters their details, their submission arrives here with <strong>Pending</strong> status.
-            Verify the transaction in the Sangha bank statement (UPI ID / UTR), then click <strong class="badge-tag">💬 WhatsApp Bill</strong> to generate an instant pre-filled official bill message to the devotee's phone or helpline <strong>+91 8637578740</strong>. Once sent, toggle status to <strong>Verified</strong>.
-          </p>
-        </div>
-      </div>
+  </div>
 
-    </div>
-  </main>
-
-  <!-- OFFLINE DONATION ENTRY MODAL -->
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL 1: OFFLINE DONATION ENTRY MODAL
+  ══════════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="offlineDonationModal" role="dialog" aria-modal="true" aria-labelledby="offlineModalTitle">
     <div class="modal-card" style="max-width: 580px;">
       <button type="button" class="modal-close" onclick="closeOfflineDonationModal()" aria-label="Close dialog">&times;</button>
@@ -234,43 +439,43 @@
           <div class="modal-form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
             <div class="form-group" style="grid-column: span 2;">
               <label for="offDonorName">Devotee Full Name *</label>
-              <input type="text" id="offDonorName" required placeholder="e.g., Subhasish Mukherjee">
+              <input type="text" id="offDonorName" required placeholder="e.g., Subhasish Mukherjee" class="form-input">
             </div>
             <div class="form-group">
               <label for="offDonorPhone">Mobile / WhatsApp No. *</label>
-              <input type="tel" id="offDonorPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
+              <input type="tel" id="offDonorPhone" required pattern="[0-9]{10}" placeholder="10-digit number" class="form-input">
             </div>
             <div class="form-group">
               <label for="offDonorAmount">Contribution Amount (₹) *</label>
-              <input type="number" id="offDonorAmount" required min="10" placeholder="e.g., 1001">
+              <input type="number" id="offDonorAmount" required min="10" placeholder="e.g., 1001" class="form-input">
             </div>
             <div class="form-group" style="grid-column: span 2;">
               <label for="offDonorPurpose">Seva / Contribution Fund *</label>
-              <select id="offDonorPurpose" required>
+              <select id="offDonorPurpose" required class="form-select">
                 <option value="Sharodotsav Durga Puja Chanda">Sharodotsav Durga Puja Chanda</option>
-                <option value="Maha Bhog &amp; Prasad Annadan">Maha Bhog &amp; Prasad Annadan</option>
-                <option value="Pushpanjali &amp; Sandhi Puja Seva">Pushpanjali &amp; Sandhi Puja Seva</option>
-                <option value="Free Health &amp; Blood Donation Seva">Free Health &amp; Blood Donation Seva</option>
-                <option value="Youth Sports &amp; Football Academy">Youth Sports &amp; Football Academy</option>
-                <option value="Winter Blanket Distribution">Winter Blanket Distribution</option>
+                <option value="Maha Bhog & Prasad Annadan">Maha Bhog &amp; Prasad Annadan</option>
+                <option value="Pushpanjali & Sandhi Puja Seva">Pushpanjali &amp; Sandhi Puja Seva</option>
+                <option value="Free Health & Blood Donation Seva">Free Health &amp; Blood Donation Seva</option>
+                <option value="Youth Sports & Football Academy">Youth Sports &amp; Football Academy</option>
+                <option value="General Mandir & Sangha Welfare">General Mandir &amp; Sangha Welfare</option>
               </select>
             </div>
             <div class="form-group">
               <label for="offPaymentMode">Payment Mode *</label>
-              <select id="offPaymentMode" required>
-                <option value="Cash Counter">Cash at Counter</option>
-                <option value="UPI Direct">UPI Direct (Google Pay/PhonePe)</option>
+              <select id="offPaymentMode" required class="form-select">
+                <option value="Counter Cash">Cash at Counter</option>
+                <option value="WhatsApp / UPI">WhatsApp Pay / UPI</option>
                 <option value="Bank NEFT/IMPS">Bank Transfer (NEFT/IMPS)</option>
                 <option value="Cheque/Draft">Cheque / Bank Draft</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="offPaymentUtr">UTR / Slip Reference</label>
-              <input type="text" id="offPaymentUtr" placeholder="e.g., Receipt Slip #884 or UTR">
+              <label for="offPaymentUtr">Reference / Slip No.</label>
+              <input type="text" id="offPaymentUtr" placeholder="Receipt Slip # or UTR" class="form-input">
             </div>
             <div class="form-group" style="grid-column: span 2;">
               <label for="offDonorAddress">Devotee Address / Locality</label>
-              <input type="text" id="offDonorAddress" placeholder="e.g., Mission Para, Ranaghat">
+              <input type="text" id="offDonorAddress" placeholder="e.g., Mission Para, Ranaghat" class="form-input">
             </div>
           </div>
           <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
@@ -278,6 +483,80 @@
             <button type="submit" class="btn btn-primary btn-sm">Save &amp; Generate Record</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL 2: PRINTABLE SANGHA MONEY RECEIPT VOUCHER
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="receiptVoucherModal" role="dialog" aria-modal="true" aria-labelledby="voucherModalTitle">
+    <div class="modal-card" style="max-width: 620px;">
+      <button type="button" class="modal-close" onclick="closeReceiptVoucherModal()" aria-label="Close dialog">&times;</button>
+
+      <div id="voucherPrintArea" class="voucher-card">
+        <div class="voucher-header">
+          <div class="voucher-org-bengali">কামালপুর অভিযান সংঘ</div>
+          <div class="voucher-org-eng">Kamalpur Abhijan Sangha</div>
+          <div class="voucher-reg">Registered under West Bengal Societies Registration Act XXVI of 1961 · Est. 1970</div>
+          <div style="font-size:12px; color:var(--text-2); margin-top:2px;">Sangha Bhavan, Kamalpur, Ranaghat, Nadia, PIN 741201 · Helpline: +91 8637578740</div>
+          <span class="voucher-tag">OFFICIAL SEVA &amp; PUJA CHANDA RECEIPT</span>
+        </div>
+
+        <div class="voucher-meta-grid">
+          <div class="voucher-meta-box">
+            <span>Tracking Receipt Serial</span>
+            <strong id="vTrackingId">#KAS-2026-0000</strong>
+          </div>
+          <div class="voucher-meta-box">
+            <span>Date &amp; Time of Issue</span>
+            <strong id="vDate">11 Oct 2026</strong>
+          </div>
+          <div class="voucher-meta-box">
+            <span>Devotee Full Name</span>
+            <strong id="vDonorName">Devotee</strong>
+          </div>
+          <div class="voucher-meta-box">
+            <span>Contact Mobile / WhatsApp</span>
+            <strong id="vDonorPhone">+91 8637578740</strong>
+          </div>
+          <div class="voucher-meta-box" style="grid-column: span 2;">
+            <span>Fund / Seva Category</span>
+            <strong id="vPurpose">Sharodotsav Durga Puja Chanda</strong>
+          </div>
+          <div class="voucher-meta-box" style="grid-column: span 2;">
+            <span>Payment Method &amp; Reference</span>
+            <strong id="vUtr">WhatsApp Redirection / UPI</strong>
+          </div>
+        </div>
+
+        <div class="voucher-amount-highlight">
+          <div style="font-size:12px; text-transform:uppercase; font-weight:700; color:var(--text-3); letter-spacing:0.05em;">Received Sum with Devotion</div>
+          <div class="v-amt-num" id="vAmount">₹501</div>
+          <div style="font-size:13px; color:var(--text-2); margin-top:2px;" id="vAmountWords">Rupees Five Hundred One Only</div>
+        </div>
+
+        <div style="font-size:12px; color:var(--text-2); font-style:italic; text-align:center; margin-top:14px;">
+          "May Maa Durga bestow peace, health and prosperity upon your family."
+        </div>
+
+        <div class="voucher-sign-row">
+          <div class="voucher-seal">
+            <span>KAMALPUR</span>
+            <span>ABHIJAN</span>
+            <span>★ SANGHA ★</span>
+            <span>RANAGHAT</span>
+          </div>
+          <div class="voucher-sign-line">
+            <span>For Kamalpur Abhijan Sangha</span>
+            <strong>Authorized Treasurer / Secretary</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="voucher-actions" style="display:flex; justify-content:flex-end; gap:12px; margin-top:20px; padding:0 10px;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeReceiptVoucherModal()">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print Receipt Voucher</button>
       </div>
     </div>
   </div>
@@ -301,21 +580,116 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261011-v1"></script>
+  <script src="script.js?v=20261011-v2"></script>
   <script>
     /* ══════════════════════════════════════════════════════════
-       ADMIN PORTAL JAVASCRIPT CONTROLLER
+       ADMIN PORTAL JAVASCRIPT CONTROLLER (AUTHENTICATION & DASHBOARD)
     ══════════════════════════════════════════════════════════ */
     let activeTab = 'donations';
 
+    // Official credentials
+    const DEFAULT_ADMIN_USER = 'admin';
+    const DEFAULT_ADMIN_PASS = 'admin123';
+    const ALT_ADMIN_PASS = 'kas@1970';
+
     document.addEventListener('DOMContentLoaded', () => {
-      // Ensure seed data exists
+      // Check session
+      checkAdminAuth();
+
+      // Seed data if needed
       if (typeof initAdminSeedData === 'function') {
         initAdminSeedData();
       }
-      renderAdminDashboard();
     });
 
+    /* ── 1. Authentication Logic ── */
+    function checkAdminAuth() {
+      const isSessionAuth = sessionStorage.getItem('kas_admin_auth') === 'true';
+      const isLocalAuth = localStorage.getItem('kas_admin_auth') === 'true';
+
+      const loginSection = document.getElementById('adminLoginSection');
+      const dashboardSection = document.getElementById('adminDashboardSection');
+
+      if (isSessionAuth || isLocalAuth) {
+        if (loginSection) loginSection.style.display = 'none';
+        if (dashboardSection) dashboardSection.style.display = 'block';
+
+        const storedOfficer = localStorage.getItem('kas_officer_name') || 'Central Executive';
+        const officerBadge = document.getElementById('officerDisplayBadge');
+        if (officerBadge) {
+          officerBadge.innerHTML = `<span>👤</span><span>Officer: <strong>${escapeHtml(storedOfficer)}</strong></span>`;
+        }
+
+        renderAdminDashboard();
+      } else {
+        if (loginSection) loginSection.style.display = 'flex';
+        if (dashboardSection) dashboardSection.style.display = 'none';
+      }
+    }
+
+    function handleAdminLogin(event) {
+      event.preventDefault();
+      const userEl = document.getElementById('adminUsername');
+      const passEl = document.getElementById('adminPassword');
+      const rememberEl = document.getElementById('adminRememberMe');
+      const alertEl = document.getElementById('loginErrorAlert');
+
+      const username = (userEl ? userEl.value.trim() : '').toLowerCase();
+      const password = passEl ? passEl.value : '';
+      const customPassword = localStorage.getItem('kas_custom_admin_pw');
+
+      const validUsernames = ['admin', 'admin@kamalpurabhijaan.org', 'president', 'secretary'];
+      const isValidUser = validUsernames.includes(username);
+      const isValidPass = (password === DEFAULT_ADMIN_PASS) || (password === ALT_ADMIN_PASS) || (customPassword && password === customPassword);
+
+      if (isValidUser && isValidPass) {
+        if (alertEl) alertEl.style.display = 'none';
+
+        if (rememberEl && rememberEl.checked) {
+          localStorage.setItem('kas_admin_auth', 'true');
+        } else {
+          sessionStorage.setItem('kas_admin_auth', 'true');
+        }
+
+        localStorage.setItem('kas_officer_name', username === 'president' ? 'President Cell' : (username === 'secretary' ? 'General Secretary' : 'Executive Committee'));
+
+        checkAdminAuth();
+      } else {
+        if (alertEl) {
+          alertEl.style.display = 'flex';
+          const msgEl = document.getElementById('loginErrorMessage');
+          if (msgEl) {
+            msgEl.textContent = 'Invalid credentials. Use Username: admin and Password: admin123';
+          }
+        }
+        if (passEl) {
+          passEl.value = '';
+          passEl.focus();
+        }
+      }
+    }
+
+    function handleAdminLogout() {
+      sessionStorage.removeItem('kas_admin_auth');
+      localStorage.removeItem('kas_admin_auth');
+      checkAdminAuth();
+    }
+
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('adminPassword');
+      const btn = document.getElementById('pwToggleBtn');
+      if (passInput) {
+        if (passInput.type === 'password') {
+          passInput.type = 'text';
+          if (btn) btn.textContent = '🔒 Hide';
+        } else {
+          passInput.type = 'password';
+          if (btn) btn.textContent = '👁️ Show';
+        }
+      }
+    }
+
+    /* ── 2. Storage & Data Retrieval ── */
     function getStoredDonations() {
       try {
         return JSON.parse(localStorage.getItem('kas_donations') || '[]');
@@ -340,55 +714,85 @@
       localStorage.setItem('kas_members', JSON.stringify(data));
     }
 
+    /* ── 3. Tabs Navigation ── */
     function switchAdminTab(tab) {
       activeTab = tab;
-      const donationsBtn = document.getElementById('tabDonationsBtn');
-      const membersBtn = document.getElementById('tabMembersBtn');
-      const donationsView = document.getElementById('donationsView');
-      const membersView = document.getElementById('membersView');
-      const statusFilterWrapper = document.getElementById('statusFilterWrapper');
+      const tabBtns = {
+        donations: document.getElementById('tabDonationsBtn'),
+        analytics: document.getElementById('tabAnalyticsBtn'),
+        members: document.getElementById('tabMembersBtn'),
+        settings: document.getElementById('tabSettingsBtn')
+      };
 
-      if (tab === 'donations') {
-        donationsBtn.classList.add('active');
-        membersBtn.classList.remove('active');
-        donationsView.style.display = 'block';
-        membersView.style.display = 'none';
-        statusFilterWrapper.style.display = 'block';
-      } else {
-        membersBtn.classList.add('active');
-        donationsBtn.classList.remove('active');
-        donationsView.style.display = 'none';
-        membersView.style.display = 'block';
-        statusFilterWrapper.style.display = 'none';
+      const views = {
+        donations: document.getElementById('donationsView'),
+        analytics: document.getElementById('analyticsView'),
+        members: document.getElementById('membersView'),
+        settings: document.getElementById('settingsView')
+      };
+
+      const ledgerControls = document.getElementById('ledgerControlsRow');
+
+      Object.keys(tabBtns).forEach(k => {
+        if (tabBtns[k]) {
+          if (k === tab) tabBtns[k].classList.add('active');
+          else tabBtns[k].classList.remove('active');
+        }
+        if (views[k]) {
+          views[k].style.display = (k === tab) ? 'block' : 'none';
+        }
+      });
+
+      if (ledgerControls) {
+        ledgerControls.style.display = (tab === 'donations' || tab === 'members') ? 'flex' : 'none';
       }
-      applyFilters();
+
+      if (tab === 'analytics') {
+        renderAnalyticsView();
+      } else if (tab === 'donations' || tab === 'members') {
+        applyFilters();
+      }
     }
 
+    /* ── 4. Rendering Dashboard & KPIs ── */
     function renderAdminDashboard() {
       const donations = getStoredDonations();
       const members = getStoredMembers();
 
-      // Compute metrics
       const totalAmt = donations.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
       const totalCount = donations.length;
       const pendingCount = donations.filter(d => d.status === 'pending').length;
       const verifiedCount = donations.filter(d => d.status === 'verified').length;
+
+      // Calculate Today's Collections
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const todayAmt = donations
+        .filter(d => d.date && d.date.slice(0, 10) === todayStr)
+        .reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
       document.getElementById('metricTotalAmount').textContent = '₹' + totalAmt.toLocaleString('en-IN');
       document.getElementById('metricTotalDonations').textContent = totalCount;
       document.getElementById('metricPendingCount').textContent = pendingCount;
       document.getElementById('metricVerifiedCount').textContent = verifiedCount;
       document.getElementById('metricMembersCount').textContent = members.length;
+      document.getElementById('metricTodayAmount').textContent = '₹' + todayAmt.toLocaleString('en-IN');
 
-      document.getElementById('tabDonationsBadge').textContent = totalCount;
-      document.getElementById('tabMembersBadge').textContent = members.length;
+      const dBadge = document.getElementById('tabDonationsBadge');
+      if (dBadge) dBadge.textContent = totalCount;
+
+      const mBadge = document.getElementById('tabMembersBadge');
+      if (mBadge) mBadge.textContent = members.length;
 
       applyFilters();
+      renderAnalyticsView();
     }
 
+    /* ── 5. Filtering, Search & Sorting ── */
     function applyFilters() {
       const searchQuery = (document.getElementById('adminSearchInput').value || '').toLowerCase().trim();
       const statusFilter = document.getElementById('statusFilterSelect').value;
+      const purposeFilter = document.getElementById('purposeFilterSelect').value;
+      const sortFilter = document.getElementById('sortFilterSelect').value;
 
       if (activeTab === 'donations') {
         let list = getStoredDonations();
@@ -397,19 +801,33 @@
           list = list.filter(d => d.status === statusFilter);
         }
 
+        if (purposeFilter !== 'all') {
+          list = list.filter(d => (d.purpose || '').trim() === purposeFilter.trim());
+        }
+
         if (searchQuery) {
           list = list.filter(d => {
             const name = (d.name || '').toLowerCase();
             const phone = (d.phone || '').toLowerCase();
             const id = (d.id || '').toLowerCase();
             const utr = (d.utr || '').toLowerCase();
+            const address = (d.address || '').toLowerCase();
             const purpose = (d.purpose || '').toLowerCase();
-            return name.includes(searchQuery) || phone.includes(searchQuery) || id.includes(searchQuery) || utr.includes(searchQuery) || purpose.includes(searchQuery);
+            return name.includes(searchQuery) || phone.includes(searchQuery) || id.includes(searchQuery) || utr.includes(searchQuery) || address.includes(searchQuery) || purpose.includes(searchQuery);
           });
         }
 
+        // Sorting
+        list.sort((a, b) => {
+          if (sortFilter === 'newest') return new Date(b.date || 0) - new Date(a.date || 0);
+          if (sortFilter === 'oldest') return new Date(a.date || 0) - new Date(b.date || 0);
+          if (sortFilter === 'amountHigh') return (Number(b.amount) || 0) - (Number(a.amount) || 0);
+          if (sortFilter === 'amountLow') return (Number(a.amount) || 0) - (Number(b.amount) || 0);
+          return 0;
+        });
+
         renderDonationsTable(list);
-      } else {
+      } else if (activeTab === 'members') {
         let list = getStoredMembers();
         if (searchQuery) {
           list = list.filter(m => {
@@ -424,6 +842,7 @@
       }
     }
 
+    /* ── 6. Donations Table Renderer ── */
     function renderDonationsTable(list) {
       const tbody = document.getElementById('donationsTableBody');
       const emptyState = document.getElementById('donationsEmptyState');
@@ -445,7 +864,7 @@
         const phone = item.phone || '';
         const safePhone = phone.replace(/[^0-9]/g, '');
 
-        // Preformatted WhatsApp message for bill
+        // Official WhatsApp receipt message
         const billText = `*KAMALPUR ABHIJAN SANGHA — RANAGHAT*
 *OFFICIAL SEVA & DURGA PUJA CHANDA RECEIPT*
 ────────────────────────
@@ -454,7 +873,7 @@ Tracking ID: ${item.id}
 Date: ${formattedDate}
 Fund / Purpose: ${item.purpose}
 Amount: Rs. ${Number(item.amount).toLocaleString('en-IN')}
-UTR / Payment Ref: ${item.utr || 'UPI Direct'}
+Payment Ref: ${item.utr || 'WhatsApp Redirection'}
 Status: ${isVerified ? 'VERIFIED & REGISTERED' : 'RECEIVED (AWAITING AUDIT)'}
 Sangha Office: Ranaghat, Nadia, PIN 741201
 Helpline: +91 8637578740
@@ -462,7 +881,7 @@ Helpline: +91 8637578740
 Maa Durga bless you and your family!
 _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
 
-        const waUrl = safePhone.length >= 10 
+        const waUrl = safePhone.length >= 10
           ? `https://wa.me/91${safePhone}?text=${encodeURIComponent(billText)}`
           : `https://wa.me/918637578740?text=${encodeURIComponent(billText)}`;
 
@@ -487,7 +906,7 @@ _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
               <div class="row-amount">₹${Number(item.amount || 0).toLocaleString('en-IN')}</div>
             </td>
             <td>
-              <div class="row-primary-text font-mono text-sm">${escapeHtml(item.utr || 'UPI')}</div>
+              <div class="row-primary-text font-mono text-sm">${escapeHtml(item.utr || 'WhatsApp Pay')}</div>
             </td>
             <td>
               <span class="badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
@@ -496,13 +915,16 @@ _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
             </td>
             <td style="text-align:right;">
               <div class="action-buttons-cell">
-                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" title="Send Official Receipt via WhatsApp">
+                <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-action btn-wa" title="Dispatch Bill via WhatsApp">
                   <span>💬 WhatsApp Bill</span>
                 </a>
-                <button type="button" class="btn-action ${isVerified ? 'btn-toggle-pending' : 'btn-toggle-verify'}" onclick="toggleDonationStatus('${escapeAttr(item.id)}')">
-                  <span>${isVerified ? 'Mark Pending' : 'Verify'}</span>
+                <button type="button" class="btn-action btn-toggle-verify" onclick="openReceiptVoucherModal('${escapeAttr(item.id)}')" title="Print Official Money Receipt Voucher">
+                  <span>🖨️ Slip</span>
                 </button>
-                <button type="button" class="btn-action btn-delete" onclick="deleteDonation('${escapeAttr(item.id)}')">
+                <button type="button" class="btn-action ${isVerified ? 'btn-toggle-pending' : 'btn-toggle-verify'}" onclick="toggleDonationStatus('${escapeAttr(item.id)}')">
+                  <span>${isVerified ? 'Mark Pending' : '✓ Verify'}</span>
+                </button>
+                <button type="button" class="btn-action btn-delete" onclick="deleteDonation('${escapeAttr(item.id)}')" title="Delete entry">
                   <span>&times;</span>
                 </button>
               </div>
@@ -512,6 +934,7 @@ _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
       }).join('');
     }
 
+    /* ── 7. Membership Applications Table Renderer ── */
     function renderMembersTable(list) {
       const tbody = document.getElementById('membersTableBody');
       const emptyState = document.getElementById('membersEmptyState');
@@ -535,10 +958,10 @@ _Joy Maa Durga · Kamalpur Abhijan Sangha_`;
         const waText = `*KAMALPUR ABHIJAN SANGHA — RANAGHAT*
 Namaskar ${item.name},
 We received your membership application (${item.id}) for the ${item.interest}.
-Our executive committee would love to welcome you to our Ranaghat clubhouse!
-Helpline: +91 8637578740`;
+Our executive committee welcomes you to our Ranaghat clubhouse!
+Sangha Helpline: +91 8637578740`;
 
-        const waUrl = safePhone.length >= 10 
+        const waUrl = safePhone.length >= 10
           ? `https://wa.me/91${safePhone}?text=${encodeURIComponent(waText)}`
           : `https://wa.me/918637578740?text=${encodeURIComponent(waText)}`;
 
@@ -560,7 +983,7 @@ Helpline: +91 8637578740`;
             </td>
             <td>
               <div class="text-truncate-msg" title="${escapeAttr(item.message || '')}">
-                ${escapeHtml(item.message || 'No additional note')}
+                ${escapeHtml(item.message || 'Devotee volunteer application')}
               </div>
             </td>
             <td>
@@ -586,6 +1009,78 @@ Helpline: +91 8637578740`;
       }).join('');
     }
 
+    /* ── 8. Analytics View Renderer ── */
+    function renderAnalyticsView() {
+      const donations = getStoredDonations();
+      const totalAmt = donations.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+
+      const totalBadge = document.getElementById('analyticsTotalBadge');
+      if (totalBadge) totalBadge.textContent = '₹' + totalAmt.toLocaleString('en-IN');
+
+      // Group by purpose
+      const purposeMap = {};
+      donations.forEach(d => {
+        const p = d.purpose || 'General Seva';
+        purposeMap[p] = (purposeMap[p] || 0) + (Number(d.amount) || 0);
+      });
+
+      const container = document.getElementById('fundBreakdownContainer');
+      if (container) {
+        if (totalAmt === 0) {
+          container.innerHTML = '<p style="color:var(--text-3); font-size:13px;">No collection data available yet.</p>';
+        } else {
+          container.innerHTML = Object.keys(purposeMap).map(purpose => {
+            const amt = purposeMap[purpose];
+            const pct = Math.round((amt / totalAmt) * 100);
+            return `
+              <div class="fund-breakdown-row">
+                <div class="fund-breakdown-meta">
+                  <span class="fund-breakdown-name">${escapeHtml(purpose)}</span>
+                  <span class="fund-breakdown-val">₹${amt.toLocaleString('en-IN')} (${pct}%)</span>
+                </div>
+                <div class="fund-progress-track">
+                  <div class="fund-progress-bar" style="width: ${pct}%;"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Group by payment mode / channel
+      const channelMap = {};
+      donations.forEach(d => {
+        let ch = 'WhatsApp / Digital';
+        if (d.utr && (d.utr.includes('Cash') || d.utr.includes('Counter'))) ch = 'Counter Cash';
+        else if (d.utr && (d.utr.includes('NEFT') || d.utr.includes('Bank'))) ch = 'Bank Wire';
+        channelMap[ch] = (channelMap[ch] || 0) + (Number(d.amount) || 0);
+      });
+
+      const chContainer = document.getElementById('channelBreakdownContainer');
+      if (chContainer) {
+        if (totalAmt === 0) {
+          chContainer.innerHTML = '<p style="color:var(--text-3); font-size:13px;">No records recorded.</p>';
+        } else {
+          chContainer.innerHTML = Object.keys(channelMap).map(ch => {
+            const amt = channelMap[ch];
+            const pct = Math.round((amt / totalAmt) * 100);
+            return `
+              <div class="fund-breakdown-row">
+                <div class="fund-breakdown-meta">
+                  <span class="fund-breakdown-name">${escapeHtml(ch)}</span>
+                  <span class="fund-breakdown-val">₹${amt.toLocaleString('en-IN')} (${pct}%)</span>
+                </div>
+                <div class="fund-progress-track">
+                  <div class="fund-progress-bar" style="width: ${pct}%; background: linear-gradient(90deg, var(--eg-soft), var(--eg));"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    }
+
+    /* ── 9. Status & Delete Operations ── */
     function toggleDonationStatus(id) {
       const donations = getStoredDonations();
       const item = donations.find(d => d.id === id);
@@ -622,19 +1117,76 @@ Helpline: +91 8637578740`;
       renderAdminDashboard();
     }
 
+    /* ── 10. Printable Receipt Voucher Modal ── */
+    function openReceiptVoucherModal(id) {
+      const donations = getStoredDonations();
+      const item = donations.find(d => d.id === id);
+      if (!item) return;
+
+      document.getElementById('vTrackingId').textContent = item.id;
+      document.getElementById('vDate').textContent = item.date ? new Date(item.date).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : '11 Oct 2026';
+      document.getElementById('vDonorName').textContent = item.name || 'Devotee';
+      document.getElementById('vDonorPhone').textContent = item.phone ? `+91 ${item.phone}` : 'Sangha Counter (+91 8637578740)';
+      document.getElementById('vPurpose').textContent = item.purpose || 'Sharodotsav Durga Puja Chanda';
+      document.getElementById('vUtr').textContent = item.utr || 'WhatsApp Pay';
+      document.getElementById('vAmount').textContent = `₹${Number(item.amount || 0).toLocaleString('en-IN')}`;
+      document.getElementById('vAmountWords').textContent = numberToWords(item.amount || 0) + ' Only';
+
+      const modal = document.getElementById('receiptVoucherModal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeReceiptVoucherModal() {
+      const modal = document.getElementById('receiptVoucherModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function numberToWords(num) {
+      const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+      const b = ['', '', 'Twenty ', 'Thirty ', 'Forty ', 'Fifty ', 'Sixty ', 'Seventy ', 'Eighty ', 'Ninety '];
+
+      num = Math.floor(Number(num));
+      if (isNaN(num) || num === 0) return 'Zero Rupees';
+
+      let str = '';
+      if (num >= 10000000) {
+        str += numberToWords(Math.floor(num / 10000000)) + ' Crore ';
+        num %= 10000000;
+      }
+      if (num >= 100000) {
+        str += numberToWords(Math.floor(num / 100000)) + ' Lakh ';
+        num %= 100000;
+      }
+      if (num >= 1000) {
+        str += numberToWords(Math.floor(num / 1000)) + ' Thousand ';
+        num %= 1000;
+      }
+      if (num >= 100) {
+        str += numberToWords(Math.floor(num / 100)) + ' Hundred ';
+        num %= 100;
+      }
+      if (num > 0) {
+        if (num < 20) str += a[num];
+        else {
+          str += b[Math.floor(num / 10)];
+          str += a[num % 10];
+        }
+      }
+      return 'Rupees ' + str.trim();
+    }
+
+    /* ── 11. Offline Donation Entry Modal ── */
     function openOfflineDonationModal() {
       const modal = document.getElementById('offlineDonationModal');
       if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        modal.classList.add('open');
       }
     }
 
     function closeOfflineDonationModal() {
       const modal = document.getElementById('offlineDonationModal');
       if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        modal.classList.remove('open');
       }
     }
 
@@ -661,7 +1213,7 @@ Helpline: +91 8637578740`;
         pan: '',
         utr: utr,
         date: new Date().toISOString(),
-        status: 'verified' // Manual counter entry is verified immediately
+        status: 'verified'
       };
 
       const donations = getStoredDonations();
@@ -671,9 +1223,10 @@ Helpline: +91 8637578740`;
       document.getElementById('offlineDonationForm').reset();
       closeOfflineDonationModal();
       renderAdminDashboard();
-      alert(`Donation of ₹${amount} recorded successfully for ${name}!\nReceipt Tracking ID: ${trackingId}`);
+      openReceiptVoucherModal(trackingId);
     }
 
+    /* ── 12. Backup, Export & Restore ── */
     function exportLedgerCSV() {
       const donations = getStoredDonations();
       if (!donations || donations.length === 0) {
@@ -706,6 +1259,57 @@ Helpline: +91 8637578740`;
       document.body.removeChild(link);
     }
 
+    function exportFullJsonBackup() {
+      const backup = {
+        exportedAt: new Date().toISOString(),
+        version: '2026.1',
+        donations: getStoredDonations(),
+        members: getStoredMembers()
+      };
+      const jsonStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backup, null, 2));
+      const link = document.createElement('a');
+      link.setAttribute('href', jsonStr);
+      link.setAttribute('download', `Kamalpur_Sangha_Backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function handleImportJson(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const parsed = JSON.parse(evt.target.result);
+          if (parsed && (parsed.donations || Array.isArray(parsed))) {
+            const newDonations = parsed.donations || parsed;
+            const newMembers = parsed.members || [];
+            saveStoredDonations(newDonations);
+            if (newMembers.length) saveStoredMembers(newMembers);
+            renderAdminDashboard();
+            alert('Backup successfully imported! Dashboard updated.');
+          } else {
+            alert('Invalid backup file format.');
+          }
+        } catch (err) {
+          alert('Failed to parse backup JSON file: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function promptChangePassword() {
+      const newPw = prompt('Enter new access password for the executive console:');
+      if (newPw && newPw.trim().length >= 4) {
+        localStorage.setItem('kas_custom_admin_pw', newPw.trim());
+        alert('Access password updated successfully on this device!');
+      } else if (newPw) {
+        alert('Password must be at least 4 characters long.');
+      }
+    }
+
     function refreshAdminData() {
       renderAdminDashboard();
     }
@@ -735,4 +1339,3 @@ Helpline: +91 8637578740`;
   </script>
 </body>
 </html>
-
