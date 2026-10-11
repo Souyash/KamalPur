@@ -954,6 +954,17 @@ function mapCategoryKey(cat) {
   return 'all';
 }
 
+function mapArtistCraftCategory(craft) {
+  if (!craft) return 'all';
+  const c = craft.toLowerCase();
+  if (c.includes('clay') || c.includes('sculpt') || c.includes('idol') || c.includes('protima') || c.includes('kumartuli')) return 'sculpture';
+  if (c.includes('pandal') || c.includes('architect') || c.includes('spatial') || c.includes('bamboo')) return 'pandal';
+  if (c.includes('light') || c.includes('illumination') || c.includes('chandannagar') || c.includes('led')) return 'lights';
+  if (c.includes('dhak') || c.includes('percussion') || c.includes('music') || c.includes('sound') || c.includes('acoustic') || c.includes('composer')) return 'music';
+  if (c.includes('pata') || c.includes('mural') || c.includes('folk') || c.includes('scroll') || c.includes('chitra') || c.includes('paint')) return 'murals';
+  return 'all';
+}
+
 async function initPublicArtists() {
   const grid = document.getElementById('publicArtistsGrid');
   if (!grid) return;
@@ -977,9 +988,13 @@ async function initPublicArtists() {
   grid.innerHTML = artistsList.map((item, idx) => {
     const initials = item.avatar_initials || (item.name ? item.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'AR');
     const rdClass = `rd${(idx % 3) + 1}`;
+    const craftCat = mapArtistCraftCategory(item.craft);
+    const artistId = item.id || (idx + 1);
+    const savedTributes = parseInt(localStorage.getItem('kas_artist_tributes_' + artistId) || '0', 10);
+    const tributeCount = (savedTributes > 0 ? savedTributes : (18 + ((artistId * 7) % 25)));
 
     return `
-      <article class="artist-card reveal visible ${rdClass}">
+      <article class="artist-card reveal visible ${rdClass}" data-craft-cat="${escapeAttr(craftCat)}" data-artist-id="${escapeAttr(artistId)}">
         <div class="artist-header">
           <div class="artist-avatar-wrap">
             <span class="artist-avatar-initials">${escapeHtml(initials)}</span>
@@ -1026,9 +1041,127 @@ async function initPublicArtists() {
             </div>
           </div>
         ` : ''}
+
+        <div class="artist-card-footer">
+          <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, '${escapeAttr(item.name)}', ${artistId})">
+            <span>🙏 Pay Pranām</span>
+            <span class="tribute-pill" data-counter="${tributeCount}">${tributeCount}</span>
+          </button>
+          <span class="artist-verified-seal">✓ Master Artisan</span>
+        </div>
       </article>
     `;
   }).join('');
+}
+
+function filterArtists(category, btn) {
+  const buttons = document.querySelectorAll('.artist-filter-btn');
+  buttons.forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const cards = document.querySelectorAll('#publicArtistsGrid .artist-card');
+  cards.forEach(card => {
+    const cardCat = card.getAttribute('data-craft-cat') || 'all';
+    if (category === 'all' || cardCat === category || cardCat === 'all') {
+      card.style.display = '';
+      card.style.animation = 'none';
+      void card.offsetHeight;
+      card.style.animation = 'artistCardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function sendArtistTribute(btn, artistName, id) {
+  if (!btn) return;
+  const pill = btn.querySelector('.tribute-pill');
+  let current = parseInt(pill ? (pill.getAttribute('data-counter') || pill.textContent || '0') : '0', 10);
+  current += 1;
+  if (pill) {
+    pill.setAttribute('data-counter', current);
+    pill.textContent = current;
+  }
+
+  if (id) {
+    try {
+      localStorage.setItem('kas_artist_tributes_' + id, current);
+    } catch (e) {}
+  }
+
+  const rect = btn.getBoundingClientRect();
+  const emojis = ['🌸', '🪔', '✨', '🙏', '🌺', '🕉️'];
+  for (let i = 0; i < 4; i++) {
+    const particle = document.createElement('span');
+    particle.className = 'tribute-particle';
+    particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    particle.style.left = (rect.left + rect.width / 2 + (Math.random() * 40 - 20)) + 'px';
+    particle.style.top = (rect.top + (Math.random() * 20 - 10)) + 'px';
+    particle.style.animationDelay = (i * 0.1) + 's';
+    document.body.appendChild(particle);
+    setTimeout(() => { particle.remove(); }, 1400);
+  }
+
+  showStoryToast('🙏 Paid Pranām to ' + (artistName || 'Master Artist'));
+}
+
+function scrollToStoryEpoch(targetId, btn) {
+  if (btn) {
+    const allBtns = document.querySelectorAll('.epoch-pill-btn');
+    allBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  const target = document.getElementById(targetId);
+  if (target) {
+    const navHeight = 90;
+    const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+    window.scrollTo({
+      top: targetPos,
+      behavior: 'smooth'
+    });
+  }
+}
+
+function showStoryToast(msg) {
+  let toast = document.getElementById('kasGlobalToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'kasGlobalToast';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(26, 18, 11, 0.95);
+      color: #FDE68A;
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 158, 11, 0.25);
+      backdrop-filter: blur(12px);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    `;
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(100px)';
+  }, 2800);
 }
 
 function escapeHtml(str) {
@@ -1048,5 +1181,11 @@ window.addEventListener('storage', (e) => {
 
 window.initPublicGallery = initPublicGallery;
 window.initPublicArtists = initPublicArtists;
+window.filterArtists = filterArtists;
+window.sendArtistTribute = sendArtistTribute;
+window.scrollToStoryEpoch = scrollToStoryEpoch;
+window.showStoryToast = showStoryToast;
+window.mapArtistCraftCategory = mapArtistCraftCategory;
+
 
 

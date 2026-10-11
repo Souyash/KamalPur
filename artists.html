@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261011-v1">
+  <link rel="stylesheet" href="styles.css?v=20261012-anim-v1">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
@@ -52,6 +52,13 @@
 
   <!-- Subpage Hero -->
   <header class="subpage-hero">
+    <div class="artists-hero-particles" aria-hidden="true">
+      <span class="ambient-spark"></span>
+      <span class="ambient-spark"></span>
+      <span class="ambient-spark"></span>
+      <span class="ambient-spark"></span>
+      <span class="ambient-spark"></span>
+    </div>
     <div class="container">
       <div class="subpage-hero-inner">
         <div class="hero-eyebrow">
@@ -79,11 +86,21 @@
         </p>
       </div>
 
+      <!-- Interactive Craft Filter Bar -->
+      <div class="artist-filter-tabs reveal">
+        <button type="button" class="artist-filter-btn active" onclick="filterArtists('all', this)">✨ All Masters</button>
+        <button type="button" class="artist-filter-btn" onclick="filterArtists('sculpture', this)">🗿 Kumartuli Sculptors</button>
+        <button type="button" class="artist-filter-btn" onclick="filterArtists('pandal', this)">🏛️ Spatial Architects</button>
+        <button type="button" class="artist-filter-btn" onclick="filterArtists('lights', this)">💡 Chandannagar Lights</button>
+        <button type="button" class="artist-filter-btn" onclick="filterArtists('music', this)">🥁 Dhak &amp; Music</button>
+        <button type="button" class="artist-filter-btn" onclick="filterArtists('murals', this)">🎨 Folk Murals</button>
+      </div>
+
       <!-- Modern & Active Master Craftsmen Grid -->
       <div class="artists-grid" id="publicArtistsGrid">
 
         <!-- Artist 1: Pradip Rudra Pal -->
-        <article class="artist-card reveal rd1">
+        <article class="artist-card reveal rd1" data-craft-cat="sculpture" data-artist-id="1">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">PR</span>
@@ -122,10 +139,18 @@
               <em>"Maa Durga is not mere clay and straw. She is the living mother of Bengal. Each layer of Ganga soil carries centuries of prayer, awakening the divine shakti in every devotee who enters our mandap."</em>
             </div>
           </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Pradip Rudra Pal', 1)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="48">48</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
+          </div>
         </article>
 
         <!-- Artist 2: Susanta Ray & Subrata Dey -->
-        <article class="artist-card reveal rd2">
+        <article class="artist-card reveal rd2" data-craft-cat="pandal" data-artist-id="2">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">SR</span>
@@ -166,10 +191,18 @@
               <span>Zero synthetic plastics or non-biodegradable foams</span>
             </div>
           </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Susanta Ray &amp; Subrata Dey', 2)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="36">36</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
+          </div>
         </article>
 
         <!-- Artist 3: Babu Pal & Sridam Das -->
-        <article class="artist-card reveal rd3">
+        <article class="artist-card reveal rd3" data-craft-cat="lights" data-artist-id="3">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">BP</span>
@@ -210,10 +243,18 @@
               <span>Dedicated silent green generator safety grid</span>
             </div>
           </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Babu Pal &amp; Sridam Das', 3)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="42">42</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
+          </div>
         </article>
 
         <!-- Artist 4: Gokul Das & Motilal Troupe -->
-        <article class="artist-card reveal rd1">
+        <article class="artist-card reveal rd1" data-craft-cat="music" data-artist-id="4">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">GD</span>
@@ -254,10 +295,18 @@
               <span>Preserving endangered rural Bengal talas &amp; bol rhythms</span>
             </div>
           </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Gokul Das &amp; Motilal Troupe', 4)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="54">54</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
+          </div>
         </article>
 
         <!-- Artist 5: Maniklal Chitrakar -->
-        <article class="artist-card reveal rd2">
+        <article class="artist-card reveal rd2" data-craft-cat="murals" data-artist-id="5">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">MC</span>
@@ -298,10 +347,18 @@
               <span>Lustrous White: Roasted and pulverized river conch</span>
             </div>
           </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Maniklal Chitrakar', 5)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="29">29</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
+          </div>
         </article>
 
         <!-- Artist 6: Pt. Debojyoti Banerjee & Swapan Chakraborty -->
-        <article class="artist-card reveal rd3">
+        <article class="artist-card reveal rd3" data-craft-cat="music" data-artist-id="6">
           <div class="artist-header">
             <div class="artist-avatar-wrap">
               <span class="artist-avatar-initials">DB</span>
@@ -341,6 +398,14 @@
               <span>Zero harsh frequencies — soothing devotional ambiance</span>
               <span>Original live vocal recordings by Bengal classical vocalists</span>
             </div>
+          </div>
+
+          <div class="artist-card-footer">
+            <button type="button" class="artist-tribute-btn" onclick="sendArtistTribute(this, 'Pt. Debojyoti Banerjee &amp; Swapan Chakraborty', 6)">
+              <span>🙏 Pay Pranām</span>
+              <span class="tribute-pill" data-counter="33">33</span>
+            </button>
+            <span class="artist-verified-seal">✓ Master Artisan</span>
           </div>
         </article>
 
@@ -520,7 +585,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261011-dribbble-v7"></script>
+  <script src="script.js?v=20261012-anim-v1"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof initPublicArtists === 'function') initPublicArtists();
