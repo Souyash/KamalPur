@@ -357,20 +357,27 @@ function openLightbox(titleOrEl, caption, icon) {
   const lbIcon = document.getElementById('lbIcon');
   const lbImgBox = document.getElementById('lbImgBox');
   const lbImg = document.getElementById('lbImg');
+  const lbBadge = document.getElementById('lbBadge');
+  const lbYear = document.getElementById('lbYear');
 
   if (titleOrEl && titleOrEl.nodeType === 1) {
     const el = titleOrEl;
     const t = el.getAttribute('data-title') || el.querySelector('.gi-caption strong')?.textContent || '';
     const d = el.getAttribute('data-desc') || el.querySelector('.gi-caption span')?.textContent || '';
     const imgSrc = el.getAttribute('data-img') || el.querySelector('img')?.getAttribute('src');
+    const cat = el.getAttribute('data-cat-label') || el.querySelector('.gi-badge')?.textContent || el.getAttribute('data-cat') || 'Kamalpur Gallery';
+    const yr = el.getAttribute('data-year') || el.querySelector('.gi-year-tag')?.textContent || '2026';
     const iconEl = el.querySelector('.gi-icon');
 
     if (lbTitle) lbTitle.textContent = t;
     if (lbCaption) lbCaption.textContent = d;
+    if (lbBadge) lbBadge.textContent = cat;
+    if (lbYear) lbYear.textContent = yr;
 
     if (imgSrc && lbImgBox && lbImg) {
       lbImg.src = imgSrc;
-      lbImgBox.style.display = 'block';
+      lbImg.alt = t || 'Enlarged gallery view';
+      lbImgBox.style.display = 'flex';
       if (lbIcon) lbIcon.style.display = 'none';
     } else {
       if (lbImgBox) lbImgBox.style.display = 'none';
@@ -384,6 +391,8 @@ function openLightbox(titleOrEl, caption, icon) {
     if (lbIcon) lbIcon.style.display = 'inline-flex';
     if (lbTitle) lbTitle.textContent = titleOrEl || '';
     if (lbCaption) lbCaption.textContent = caption || '';
+    if (lbBadge) lbBadge.textContent = 'Kamalpur Gallery';
+    if (lbYear) lbYear.textContent = '2026';
     if (lbIcon && icon) {
       if (typeof icon === 'string' && icon.trim().startsWith('<')) {
         lbIcon.innerHTML = icon;
@@ -915,7 +924,7 @@ async function initPublicGallery() {
     const img = item.img_url || 'assets/durga-scene.jpg';
 
     return `
-      <div class="gallery-item" data-cat="${escapeAttr(catKey)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)">
+      <div class="gallery-item" data-cat="${escapeAttr(catKey)}" data-cat-label="${escapeAttr(cat)}" data-year="${escapeAttr(year)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)">
         <div class="gi-photo-wrap">
           <img src="${escapeAttr(img)}" alt="${escapeAttr(title)}" class="gi-photo-img" loading="lazy" onerror="this.src='assets/durga-scene.jpg'">
           <div class="gi-photo-overlay">

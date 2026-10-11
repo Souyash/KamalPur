@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261011-v1">
+  <link rel="stylesheet" href="styles.css?v=20261012-fit-v1">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
@@ -247,19 +247,6 @@
     </div>
   </main>
 
-  <!-- Lightbox Modal -->
-  <div class="modal-overlay" id="lightboxModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeModal('lightboxModal')">
-    <div class="lightbox-card">
-      <button type="button" class="modal-close" onclick="closeModal('lightboxModal')" aria-label="Close preview">&times;</button>
-      <div class="lightbox-hero-icon" id="lbIcon"><svg class="kas-icon solid" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M7.7 5.6c-1.3 0-2.4.9-2.7 2.1-.2.8.1 1.6.7 2.1-.8.5-1.3 1.4-1.3 2.5 0 1.9 1.6 3.4 3.5 3.4 1.2 0 2.2-.6 2.8-1.5l1.6 1.4c-.9 1.2-2.3 2-4 2-2.8 0-5.1-2.2-5.1-5 0-1.6.7-3 1.9-4C4.1 7.7 3.8 6.3 4.5 5.1c1-1.6 2.8-2.5 4.8-2.5 2.5 0 4.6 1.6 5.3 3.9l-1.9.6c-.5-1.5-1.9-2.5-3.5-2.5zm6.5 4.7c1.3-.8 2.2-2.2 2.2-3.8 0-2.5-2-4.5-4.5-4.5h-.8v1.9h.8c1.4 0 2.6 1.2 2.6 2.6 0 1.2-.8 2.2-2 2.5l1.7 1.3zm3.7 2.8c-1.4 0-2.6.9-3 2.1-.2.6 0 1.3.4 1.7-.8.5-1.3 1.4-1.3 2.4 0 1.7 1.4 3.1 3.1 3.1 1.1 0 2-.6 2.5-1.4l1.6 1.1c-.8 1.3-2.3 2.2-4.1 2.2-2.7 0-4.9-2.2-4.9-4.9 0-1.5.7-2.9 1.8-3.8-.5-.8-.7-1.8-.4-2.8.5-1.6 2-2.7 3.7-2.7 1.8 0 3.3 1.2 3.8 2.9l-1.9.7c-.3-1-1.2-1.7-2.3-1.7z"/></svg></div>
-      <div id="lbImgBox" style="display:none; margin: 12px 0 16px; border-radius: 12px; overflow: hidden; max-height: 480px; background: #000;">
-        <img id="lbImg" src="" alt="Enlarged view" style="width: 100%; height: auto; max-height: 480px; object-fit: contain; display: block;">
-      </div>
-      <h3 class="lightbox-title" id="lbTitle">117 Forms of Goddess Durga</h3>
-      <p class="lightbox-caption" id="lbCaption">Grand thematic celebration at Kamalpur Abhijaan Sangha.</p>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer id="contact">
     <div class="footer-stripe"></div>
@@ -360,18 +347,26 @@
 
   <!-- Lightbox Modal -->
   <div class="modal-overlay" id="lightboxModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeModal('lightboxModal')">
-    <div class="lightbox-card" style="max-width:680px;">
+    <div class="lightbox-card">
       <button type="button" class="modal-close" onclick="closeModal('lightboxModal')" aria-label="Close preview">&times;</button>
-      <div id="lbImgBox" style="display:none; margin-bottom:16px;">
-        <img id="lbImg" src="" alt="Enlarged gallery view" style="width:100%; max-height:420px; object-fit:cover; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.15);">
+      <div class="lightbox-topbar">
+        <div class="lightbox-meta-tags">
+          <span class="lightbox-badge" id="lbBadge">Maha Protima</span>
+          <span class="lightbox-year" id="lbYear">2026</span>
+        </div>
       </div>
-      <div class="lightbox-hero-icon" id="lbIcon"><svg class="kas-icon solid" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M7.7 5.6c-1.3 0-2.4.9-2.7 2.1-.2.8.1 1.6.7 2.1-.8.5-1.3 1.4-1.3 2.5 0 1.9 1.6 3.4 3.5 3.4 1.2 0 2.2-.6 2.8-1.5l1.6 1.4c-.9 1.2-2.3 2-4 2-2.8 0-5.1-2.2-5.1-5 0-1.6.7-3 1.9-4C4.1 7.7 3.8 6.3 4.5 5.1c1-1.6 2.8-2.5 4.8-2.5 2.5 0 4.6 1.6 5.3 3.9l-1.9.6c-.5-1.5-1.9-2.5-3.5-2.5zm6.5 4.7c1.3-.8 2.2-2.2 2.2-3.8 0-2.5-2-4.5-4.5-4.5h-.8v1.9h.8c1.4 0 2.6 1.2 2.6 2.6 0 1.2-.8 2.2-2 2.5l1.7 1.3zm3.7 2.8c-1.4 0-2.6.9-3 2.1-.2.6 0 1.3.4 1.7-.8.5-1.3 1.4-1.3 2.4 0 1.7 1.4 3.1 3.1 1.1 0 2-.6 2.5-1.4l1.6 1.1c-.8 1.3-2.3 2.2-4.1 2.2-2.7 0-4.9-2.2-4.9-4.9 0-1.5.7-2.9 1.8-3.8-.5-.8-.7-1.8-.4-2.8.5-1.6 2-2.7 3.7-2.7 1.8 0 3.3 1.2 3.8 2.9l-1.9.7c-.3-1-1.2-1.7-2.3-1.7z"/></svg></div>
-      <h3 class="lightbox-title" id="lbTitle">117 Forms of Goddess Durga</h3>
-      <p class="lightbox-caption" id="lbCaption">Grand thematic celebration at Kamalpur Abhijaan Sangha.</p>
+      <div id="lbImgBox" class="lightbox-img-box">
+        <img id="lbImg" class="lightbox-img" src="" alt="Enlarged gallery view">
+      </div>
+      <div class="lightbox-hero-icon" id="lbIcon" style="display:none;"></div>
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lbTitle">117 Forms of Goddess Durga</h3>
+        <p class="lightbox-caption" id="lbCaption">Grand thematic celebration at Kamalpur Abhijaan Sangha.</p>
+      </div>
     </div>
   </div>
 
-  <script src="script.js?v=20261011-dribbble-v7"></script>
+  <script src="script.js?v=20261012-fit-v1"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof initPublicGallery === 'function') initPublicGallery();
