@@ -85,526 +85,614 @@
   <!-- ══════════════════════════════════════════════════════════
        2. REFRAMED ADMIN DASHBOARD (Clean, Simple & Modern UI)
   ══════════════════════════════════════════════════════════ -->
-  <div id="adminDashboardSection" style="display:none;" class="admin-shell">
+  <div id="adminDashboardSection" style="display:none;" class="dribbble-dash-wrapper">
     
-    <!-- Left Navigation Sidebar -->
-    <aside class="admin-sidebar" id="adminSidebar">
-      <div class="admin-sidebar-header">
-        <div class="admin-sidebar-logo">
+    <!-- Dribbble Top Navigation Pill Bar -->
+    <nav class="dribbble-top-nav">
+      <div class="dribbble-nav-brand">
+        <div class="dribbble-nav-logo">
           <img src="assets/logo.svg" alt="Kamalpur Abhijan Sangha Logo">
         </div>
         <div>
-          <div class="admin-sidebar-brand-name">Kamalpur Abhijan</div>
-          <div class="admin-sidebar-brand-tag">Executive Suite</div>
+          <div class="dribbble-nav-brand-title">Kamalpur Abhijan</div>
+          <div class="dribbble-nav-brand-sub">Executive Console</div>
         </div>
       </div>
 
-      <div class="admin-sidebar-nav">
-        <div class="admin-nav-section-label">Main Menu</div>
+      <!-- Navigation Pill Buttons -->
+      <div class="dribbble-nav-pills">
+        <button type="button" class="dribbble-nav-pill-btn active" id="tabOverviewBtn" onclick="switchAdminTab('overview')">
+          <span>Overview</span>
+        </button>
+        <button type="button" class="dribbble-nav-pill-btn" id="tabGalleryBtn" onclick="switchAdminTab('gallery')">
+          <span>Gallery</span>
+          <span class="dribbble-pill-badge" id="tabGalleryBadge">0</span>
+        </button>
+        <button type="button" class="dribbble-nav-pill-btn" id="tabArtistsBtn" onclick="switchAdminTab('artists')">
+          <span>Artisans</span>
+          <span class="dribbble-pill-badge" id="tabArtistsBadge">0</span>
+        </button>
+        <button type="button" class="dribbble-nav-pill-btn" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
+          <span>Chanda</span>
+          <span class="dribbble-pill-badge" id="tabDonationsBadge">0</span>
+        </button>
+        <button type="button" class="dribbble-nav-pill-btn" id="tabMembersBtn" onclick="switchAdminTab('members')">
+          <span>Members</span>
+          <span class="dribbble-pill-badge" id="tabMembersBadge">0</span>
+        </button>
+        <button type="button" class="dribbble-nav-pill-btn" id="tabDatabaseBtn" onclick="switchAdminTab('database')">
+          <span>Database</span>
+        </button>
+      </div>
+
+      <!-- Top Nav Right Actions -->
+      <div class="dribbble-nav-right">
+        <div class="admin-db-pill-live" id="dbStatusBadge">
+          <span class="admin-db-dot"></span>
+          <span id="dbStatusText">Hostinger MySQL Live</span>
+        </div>
+
+        <a href="index.html" target="_blank" class="btn-ghost-admin" style="padding:6px 12px; font-size:12px;">
+          <span>Live Site ↗</span>
+        </a>
+
+        <div class="admin-user-pill" style="margin:0; padding:4px 10px; background:#F8FAFC; border:1px solid #E2E8F0;">
+          <div class="admin-user-avatar" style="width:28px; height:28px; font-size:11px;">AD</div>
+          <div class="admin-user-info" style="gap:0;">
+            <span class="admin-user-name" id="officerDisplayBadge" style="font-size:12px; color:#0F172A;">Executive Desk</span>
+          </div>
+          <button type="button" onclick="handleAdminLogout()" title="Sign Out" style="background:transparent; border:none; color:#EF4444; font-size:15px; cursor:pointer; padding:2px 4px; margin-left:4px;">
+            🚪
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hidden View Labels for Script Compatibility -->
+    <div style="display:none;">
+      <h1 id="currentViewTitle">Dashboard Overview</h1>
+      <p id="currentViewSub">Kamalpur Abhijan Sangha · Central Management Suite</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 1: OVERVIEW (DRIBBBLE 2-COLUMN LAYOUT)
+    ══════════════════════════════════════════════════════════ -->
+    <div id="overviewView" class="admin-tab-content active">
+      <div class="dribbble-grid-layout">
         
-        <button type="button" class="admin-nav-item active" id="tabOverviewBtn" onclick="switchAdminTab('overview')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">📊</span>
-            <span>Overview</span>
-          </div>
-        </button>
-
-        <button type="button" class="admin-nav-item" id="tabGalleryBtn" onclick="switchAdminTab('gallery')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">🖼️</span>
-            <span>Gallery Posts</span>
-          </div>
-          <span class="admin-nav-badge" id="tabGalleryBadge">0</span>
-        </button>
-
-        <button type="button" class="admin-nav-item" id="tabArtistsBtn" onclick="switchAdminTab('artists')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">🎨</span>
-            <span>Master Artisans</span>
-          </div>
-          <span class="admin-nav-badge" id="tabArtistsBadge">0</span>
-        </button>
-
-        <button type="button" class="admin-nav-item" id="tabDonationsBtn" onclick="switchAdminTab('donations')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">💰</span>
-            <span>Chanda Ledger</span>
-          </div>
-          <span class="admin-nav-badge" id="tabDonationsBadge">0</span>
-        </button>
-
-        <button type="button" class="admin-nav-item" id="tabMembersBtn" onclick="switchAdminTab('members')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">👥</span>
-            <span>Volunteers</span>
-          </div>
-          <span class="admin-nav-badge" id="tabMembersBadge">0</span>
-        </button>
-
-        <div class="admin-nav-section-label" style="margin-top:14px;">System &amp; Backend</div>
-        <button type="button" class="admin-nav-item" id="tabDatabaseBtn" onclick="switchAdminTab('database')">
-          <div class="admin-nav-item-left">
-            <span class="admin-nav-icon">🗄️</span>
-            <span>phpMyAdmin &amp; DB</span>
-          </div>
-        </button>
-
-        <div class="admin-nav-section-label" style="margin-top:14px;">Quick Actions</div>
-        <div style="display:flex; flex-direction:column; gap:8px; padding:0 8px;">
-          <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()" style="font-size:12px; padding:8px 12px; justify-content:center;">
-            <span>+ Add Photo</span>
-          </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openArtistModal()" style="font-size:12px; padding:8px 12px; justify-content:center; color:#E2E8F0; border-color:rgba(255,255,255,0.15);">
-            <span>+ Add Artisan</span>
-          </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()" style="font-size:12px; padding:8px 12px; justify-content:center; color:#E2E8F0; border-color:rgba(255,255,255,0.15);">
-            <span>+ Counter Chanda</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="admin-sidebar-footer">
-        <div class="admin-user-pill">
-          <div class="admin-user-avatar">AD</div>
-          <div class="admin-user-info">
-            <span class="admin-user-name" id="officerDisplayBadge">Executive Desk</span>
-            <span class="admin-user-role">Committee Officer</span>
-          </div>
-        </div>
-        <button type="button" onclick="handleAdminLogout()" title="Sign Out" style="background:transparent; border:none; color:#EF4444; font-size:18px; cursor:pointer; padding:6px; border-radius:6px;">
-          🚪
-        </button>
-      </div>
-    </aside>
-
-    <!-- Main Content Shell -->
-    <div class="admin-main-wrap">
-      
-      <!-- Sleek Topbar -->
-      <header class="admin-topbar">
-        <div class="admin-topbar-left">
-          <button type="button" class="admin-mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle Navigation">☰</button>
-          <div class="admin-page-title-wrap">
-            <h1 id="currentViewTitle">Dashboard Overview</h1>
-            <p id="currentViewSub">Kamalpur Abhijan Sangha · Central Management Suite</p>
-          </div>
-        </div>
-
-        <div class="admin-topbar-right">
-          <div class="admin-db-pill-live" id="dbStatusBadge">
-            <span class="admin-db-dot"></span>
-            <span id="dbStatusText">Hostinger MySQL Live</span>
-          </div>
-
-          <a href="index.html" target="_blank" class="btn-ghost-admin">
-            <span>Live Website ↗</span>
-          </a>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="handleAdminLogout()" style="padding:7px 12px; font-size:12.5px;">
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </header>
-
-      <!-- Dashboard Body Content -->
-      <main class="admin-body-content">
-        
-        <!-- Clean KPI Metrics Bar -->
-        <div class="clean-kpi-grid">
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Total Seva Fund</div>
-              <div class="clean-kpi-val" id="metricTotalAmount">₹0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: rgba(176, 106, 74, 0.12); color: var(--gold-dark);">₹</div>
-          </div>
-
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Devotee Chanda</div>
-              <div class="clean-kpi-val" id="metricTotalDonations">0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: rgba(46, 64, 96, 0.12); color: var(--eg);">🧾</div>
-          </div>
-
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Pending Bills</div>
-              <div class="clean-kpi-val text-warning" id="metricPendingCount">0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: #FFE8D6; color: #EA580C;">⏳</div>
-          </div>
-
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Gallery Posts</div>
-              <div class="clean-kpi-val" id="metricGalleryCount">0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: rgba(245, 158, 11, 0.15); color: #B45309;">🖼️</div>
-          </div>
-
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Master Artisans</div>
-              <div class="clean-kpi-val" id="metricArtistsCount">0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: rgba(200, 122, 88, 0.15); color: var(--gold-mid);">🎨</div>
-          </div>
-
-          <div class="clean-kpi-card">
-            <div>
-              <div class="clean-kpi-label">Member Applicants</div>
-              <div class="clean-kpi-val text-success" id="metricMembersCount">0</div>
-            </div>
-            <div class="clean-kpi-icon" style="background: #E6F4EA; color: #16A34A;">👥</div>
-          </div>
-        </div>
-
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 1: OVERVIEW & QUICK ACTIONS
-        ════════════════════════════════════════════════════════ -->
-        <div id="overviewView" class="admin-tab-content active">
+        <!-- LEFT MAIN COLUMN -->
+        <div class="dribbble-left-col">
           
-          <!-- Quick Action Tiles -->
-          <div class="quick-action-strip">
-            <div class="quick-action-tile">
-              <div>
-                <div class="quick-action-tile-top">
-                  <div class="quick-action-tile-icon" style="background:rgba(245,158,11,0.12); color:#B45309;">📸</div>
-                  <div class="quick-action-tile-info">
-                    <h3>Gallery Management</h3>
-                    <p>Publish festival photos and videos.</p>
-                  </div>
-                </div>
+          <!-- Card 1: Today's Schedule & Highlights -->
+          <div class="dribbble-schedule-card">
+            <div class="dribbble-header-row">
+              <button type="button" class="dribbble-arrow-btn" aria-label="Previous Day" onclick="shiftScheduleDay(-1)">&larr;</button>
+              <div class="dribbble-header-title">Today's Schedule &amp; Festival Highlights</div>
+              <button type="button" class="dribbble-arrow-btn" aria-label="Next Day" onclick="shiftScheduleDay(1)">&rarr;</button>
+            </div>
+
+            <!-- Horizontal Day Selector Strip -->
+            <div class="dribbble-day-strip">
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">29</div>
+                <div class="dribbble-day-lbl">Mon</div>
               </div>
-              <div style="display:flex; gap:10px; margin-top:14px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()" style="flex:1; justify-content:center;">+ Add Photo</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('gallery')" style="flex:1; justify-content:center;">View All &rarr;</button>
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">30</div>
+                <div class="dribbble-day-lbl">Tue</div>
+              </div>
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">31</div>
+                <div class="dribbble-day-lbl">Wed</div>
+              </div>
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">1</div>
+                <div class="dribbble-day-lbl">Thu</div>
+              </div>
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">2</div>
+                <div class="dribbble-day-lbl">Fri</div>
+              </div>
+              <div class="dribbble-day-box" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">3</div>
+                <div class="dribbble-day-lbl">Sat</div>
+              </div>
+              <div class="dribbble-day-box active" onclick="selectScheduleDay(this)">
+                <div class="dribbble-day-num">11</div>
+                <div class="dribbble-day-lbl">Sun</div>
               </div>
             </div>
 
-            <div class="quick-action-tile">
-              <div>
-                <div class="quick-action-tile-top">
-                  <div class="quick-action-tile-icon" style="background:rgba(200,122,88,0.12); color:var(--gold-mid);">🎨</div>
-                  <div class="quick-action-tile-info">
-                    <h3>Master Artisans</h3>
-                    <p>Manage sculptors, architects &amp; dhak troupes.</p>
+            <!-- 3 Highlight Cards in Row (Teal, Amber, Blue accents) -->
+            <div class="dribbble-cards-row">
+              
+              <!-- Card 1: Teal Accent (Maha Protima & Mandap) -->
+              <div class="dribbble-highlight-card card-accent-teal">
+                <div>
+                  <div class="dribbble-time-pill">
+                    <span>⏱️</span>
+                    <span>08:00 AM - 12:00 PM</span>
+                  </div>
+                  <div class="dribbble-card-main-title">Maha Protima &amp; Mandap</div>
+                  <div class="dribbble-card-main-sub">Pandal Art &amp; Pratima Nirman</div>
+                  
+                  <div class="dribbble-card-bullet-box">
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Sanctum sanctorum readiness</span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Illumination clearance</span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Safety &amp; crowd barricade check</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div style="display:flex; gap:10px; margin-top:14px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()" style="flex:1; justify-content:center;">+ Add Artisan</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('artists')" style="flex:1; justify-content:center;">View All &rarr;</button>
-              </div>
-            </div>
-
-            <div class="quick-action-tile">
-              <div>
-                <div class="quick-action-tile-top">
-                  <div class="quick-action-tile-icon" style="background:#E6F4EA; color:#166534;">💰</div>
-                  <div class="quick-action-tile-info">
-                    <h3>Puja Chanda Desk</h3>
-                    <p>Issue printed vouchers &amp; WhatsApp bills.</p>
-                  </div>
-                </div>
-              </div>
-              <div style="display:flex; gap:10px; margin-top:14px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="openOfflineDonationModal()" style="flex:1; justify-content:center;">+ Counter Entry</button>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('donations')" style="flex:1; justify-content:center;">Ledger &rarr;</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Overview Bottom Grid -->
-          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
-            
-            <!-- Quick Summary Panel -->
-            <div class="clean-card-panel">
-              <div class="clean-card-header">
-                <div class="clean-card-title-group">
-                  <h2>Recent Chanda Entries</h2>
-                  <p>Latest devotee contributions and WhatsApp status</p>
-                </div>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('donations')">Full Ledger &rarr;</button>
-              </div>
-              <div class="clean-card-body" style="padding:0;">
-                <div class="table-responsive">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Receipt ID</th>
-                        <th>Devotee</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th style="text-align:right;">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="overviewDonationsPreviewBody">
-                      <!-- Rendered by JS -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hostinger Database Status Card -->
-            <div class="clean-card-panel">
-              <div class="clean-card-header">
-                <div class="clean-card-title-group">
-                  <h2>Database Status</h2>
-                  <p>Hostinger MySQL &amp; phpMyAdmin</p>
-                </div>
-              </div>
-              <div class="clean-card-body">
-                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:14px; font-size:13px; margin-bottom:16px;">
-                  <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <span style="color:#64748B;">Database:</span>
-                    <strong><code>u197762167_kamalpur</code></strong>
-                  </div>
-                  <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                    <span style="color:#64748B;">User:</span>
-                    <strong><code>u197762167_admin</code></strong>
-                  </div>
-                  <div style="display:flex; justify-content:space-between;">
-                    <span style="color:#64748B;">Engine:</span>
-                    <span style="color:#16A34A; font-weight:700;">● Active / Connected</span>
-                  </div>
-                </div>
-                <div style="display:flex; flex-direction:column; gap:10px;">
-                  <a href="database/schema.sql" download class="btn btn-secondary btn-sm" style="justify-content:center;">
-                    <span>📥 Download schema.sql</span>
-                  </a>
-                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('database')" style="justify-content:center;">
-                    <span>Database Settings &rarr;</span>
+                <div style="margin-top:16px;">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('gallery')" style="width:100%; justify-content:center; font-size:12px; padding:6px 10px;">
+                    <span>View Gallery &rarr;</span>
                   </button>
                 </div>
               </div>
+
+              <!-- Card 2: Amber Accent (Chanda & Seva Ledger) -->
+              <div class="dribbble-highlight-card card-accent-amber">
+                <div>
+                  <div class="dribbble-time-pill">
+                    <span>⏱️</span>
+                    <span>10:30 AM - 08:30 PM</span>
+                  </div>
+                  <div class="dribbble-card-main-title">Chanda &amp; Seva Counter</div>
+                  <div class="dribbble-card-main-sub">Devotee Ledger &amp; WhatsApp Slips</div>
+                  
+                  <div class="dribbble-card-bullet-box">
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Total Fund: <strong id="metricTotalAmount" style="color:#B45309; margin-left:3px;">₹0</strong></span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Total Slips: <strong id="metricTotalDonations" style="color:#0F172A; margin-left:3px;">0</strong></span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Pending Bills: <strong id="metricPendingCount" style="color:#EA580C; margin-left:3px;">0</strong></span>
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top:16px;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="openOfflineDonationModal()" style="width:100%; justify-content:center; font-size:12px; padding:6px 10px;">
+                    <span>+ Counter Entry</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card 3: Blue Accent (Master Artisans Guild) -->
+              <div class="dribbble-highlight-card card-accent-blue">
+                <div>
+                  <div class="dribbble-time-pill">
+                    <span>⏱️</span>
+                    <span>04:00 PM - 11:00 PM</span>
+                  </div>
+                  <div class="dribbble-card-main-title">Master Artisans Guild</div>
+                  <div class="dribbble-card-main-sub">Kumartuli Sculptors &amp; Dhak</div>
+                  
+                  <div class="dribbble-card-bullet-box">
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Active Artisans: <strong id="metricArtistsCount" style="color:#0284C7; margin-left:3px;">0</strong></span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Gallery Posts: <strong id="metricGalleryCount" style="color:#0F172A; margin-left:3px;">0</strong></span>
+                    </div>
+                    <div class="dribbble-bullet-item">
+                      <span>✦</span>
+                      <span>Volunteers: <strong id="metricMembersCount" style="color:#16A34A; margin-left:3px;">0</strong></span>
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top:16px;">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('artists')" style="width:100%; justify-content:center; font-size:12px; padding:6px 10px;">
+                    <span>Guild Profiles &rarr;</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 2: Recent Chanda & Devotee Seva Table Card -->
+          <div class="dribbble-table-card">
+            <div class="dribbble-header-row" style="margin-bottom:16px; justify-content:space-between;">
+              <h2 style="font-size:16.5px; font-weight:700; color:#0F172A; margin:0;">Recent Chanda &amp; Devotee Seva</h2>
+              <div style="display:flex; gap:10px;">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openOfflineDonationModal()" style="font-size:12px; padding:5px 10px;">+ New Slip</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchAdminTab('donations')" style="font-size:12px; padding:5px 10px;">Full Ledger &rarr;</button>
+              </div>
             </div>
 
+            <div class="table-responsive">
+              <table class="dribbble-clean-table">
+                <thead>
+                  <tr>
+                    <th>Receipt ID</th>
+                    <th>Devotee Details</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="overviewDonationsPreviewBody">
+                  <!-- Rendered dynamically by script -->
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>
 
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 2: GALLERY POST MANAGEMENT
-        ════════════════════════════════════════════════════════ -->
-        <div id="galleryView" class="admin-tab-content" style="display:none;">
-          <div class="clean-card-panel">
-            <div class="clean-card-header">
-              <div class="clean-card-title-group">
-                <h2>Gallery Archive Management</h2>
-                <p><span id="galleryCountBadge">0 Posts</span> currently live on public gallery</p>
-              </div>
-              <div style="display:flex; gap:10px; align-items:center;">
-                <input type="text" id="gallerySearchInput" placeholder="Search title or category..." oninput="renderAdminGallery()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">
-                  <span>+ Add New Photo</span>
-                </button>
+        <!-- RIGHT SIDEBAR COLUMN -->
+        <div class="dribbble-side-widgets">
+          
+          <!-- Interactive Calendar Card -->
+          <div class="dribbble-calendar-card">
+            <div class="dribbble-calendar-head">
+              <div class="dribbble-calendar-head-title">Calendar</div>
+              <div class="dribbble-cal-month-nav">
+                <span style="cursor:pointer;">&lsaquo;</span>
+                <span>October 2026</span>
+                <span style="cursor:pointer;">&rsaquo;</span>
               </div>
             </div>
-            <div class="clean-card-body">
-              <div class="admin-gallery-grid" id="adminGalleryGrid">
-                <!-- Dynamically populated via script -->
+
+            <table class="dribbble-cal-grid">
+              <thead>
+                <tr>
+                  <th>M</th>
+                  <th>T</th>
+                  <th>W</th>
+                  <th>T</th>
+                  <th>F</th>
+                  <th>S</th>
+                  <th>S</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="dribbble-cal-cell-muted">28</td>
+                  <td class="dribbble-cal-cell-muted">29</td>
+                  <td class="dribbble-cal-cell-muted">30</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>7</td>
+                  <td>8</td>
+                  <td>9</td>
+                  <td>10</td>
+                  <td><span class="dribbble-cal-cell-active">11</span></td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>13</td>
+                  <td>14</td>
+                  <td>15</td>
+                  <td>16</td>
+                  <td>17</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td>19</td>
+                  <td>20</td>
+                  <td>21</td>
+                  <td>22</td>
+                  <td>23</td>
+                  <td>24</td>
+                  <td>25</td>
+                </tr>
+                <tr>
+                  <td>26</td>
+                  <td>27</td>
+                  <td>28</td>
+                  <td>29</td>
+                  <td>30</td>
+                  <td>31</td>
+                  <td class="dribbble-cal-cell-muted">1</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Festival Day Milestones in Calendar -->
+            <div class="dribbble-events-schedule">
+              <div class="dribbble-event-item">
+                <div class="dribbble-event-label" style="color:#B45309;">Today (11 Oct) · Maha Ashtami</div>
+                <div class="dribbble-event-sub">
+                  <span>✦</span>
+                  <span>Sandhi Puja &amp; Aarti: 05:42 PM</span>
+                </div>
               </div>
-              <div id="galleryEmptyState" class="admin-empty-state" style="display:none;">
-                <div class="empty-icon">🖼️</div>
-                <h3>No Gallery Posts Found</h3>
-                <p>Add photos to showcase them in the public Gallery archive.</p>
-                <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">+ Add First Photo</button>
+              <div class="dribbble-event-item">
+                <div class="dribbble-event-label" style="color:#0F172A;">Tomorrow (12 Oct) · Maha Nabami</div>
+                <div class="dribbble-event-sub">
+                  <span>✦</span>
+                  <span>Maha Bhog Bitoron: 01:00 PM</span>
+                </div>
+              </div>
+              <div class="dribbble-event-item">
+                <div class="dribbble-event-label" style="color:#64748B;">13 Oct · Bijoya Dashami</div>
+                <div class="dribbble-event-sub">
+                  <span>✦</span>
+                  <span>Sindur Khela &amp; Shobhayatra</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 3: ARTISTS POST MANAGEMENT
-        ════════════════════════════════════════════════════════ -->
-        <div id="artistsView" class="admin-tab-content" style="display:none;">
-          <div class="clean-card-panel">
-            <div class="clean-card-header">
-              <div class="clean-card-title-group">
-                <h2>Master Artisans &amp; Profiles</h2>
-                <p><span id="artistsCountBadge">0 Artisans</span> featured on artists showcase</p>
-              </div>
-              <div style="display:flex; gap:10px; align-items:center;">
-                <input type="text" id="artistSearchInput" placeholder="Search artist name or craft..." oninput="renderAdminArtists()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
-                <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">
-                  <span>+ Add Master Artisan</span>
-                </button>
-              </div>
+          <!-- My Notes & Hostinger Backend Card -->
+          <div class="dribbble-notes-card">
+            <div class="dribbble-notes-head">
+              <h3>My Notes &amp; Hostinger DB</h3>
+              <span style="font-size:14px; cursor:pointer;" title="Edit Note">✏️</span>
             </div>
-            <div class="clean-card-body">
-              <div class="admin-artists-grid" id="adminArtistsGrid">
-                <!-- Dynamically populated via script -->
-              </div>
-              <div id="artistsEmptyState" class="admin-empty-state" style="display:none;">
-                <div class="empty-icon">🎨</div>
-                <h3>No Artisans Logged</h3>
-                <p>Create profiles for master sculptors, architects, and light artists.</p>
-                <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">+ Add First Artisan</button>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 4: CHANDA LEDGER & VOUCHERS
-        ════════════════════════════════════════════════════════ -->
-        <div id="donationsView" class="admin-tab-content" style="display:none;">
-          <div class="clean-card-panel">
-            <div class="clean-card-header">
-              <div class="clean-card-title-group">
-                <h2>Puja Chanda &amp; Seva Contributions</h2>
-                <p><span id="donationsCountBadge">0 Records</span> in treasury ledger</p>
-              </div>
-              <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                <input type="text" id="adminSearchInput" placeholder="Search name, phone, UTR..." oninput="renderAdminDonations()" class="form-input" style="width:200px; padding:8px 12px; font-size:13px;">
-                <select id="statusFilterSelect" onchange="renderAdminDonations()" class="form-select" style="padding:8px 12px; font-size:13px;">
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending WhatsApp Bill</option>
-                  <option value="verified">Verified &amp; Dispatched</option>
-                </select>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="exportLedgerCSV()">
-                  <span>📥 Export CSV</span>
-                </button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="openOfflineDonationModal()">
-                  <span>+ Add Counter Chanda</span>
-                </button>
+            <div class="dribbble-notes-content" style="margin-bottom:14px;">
+              <div style="font-weight:700; color:#0F172A; margin-bottom:4px;">Executive Checklist</div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="color:#16A34A; font-weight:700;">✓</span>
+                  <span>Hostinger MySQL connected</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="color:#16A34A; font-weight:700;">✓</span>
+                  <span>Devotee printable vouchers active</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="color:#16A34A; font-weight:700;">✓</span>
+                  <span>WhatsApp direct redirection ready</span>
+                </div>
               </div>
             </div>
-            <div class="clean-card-body" style="padding:0;">
-              <div class="table-responsive">
-                <table class="admin-table" id="donationsTable">
-                  <thead>
-                    <tr>
-                      <th>Tracking ID &amp; Date</th>
-                      <th>Devotee Details</th>
-                      <th>Fund / Purpose</th>
-                      <th>Amount</th>
-                      <th>Payment Ref</th>
-                      <th>Status</th>
-                      <th style="text-align:right;">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="donationsTableBody">
-                    <!-- Dynamically populated via script -->
-                  </tbody>
-                </table>
-              </div>
-              <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
-                <div class="empty-icon">📭</div>
-                <h3>No Donation Records</h3>
-                <p>No transactions match the selected filter.</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 5: MEMBERSHIP APPLICATIONS
-        ════════════════════════════════════════════════════════ -->
-        <div id="membersView" class="admin-tab-content" style="display:none;">
-          <div class="clean-card-panel">
-            <div class="clean-card-header">
-              <div class="clean-card-title-group">
-                <h2>Volunteer &amp; Committee Applicants</h2>
-                <p><span id="membersCountBadge">0 Applicants</span> registered</p>
-              </div>
-              <input type="text" id="memberSearchInput" placeholder="Search applicant, town..." oninput="renderAdminMembers()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
-            </div>
-            <div class="clean-card-body" style="padding:0;">
-              <div class="table-responsive">
-                <table class="admin-table" id="membersTable">
-                  <thead>
-                    <tr>
-                      <th>Application ID &amp; Date</th>
-                      <th>Applicant Name</th>
-                      <th>Contact No.</th>
-                      <th>Town / Locality</th>
-                      <th>Wing of Interest</th>
-                      <th>Motivation Note</th>
-                      <th>Status</th>
-                      <th style="text-align:right;">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="membersTableBody">
-                    <!-- Dynamically populated via script -->
-                  </tbody>
-                </table>
-              </div>
-              <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
-                <div class="empty-icon">👥</div>
-                <h3>No Membership Applications</h3>
-                <p>Applications received via the Join page will appear here.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ════════════════════════════════════════════════════════
-             VIEW 6: DATABASE & PHPMYADMIN
-        ════════════════════════════════════════════════════════ -->
-        <div id="databaseView" class="admin-tab-content" style="display:none;">
-          <div class="clean-card-panel">
-            <div class="clean-card-header">
-              <div class="clean-card-title-group">
-                <h2>Hostinger MySQL &amp; phpMyAdmin Integration</h2>
-                <p>Relational database synchronization for Kamalpur Abhijan Sangha</p>
-              </div>
-              <a href="database/schema.sql" download class="btn btn-primary btn-sm">
-                <span>📥 Download database/schema.sql</span>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
+                <span>Hostinger phpMyAdmin ↗</span>
+              </a>
+              <a href="database/schema.sql" download class="btn btn-secondary btn-sm" style="width:100%; justify-content:center; font-size:12px; padding:7px 10px;">
+                <span>📥 Download schema.sql</span>
               </a>
             </div>
-            <div class="clean-card-body">
-              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
-                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📊 Active Hostinger Connection</h4>
-                  <div style="font-size:13px; color:#475569; line-height:1.7;">
-                    <div>Database: <strong><code>u197762167_kamalpur</code></strong></div>
-                    <div>User: <strong><code>u197762167_admin</code></strong></div>
-                    <div>Host: <strong><code>localhost:3306</code></strong></div>
-                    <div>Tables: <strong>5 (gallery, artists, donations, members, admin_users)</strong></div>
-                  </div>
-                </div>
+          </div>
 
-                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">🚀 Access Hostinger phpMyAdmin</h4>
-                  <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
-                    Open Hostinger hPanel &rarr; Databases &rarr; phpMyAdmin &rarr; Click <strong>Enter phpMyAdmin</strong> to view and query tables live.
-                  </p>
-                  <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;">
-                    <span>Open Hostinger hPanel ↗</span>
-                  </a>
-                </div>
+        </div>
 
-                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
-                  <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📦 Backup &amp; Recovery</h4>
-                  <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
-                    Export full JSON snapshot or reset demo records.
-                  </p>
-                  <div style="display:flex; gap:10px;">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()" style="flex:1; justify-content:center;">JSON Backup</button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()" style="flex:1; justify-content:center;">Reset Demo</button>
-                  </div>
-                </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 2: GALLERY POST MANAGEMENT
+    ══════════════════════════════════════════════════════════ -->
+    <div id="galleryView" class="admin-tab-content" style="display:none;">
+      <div class="dribbble-table-card">
+        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between;">
+          <div>
+            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Gallery Archive Management</h2>
+            <p style="font-size:12.5px; color:#64748B; margin:0;"><span id="galleryCountBadge">0 Posts</span> currently live on public gallery</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <input type="text" id="gallerySearchInput" placeholder="Search title or category..." oninput="renderAdminGallery()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">
+              <span>+ Add New Photo</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="admin-gallery-grid" id="adminGalleryGrid">
+            <!-- Dynamically populated via script -->
+          </div>
+          <div id="galleryEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">🖼️</div>
+            <h3>No Gallery Posts Found</h3>
+            <p>Add photos to showcase them in the public Gallery archive.</p>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openGalleryModal()">+ Add First Photo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 3: ARTISTS POST MANAGEMENT
+    ══════════════════════════════════════════════════════════ -->
+    <div id="artistsView" class="admin-tab-content" style="display:none;">
+      <div class="dribbble-table-card">
+        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between;">
+          <div>
+            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Master Artisans Guild &amp; Profiles</h2>
+            <p style="font-size:12.5px; color:#64748B; margin:0;"><span id="artistsCountBadge">0 Artisans</span> featured on artists showcase</p>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <input type="text" id="artistSearchInput" placeholder="Search artist name or craft..." oninput="renderAdminArtists()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
+            <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">
+              <span>+ Add Master Artisan</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="admin-artists-grid" id="adminArtistsGrid">
+            <!-- Dynamically populated via script -->
+          </div>
+          <div id="artistsEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">🎨</div>
+            <h3>No Artisans Logged</h3>
+            <p>Create profiles for master sculptors, architects, and light artists.</p>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openArtistModal()">+ Add First Artisan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 4: CHANDA LEDGER & VOUCHERS
+    ══════════════════════════════════════════════════════════ -->
+    <div id="donationsView" class="admin-tab-content" style="display:none;">
+      <div class="dribbble-table-card">
+        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Puja Chanda &amp; Seva Contributions</h2>
+            <p style="font-size:12.5px; color:#64748B; margin:0;"><span id="donationsCountBadge">0 Records</span> in treasury ledger</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <input type="text" id="adminSearchInput" placeholder="Search devotee, phone..." oninput="renderAdminDonations()" class="form-input" style="width:190px; padding:8px 12px; font-size:13px;">
+            <select id="statusFilterSelect" onchange="renderAdminDonations()" class="form-select" style="padding:8px 12px; font-size:13px;">
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending WhatsApp Bill</option>
+              <option value="verified">Verified &amp; Dispatched</option>
+            </select>
+            <button type="button" class="btn btn-secondary btn-sm" onclick="exportLedgerCSV()">
+              <span>📥 Export CSV</span>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openOfflineDonationModal()">
+              <span>+ Add Counter Chanda</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="table-responsive">
+            <table class="dribbble-clean-table" id="donationsTable">
+              <thead>
+                <tr>
+                  <th>Tracking ID &amp; Date</th>
+                  <th>Devotee Details</th>
+                  <th>Fund / Purpose</th>
+                  <th>Amount</th>
+                  <th>Payment Ref</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="donationsTableBody">
+                <!-- Dynamically populated via script -->
+              </tbody>
+            </table>
+          </div>
+          <div id="donationsEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">📭</div>
+            <h3>No Donation Records</h3>
+            <p>No transactions match the selected filter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 5: MEMBERSHIP APPLICATIONS
+    ══════════════════════════════════════════════════════════ -->
+    <div id="membersView" class="admin-tab-content" style="display:none;">
+      <div class="dribbble-table-card">
+        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between;">
+          <div>
+            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Volunteer &amp; Committee Applicants</h2>
+            <p style="font-size:12.5px; color:#64748B; margin:0;"><span id="membersCountBadge">0 Applicants</span> registered</p>
+          </div>
+          <input type="text" id="memberSearchInput" placeholder="Search applicant, town..." oninput="renderAdminMembers()" class="form-input" style="width:240px; padding:8px 12px; font-size:13px;">
+        </div>
+        <div>
+          <div class="table-responsive">
+            <table class="dribbble-clean-table" id="membersTable">
+              <thead>
+                <tr>
+                  <th>Application ID &amp; Date</th>
+                  <th>Applicant Name</th>
+                  <th>Contact No.</th>
+                  <th>Town / Locality</th>
+                  <th>Wing of Interest</th>
+                  <th>Motivation Note</th>
+                  <th>Status</th>
+                  <th style="text-align:right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="membersTableBody">
+                <!-- Dynamically populated via script -->
+              </tbody>
+            </table>
+          </div>
+          <div id="membersEmptyState" class="admin-empty-state" style="display:none;">
+            <div class="empty-icon">👥</div>
+            <h3>No Membership Applications</h3>
+            <p>Applications received via the Join page will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         VIEW 6: DATABASE & PHPMYADMIN
+    ══════════════════════════════════════════════════════════ -->
+    <div id="databaseView" class="admin-tab-content" style="display:none;">
+      <div class="dribbble-table-card">
+        <div class="dribbble-header-row" style="margin-bottom:20px; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h2 style="font-size:17px; font-weight:700; color:#0F172A; margin:0 0 4px;">Hostinger MySQL &amp; phpMyAdmin Integration</h2>
+            <p style="font-size:12.5px; color:#64748B; margin:0;">Relational database synchronization for Kamalpur Abhijan Sangha</p>
+          </div>
+          <a href="database/schema.sql" download class="btn btn-primary btn-sm">
+            <span>📥 Download database/schema.sql</span>
+          </a>
+        </div>
+        <div>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:28px;">
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📊 Active Hostinger Connection</h4>
+              <div style="font-size:13px; color:#475569; line-height:1.7;">
+                <div>Database: <strong><code>u197762167_kamalpur</code></strong></div>
+                <div>User: <strong><code>u197762167_admin</code></strong></div>
+                <div>Host: <strong><code>localhost:3306</code></strong></div>
+                <div>Tables: <strong>5 (gallery, artists, donations, members, admin_users)</strong></div>
+              </div>
+            </div>
+
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">🚀 Access Hostinger phpMyAdmin</h4>
+              <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
+                Open Hostinger hPanel &rarr; Databases &rarr; phpMyAdmin &rarr; Click <strong>Enter phpMyAdmin</strong> to view and query tables live.
+              </p>
+              <a href="https://hpanel.hostinger.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width:100%; justify-content:center;">
+                <span>Open Hostinger hPanel ↗</span>
+              </a>
+            </div>
+
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:20px;">
+              <h4 style="font-size:14.5px; font-weight:700; color:#0F172A; margin:0 0 10px;">📦 Backup &amp; Recovery</h4>
+              <p style="font-size:12.5px; color:#64748B; margin-bottom:14px; line-height:1.5;">
+                Export full JSON snapshot or reset demo records.
+              </p>
+              <div style="display:flex; gap:10px;">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="exportFullJsonBackup()" style="flex:1; justify-content:center;">JSON Backup</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="restoreSampleData()" style="flex:1; justify-content:center;">Reset Demo</button>
               </div>
             </div>
           </div>
         </div>
-
-      </main>
-
-      <!-- Clean Admin Footer with Developer Credit -->
-      <footer class="admin-footer" style="padding:20px 32px; border-top:1px solid #E2E8F0; background:#FFFFFF; display:flex; flex-direction:column; align-items:center; gap:8px;">
-        <div style="font-size:12px; color:#64748B;">
-          &copy; 2026 Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ). Executive Office Console.
-        </div>
-        <div class="footer-developer-credit" style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright, #F59E0B);">
-          DEVELOPED BY TEAM SUBHA-ARTHA
-        </div>
-      </footer>
-
+      </div>
     </div>
+
+    <!-- Clean Admin Footer with Developer Credit -->
+    <footer class="dribbble-footer" style="margin-top:36px; padding:24px 0 12px; text-align:center; border-top:1px solid #E2E8F0; display:flex; flex-direction:column; align-items:center; gap:8px;">
+      <div style="font-size:12px; color:#64748B;">
+        &copy; 2026 Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ) · Executive Management Suite
+      </div>
+      <div class="footer-developer-credit" style="font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright, #F59E0B);">
+        DEVELOPED BY TEAM SUBHA-ARTHA
+      </div>
+    </footer>
+
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
@@ -923,7 +1011,7 @@
 
       if (isAuth) {
         if (loginSection) loginSection.style.display = 'none';
-        if (dashboardSection) dashboardSection.style.display = 'flex';
+        if (dashboardSection) dashboardSection.style.display = 'block';
         loadAllDashboardData();
       } else {
         if (loginSection) loginSection.style.display = 'flex';
@@ -1053,6 +1141,23 @@
 
     function capitalize(s) {
       return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function selectScheduleDay(el) {
+      document.querySelectorAll('.dribbble-day-box').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function shiftScheduleDay(direction) {
+      const boxes = Array.from(document.querySelectorAll('.dribbble-day-box'));
+      const activeIdx = boxes.findIndex(b => b.classList.contains('active'));
+      if (activeIdx !== -1) {
+        let newIdx = activeIdx + direction;
+        if (newIdx >= 0 && newIdx < boxes.length) {
+          boxes[activeIdx].classList.remove('active');
+          boxes[newIdx].classList.add('active');
+        }
+      }
     }
 
     /* ── 4. Main Console Initialization & Rendering ── */

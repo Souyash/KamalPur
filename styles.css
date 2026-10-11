@@ -6806,5 +6806,532 @@ footer {
   }
 }
 
+/* ══════════════════════════════════════════════════════════
+   DRIBBBLE-STYLE DASHBOARD THEME (IRINA ELISEEVA REFERENCE)
+══════════════════════════════════════════════════════════ */
+.dribbble-dash-wrapper {
+  background: #EFF3F8;
+  min-height: 100vh;
+  padding: 24px 32px 48px;
+  font-family: var(--sans);
+  color: #1E293B;
+}
+
+/* Dribbble Top Navigation Bar */
+.dribbble-top-nav {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #E2E8F0;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dribbble-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.dribbble-nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #FEF3C7;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dribbble-nav-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dribbble-nav-brand-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.dribbble-nav-brand-sub {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.dribbble-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F1F5F9;
+  padding: 6px 8px;
+  border-radius: 40px;
+}
+
+.dribbble-nav-pill-btn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748B;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.dribbble-nav-pill-btn:hover {
+  color: #0F172A;
+}
+
+.dribbble-nav-pill-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.dribbble-pill-badge {
+  background: #E2E8F0;
+  color: #475569;
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+}
+
+.dribbble-nav-pill-btn.active .dribbble-pill-badge {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.dribbble-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Two Column Dribbble Dashboard Grid */
+.dribbble-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Left Main Content Card */
+.dribbble-schedule-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 26px 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #E2E8F0;
+  margin-bottom: 24px;
+}
+
+.dribbble-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.dribbble-header-title {
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  text-align: center;
+}
+
+.dribbble-arrow-btn {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dribbble-arrow-btn:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+/* Horizontal Day Strip */
+.dribbble-day-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding: 4px 2px;
+}
+
+.dribbble-day-box {
+  flex: 1;
+  min-width: 58px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dribbble-day-box:hover {
+  border-color: #CBD5E1;
+  background: #FFFFFF;
+}
+
+.dribbble-day-box.active {
+  border-color: #F59E0B;
+  background: #FFFBEB;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+.dribbble-day-num {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.dribbble-day-box.active .dribbble-day-num {
+  color: #B45309;
+}
+
+.dribbble-day-lbl {
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.dribbble-day-box.active .dribbble-day-lbl {
+  color: #D97706;
+  font-weight: 700;
+}
+
+/* 3 Highlight Cards in Row */
+.dribbble-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.dribbble-highlight-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s;
+}
+
+.dribbble-highlight-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.dribbble-highlight-card.card-accent-teal {
+  border-top: 4px solid #14B8A6;
+}
+
+.dribbble-highlight-card.card-accent-amber {
+  border-top: 4px solid #F59E0B;
+}
+
+.dribbble-highlight-card.card-accent-blue {
+  border-top: 4px solid #38BDF8;
+}
+
+.dribbble-time-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 4px 9px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+
+.dribbble-card-main-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.dribbble-card-main-sub {
+  font-size: 12px;
+  color: #64748B;
+  margin-bottom: 14px;
+}
+
+.dribbble-card-bullet-box {
+  background: #F8FAFC;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #475569;
+}
+
+.dribbble-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Recent Assignments / Recent Chanda Table Card */
+.dribbble-table-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #E2E8F0;
+}
+
+.dribbble-table-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dribbble-table-header h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.dribbble-clean-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dribbble-clean-table th {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1.5px solid #F1F5F9;
+}
+
+.dribbble-clean-table td {
+  padding: 14px;
+  font-size: 13px;
+  color: #334155;
+  border-bottom: 1px solid #F8FAFC;
+}
+
+.dribbble-clean-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.dribbble-dot-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.dot-green { background: #22C55E; }
+.dot-amber { background: #F59E0B; }
+.dot-blue { background: #38BDF8; }
+.dot-purple { background: #A855F7; }
+
+/* Right Column Widgets */
+.dribbble-side-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Calendar Card */
+.dribbble-calendar-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #E2E8F0;
+}
+
+.dribbble-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.dribbble-calendar-head-title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.dribbble-cal-month-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.dribbble-cal-grid {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.dribbble-cal-grid th {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94A3B8;
+  padding: 6px 0;
+}
+
+.dribbble-cal-grid td {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  padding: 7px 0;
+}
+
+.dribbble-cal-cell-active {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #F59E0B;
+  color: #B45309;
+  font-weight: 800;
+  background: #FFFBEB;
+}
+
+.dribbble-cal-cell-muted {
+  color: #CBD5E1 !important;
+}
+
+.dribbble-events-schedule {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #F1F5F9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dribbble-event-item {
+  font-size: 12px;
+}
+
+.dribbble-event-label {
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 2px;
+}
+
+.dribbble-event-sub {
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Notes Widget */
+.dribbble-notes-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border: 1px solid #E2E8F0;
+}
+
+.dribbble-notes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.dribbble-notes-head h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.dribbble-notes-content {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1080px) {
+  .dribbble-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .dribbble-cards-row {
+    grid-template-columns: 1fr;
+  }
+  .dribbble-dash-wrapper {
+    padding: 16px 16px 36px;
+  }
+}
+
+
 
 
