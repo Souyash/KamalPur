@@ -89,13 +89,6 @@ CREATE TABLE IF NOT EXISTS `donations` (
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Seed initial Donations
-INSERT INTO `donations` (`id`, `name`, `phone`, `email`, `amount`, `address`, `purpose`, `pan`, `utr`, `status`, `date`) VALUES
-('#KAS-2026-9241', 'Anirban Bhattacharya', '9830145678', 'anirban.b@gmail.com', 2501.00, 'Mission Para, Ranaghat, PIN 741201', 'Sharodotsav Durga Puja Chanda', 'ABCDB4321K', '429188231904', 'pending', NOW() - INTERVAL 2 HOUR),
-('#KAS-2026-8819', 'Priyanka Sen', '9874561230', 'priyanka.sen@outlook.com', 5001.00, 'College Road, Ranaghat, PIN 741201', 'Maha Bhog & Prasad Annadan', '', '429177112049', 'verified', NOW() - INTERVAL 5 HOUR),
-('#KAS-2026-7492', 'Sourav Ganguly', '9433120987', 'sourav.g@yahoo.com', 11000.00, 'Biswas Para, Ranaghat, PIN 741201', 'Youth Sports & Football Academy', 'AABCS9876P', '429155098231', 'verified', NOW() - INTERVAL 12 HOUR),
-('#KAS-2026-6120', 'Dr. Debabrata Roy', '9836701234', 'droy.ranaghat@gmail.com', 501.00, 'Hospital More, Ranaghat, PIN 741201', 'Free Health & Blood Donation Seva', '', '429122340912', 'pending', NOW() - INTERVAL 1 DAY);
-
 -- 5. Membership Applications Table
 CREATE TABLE IF NOT EXISTS `members` (
   `id` VARCHAR(50) PRIMARY KEY,
@@ -107,9 +100,4 @@ CREATE TABLE IF NOT EXISTS `members` (
   `status` ENUM('pending', 'reviewed') NOT NULL DEFAULT 'pending',
   `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Seed initial Members
-INSERT INTO `members` (`id`, `name`, `phone`, `city`, `interest`, `message`, `status`, `date`) VALUES
-('#MEM-2026-4412', 'Subhadip Chatterjee', '9831204921', 'Ranaghat', 'Puja & Cultural Wing', 'Eager to volunteer in Durgotsav pandal management and Pushpanjali prasad coordination.', 'pending', NOW() - INTERVAL 1 DAY),
-('#MEM-2026-3981', 'Moumita Ghosh', '9732118804', 'Santipur', 'Social Welfare & Blood Camps', 'Registered nurse willing to provide healthcare support in free medical camps.', 'reviewed', NOW() - INTERVAL 2 DAY);
 

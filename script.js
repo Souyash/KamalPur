@@ -640,100 +640,11 @@ function resetMembershipForm() {
 function initAdminSeedData() {
   try {
     if (localStorage.getItem('kas_donations') === null) {
-      const sampleDonations = [
-        {
-          id: '#KAS-2026-9241',
-          name: 'Anirban Bhattacharya',
-          phone: '9830145678',
-          email: 'anirban.b@gmail.com',
-          amount: 2501,
-          address: 'Mission Para, Ranaghat, PIN 741201',
-          purpose: 'Sharodotsav Durga Puja Chanda',
-          pan: 'ABCDB4321K',
-          utr: '429188231904',
-          date: new Date(Date.now() - 3600000 * 2).toISOString(),
-          status: 'pending'
-        },
-        {
-          id: '#KAS-2026-8819',
-          name: 'Priyanka Sen',
-          phone: '9874561230',
-          email: 'priyanka.sen@outlook.com',
-          amount: 5001,
-          address: 'College Road, Ranaghat, PIN 741201',
-          purpose: 'Maha Bhog & Prasad Annadan',
-          pan: '',
-          utr: '429177112049',
-          date: new Date(Date.now() - 3600000 * 5).toISOString(),
-          status: 'verified'
-        },
-        {
-          id: '#KAS-2026-7492',
-          name: 'Sourav Ganguly',
-          phone: '9433120987',
-          email: 'sourav.g@yahoo.com',
-          amount: 11000,
-          address: 'Biswas Para, Ranaghat, PIN 741201',
-          purpose: 'Youth Sports & Football Academy',
-          pan: 'AABCS9876P',
-          utr: '429155098231',
-          date: new Date(Date.now() - 3600000 * 12).toISOString(),
-          status: 'verified'
-        },
-        {
-          id: '#KAS-2026-6120',
-          name: 'Dr. Debabrata Roy',
-          phone: '9836701234',
-          email: 'droy.ranaghat@gmail.com',
-          amount: 501,
-          address: 'Hospital More, Ranaghat, PIN 741201',
-          purpose: 'Free Health & Blood Donation Seva',
-          pan: '',
-          utr: '429144332190',
-          date: new Date(Date.now() - 3600000 * 20).toISOString(),
-          status: 'pending'
-        },
-        {
-          id: '#KAS-2026-5891',
-          name: 'Kakoli Mukherjee',
-          phone: '9732114455',
-          email: '',
-          amount: 1001,
-          address: 'Kamalpur Station Road, Ranaghat',
-          purpose: 'Sharodotsav Durga Puja Chanda',
-          pan: '',
-          utr: '429133981120',
-          date: new Date(Date.now() - 3600000 * 30).toISOString(),
-          status: 'verified'
-        }
-      ];
-      localStorage.setItem('kas_donations', JSON.stringify(sampleDonations));
+      localStorage.setItem('kas_donations', JSON.stringify([]));
     }
 
     if (localStorage.getItem('kas_members') === null) {
-      const sampleMembers = [
-        {
-          id: '#MEM-2026-1029',
-          name: 'Arindam Ghosh',
-          phone: '9830567890',
-          city: 'Ranaghat',
-          interest: 'Puja & Cultural Wing',
-          message: 'Interested in stage decor and photography coordination during Navami & Dashami.',
-          date: new Date(Date.now() - 3600000 * 24).toISOString(),
-          status: 'reviewed'
-        },
-        {
-          id: '#MEM-2026-2041',
-          name: 'Tanushree Das',
-          phone: '9874112233',
-          city: 'Ranaghat',
-          interest: 'Community Seva & Health',
-          message: 'Nurse by profession. Want to volunteer at the free health camp and blood donation drive.',
-          date: new Date(Date.now() - 3600000 * 48).toISOString(),
-          status: 'pending'
-        }
-      ];
-      localStorage.setItem('kas_members', JSON.stringify(sampleMembers));
+      localStorage.setItem('kas_members', JSON.stringify([]));
     }
 
     if (localStorage.getItem('kas_gallery') === null) {
