@@ -639,7 +639,7 @@ function resetMembershipForm() {
 /* ── 8. Seed Initial Ledger, Gallery & Artists Data if Storage Empty ── */
 function initAdminSeedData() {
   try {
-    if (!localStorage.getItem('kas_donations') || JSON.parse(localStorage.getItem('kas_donations') || '[]').length === 0) {
+    if (localStorage.getItem('kas_donations') === null) {
       const sampleDonations = [
         {
           id: '#KAS-2026-9241',
@@ -710,7 +710,7 @@ function initAdminSeedData() {
       localStorage.setItem('kas_donations', JSON.stringify(sampleDonations));
     }
 
-    if (!localStorage.getItem('kas_members') || JSON.parse(localStorage.getItem('kas_members') || '[]').length === 0) {
+    if (localStorage.getItem('kas_members') === null) {
       const sampleMembers = [
         {
           id: '#MEM-2026-1029',
@@ -736,7 +736,7 @@ function initAdminSeedData() {
       localStorage.setItem('kas_members', JSON.stringify(sampleMembers));
     }
 
-    if (!localStorage.getItem('kas_gallery') || JSON.parse(localStorage.getItem('kas_gallery') || '[]').length === 0) {
+    if (localStorage.getItem('kas_gallery') === null) {
       const sampleGallery = [
         {
           id: 1,
@@ -806,7 +806,7 @@ function initAdminSeedData() {
       localStorage.setItem('kas_gallery', JSON.stringify(sampleGallery));
     }
 
-    if (!localStorage.getItem('kas_artists') || JSON.parse(localStorage.getItem('kas_artists') || '[]').length === 0) {
+    if (localStorage.getItem('kas_artists') === null) {
       const sampleArtists = [
         {
           id: 1,
@@ -997,7 +997,8 @@ async function initPublicArtists() {
       <article class="artist-card reveal visible ${rdClass}" data-craft-cat="${escapeAttr(craftCat)}" data-artist-id="${escapeAttr(artistId)}">
         <div class="artist-header">
           <div class="artist-avatar-wrap">
-            <span class="artist-avatar-initials">${escapeHtml(initials)}</span>
+            ${item.img_url ? `<img src="${escapeAttr(item.img_url)}" alt="${escapeAttr(item.name)}" class="artist-avatar-img" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">` : ''}
+            <span class="artist-avatar-initials" style="${item.img_url ? 'display:none;' : ''}">${escapeHtml(initials)}</span>
             <span class="artist-online-dot" title="Active Master Artist"></span>
           </div>
           <div class="artist-identity">

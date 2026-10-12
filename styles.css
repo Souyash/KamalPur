@@ -6400,6 +6400,8 @@ footer {
   justify-content: center;
   flex-shrink: 0;
   border: 2px solid var(--gold-pale);
+  overflow: hidden;
+  position: relative;
 }
 
 .admin-artist-meta {
@@ -6757,12 +6759,30 @@ footer {
   border-radius: 20px;
 }
 
+.admin-db-pill-offline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  color: #B45309;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
 .admin-db-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #22C55E;
   box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.admin-db-pill-offline .admin-db-dot {
+  background: #F59E0B;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
 }
 
 .btn-ghost-admin {
@@ -8254,6 +8274,15 @@ footer {
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 6px 16px rgba(180, 83, 9, 0.35);
+  overflow: hidden;
+}
+
+.artist-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
 .artist-avatar-wrap::before {

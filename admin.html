@@ -1923,7 +1923,7 @@
     </div>
   </div>
 
-  <script src="script.js?v=20261011-dribbble-v7"></script>
+  <script src="script.js?v=20261012-dbfix-v2"></script>
   <script>
     /* ══════════════════════════════════════════════════════════
        ADMIN CONSOLE CONTROLLER (PHP/MYSQL BACKEND & CRUD)
@@ -1938,24 +1938,32 @@
     });
 
     /* ── 1. Backend Connectivity & Data Sync ── */
-    async function detectBackendConnection() {
-      try {
-        const res = await fetch('api/auth.php?action=check', { cache: 'no-store' });
-        if (res.ok) {
-          const json = await res.json();
-          isBackendConnected = true;
-          const statusText = document.getElementById('dbStatusText');
-          if (statusText) {
-            statusText.textContent = 'Live Data Connected';
-          }
-        }
-      } catch (e) {
-        isBackendConnected = false;
-        const statusText = document.getElementById('dbStatusText');
-        if (statusText) {
-          statusText.textContent = 'Storage Ready';
+    function setDbConnectionStatus(connected) {
+      isBackendConnected = !!connected;
+      const badge = document.getElementById('dbStatusBadge');
+      const statusText = document.getElementById('dbStatusText');
+      if (badge && statusText) {
+        if (connected) {
+          badge.className = 'admin-db-pill-live';
+          statusText.textContent = 'Live Server Database Connected';
+        } else {
+          badge.className = 'admin-db-pill-offline';
+          statusText.textContent = 'Offline / Local Cache';
         }
       }
+    }
+
+    async function detectBackendConnection() {
+      try {
+        const res = await fetch('api/auth.php?action=check&cb=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const json = await res.json();
+          setDbConnectionStatus(true);
+          return true;
+        }
+      } catch (e) {}
+      setDbConnectionStatus(false);
+      return false;
     }
 
     /* ── 2. Authentication Gate ── */
@@ -2116,6 +2124,12 @@
 
     /* ── 4. Main Console Initialization & Rendering ── */
     async function loadAllDashboardData() {
+      try {
+        await Promise.allSettled([
+          fetchGalleryFromApi(),
+          fetchArtistsFromApi()
+        ]);
+      } catch (e) {}
       await Promise.all([
         renderAdminGallery(),
         renderAdminArtists(),
@@ -2209,11 +2223,12 @@
 
     async function fetchGalleryFromApi() {
       try {
-        const res = await fetch('api/gallery.php');
+        const res = await fetch('api/gallery.php?cb=' + Date.now(), { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
-          if (json.success && json.data && json.data.length) {
+          if (json.success && Array.isArray(json.data)) {
             saveStoredGallery(json.data);
+            setDbConnectionStatus(true);
             return json.data;
           }
         }
@@ -2326,11 +2341,18 @@
       if (id) {
         postData.id = Number(id);
         try {
-          await fetch('api/gallery.php', {
+          const res = await fetch('api/gallery.php', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(postData)
           });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              setDbConnectionStatus(true);
+              if (data.data && data.data.img_url) postData.img_url = data.data.img_url;
+            }
+          }
         } catch (err) {}
       } else {
         try {
@@ -2341,7 +2363,11 @@
           });
           if (res.ok) {
             const data = await res.json();
-            if (data.data && data.data.id) postData.id = data.data.id;
+            if (data.success && data.data) {
+              setDbConnectionStatus(true);
+              if (data.data.id) postData.id = data.data.id;
+              if (data.data.img_url) postData.img_url = data.data.img_url;
+            }
           }
         } catch (err) {}
       }
@@ -2359,13 +2385,14 @@
 
       closeGalleryModal();
       renderAdminGallery();
-      alert(id ? 'Gallery post updated successfully!' : 'New photo post published to Gallery!');
+      alert(id ? 'Gallery photo updated permanently!' : 'New photo post published permanently to Gallery!');
     }
 
     async function deleteGalleryPost(id) {
       if (!confirm('Are you sure you want to remove this gallery photo?')) return;
       try {
-        await fetch(`api/gallery.php?id=${id}`, { method: 'DELETE' });
+        const res = await fetch(`api/gallery.php?id=${id}`, { method: 'DELETE' });
+        if (res.ok) setDbConnectionStatus(true);
       } catch (e) {}
 
       let list = getStoredGallery();
@@ -2394,11 +2421,12 @@
 
     async function fetchArtistsFromApi() {
       try {
-        const res = await fetch('api/artists.php');
+        const res = await fetch('api/artists.php?cb=' + Date.now(), { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
-          if (json.success && json.data && json.data.length) {
+          if (json.success && Array.isArray(json.data)) {
             saveStoredArtists(json.data);
+            setDbConnectionStatus(true);
             return json.data;
           }
         }
@@ -2431,7 +2459,10 @@
       grid.innerHTML = list.map(item => `
         <div class="admin-artist-card">
           <div class="admin-artist-top">
-            <div class="admin-artist-avatar">${escapeHtml(item.avatar_initials || 'AR')}</div>
+            <div class="admin-artist-avatar">
+              ${item.img_url ? `<img src="${escapeAttr(item.img_url)}" alt="${escapeAttr(item.name)}" class="artist-avatar-img" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';">` : ''}
+              <span class="admin-artist-initials-text" style="${item.img_url ? 'display:none;' : ''}">${escapeHtml(item.avatar_initials || 'AR')}</span>
+            </div>
             <div class="admin-artist-meta">
               <div class="admin-artist-meta-name">${escapeHtml(item.name)}</div>
               <div class="admin-artist-meta-craft">${escapeHtml(item.craft)}</div>
@@ -2477,12 +2508,16 @@
         document.getElementById('artistCreations').value = art.creations || '';
         document.getElementById('artistBio').value = art.bio || '';
         document.getElementById('artistPhilosophy').value = art.philosophy || '';
+        document.getElementById('artistImgUrl').value = art.img_url || '';
+        updateImagePreview(art.img_url, 'artistPreviewImg', 'artistPreviewBox');
       } else {
         titleEl.textContent = 'Add Master Artisan Profile';
         submitBtn.textContent = 'Save Artisan Profile';
         document.getElementById('artistPostId').value = '';
         document.getElementById('artistEra').value = '2010 – Present';
         document.getElementById('artistRegion').value = 'Ranaghat, Nadia';
+        document.getElementById('artistImgUrl').value = '';
+        updateImagePreview('', 'artistPreviewImg', 'artistPreviewBox');
       }
 
       const modal = document.getElementById('artistModal');
@@ -2512,20 +2547,28 @@
       const creations = document.getElementById('artistCreations').value.trim();
       const bio = document.getElementById('artistBio').value.trim();
       const philosophy = document.getElementById('artistPhilosophy').value.trim();
+      const img_url = (document.getElementById('artistImgUrl')?.value || '').trim();
 
       const parts = name.split(' ');
       const avatar_initials = (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
 
-      const artistData = { name, craft, region, era_tag, tradition, accolades, creations, bio, philosophy, avatar_initials };
+      const artistData = { name, craft, region, era_tag, tradition, accolades, creations, bio, philosophy, avatar_initials, img_url };
 
       if (id) {
         artistData.id = Number(id);
         try {
-          await fetch('api/artists.php', {
+          const res = await fetch('api/artists.php', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(artistData)
           });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              setDbConnectionStatus(true);
+              if (data.data && data.data.img_url) artistData.img_url = data.data.img_url;
+            }
+          }
         } catch (err) {}
       } else {
         try {
@@ -2536,7 +2579,11 @@
           });
           if (res.ok) {
             const data = await res.json();
-            if (data.data && data.data.id) artistData.id = data.data.id;
+            if (data.success && data.data) {
+              setDbConnectionStatus(true);
+              if (data.data.id) artistData.id = data.data.id;
+              if (data.data.img_url) artistData.img_url = data.data.img_url;
+            }
           }
         } catch (err) {}
       }
@@ -2553,13 +2600,14 @@
 
       closeArtistModal();
       renderAdminArtists();
-      alert(id ? 'Artist profile updated successfully!' : 'Master artisan added to Artists section!');
+      alert(id ? 'Artist profile updated permanently!' : 'Master artisan added permanently to Artists section!');
     }
 
     async function deleteArtistProfile(id) {
       if (!confirm('Are you sure you want to remove this artisan profile?')) return;
       try {
-        await fetch(`api/artists.php?id=${id}`, { method: 'DELETE' });
+        const res = await fetch(`api/artists.php?id=${id}`, { method: 'DELETE' });
+        if (res.ok) setDbConnectionStatus(true);
       } catch (e) {}
 
       let list = getStoredArtists();

@@ -5,13 +5,20 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $db = get_db();
 
 if ($method === 'GET') {
-    $stmt = $db->query("SELECT * FROM artists ORDER BY id ASC");
-    $items = $stmt->fetchAll();
-    echo json_encode(['success' => true, 'data' => $items, 'db' => get_db_info()]);
+    try {
+        $stmt = $db->query("SELECT * FROM artists ORDER BY id ASC");
+        $items = $stmt->fetchAll();
+        echo json_encode(['success' => true, 'data' => $items, 'db' => get_db_info()]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Query error: ' . $e->getMessage()]);
+    }
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+$raw_input = file_get_contents('php://input');
+$json_input = json_decode($raw_input, true);
+$input = is_array($json_input) ? $json_input : ($_POST ?? []);
 
 if ($method === 'POST') {
     $name = trim($input['name'] ?? '');
@@ -28,6 +35,7 @@ if ($method === 'POST') {
     $accolades = trim($input['accolades'] ?? '');
     $creations = trim($input['creations'] ?? '');
     $philosophy = trim($input['philosophy'] ?? '');
+    $img_url = save_image_from_input($input['img_url'] ?? '', 'uploads');
 
     if (empty($name) || empty($craft)) {
         http_response_code(400);
@@ -35,27 +43,33 @@ if ($method === 'POST') {
         exit;
     }
 
-    $stmt = $db->prepare("INSERT INTO artists (name, craft, region, era_tag, avatar_initials, bio, tradition, accolades, creations, philosophy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$name, $craft, $region, $era_tag, $avatar_initials, $bio, $tradition, $accolades, $creations, $philosophy]);
-    $new_id = $db->lastInsertId();
+    try {
+        $stmt = $db->prepare("INSERT INTO artists (name, craft, region, era_tag, avatar_initials, bio, tradition, accolades, creations, philosophy, img_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $craft, $region, $era_tag, $avatar_initials, $bio, $tradition, $accolades, $creations, $philosophy, $img_url]);
+        $new_id = (int)$db->lastInsertId();
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Artist profile created successfully.',
-        'data' => [
-            'id' => (int)$new_id,
-            'name' => $name,
-            'craft' => $craft,
-            'region' => $region,
-            'era_tag' => $era_tag,
-            'avatar_initials' => $avatar_initials,
-            'bio' => $bio,
-            'tradition' => $tradition,
-            'accolades' => $accolades,
-            'creations' => $creations,
-            'philosophy' => $philosophy
-        ]
-    ]);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Artist profile created successfully.',
+            'data' => [
+                'id' => $new_id,
+                'name' => $name,
+                'craft' => $craft,
+                'region' => $region,
+                'era_tag' => $era_tag,
+                'avatar_initials' => $avatar_initials,
+                'bio' => $bio,
+                'tradition' => $tradition,
+                'accolades' => $accolades,
+                'creations' => $creations,
+                'philosophy' => $philosophy,
+                'img_url' => $img_url
+            ]
+        ]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Failed to save to database: ' . $e->getMessage()]);
+    }
     exit;
 }
 
@@ -71,6 +85,7 @@ if ($method === 'PUT') {
     $accolades = trim($input['accolades'] ?? '');
     $creations = trim($input['creations'] ?? '');
     $philosophy = trim($input['philosophy'] ?? '');
+    $img_url = save_image_from_input($input['img_url'] ?? '', 'uploads');
 
     if ($id <= 0 || empty($name) || empty($craft)) {
         http_response_code(400);
@@ -78,26 +93,32 @@ if ($method === 'PUT') {
         exit;
     }
 
-    $stmt = $db->prepare("UPDATE artists SET name = ?, craft = ?, region = ?, era_tag = ?, avatar_initials = ?, bio = ?, tradition = ?, accolades = ?, creations = ?, philosophy = ? WHERE id = ?");
-    $stmt->execute([$name, $craft, $region, $era_tag, $avatar_initials, $bio, $tradition, $accolades, $creations, $philosophy, $id]);
+    try {
+        $stmt = $db->prepare("UPDATE artists SET name = ?, craft = ?, region = ?, era_tag = ?, avatar_initials = ?, bio = ?, tradition = ?, accolades = ?, creations = ?, philosophy = ?, img_url = ? WHERE id = ?");
+        $stmt->execute([$name, $craft, $region, $era_tag, $avatar_initials, $bio, $tradition, $accolades, $creations, $philosophy, $img_url, $id]);
 
-    echo json_encode([
-        'success' => true,
-        'message' => 'Artist profile updated successfully.',
-        'data' => [
-            'id' => $id,
-            'name' => $name,
-            'craft' => $craft,
-            'region' => $region,
-            'era_tag' => $era_tag,
-            'avatar_initials' => $avatar_initials,
-            'bio' => $bio,
-            'tradition' => $tradition,
-            'accolades' => $accolades,
-            'creations' => $creations,
-            'philosophy' => $philosophy
-        ]
-    ]);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Artist profile updated successfully.',
+            'data' => [
+                'id' => $id,
+                'name' => $name,
+                'craft' => $craft,
+                'region' => $region,
+                'era_tag' => $era_tag,
+                'avatar_initials' => $avatar_initials,
+                'bio' => $bio,
+                'tradition' => $tradition,
+                'accolades' => $accolades,
+                'creations' => $creations,
+                'philosophy' => $philosophy,
+                'img_url' => $img_url
+            ]
+        ]);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Failed to update database: ' . $e->getMessage()]);
+    }
     exit;
 }
 
@@ -109,12 +130,18 @@ if ($method === 'DELETE') {
         exit;
     }
 
-    $stmt = $db->prepare("DELETE FROM artists WHERE id = ?");
-    $stmt->execute([$id]);
+    try {
+        $stmt = $db->prepare("DELETE FROM artists WHERE id = ?");
+        $stmt->execute([$id]);
 
-    echo json_encode(['success' => true, 'message' => 'Artist profile deleted successfully.']);
+        echo json_encode(['success' => true, 'message' => 'Artist profile deleted successfully.']);
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Failed to delete from database: ' . $e->getMessage()]);
+    }
     exit;
 }
 
 http_response_code(405);
 echo json_encode(['success' => false, 'error' => 'Method not allowed.']);
+
