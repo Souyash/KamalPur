@@ -248,6 +248,199 @@
       display: block;
       margin: 0 auto;
     }
+
+    /* Associates & Patrons Directory */
+    .assoc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 70px;
+    }
+    @media (max-width: 1024px) {
+      .assoc-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .assoc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .assoc-card {
+      background: var(--white, #FFFFFF);
+      border: 1.5px solid var(--border, #E2E8F0);
+      border-radius: 20px;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .assoc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, #D97706, #F59E0B, #FDE68A);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .assoc-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(217, 119, 6, 0.55);
+      box-shadow: 0 18px 40px -10px rgba(180, 83, 9, 0.2);
+    }
+    .assoc-card:hover::before {
+      opacity: 1;
+    }
+
+    .assoc-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .assoc-avatar-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--eg, #1B4B3B) 0%, var(--eg-dark, #0F2D23) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #FFFFFF;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(27, 75, 59, 0.2);
+    }
+    .assoc-identity {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .assoc-name {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--eg-dark, #0F2D23);
+      margin: 0;
+      line-height: 1.25;
+    }
+    .assoc-role {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-dark, #B45309);
+      margin-top: 2px;
+    }
+    .assoc-region {
+      font-size: 11.5px;
+      color: var(--text-3, #64748B);
+    }
+    .assoc-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .assoc-tag-civic { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+    .assoc-tag-health { background: #FEE2E2; color: #B91C1C; border: 1px solid #FECACA; }
+    .assoc-tag-patron { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .assoc-tag-media { background: #F3E8FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+
+    .assoc-bio {
+      font-size: 13.5px;
+      color: var(--text-2, #475569);
+      line-height: 1.62;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .assoc-credentials {
+      margin: 12px 0 16px;
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border-radius: 10px;
+      border: 1px solid var(--border, #E2E8F0);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+    .assoc-cred-row {
+      display: flex;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    .assoc-cred-label {
+      font-weight: 700;
+      color: var(--text-2, #475569);
+      min-width: 80px;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.03em;
+    }
+    .assoc-cred-val {
+      color: var(--eg-dark, #0F2D23);
+      font-weight: 600;
+    }
+
+    .assoc-footer {
+      padding-top: 12px;
+      border-top: 1px dashed var(--border, #E2E8F0);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Filter Tabs (Identical to artists.html) */
+    .artist-filter-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0 auto 36px;
+    }
+    .artist-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-2, #475569);
+      background: #FFFFFF;
+      border: 1.5px solid var(--border, #E2E8F0);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .artist-filter-btn:hover {
+      border-color: #D97706;
+      color: #92400E;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.15);
+    }
+    .artist-filter-btn.active {
+      background: linear-gradient(135deg, #1E1B18 0%, #2A1E17 100%);
+      color: #F59E0B;
+      border-color: #D97706;
+      box-shadow: 0 6px 20px rgba(217, 119, 6, 0.25);
+    }
   </style>
 </head>
 <body>
@@ -587,192 +780,338 @@
         </div>
       </section>
 
-      <!-- Section 2: Organized Associates Directory -->
+      <!-- Section 3: Organized Associates & Patrons Directory (Harmonized with artists.html) -->
       <section id="associates-directory" class="reveal" style="margin-bottom: 90px; scroll-margin-top: 130px;">
-        <div class="eyebrow">Directory &amp; Roll of Honor</div>
-        <h2 class="sh2">Our Esteemed <em>Associates &amp; Patrons</em></h2>
-        <p style="font-family:var(--sans); font-size:15px; color:var(--text-3); margin-top:8px; max-width:820px;">
-          Explore all civic organizations, creative partners, healthcare associates, and corporate sponsors collaborating with Kamalpur Abhijan Sangha across the annual calendar.
-        </p>
-
-        <!-- Category Filter Pills -->
-        <div class="partner-filter-bar">
-          <button type="button" class="pfilter-btn active" onclick="filterPartners('all', this)">All Associates (8)</button>
-          <button type="button" class="pfilter-btn" onclick="filterPartners('creative', this)">⚡ Creative &amp; Production (2)</button>
-          <button type="button" class="pfilter-btn" onclick="filterPartners('civic', this)">🏥 Civic &amp; Healthcare (3)</button>
-          <button type="button" class="pfilter-btn" onclick="filterPartners('commercial', this)">💎 Commercial &amp; Festive (2)</button>
-          <button type="button" class="pfilter-btn" onclick="filterPartners('media', this)">📺 Broadcast &amp; Media (1)</button>
+        <div style="text-align: center; max-width: 820px; margin: 0 auto 36px;">
+          <div class="eyebrow">Civic, Medical &amp; Corporate Roll of Honor</div>
+          <h2 class="sh2">Our Esteemed <em>Associates &amp; Patrons</em></h2>
+          <p style="font-family:var(--sans); font-size:15px; color:var(--text-3); margin-top:8px;">
+            Explore the civic administrations, healthcare institutions, philanthropic foundations, and corporate brand patrons collaborating with Kamalpur Abhijan Sangha across the annual calendar.
+          </p>
         </div>
 
-        <div class="partner-assoc-grid">
-          <!-- Card 1: Winkle -->
-          <div class="partner-assoc-card" data-category="creative">
-            <div class="pac-header">
-              <div class="pac-logo-wrap" style="background:#090D14;">
-                <img src="assets/partners/winkle-logo.png" alt="Winkle Logo" style="width:32px; height:32px; object-fit:contain;">
-              </div>
-              <span class="pac-category-badge" style="background:#FEF3C7; color:#92400E;">Creative Production</span>
-            </div>
-            <h3 class="pac-title">Winkle</h3>
-            <div class="pac-role">Photography &amp; Cinematography Partner</div>
-            <p class="pac-desc">Capturing divine emotions, crowd energy, and timeless festival moments with high-definition cinematography and creative storytelling.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Kolkata, India</span>
-              <a href="tel:+917076249854" class="psc-link">📞 +91 7076249854</a>
-            </div>
-          </div>
+        <!-- Category Filter Tabs (Identical to artists.html) -->
+        <div class="artist-filter-tabs reveal">
+          <button type="button" class="artist-filter-btn active" onclick="filterPartners('all', this)">✨ All Associates (8)</button>
+          <button type="button" class="artist-filter-btn" onclick="filterPartners('civic', this)">🏛️ Civic &amp; Administration (2)</button>
+          <button type="button" class="artist-filter-btn" onclick="filterPartners('healthcare', this)">🏥 Healthcare &amp; Medical Seva (3)</button>
+          <button type="button" class="artist-filter-btn" onclick="filterPartners('patrons', this)">💎 Commercial Patrons (2)</button>
+          <button type="button" class="artist-filter-btn" onclick="filterPartners('media', this)">📺 Media &amp; Broadcast (1)</button>
+        </div>
 
-          <!-- Card 2: SC Stage Craft -->
-          <div class="partner-assoc-card" data-category="creative">
-            <div class="pac-header">
-              <div class="pac-logo-wrap" style="background:#090D14;">
-                <img src="assets/partners/stagecraft-logo.png" alt="SC Stage Craft Logo" style="width:32px; height:32px; object-fit:contain;">
+        <div class="assoc-grid" id="associatesGrid">
+          
+          <!-- Card 1: Ranaghat Municipality -->
+          <article class="assoc-card" data-category="civic">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap">
+                🏛️
               </div>
-              <span class="pac-category-badge" style="background:#FEF3C7; color:#92400E;">Creative Production</span>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Ranaghat Municipality</h3>
+                <div class="assoc-role">Civic Administration &amp; Sanitation Partner</div>
+                <div class="assoc-region">📍 Ranaghat, Nadia District</div>
+              </div>
+              <span class="assoc-tag assoc-tag-civic">Civic Partner</span>
             </div>
-            <h3 class="pac-title">SC Stage Craft</h3>
-            <div class="pac-role">Stage, Sound &amp; Light Production Partner</div>
-            <p class="pac-desc">Delivering concert-grade sound, moving-head illumination, LED video screen walls, and pyrotechnic stage effects with flawless execution.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Nadia 741127</span>
-              <a href="tel:+917001601562" class="psc-link">📞 +91 7001601562</a>
-            </div>
-          </div>
 
-          <!-- Card 3: Ranaghat Municipality -->
-          <div class="partner-assoc-card" data-category="civic">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#1E3A8A"/>
-                  <path d="M16 6L6 11v3h20v-3L16 6z" fill="#F59E0B"/>
-                  <rect x="8.5" y="15" width="3" height="8" rx="1" fill="#FFFFFF"/>
-                  <rect x="14.5" y="15" width="3" height="8" rx="1" fill="#FFFFFF"/>
-                  <rect x="20.5" y="15" width="3" height="8" rx="1" fill="#FFFFFF"/>
-                  <rect x="6" y="24" width="20" height="2.5" rx="1" fill="#F59E0B"/>
-                </svg>
-              </div>
-              <span class="pac-category-badge" style="background:#EFF6FF; color:#1D4ED8;">Civic Administration</span>
-            </div>
-            <h3 class="pac-title">Ranaghat Municipality</h3>
-            <div class="pac-role">Civic, Sanitation &amp; Infrastructure Partner</div>
-            <p class="pac-desc">Ensuring 24/7 potable water distribution, clean sanitation zones, solid waste recycling, and municipal road management during festival rush.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Ranaghat, Nadia</span>
-              <span style="font-weight:700; color:var(--gold-dark);">Official Civic Desk</span>
-            </div>
-          </div>
+            <p class="assoc-bio">
+              Ensuring 24/7 potable drinking water distribution, solid waste clearance, dedicated sanitation zones, mobile bio-toilets, and municipal approach road maintenance for over 1.2 million festival pilgrims.
+            </p>
 
-          <!-- Card 4: Ranaghat Sub-Divisional Hospital -->
-          <div class="partner-assoc-card" data-category="civic">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#0284C7"/>
-                  <circle cx="16" cy="16" r="11" fill="#FFFFFF"/>
-                  <path d="M14 8h4v5h5v4h-5v5h-4v-5H9v-4h5z" fill="#DC2626"/>
-                </svg>
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Jurisdiction</span>
+                <span class="assoc-cred-val">Ranaghat Municipal Town &amp; Festival Approach Roads</span>
               </div>
-              <span class="pac-category-badge" style="background:#FEE2E2; color:#B91C1C;">Emergency Seva</span>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Operations</span>
+                <span class="assoc-cred-val">Water Tankers, Street Light Grids &amp; Sanitation Fleets</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Helpline</span>
+                <span class="assoc-cred-val">24x7 Municipal Control Room Desk</span>
+              </div>
             </div>
-            <h3 class="pac-title">Ranaghat Sub-Divisional Hospital</h3>
-            <div class="pac-role">Emergency Healthcare &amp; Medical Partner</div>
-            <p class="pac-desc">Deploying on-ground doctor booths, primary trauma care, ambulance stations, and oxygen cylinders throughout the crowded festival days.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Nadia District</span>
-              <span style="font-weight:700; color:#DC2626;">24x7 Emergency Seva</span>
-            </div>
-          </div>
 
-          <!-- Card 5: Indian Red Cross Society -->
-          <div class="partner-assoc-card" data-category="civic">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#F8FAFC"/>
-                  <circle cx="16" cy="16" r="11" fill="#FEE2E2"/>
-                  <path d="M14 8h4v5h5v4h-5v5h-4v-5H9v-4h5z" fill="#DC2626"/>
-                </svg>
-              </div>
-              <span class="pac-category-badge" style="background:#FEE2E2; color:#B91C1C;">Blood Bank Associate</span>
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Nadia District Urban Desk</span>
+              <span style="color:#1D4ED8; font-weight:700;">✓ Official Civic Desk</span>
             </div>
-            <h3 class="pac-title">Indian Red Cross Society</h3>
-            <div class="pac-role">Healthcare &amp; Blood Bank Associate</div>
-            <p class="pac-desc">Collaborating on annual mega blood donation camps, thalassemia awareness campaigns, and providing life-saving volunteer blood reserves.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 West Bengal Chapter</span>
-              <span style="font-weight:700; color:var(--crimson);">Life-Saving Seva</span>
-            </div>
-          </div>
+          </article>
 
-          <!-- Card 6: Senco Gold & Diamonds -->
-          <div class="partner-assoc-card" data-category="commercial">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#7F1D1D"/>
-                  <polygon points="16,6 23,12 20,20 12,20 9,12" fill="#F59E0B"/>
-                  <polygon points="16,6 9,12 16,26" fill="#FDE68A" opacity="0.85"/>
-                  <polygon points="16,6 23,12 16,26" fill="#D97706" opacity="0.85"/>
-                  <circle cx="16" cy="9" r="2" fill="#FFFFFF"/>
-                </svg>
+          <!-- Card 2: Ranaghat Sub-Divisional Hospital -->
+          <article class="assoc-card" data-category="healthcare">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #DC2626 0%, #991B1B 100%);">
+                🏥
               </div>
-              <span class="pac-category-badge" style="background:#FEF3C7; color:#B45309;">Festive Sponsor</span>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Ranaghat Hospital</h3>
+                <div class="assoc-role">Emergency Healthcare &amp; Medical Partner</div>
+                <div class="assoc-region">📍 Sub-Divisional Hospital, Nadia</div>
+              </div>
+              <span class="assoc-tag assoc-tag-health">Emergency Seva</span>
             </div>
-            <h3 class="pac-title">Senco Gold &amp; Diamonds</h3>
-            <div class="pac-role">Jewellery &amp; Festive Partner</div>
-            <p class="pac-desc">Proud co-sponsor of Sharodotsav illumination gates, cultural stage evenings, and celebrating traditional Bengal heritage artistry.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Pan-India Retail</span>
-              <span style="font-weight:700; color:var(--gold-dark);">Festive Patron</span>
-            </div>
-          </div>
 
-          <!-- Card 7: P.C. Chandra Jewellers -->
-          <div class="partner-assoc-card" data-category="commercial">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#064E3B"/>
-                  <polygon points="16,5 25,13 21,25 11,25 7,13" fill="#10B981"/>
-                  <polygon points="16,9 21,15 19,23 13,23 11,15" fill="#F59E0B"/>
-                  <circle cx="16" cy="15" r="2.5" fill="#FFFFFF"/>
-                </svg>
-              </div>
-              <span class="pac-category-badge" style="background:#FEF3C7; color:#B45309;">Gold &amp; Diamond</span>
-            </div>
-            <h3 class="pac-title">P.C. Chandra Jewellers</h3>
-            <div class="pac-role">Gold &amp; Diamond Patron</div>
-            <p class="pac-desc">Supporting master filigree craftsmen, traditional Devi shringar adornments, and community cultural competitions.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 Heritage Brand</span>
-              <span style="font-weight:700; color:var(--gold-dark);">Cultural Patron</span>
-            </div>
-          </div>
+            <p class="assoc-bio">
+              Deploying on-ground first-aid doctor booths, trauma care beds, emergency resuscitation kits, dedicated ambulance parking on premises, and oxygen cylinders throughout the crowded festival days.
+            </p>
 
-          <!-- Card 8: Doordarshan Bangla & Akashvani -->
-          <div class="partner-assoc-card" data-category="media">
-            <div class="pac-header">
-              <div class="pac-logo-wrap">
-                <svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true">
-                  <rect x="2" y="2" width="28" height="28" rx="8" fill="#1E40AF"/>
-                  <circle cx="16" cy="16" r="9" fill="#EA580C"/>
-                  <circle cx="16" cy="16" r="6" fill="#FFFFFF"/>
-                  <circle cx="16" cy="16" r="3" fill="#1E40AF"/>
-                  <path d="M7 11C5 13 5 19 7 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
-                  <path d="M25 11C27 13 27 19 25 21" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none"/>
-                </svg>
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Medical Team</span>
+                <span class="assoc-cred-val">On-Duty Medical Officers, Nurses &amp; Paramedics</span>
               </div>
-              <span class="pac-category-badge" style="background:#EFF6FF; color:#1D4ED8;">Broadcast Media</span>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Facility</span>
+                <span class="assoc-cred-val">Emergency First Aid Station &amp; ICU Ambulance on Standby</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Emergency</span>
+                <span class="assoc-cred-val">Dial 108 / 102 &amp; Hospital Emergency Desk</span>
+              </div>
             </div>
-            <h3 class="pac-title">Doordarshan &amp; Akashvani</h3>
-            <div class="pac-role">Television &amp; Radio Broadcast Partner</div>
-            <p class="pac-desc">Delivering statewide live television broadcasts of Sandhi Puja and immersion procession to millions of diaspora households.</p>
-            <div class="pac-footer">
-              <span style="color:var(--text-3);">📍 National Media</span>
-              <a href="https://youtube.com/@kamalpurabhijansangha?si=CEZETjkV42fUC0kX" target="_blank" rel="noopener noreferrer" class="psc-link">📺 Live Streams &rarr;</a>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">24x7 Festival Medical Booth</span>
+              <span style="color:#DC2626; font-weight:700;">✓ 24x7 Healthcare Desk</span>
             </div>
-          </div>
+          </article>
+
+          <!-- Card 3: Indian Red Cross Society -->
+          <article class="assoc-card" data-category="healthcare">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #B91C1C 0%, #7F1D1D 100%);">
+                🩸
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Indian Red Cross Society</h3>
+                <div class="assoc-role">Healthcare &amp; Blood Bank Associate</div>
+                <div class="assoc-region">📍 West Bengal Chapter · Nadia District</div>
+              </div>
+              <span class="assoc-tag assoc-tag-health">Blood Bank</span>
+            </div>
+
+            <p class="assoc-bio">
+              Collaborating with our annual mega blood donation drive, thalassemia awareness campaigns, volunteer first-aid stations, and supplying life-saving blood reserves for patients across Nadia district.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Partnership</span>
+                <span class="assoc-cred-val">Annual Mega Blood Donation Camp &amp; Donor Cards</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Volunteers</span>
+                <span class="assoc-cred-val">Trained Youth First-Aid &amp; Rescue Responders</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Blood Bank</span>
+                <span class="assoc-cred-val">Nadia District Blood Component Separation Unit</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Humanitarian Relief Partner</span>
+              <span style="color:#B91C1C; font-weight:700;">✓ Life-Saving Seva</span>
+            </div>
+          </article>
+
+          <!-- Card 4: West Bengal Police -->
+          <article class="assoc-card" data-category="civic">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #1E3A8A 0%, #172554 100%);">
+                🛡️
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Ranaghat Police District</h3>
+                <div class="assoc-role">Law &amp; Order, Crowd Safety &amp; Traffic Partner</div>
+                <div class="assoc-region">📍 West Bengal Police · Nadia</div>
+              </div>
+              <span class="assoc-tag assoc-tag-civic">Law &amp; Order</span>
+            </div>
+
+            <p class="assoc-bio">
+              Maintaining 24/7 high-vigilance crowd flow management, integrated CCTV surveillance booths, dedicated women's safety teams, and strategic traffic diversions across the national highway and town arterial routes.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Surveillance</span>
+                <span class="assoc-cred-val">150+ High-Resolution CCTVs &amp; Drone Patrols</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Deployment</span>
+                <span class="assoc-cred-val">Rapid Action Force, Traffic Police &amp; Winners Squad</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Police Desk</span>
+                <span class="assoc-cred-val">Dial 112 / 100 &amp; On-Ground Police Assistance Booth</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Zero-Incident Safety Shield</span>
+              <span style="color:#1D4ED8; font-weight:700;">✓ Law &amp; Order Desk</span>
+            </div>
+          </article>
+
+          <!-- Card 5: Senco Gold & Diamonds -->
+          <article class="assoc-card" data-category="patrons">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #92400E 0%, #78350F 100%);">
+                💎
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Senco Gold &amp; Diamonds</h3>
+                <div class="assoc-role">Jewellery &amp; Festive Illumination Patron</div>
+                <div class="assoc-region">📍 Pan-India Retail &amp; Bengal Heritage</div>
+              </div>
+              <span class="assoc-tag assoc-tag-patron">Festive Patron</span>
+            </div>
+
+            <p class="assoc-bio">
+              Proud co-sponsor of Sharodotsav illumination welcome gates, cultural musical evenings, and celebrating traditional Bengal heritage artistry and heirloom gold craftsmanship.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Heritage</span>
+                <span class="assoc-cred-val">Over 80 Years of Bengal Goldsmith Tradition</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Sponsorship</span>
+                <span class="assoc-cred-val">Approach Boulevard Lighting &amp; Cultural Evenings</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Publication</span>
+                <span class="assoc-cred-val">Back Cover Feature in Annual Festival Souvenir</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Pan-India Heritage Patron</span>
+              <span style="color:var(--gold-dark); font-weight:700;">✓ Festive Patron</span>
+            </div>
+          </article>
+
+          <!-- Card 6: P.C. Chandra Jewellers -->
+          <article class="assoc-card" data-category="patrons">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #065F46 0%, #064E3B 100%);">
+                ✨
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">P.C. Chandra Jewellers</h3>
+                <div class="assoc-role">Traditional Shringar &amp; Cultural Patron</div>
+                <div class="assoc-region">📍 Flagship Kolkata &amp; Bengal Heritage</div>
+              </div>
+              <span class="assoc-tag assoc-tag-patron">Cultural Patron</span>
+            </div>
+
+            <p class="assoc-bio">
+              Supporting traditional filigree clay sculptors, traditional Devi shringar adornments, youth cultural sit-and-draw art contests, and preserving Bengal's fine artisanal roots.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Specialty</span>
+                <span class="assoc-cred-val">Traditional Handcrafted Gold &amp; Diamond Filigree</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Community</span>
+                <span class="assoc-cred-val">Patron of Student Cultural Competitions</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Branding</span>
+                <span class="assoc-cred-val">Main Sanctuary Illuminated Welcome Arch</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Heritage Craft Patron</span>
+              <span style="color:var(--gold-dark); font-weight:700;">✓ Cultural Patron</span>
+            </div>
+          </article>
+
+          <!-- Card 7: Doordarshan Bangla & Akashvani -->
+          <article class="assoc-card" data-category="media">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #4338CA 0%, #312E81 100%);">
+                📺
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">Doordarshan &amp; Akashvani</h3>
+                <div class="assoc-role">Television &amp; Radio Broadcast Partner</div>
+                <div class="assoc-region">📍 Prasar Bharati · National Media</div>
+              </div>
+              <span class="assoc-tag assoc-tag-media">Broadcast Media</span>
+            </div>
+
+            <p class="assoc-bio">
+              Delivering statewide live television broadcasts of Sandhi Puja, Kumari Puja, and immersion processions to millions of diaspora households across India and internationally.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Television</span>
+                <span class="assoc-cred-val">DD Bangla Statewide Live Telecast</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Radio</span>
+                <span class="assoc-cred-val">Akashvani Kolkata FM &amp; Medium Wave Relay</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Digital</span>
+                <span class="assoc-cred-val">Official YouTube Channel Multi-Cam Live Feeds</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">Statewide Media Network</span>
+              <a href="https://youtube.com/@kamalpurabhijansangha?si=CEZETjkV42fUC0kX" target="_blank" rel="noopener noreferrer" style="color:#4338CA; font-weight:700; text-decoration:none;">📺 Watch Streams &rarr;</a>
+            </div>
+          </article>
+
+          <!-- Card 8: State Blood Transfusion Council -->
+          <article class="assoc-card" data-category="healthcare">
+            <div class="assoc-header">
+              <div class="assoc-avatar-wrap" style="background:linear-gradient(135deg, #047857 0%, #064E3B 100%);">
+                🩺
+              </div>
+              <div class="assoc-identity">
+                <h3 class="assoc-name">State Blood Council (SBTC)</h3>
+                <div class="assoc-role">Voluntary Blood Donation &amp; Clinical Partner</div>
+                <div class="assoc-region">📍 Swasthya Bhawan, Govt. of West Bengal</div>
+              </div>
+              <span class="assoc-tag assoc-tag-health">Clinical Partner</span>
+            </div>
+
+            <p class="assoc-bio">
+              Partnering in our annual Sharodotsav Mega Blood Donation Drive, providing cold-chain mobile blood collection buses, certified phlebotomists, and government donor certification.
+            </p>
+
+            <div class="assoc-credentials">
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Accreditation</span>
+                <span class="assoc-cred-val">Govt. of West Bengal Certified Blood Drive</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Logistics</span>
+                <span class="assoc-cred-val">Air-Conditioned Mobile Blood Collection Vans</span>
+              </div>
+              <div class="assoc-cred-row">
+                <span class="assoc-cred-label">Beneficiary</span>
+                <span class="assoc-cred-val">Nadia &amp; Kolkata Government Hospital Blood Banks</span>
+              </div>
+            </div>
+
+            <div class="assoc-footer">
+              <span style="color:var(--text-3);">West Bengal Health Dept.</span>
+              <span style="color:#047857; font-weight:700;">✓ Govt. Certified Seva</span>
+            </div>
+          </article>
 
         </div>
       </section>
@@ -1171,11 +1510,11 @@
     }
 
     function filterPartners(category, btn) {
-      var buttons = document.querySelectorAll('.pfilter-btn');
+      var buttons = document.querySelectorAll('.artist-filter-btn, .pfilter-btn');
       buttons.forEach(function(b) { b.classList.remove('active'); });
       if (btn) btn.classList.add('active');
 
-      var cards = document.querySelectorAll('.partner-assoc-card');
+      var cards = document.querySelectorAll('.assoc-card, .partner-assoc-card');
       cards.forEach(function(card) {
         var cat = card.getAttribute('data-category');
         if (category === 'all' || cat === category) {
