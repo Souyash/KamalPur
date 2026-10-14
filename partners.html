@@ -11,8 +11,244 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261011-v1">
+  <link rel="stylesheet" href="styles.css?v=20261015-v3">
   <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Embedded Resilient Styling (Harmonized with artists.html & events.html) -->
+  <style>
+    /* Partners Page Native Design System */
+    .partners-spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 24px;
+      margin-bottom: 70px;
+    }
+    @media (max-width: 960px) {
+      .partners-spotlight-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    .partner-card {
+      background: var(--white, #FFFFFF);
+      border: 1.5px solid var(--border, #E2E8F0);
+      border-radius: 20px;
+      padding: 30px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .partner-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #D97706, #F59E0B, #FDE68A);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .partner-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(217, 119, 6, 0.55);
+      box-shadow: 0 20px 46px -12px rgba(180, 83, 9, 0.22);
+    }
+    .partner-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Partner Poster Box (Clean constrained frame to avoid image blowout) */
+    .partner-poster-box {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background: #090E17;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 22px;
+      border: 1px solid var(--border, #E2E8F0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .partner-poster-img {
+      width: 100%;
+      height: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .partner-poster-box:hover .partner-poster-img {
+      transform: scale(1.03);
+    }
+    .partner-zoom-pill {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #F8FAFC;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 30px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+    .partner-poster-box:hover .partner-zoom-pill {
+      background: var(--gold, #F59E0B);
+      color: #000000;
+      border-color: #FDE68A;
+    }
+
+    /* Technical Capabilities Grid */
+    .tech-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+      margin-bottom: 70px;
+    }
+    @media (max-width: 900px) {
+      .tech-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 560px) {
+      .tech-services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tech-service-card {
+      background: var(--white, #FFFFFF);
+      border: 1.5px solid var(--border, #E2E8F0);
+      border-radius: 18px;
+      padding: 26px 22px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .tech-service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold, #F59E0B);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+    }
+    .tech-service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--eg, #1B4B3B) 0%, var(--eg-dark, #0F2D23) 100%);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 16px rgba(27, 75, 59, 0.22);
+    }
+    .tech-service-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--eg-dark, #0F2D23);
+      margin: 0 0 6px;
+      line-height: 1.25;
+    }
+    .tech-service-partner {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gold-dark, #B45309);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+    .tech-service-desc {
+      font-size: 13.5px;
+      color: var(--text-2, #475569);
+      line-height: 1.62;
+      margin: 0;
+    }
+
+    /* Modal Overlay */
+    .partner-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 15, 25, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .partner-modal-overlay.open {
+      display: flex;
+    }
+    .partner-modal-box {
+      background: #090D16;
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: 18px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .partner-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #0F172A;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+    }
+    .partner-modal-title {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 700;
+      color: #FDE68A;
+    }
+    .partner-modal-close {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .partner-modal-close:hover {
+      color: #FFFFFF;
+    }
+    .partner-modal-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
 
@@ -91,8 +327,8 @@
   <div class="partners-subnav-wrap">
     <div class="container">
       <nav class="partners-subnav-list" aria-label="Partners Section Navigation">
-        <a href="#production-ecosystem" class="partners-subnav-link active">✨ Production Ecosystem</a>
-        <a href="#featured-partners" class="partners-subnav-link">⚡ Featured Collaborators</a>
+        <a href="#production-partners" class="partners-subnav-link active">⚡ Production Partners</a>
+        <a href="#technical-capabilities" class="partners-subnav-link">🛠️ Technical Capabilities</a>
         <a href="#associates-directory" class="partners-subnav-link">🤝 Associates Directory</a>
         <a href="#reach-demographics" class="partners-subnav-link">📊 Reach &amp; Impact</a>
         <a href="#sponsor-tiers" class="partners-subnav-link">💎 Sponsorship Packages</a>
@@ -105,370 +341,247 @@
   <main class="page-content-wrap">
     <div class="container">
 
-      <!-- DRIBBLE-STYLE DESIGN SHOWCASE (Inspired by reference UI) -->
-      <section id="production-ecosystem" class="reveal" style="margin-bottom: 80px; scroll-margin-top: 130px;">
-        <div class="dribbble-landing-stage" style="border-radius: 28px; padding: 24px 20px 36px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
-          
-          <div class="dribbble-sheet-container">
+      <!-- Section Introduction (Harmonized with artists.html) -->
+      <div class="reveal" style="text-align: center; max-width: 820px; margin: 0 auto 48px;">
+        <div class="eyebrow">Guild of Event Creators</div>
+        <h2 class="sh2">Creative &amp; Technical <em>Production Partners</em></h2>
+        <p style="font-family:var(--sans); font-size:16px; color:var(--text-2); line-height:1.8; margin-top:14px;">
+          Behind every breathtaking cinematic drone view, crystal-clear line-array chant, and monumental mandap structure stand elite production enterprises dedicated to artistic perfection. Meet our official event collaborators powering Ranaghat Durgotsav 2026.
+        </p>
+      </div>
+
+      <!-- SECTION 1: OFFICIAL PRODUCTION PARTNERS SPOTLIGHT (Inspired by artists.html card system) -->
+      <section id="production-partners" class="reveal" style="scroll-margin-top: 130px;">
+        <div class="partners-spotlight-grid">
+
+          <!-- PARTNER CARD 1: WINKLE -->
+          <article class="partner-card">
             
-            <!-- SHEET 1: HERO & WHAT WE DO -->
-            <div class="dribbble-sheet">
-              
-              <!-- Top Mini Stripe -->
-              <div class="dribbble-topbar">
-                <div class="dribbble-topbar-left">
-                  <span class="dribbble-topbar-item">📍 Kamalpur Sangha Bhavan, Ranaghat, Nadia, WB</span>
-                  <span class="dribbble-topbar-item">✉️ contact@kamalpurabhijaan.org</span>
-                </div>
-                <div class="dribbble-topbar-right">
-                  <div class="dribbble-topbar-nav">
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="#featured-partners">Services</a>
-                    <a href="#inquiry">Contact</a>
-                  </div>
-                </div>
+            <!-- Header (matching artist-header) -->
+            <div class="artist-header">
+              <div class="artist-avatar-wrap" style="background:#090D16; border: 1.5px solid var(--border);">
+                <img src="assets/partners/winkle-logo.png" alt="Winkle Logo" style="width:36px; height:36px; object-fit:contain;">
+                <span class="artist-online-dot" title="Active Official Partner"></span>
               </div>
-
-              <!-- Hero Banner -->
-              <div class="dribbble-hero">
-                <div class="dribbble-hero-bg-art"></div>
-                <div class="dribbble-hero-content">
-                  <div class="dribbble-hero-eyebrow">Your Premier Event Production &amp;</div>
-                  <h2 class="dribbble-hero-title">Cultural <em>Partners</em></h2>
-                  <p class="dribbble-hero-desc">
-                    Kamalpur Abhijan Sangha is your premier cultural and festival organization in Nadia, West Bengal. In all aspects of monumental event production, line-array acoustics, lighting architecture, 4K cinematography, and crowd logistics, we offer seamless execution for our partners, sponsors, and over 1.2 million devotees.
-                  </p>
-                  <a href="#inquiry" class="dribbble-cta-btn">Contact Us &rarr;</a>
-                </div>
+              <div class="artist-identity" style="display:flex; flex-direction:column; gap:2px; margin-bottom:0;">
+                <h3 class="artist-name" style="margin:0; font-size:24px;">Winkle</h3>
+                <div class="artist-craft" style="color:var(--gold-dark); font-size:13px; font-weight:700;">Official Photography &amp; Cinematography Partner</div>
+                <div class="artist-region" style="font-size:12px; color:var(--text-3);">📍 Kolkata, West Bengal · Serving Nationwide</div>
               </div>
-
-              <!-- What We Do Split Section -->
-              <div class="dribbble-whatwedo">
-                <h3 class="dribbble-section-title">What We Do</h3>
-                <div class="dribbble-wwd-grid">
-                  <div class="dribbble-portrait-wrap">
-                    <img src="assets/durga-papercraft.jpg" alt="Festival Craft and Monumental Production" class="dribbble-portrait-img">
-                  </div>
-                  <div class="dribbble-wwd-copy">
-                    <p>
-                      We address all creative, technical, and logistical dimensions of grand festival production across West Bengal. Thanks to our deep heritage roots, we're focused on efficiency, authenticity, and grand execution, which helps us understand the visionary needs of our patrons and communicate with our massive audience.
-                    </p>
-                    <p>
-                      We're focused on maximizing production value and going above and beyond to ensure all sound engineering, lighting architecture, cinematography, and crowd logistics are carried out using best-practice techniques. Bengal's festival culture is renowned for artistic grandeur, and Kamalpur Abhijan Sangha has been built upon this notion of superior craftsmanship.
-                    </p>
-                    <p>
-                      Driven by cooperative and collaborative partnerships with our clients, artists, and corporate sponsors, we ensure all festival deliverables and brand associations are carried to the highest standards.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
+              <span class="artist-era-tag" style="background:#FEF3C7; color:#92400E; border-color:#FDE68A;">Official Partner 2026</span>
             </div>
 
-            <!-- SHEET 2: OUR SERVICES & LOCATION HUB -->
-            <div class="dribbble-sheet">
-              
-              <!-- Our Services Cluster -->
-              <div class="dribbble-services-section">
-                
-                <div class="dribbble-services-cluster">
-                  
-                  <!-- Top Left: Cinematography -->
-                  <div class="service-cluster-node node-top-left">
-                    <div class="service-cluster-icon">🎬</div>
-                    <div>
-                      <div class="service-cluster-text">4K Cinematography</div>
-                      <span class="service-cluster-sub">By Winkle</span>
-                    </div>
-                  </div>
-
-                  <!-- Top Right: Stagecraft -->
-                  <div class="service-cluster-node node-top-right">
-                    <div class="service-cluster-icon">🏛️</div>
-                    <div>
-                      <div class="service-cluster-text">Monumental Stages</div>
-                      <span class="service-cluster-sub">By SC Stage Craft</span>
-                    </div>
-                  </div>
-
-                  <!-- Center Golden Badge -->
-                  <div class="services-center-badge">
-                    <div class="services-center-badge-title">Our<br>Services</div>
-                  </div>
-
-                  <!-- Mid Left: Sound Systems -->
-                  <div class="service-cluster-node node-mid-left">
-                    <div class="service-cluster-icon">🔊</div>
-                    <div>
-                      <div class="service-cluster-text">Concert Acoustics</div>
-                      <span class="service-cluster-sub">Line-Array Sound</span>
-                    </div>
-                  </div>
-
-                  <!-- Mid Right: LED Walls -->
-                  <div class="service-cluster-node node-mid-right">
-                    <div class="service-cluster-icon">🖥️</div>
-                    <div>
-                      <div class="service-cluster-text">LED Video Walls</div>
-                      <span class="service-cluster-sub">Ultra HD Displays</span>
-                    </div>
-                  </div>
-
-                  <!-- Bottom Left: Illumination -->
-                  <div class="service-cluster-node node-bot-left">
-                    <div class="service-cluster-icon">💡</div>
-                    <div>
-                      <div class="service-cluster-text">Dynamic Lighting</div>
-                      <span class="service-cluster-sub">Chandannagar Craft</span>
-                    </div>
-                  </div>
-
-                  <!-- Bottom Right: Broadcast -->
-                  <div class="service-cluster-node node-bot-right">
-                    <div class="service-cluster-icon">📡</div>
-                    <div>
-                      <div class="service-cluster-text">Live Webcasting</div>
-                      <span class="service-cluster-sub">Multi-Cam Broadcast</span>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <!-- Video / Production Highlight Card -->
-              <a href="https://youtube.com/@kamalpurabhijansangha?si=CEZETjkV42fUC0kX" target="_blank" rel="noopener noreferrer" class="dribbble-video-banner" title="Click to watch festival video reel">
-                <img src="assets/gallery/chandannagar-lights.jpg" alt="Watch Festival Video" class="dribbble-video-img">
-                <div class="dribbble-video-overlay">
-                  <div class="dribbble-play-circle">▶</div>
-                  <span class="dribbble-video-label">Watch Production &amp; Festival Reel</span>
-                </div>
-              </a>
-
-              <!-- Where We Are Located Section -->
-              <div class="dribbble-location-section">
-                <h3 class="dribbble-section-title">Where We Are Located</h3>
-                <div class="dribbble-location-grid">
-                  <div class="dribbble-location-copy">
-                    <p>
-                      Kamalpur Abhijan Sangha has expansive festival grounds and facilities conveniently located in Ranaghat, Nadia, just 75 km from Kolkata. Our central complex spans over 3.5 acres, featuring state-of-the-art stage infrastructure, workshop bays, and dedicated media centers.
-                    </p>
-                    <p>
-                      Our production partners maintain rapid-deployment hubs across Ranaghat, Taherpur, and Kolkata, ensuring seamless logistics, 24/7 technical support, and swift delivery of materials for grand cultural celebrations throughout the region.
-                    </p>
-                    <p>
-                      Whether you need on-site pavilion branding, high-voltage lighting grids, or nationwide live broadcasting, our strategic geographic location provides effortless connectivity by rail (Ranaghat Junction) and National Highway (NH-12).
-                    </p>
-                  </div>
-
-                  <div class="dribbble-location-card">
-                    <div class="dlc-hub">
-                      <div class="dlc-hub-icon">🏛️</div>
-                      <div>
-                        <div class="dlc-hub-title">Sangha Headquarters</div>
-                        <div class="dlc-hub-sub">Kamalpur Sangha Bhavan, Ranaghat, Nadia &mdash; 741201</div>
-                      </div>
-                    </div>
-                    <div class="dlc-hub">
-                      <div class="dlc-hub-icon">⚙️</div>
-                      <div>
-                        <div class="dlc-hub-title">SC Stage Craft Production Yard</div>
-                        <div class="dlc-hub-sub">Khardapara, Birnagar, Taherpur &mdash; 741127</div>
-                      </div>
-                    </div>
-                    <div class="dlc-hub">
-                      <div class="dlc-hub-icon">🎬</div>
-                      <div>
-                        <div class="dlc-hub-title">Winkle Cinematography Hub</div>
-                        <div class="dlc-hub-sub">Kolkata Media Bay &amp; Ranaghat Direct Desk</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Get In Touch Callout Card -->
-              <div class="dribbble-touch-card">
-                <img src="assets/gallery/sandhi-puja.jpg" alt="Festival Production Evening" class="dribbble-touch-img">
-                <div class="dribbble-touch-body">
-                  <div class="dribbble-touch-text">
-                    <strong>Get In Touch with us today</strong> to find out how we can assist you in your festival production and corporate sponsorship. We offer fast, safe, and reliable solutions that will exceed your expectations.
-                  </div>
-                  <a href="#inquiry" class="dribbble-touch-btn">Contact Us</a>
-                </div>
-              </div>
-
+            <!-- Constrained Poster Frame (Never blows up, fully responsive) -->
+            <div class="partner-poster-box" onclick="openPartnerImageModal('assets/partners/winkle.png', 'Winkle — Official Photography &amp; Cinematography Partner')">
+              <img src="assets/partners/winkle.png" alt="Winkle Event Photography Flyer" class="partner-poster-img" loading="lazy">
+              <span class="partner-zoom-pill">🔍 Click to Expand Flyer &amp; QR</span>
             </div>
 
-          </div>
+            <!-- Partner Bio (matching artist-bio) -->
+            <p class="artist-bio" style="font-size:14px; color:var(--text-2); line-height:1.68; margin-bottom:16px;">
+              An Event Photography &amp; Cinematography Company in India. Dedicated to capturing the soul of sacred traditions, crowd energy, and immortalizing timeless moments of Bengal's grandest festival with high-definition lenscraft and creative aerial storytelling.
+            </p>
+
+            <!-- Credentials / Specifications Table (matching artist-credentials) -->
+            <div class="artist-credentials" style="margin:14px 0 18px; padding:14px 16px; background:#F8FAFC; border-radius:12px; border:1px solid var(--border);">
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Specialties</span>
+                <span class="artist-cred-val" style="color:var(--eg-dark); font-weight:600;">Cinematography, Grand Festivals, Weddings, Drone Capture &amp; Live Streams</span>
+              </div>
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Helplines</span>
+                <span class="artist-cred-val">
+                  <a href="tel:+917076249854" style="color:var(--gold-dark); font-weight:700; text-decoration:none;">+91 7076249854</a> / 
+                  <a href="tel:+918116031974" style="color:var(--gold-dark); font-weight:700; text-decoration:none;">+91 8116031974</a>
+                </span>
+              </div>
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Headquarters</span>
+                <span class="artist-cred-val">Kolkata, West Bengal (Pan-India Production)</span>
+              </div>
+              <div class="artist-cred-row">
+                <span class="artist-cred-label" style="min-width:110px;">Instant Connect</span>
+                <span class="artist-cred-val">Scan Flyer QR &bull; Instagram &bull; Facebook &bull; YouTube</span>
+              </div>
+            </div>
+
+            <!-- Philosophy Box (matching artist-creations-box) -->
+            <div class="artist-creations-box" style="margin-bottom:20px; background:#FFFBEB; border-color:#FDE68A; border-left:4px solid var(--gold);">
+              <div class="artist-creations-lbl" style="color:#B45309;">Creative Philosophy</div>
+              <div class="artist-creations-val" style="font-style:italic; color:#78350F;">
+                &ldquo;Let's Create a Beautiful Story — Capturing Emotions | Creating Stories with cinematic depth.&rdquo;
+              </div>
+            </div>
+
+            <!-- Footer Action Buttons (matching artist-card-footer) -->
+            <div class="artist-card-footer" style="padding-top:14px; border-top:1px dashed var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <a href="tel:+917076249854" class="btn btn-primary" style="padding:9px 16px; font-size:13px; border-radius:8px; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+                  <span>📞 Call Winkle</span>
+                </a>
+                <a href="https://wa.me/917076249854?text=Hello%20Winkle,%20I%20saw%20your%20partnership%20card%20on%20Kamalpur%20Abhijan%20Sangha%20website." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:9px 16px; font-size:13px; border-radius:8px; background:#25D366; color:#ffffff; border-color:#25D366; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+                  <span>💬 WhatsApp</span>
+                </a>
+                <button type="button" class="btn btn-secondary" onclick="openPartnerImageModal('assets/partners/winkle.png', 'Winkle — Event Photography Flyer')" style="padding:9px 14px; font-size:13px; border-radius:8px; display:inline-flex; align-items:center; gap:5px;">
+                  <span>🔍 View Flyer</span>
+                </button>
+              </div>
+              <span class="artist-verified-seal" style="color:#10B981; font-weight:700; font-size:12px;">✓ Verified Partner</span>
+            </div>
+
+          </article>
+
+          <!-- PARTNER CARD 2: SC STAGE CRAFT -->
+          <article class="partner-card">
+            
+            <!-- Header (matching artist-header) -->
+            <div class="artist-header">
+              <div class="artist-avatar-wrap" style="background:#090D16; border: 1.5px solid var(--border);">
+                <img src="assets/partners/stagecraft-logo.png" alt="SC Stage Craft Logo" style="width:36px; height:36px; object-fit:contain;">
+                <span class="artist-online-dot" title="Active Official Partner"></span>
+              </div>
+              <div class="artist-identity" style="display:flex; flex-direction:column; gap:2px; margin-bottom:0;">
+                <h3 class="artist-name" style="margin:0; font-size:24px;">SC Stage Craft</h3>
+                <div class="artist-craft" style="color:var(--gold-dark); font-size:13px; font-weight:700;">Official Stage, Sound &amp; Light Production Partner</div>
+                <div class="artist-region" style="font-size:12px; color:var(--text-3);">📍 Birnagar, Taherpur · Nadia 741127</div>
+              </div>
+              <span class="artist-era-tag" style="background:#FEF3C7; color:#92400E; border-color:#FDE68A;">Official Partner 2026</span>
+            </div>
+
+            <!-- Constrained Poster Frame (Never blows up, fully responsive) -->
+            <div class="partner-poster-box" onclick="openPartnerImageModal('assets/partners/stagecraft.png', 'SC Stage Craft — Complete Event Solutions Card')">
+              <img src="assets/partners/stagecraft.png" alt="SC Stage Craft Complete Event Solutions Card" class="partner-poster-img" loading="lazy">
+              <span class="partner-zoom-pill">🔍 Click to Expand Card &amp; Specs</span>
+            </div>
+
+            <!-- Partner Bio (matching artist-bio) -->
+            <p class="artist-bio" style="font-size:14px; color:var(--text-2); line-height:1.68; margin-bottom:16px;">
+              Complete Event Solutions with Light, Sound, Stage, LED Screen &amp; Special Effects. Engineering concert-grade audio reinforcement, dynamic computerized truss lighting, monumental stagecraft, and breathtaking pyrotechnics.
+            </p>
+
+            <!-- Credentials / Specifications Table (matching artist-credentials) -->
+            <div class="artist-credentials" style="margin:14px 0 18px; padding:14px 16px; background:#F8FAFC; border-radius:12px; border:1px solid var(--border);">
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Capabilities</span>
+                <span class="artist-cred-val" style="color:var(--eg-dark); font-weight:600;">Concert Sound, Stage Lighting, Truss Architecture, LED Walls &amp; SFX</span>
+              </div>
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Direct Helpline</span>
+                <span class="artist-cred-val">
+                  <a href="tel:+917001601562" style="color:var(--gold-dark); font-weight:700; text-decoration:none;">+91 7001601562</a>
+                </span>
+              </div>
+              <div class="artist-cred-row" style="margin-bottom:8px;">
+                <span class="artist-cred-label" style="min-width:110px;">Official Email</span>
+                <span class="artist-cred-val">
+                  <a href="mailto:Subratasarkar0586@gmail.com" style="color:var(--text-2); text-decoration:none;">Subratasarkar0586@gmail.com</a>
+                </span>
+              </div>
+              <div class="artist-cred-row">
+                <span class="artist-cred-label" style="min-width:110px;">Facility Yard</span>
+                <span class="artist-cred-val">Khardapara, Birnagar, Taherpur, Nadia &mdash; 741127</span>
+              </div>
+            </div>
+
+            <!-- Philosophy Box (matching artist-creations-box) -->
+            <div class="artist-creations-box" style="margin-bottom:20px; background:#FFFBEB; border-color:#FDE68A; border-left:4px solid var(--gold);">
+              <div class="artist-creations-lbl" style="color:#B45309;">Production Motto</div>
+              <div class="artist-creations-val" style="font-style:italic; color:#78350F;">
+                &ldquo;We Create Memories — Complete Event Solutions with Flawless Technical Execution.&rdquo;
+              </div>
+            </div>
+
+            <!-- Footer Action Buttons (matching artist-card-footer) -->
+            <div class="artist-card-footer" style="padding-top:14px; border-top:1px dashed var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <a href="tel:+917001601562" class="btn btn-primary" style="padding:9px 16px; font-size:13px; border-radius:8px; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+                  <span>📞 Call Stage Craft</span>
+                </a>
+                <a href="https://wa.me/917001601562?text=Hello%20Stage%20Craft,%20I%20saw%20your%20partnership%20card%20on%20Kamalpur%20Abhijan%20Sangha%20website." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:9px 16px; font-size:13px; border-radius:8px; background:#25D366; color:#ffffff; border-color:#25D366; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
+                  <span>💬 WhatsApp</span>
+                </a>
+                <button type="button" class="btn btn-secondary" onclick="openPartnerImageModal('assets/partners/stagecraft.png', 'SC Stage Craft — Complete Event Solutions Card')" style="padding:9px 14px; font-size:13px; border-radius:8px; display:inline-flex; align-items:center; gap:5px;">
+                  <span>🔍 View Card</span>
+                </button>
+              </div>
+              <span class="artist-verified-seal" style="color:#10B981; font-weight:700; font-size:12px;">✓ Verified Partner</span>
+            </div>
+
+          </article>
 
         </div>
       </section>
 
-      <!-- Section 1: Featured Official Production & Creative Partners -->
-      <section id="featured-partners" class="reveal" style="margin-bottom: 90px; scroll-margin-top: 130px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:12px;">
-          <div>
-            <div class="eyebrow">Official Event Collaborators</div>
-            <h2 class="sh2" style="margin-bottom:0;">Creative &amp; Technical <em>Production Partners</em></h2>
-          </div>
-          <span style="background:#FEF3C7; color:#92400E; font-size:12px; font-weight:700; padding:6px 14px; border-radius:20px; border:1px solid #FDE68A;">
-            ★ OFFICIAL FESTIVAL INFRASTRUCTURE 2026
-          </span>
+      <!-- SECTION 2: PRODUCTION SERVICES & TECHNICAL CAPABILITIES (Matching events.html / durgotsav.html) -->
+      <section id="technical-capabilities" class="reveal" style="margin-bottom: 85px; scroll-margin-top: 130px;">
+        <div style="text-align: center; max-width: 780px; margin: 0 auto 36px;">
+          <div class="eyebrow">Festival Infrastructure</div>
+          <h2 class="sh2">Technical Capabilities &amp; <em>Production Wings</em></h2>
+          <p style="font-family:var(--sans); font-size:15px; color:var(--text-3); margin-top:8px;">
+            The technological backbone that ensures over 1.2 million devotees experience seamless, world-class darshan and cultural evenings.
+          </p>
         </div>
-        <p style="font-family:var(--sans); font-size:15px; color:var(--text-3); max-width:850px; line-height:1.6;">
-          Meet the premier creative, visual, and stagecraft enterprises powering the cinematography, sound, lighting, and monumental presentation of Kamalpur Abhijan Sangha. Click on any card image to view the full flyer and details.
-        </p>
 
-        <div class="featured-partners-grid">
+        <div class="tech-services-grid">
           
-          <!-- PARTNER 1: WINKLE -->
-          <div class="partner-showcase-card">
-            <div class="psc-image-wrap" onclick="openPartnerImageModal('assets/partners/winkle.png', 'Winkle — Official Photography &amp; Cinematography Partner')">
-              <img src="assets/partners/winkle.png" alt="Winkle Event Photography Company Official Partner" class="psc-image" loading="lazy">
-              <div class="psc-zoom-hint">🔍 Click to Expand Flyer &amp; QR</div>
-            </div>
-            <div class="psc-body">
-              <div class="psc-badge-row">
-                <span class="psc-role-badge">📷 Official Photography &amp; Cinematography Partner</span>
-                <span class="psc-loc-badge">📍 Kolkata, India</span>
-              </div>
-              <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
-                <div style="width:38px; height:38px; border-radius:10px; background:#090D14; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
-                  <img src="assets/partners/winkle-logo.png" alt="Winkle Logo" style="width:100%; height:100%; object-fit:contain;">
-                </div>
-                <div>
-                  <h3 class="psc-title" style="margin:0;">Winkle</h3>
-                  <div style="font-size:11px; color:#10B981; font-weight:700;">Verified Official Partner &#10003;</div>
-                </div>
-              </div>
-              <p class="psc-tagline">An Event Photography &amp; Cinematography Company in India</p>
-              <div class="psc-motto">
-                <em>&ldquo;Let's Create a Beautiful Story — Capturing Emotions | Creating Stories.&rdquo;</em>
-              </div>
-
-              <div class="psc-services">
-                <span class="psc-chip">Cinematography</span>
-                <span class="psc-chip">Grand Festivals</span>
-                <span class="psc-chip">Weddings</span>
-                <span class="psc-chip">Pre-Weddings</span>
-                <span class="psc-chip">Live Drone Capture</span>
-                <span class="psc-chip">Event Documentation</span>
-              </div>
-
-              <div class="psc-contact-box">
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">📞</span>
-                  <div class="psc-contact-info">
-                    <strong>Direct Helplines:</strong>
-                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:2px;">
-                      <a href="tel:+917076249854" class="psc-link">+91 7076249854</a>
-                      <span style="color:#94A3B8;">/</span>
-                      <a href="tel:+918116031974" class="psc-link">+91 8116031974</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">📍</span>
-                  <div class="psc-contact-info">
-                    <strong>Base Operations:</strong>
-                    <div>Kolkata, West Bengal (Serving Nationwide)</div>
-                  </div>
-                </div>
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">📱</span>
-                  <div class="psc-contact-info">
-                    <strong>Social &amp; Instant Connect:</strong>
-                    <div>Scan QR in Card &bull; Instagram &bull; Facebook &bull; YouTube</div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="psc-actions">
-                <a href="tel:+917076249854" class="btn btn-primary" style="padding:10px 18px; font-size:13.5px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-                  <span>📞 Call Winkle</span>
-                </a>
-                <a href="https://wa.me/917076249854?text=Hello%20Winkle,%20I%20saw%20your%20partnership%20card%20on%20Kamalpur%20Abhijan%20Sangha%20website." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:10px 18px; font-size:13.5px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#25D366; color:#ffffff; border-color:#25D366;">
-                  <span>💬 WhatsApp Direct</span>
-                </a>
-                <button type="button" class="btn btn-secondary" onclick="openPartnerImageModal('assets/partners/winkle.png', 'Winkle — Event Photography Flyer')" style="padding:10px 14px; font-size:13.5px; border-radius:10px; display:inline-flex; align-items:center; gap:6px;">
-                  <span>🔍 View Flyer</span>
-                </button>
-              </div>
-            </div>
+          <!-- Wing 1 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">🎬</div>
+            <h3 class="tech-service-title">4K Cinematography &amp; Drone Capture</h3>
+            <div class="tech-service-partner">Powered by Winkle</div>
+            <p class="tech-service-desc">
+              High-definition multi-lens photography, authorized aerial drone videography, and fast-turnaround social media documentary reels.
+            </p>
           </div>
 
-          <!-- PARTNER 2: STAGE CRAFT -->
-          <div class="partner-showcase-card">
-            <div class="psc-image-wrap" onclick="openPartnerImageModal('assets/partners/stagecraft.png', 'SC Stage Craft — Light, Sound, Stage &amp; LED Screen')">
-              <img src="assets/partners/stagecraft.png" alt="SC Stage Craft Complete Event Solutions Official Partner" class="psc-image" loading="lazy">
-              <div class="psc-zoom-hint">🔍 Click to Expand Card &amp; Specs</div>
-            </div>
-            <div class="psc-body">
-              <div class="psc-badge-row">
-                <span class="psc-role-badge">⚡ Official Stage, Sound &amp; Light Production Partner</span>
-                <span class="psc-loc-badge">📍 Nadia 741127</span>
-              </div>
-              <div style="display:flex; align-items:center; gap:12px; margin-bottom:4px;">
-                <div style="width:38px; height:38px; border-radius:10px; background:#090D14; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
-                  <img src="assets/partners/stagecraft-logo.png" alt="SC Stage Craft Logo" style="width:100%; height:100%; object-fit:contain;">
-                </div>
-                <div>
-                  <h3 class="psc-title" style="margin:0;">SC Stage Craft</h3>
-                  <div style="font-size:11px; color:#10B981; font-weight:700;">Verified Official Partner &#10003;</div>
-                </div>
-              </div>
-              <p class="psc-tagline">Light &bull; Sound &bull; Stage &bull; LED Screen &bull; Special Effects</p>
-              <div class="psc-motto">
-                <em>&ldquo;We Create Memories — Complete Event Solutions with Flawless Execution.&rdquo;</em>
-              </div>
+          <!-- Wing 2 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">🏛️</div>
+            <h3 class="tech-service-title">Monumental Stages &amp; Truss Architecture</h3>
+            <div class="tech-service-partner">Powered by SC Stage Craft</div>
+            <p class="tech-service-desc">
+              Certified aluminum load-bearing trusses, monumental cantilever stages, weather-proof canopies, and safety-verified artist podiums.
+            </p>
+          </div>
 
-              <div class="psc-services">
-                <span class="psc-chip">Concert Sound Systems</span>
-                <span class="psc-chip">Stage Lighting &amp; Truss</span>
-                <span class="psc-chip">LED Video Walls</span>
-                <span class="psc-chip">Monumental Stage Craft</span>
-                <span class="psc-chip">Pyrotechnics &amp; SFX</span>
-                <span class="psc-chip">Mega Cultural Events</span>
-              </div>
+          <!-- Wing 3 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">🔊</div>
+            <h3 class="tech-service-title">Line-Array Sound &amp; Acoustic Engineering</h3>
+            <div class="tech-service-partner">Concert Sound Systems</div>
+            <p class="tech-service-desc">
+              Multi-point line-array acoustic arrays delivering crystal-clear Sanskrit mantras, dhak acoustics, and musical concerts across the grounds.
+            </p>
+          </div>
 
-              <div class="psc-contact-box">
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">📞</span>
-                  <div class="psc-contact-info">
-                    <strong>Direct Helpline:</strong>
-                    <div><a href="tel:+917001601562" class="psc-link">+91 7001601562</a></div>
-                  </div>
-                </div>
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">✉️</span>
-                  <div class="psc-contact-info">
-                    <strong>Official Email:</strong>
-                    <div><a href="mailto:Subratasarkar0586@gmail.com" class="psc-link">Subratasarkar0586@gmail.com</a></div>
-                  </div>
-                </div>
-                <div class="psc-contact-row">
-                  <span class="psc-contact-icon">📍</span>
-                  <div class="psc-contact-info">
-                    <strong>Production Facility:</strong>
-                    <div>Khardapara, Birnagar, Taherpur, Nadia - 741127</div>
-                  </div>
-                </div>
-              </div>
+          <!-- Wing 4 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">🖥️</div>
+            <h3 class="tech-service-title">Outdoor P3 LED Video Walls</h3>
+            <div class="tech-service-partner">High-Brightness Displays</div>
+            <p class="tech-service-desc">
+              Ultra-high-definition daylight-visible LED screens positioned along pilgrimage boulevards for live Devi Darshan and sponsor visibility.
+            </p>
+          </div>
 
-              <div class="psc-actions">
-                <a href="tel:+917001601562" class="btn btn-primary" style="padding:10px 18px; font-size:13.5px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-                  <span>📞 Call Stage Craft</span>
-                </a>
-                <a href="https://wa.me/917001601562?text=Hello%20Stage%20Craft,%20I%20saw%20your%20partnership%20card%20on%20Kamalpur%20Abhijan%20Sangha%20website." target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding:10px 18px; font-size:13.5px; border-radius:10px; text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#25D366; color:#ffffff; border-color:#25D366;">
-                  <span>💬 WhatsApp</span>
-                </a>
-                <button type="button" class="btn btn-secondary" onclick="openPartnerImageModal('assets/partners/stagecraft.png', 'SC Stage Craft — Complete Event Solutions Card')" style="padding:10px 14px; font-size:13.5px; border-radius:10px; display:inline-flex; align-items:center; gap:6px;">
-                  <span>🔍 View Card</span>
-                </button>
-              </div>
-            </div>
+          <!-- Wing 5 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">💡</div>
+            <h3 class="tech-service-title">Dynamic Architectural Illumination</h3>
+            <div class="tech-service-partner">Chandannagar Craft &amp; DMX Trusses</div>
+            <p class="tech-service-desc">
+              Over 1.5 km of synchronized narrative light gates and moving-head beam fixtures illuminating the festival sky above Ranaghat.
+            </p>
+          </div>
+
+          <!-- Wing 6 -->
+          <div class="tech-service-card">
+            <div class="tech-service-icon">📡</div>
+            <h3 class="tech-service-title">Statewide Broadcast &amp; Webcasting</h3>
+            <div class="tech-service-partner">Doordarshan &amp; YouTube Live</div>
+            <p class="tech-service-desc">
+              Live broadcast feeds of Pushpanjali, Sandhi Puja, and immersion processions reaching millions of homes globally.
+            </p>
           </div>
 
         </div>
@@ -1075,7 +1188,7 @@
 
     // Scrollspy for partners subnav
     window.addEventListener('scroll', function() {
-      var sections = ['production-ecosystem', 'featured-partners', 'associates-directory', 'reach-demographics', 'sponsor-tiers', 'inquiry'];
+      var sections = ['production-partners', 'technical-capabilities', 'associates-directory', 'reach-demographics', 'sponsor-tiers', 'inquiry'];
       var links = document.querySelectorAll('.partners-subnav-link');
       var scrollPos = window.scrollY + 160;
 
