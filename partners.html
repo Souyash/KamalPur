@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Noto+Serif+Bengali:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20261015-v4">
+  <link rel="stylesheet" href="styles.css?v=20261015-v5">
   <link rel="icon" type="image/png" href="assets/logo.png">
 
   <!-- Embedded Resilient Styling (Harmonized with artists.html & events.html) -->
@@ -704,6 +704,286 @@
       color: #047857;
       margin-top: 2px;
     }
+
+    /* Main Event Organiser Showcase Section */
+    .main-organiser-section {
+      position: relative;
+      margin-bottom: 60px;
+    }
+
+    .organiser-card-wrap {
+      position: relative;
+      border-radius: 26px;
+      padding: 3px;
+      background: linear-gradient(135deg, #F59E0B 0%, #1B4B3B 50%, #D97706 100%);
+      background-size: 200% 200%;
+      animation: borderRotate 8s ease infinite alternate;
+      box-shadow: 0 20px 50px -10px rgba(180, 83, 9, 0.28), 0 0 30px rgba(27, 75, 59, 0.15);
+    }
+
+    @keyframes borderRotate {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .organiser-card-inner {
+      background: linear-gradient(135deg, #0B132B 0%, #0D1B2A 60%, #112233 100%);
+      border-radius: 24px;
+      padding: 44px 40px;
+      color: #FFFFFF;
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 960px) {
+      .organiser-card-inner {
+        grid-template-columns: 1fr;
+        padding: 32px 24px;
+        gap: 32px;
+      }
+    }
+
+    .organiser-card-inner::after {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(27, 75, 59, 0) 70%);
+      pointer-events: none;
+    }
+
+    .organiser-badge-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: #FDE68A;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .organiser-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 10px #10B981;
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .organiser-name {
+      font-family: var(--serif, 'Cormorant Garamond', serif);
+      font-size: clamp(28px, 4.5vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      background: linear-gradient(135deg, #FFFFFF 30%, #FDE68A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .organiser-creds {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #93C5FD;
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .organiser-role {
+      font-size: 15px;
+      font-weight: 800;
+      color: #F59E0B;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+      display: inline-block;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .organiser-intro {
+      font-size: 13.5px;
+      color: #CBD5E1;
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 580px;
+    }
+
+    .organiser-services-wrap {
+      margin: 18px 0 22px;
+    }
+    .organiser-services-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94A3B8;
+      margin-bottom: 10px;
+    }
+    .organiser-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .org-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #E2E8F0;
+      transition: all 0.25s ease;
+    }
+    .org-pill:hover {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: #F59E0B;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .org-pill.primary-pill {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(217, 119, 6, 0.3) 100%);
+      border: 1.5px solid #F59E0B;
+      color: #FDE68A;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+    }
+
+    .organiser-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .org-action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .org-action-btn.call-btn {
+      background: #10B981;
+      color: #FFFFFF;
+      border: 1px solid #059669;
+    }
+    .org-action-btn.call-btn:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+    .org-action-btn.web-btn {
+      background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+      color: #0B132B;
+      font-weight: 800;
+      border: none;
+    }
+    .org-action-btn.web-btn:hover {
+      background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+    }
+    .org-action-btn.ghost-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
+    .org-action-btn.ghost-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* Right Panel Brand Showcase */
+    .organiser-brand-showcase {
+      background: radial-gradient(circle at center, rgba(30, 58, 138, 0.4) 0%, rgba(15, 23, 42, 0.7) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .subha-logo-float-wrap {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(245, 158, 11, 0.4);
+      animation: floatLogo 4s ease-in-out infinite alternate;
+    }
+    @keyframes floatLogo {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.03); }
+    }
+
+    .subha-animated-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .subha-brand-title {
+      font-family: var(--serif, 'Cormorant Garamond', serif);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
+      margin: 0 0 6px;
+      text-transform: uppercase;
+    }
+    .subha-brand-tagline {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #38BDF8;
+      margin-bottom: 16px;
+    }
+    .subha-cred-badge {
+      font-size: 11.5px;
+      color: #94A3B8;
+      line-height: 1.5;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 14px;
+      margin-top: 4px;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -783,7 +1063,8 @@
   <div class="partners-subnav-wrap">
     <div class="container">
       <nav class="partners-subnav-list" aria-label="Partners Section Navigation">
-        <a href="#production-partners" class="partners-subnav-link active">⚡ Production Partners</a>
+        <a href="#main-event-organiser" class="partners-subnav-link active">👑 Main Event Organiser</a>
+        <a href="#production-partners" class="partners-subnav-link">⚡ Production Partners</a>
         <a href="#technical-capabilities" class="partners-subnav-link">🛠️ Technical Capabilities</a>
         <a href="#associates-directory" class="partners-subnav-link">🤝 Associates Directory</a>
         <a href="#reach-demographics" class="partners-subnav-link">📊 Reach &amp; Impact</a>
@@ -796,6 +1077,98 @@
   <!-- Main Content -->
   <main class="page-content-wrap">
     <div class="container">
+
+      <!-- SECTION 0: PRINCIPAL MAIN EVENT ORGANISER (SUBHA-ARTHA & SUBHA KUMAR MANDAL) -->
+      <section id="main-event-organiser" class="reveal main-organiser-section" style="scroll-margin-top: 130px; margin-bottom: 70px;">
+        <div class="organiser-card-wrap">
+          <div class="organiser-card-inner">
+            
+            <!-- Left Column: Details & Services -->
+            <div class="organiser-info-col">
+              <div class="organiser-badge-strip">
+                <span class="organiser-live-dot"></span>
+                <span>Principal Festival Management</span>
+                <span style="opacity:0.6;">·</span>
+                <span>Main Event Organiser</span>
+              </div>
+
+              <h2 class="organiser-name">SUBHA Kumar MANDAL</h2>
+              
+              <div class="organiser-creds">
+                Civil Engineering, CA (inter)
+              </div>
+              <div class="organiser-role">
+                Business &amp; Career CONSULTANT
+              </div>
+
+              <p class="organiser-intro">
+                Leading the comprehensive festival management, master event architecture, technical logistics, and official branding integrations for Kamalpur Abhijan Sangha Sharodotsav 2026.
+              </p>
+
+              <!-- Services Grid -->
+              <div class="organiser-services-wrap">
+                <div class="organiser-services-label">Executive Services &amp; Capabilities</div>
+                <div class="organiser-pills">
+                  <span class="org-pill primary-pill">🎪 Main Event Organiser</span>
+                  <span class="org-pill">💼 Business Adviser</span>
+                  <span class="org-pill">💻 Website Development</span>
+                  <span class="org-pill">🎥 Media Production</span>
+                  <span class="org-pill">📈 Investor</span>
+                  <span class="org-pill">📊 Financial Adviser</span>
+                  <span class="org-pill">🎙️ Public Speaker</span>
+                </div>
+              </div>
+
+              <!-- Action CTAs -->
+              <div class="organiser-actions-grid">
+                <a href="tel:+918637578740" class="org-action-btn call-btn">
+                  <span>📞 Call Organiser Desk</span>
+                </a>
+                <a href="https://www.subhaartha.com" target="_blank" rel="noopener noreferrer" class="org-action-btn web-btn">
+                  <span>🌐 www.subhaartha.com &rarr;</span>
+                </a>
+                <a href="mailto:thesubhaartha@gmail.com" class="org-action-btn ghost-btn">
+                  <span>✉️ Email Inquiries</span>
+                </a>
+                <button type="button" class="org-action-btn ghost-btn" onclick="openPartnerImageModal('assets/subha-artha-card.png', 'SUBHA-ARTHA Official Credentials Card')">
+                  <span>📇 View Business Card</span>
+                </button>
+              </div>
+
+              <!-- Direct numbers display -->
+              <div style="display:flex; flex-wrap:wrap; gap:18px; margin-top:18px; font-size:12.5px; color:#94A3B8;">
+                <div><span style="color:#FDE68A; font-weight:700;">Direct:</span> <a href="tel:+918637578740" style="color:#E2E8F0; text-decoration:none;">+91 8637578740</a></div>
+                <div><span style="color:#FDE68A; font-weight:700;">Alt:</span> <a href="tel:+918250603038" style="color:#E2E8F0; text-decoration:none;">+91 8250603038</a></div>
+                <div><span style="color:#FDE68A; font-weight:700;">Email:</span> <a href="mailto:thesubhaartha@gmail.com" style="color:#E2E8F0; text-decoration:none;">thesubhaartha@gmail.com</a></div>
+              </div>
+            </div>
+
+            <!-- Right Column: Interactive Animated Branding Showcase -->
+            <div class="organiser-brand-showcase">
+              <div class="subha-logo-float-wrap">
+                <img src="assets/subha-artha-logo.png" alt="SUBHA-ARTHA Logo" class="subha-animated-logo">
+              </div>
+
+              <div class="subha-brand-title">SUBHA-ARTHA</div>
+              <div class="subha-brand-tagline">
+                We grow your <span style="color:#38BDF8; font-weight:800;">BUSINESS</span> &amp; <span style="color:#F43F5E; font-weight:800;">CAREER</span>
+              </div>
+
+              <div class="subha-cred-badge">
+                <div style="color:#FDE68A; font-weight:700; font-size:12px; margin-bottom:4px;">
+                  👑 Official Main Event Organiser
+                </div>
+                <span>Strategic Management, Web Architecture &amp; Brand Advisor for Kamalpur Abhijan Sangha</span>
+              </div>
+
+              <button type="button" class="org-action-btn ghost-btn" style="margin-top:16px; width:100%; font-size:12px;" onclick="openPartnerImageModal('assets/subha-artha-card.png', 'SUBHA-ARTHA Official Credentials Card')">
+                🔍 Inspect Official Accreditation Card
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <!-- Section Introduction (Harmonized with artists.html) -->
       <div class="reveal" style="text-align: center; max-width: 820px; margin: 0 auto 48px;">
@@ -1932,7 +2305,7 @@
 
     // Scrollspy for partners subnav
     window.addEventListener('scroll', function() {
-      var sections = ['production-partners', 'technical-capabilities', 'associates-directory', 'reach-demographics', 'sponsor-tiers', 'inquiry'];
+      var sections = ['main-event-organiser', 'production-partners', 'technical-capabilities', 'associates-directory', 'reach-demographics', 'sponsor-tiers', 'inquiry'];
       var links = document.querySelectorAll('.partners-subnav-link');
       var scrollPos = window.scrollY + 160;
 
