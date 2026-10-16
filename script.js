@@ -202,6 +202,7 @@ const eventDatabase = {
     title: 'Ranaghat Durgotsav 2026 (Conducted by Kamalpur Abhijan Sangha)',
     html: `
       <p><strong>Conducted by:</strong> Kamalpur Abhijan Sangha (কামালপুর অভিযান সংঘ)</p>
+      <p><strong>Event Direction &amp; Management:</strong> Subha Kumar Mandal (SUBHA-ARTHA)</p>
       <p><strong>Dates:</strong> Maha Shasthi to Vijaya Dashami (October 16–20, 2026)</p>
       <p><strong>Venue:</strong> Kamalpur Sangha Prangon (Near Primary Health Centre), Ranaghat, Nadia</p>
       <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:16px 0; border:1px solid var(--border);">
@@ -288,6 +289,42 @@ const eventDatabase = {
     title: 'Annual Sports Day & Mini Marathon',
     html: `
       <p>Full day of sports featuring track events, lemon-and-spoon race for children, musical chairs, veteran's walk, and the 5-kilometer Ranaghat Friendship Mini Marathon.</p>
+    `
+  },
+  manager: {
+    badge: 'OFFICIAL EVENT MANAGEMENT',
+    title: 'Lead Event Manager: Subha Kumar Mandal (SUBHA-ARTHA)',
+    html: `
+      <div style="display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+        <img src="assets/event-manager-avatar.jpg" alt="Subha Kumar Mandal" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:2.5px solid var(--gold); box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+        <div>
+          <h4 style="font-family:var(--serif); font-size:22px; color:var(--eg-dark); margin:0 0 4px;">SUBHA Kumar MANDAL</h4>
+          <p style="margin:0 0 4px; color:var(--gold-dark); font-weight:700; font-size:13.5px;">Civil Engineering · CA (Inter)</p>
+          <p style="margin:0; color:var(--text-2); font-size:13px;">Business &amp; Career Consultant · Lead Event Organiser</p>
+          <p style="margin:3px 0 0; color:var(--eg); font-weight:700; font-size:13px;">Managing Director: <strong>SUBHA-ARTHA</strong></p>
+        </div>
+      </div>
+
+      <div style="margin:16px 0; border-radius:12px; overflow:hidden; border:1px solid var(--border); box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+        <img src="assets/subha-artha-card.png" alt="SUBHA-ARTHA Visiting Card" style="width:100%; display:block;">
+      </div>
+
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:16px 0; border:1px solid var(--border); font-size:13.5px; line-height:1.7;">
+        <h5 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:16px;">Event Direction &amp; Core Operations:</h5>
+        <ul style="padding-left:18px; margin:0;">
+          <li><strong>Architecture &amp; Layout:</strong> 80 Temple Pavilions housing 117 Durga forms engineered for smooth queue dispersion.</li>
+          <li><strong>Illumination &amp; Sound:</strong> Over 1.5 km of Chandannagar light boulevards and multi-stage acoustics.</li>
+          <li><strong>Public Safety &amp; Seva:</strong> 24x7 security perimeter, emergency medical corridors, and daily Annakut Maha Bhog logistics.</li>
+          <li><strong>Media &amp; Web Production:</strong> Multi-camera live broadcast, sponsorship activation, and official web portals.</li>
+        </ul>
+      </div>
+
+      <div style="background:#FFF8E7; padding:16px; border-radius:12px; border:1px solid #FFE082; font-size:13.5px;">
+        <p style="margin:0 0 6px;"><strong>Direct Phones:</strong> <a href="tel:+918637578740" style="color:var(--eg); font-weight:700;">+91 8637578740</a> / <a href="tel:+918250603038" style="color:var(--eg); font-weight:700;">+91 8250603038</a></p>
+        <p style="margin:0 0 6px;"><strong>WhatsApp:</strong> <a href="https://wa.me/918637578740?text=Hello%20Subha%20Kumar%20Mandal,%20inquiry%20regarding%20Kamalpur%20Abhijan%20Sangha%20Event%20Management." target="_blank" rel="noopener noreferrer" style="color:#25D366; font-weight:700;">Chat on WhatsApp &rarr;</a></p>
+        <p style="margin:0 0 6px;"><strong>Email:</strong> <a href="mailto:thesubhaartha@gmail.com" style="color:var(--eg); font-weight:700;">thesubhaartha@gmail.com</a></p>
+        <p style="margin:0;"><strong>Official Website:</strong> <a href="https://www.subhaartha.com" target="_blank" rel="noopener noreferrer" style="color:var(--eg); font-weight:700;">www.subhaartha.com &rarr;</a></p>
+      </div>
     `
   }
 };
