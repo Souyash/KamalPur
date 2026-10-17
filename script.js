@@ -351,16 +351,25 @@ function openArtistModal() {
   const title = document.getElementById('eventModalTitle');
   const body = document.getElementById('eventModalBody');
 
-  if (badge) badge.textContent = 'CULTURAL SCHEDULE · SHARODOTSAV 2026';
-  if (title) title.textContent = 'Cultural Artists & Performing Acts';
+  if (badge) badge.textContent = 'ARTISANS & SCULPTORS · SHARODOTSAV 2026';
+  if (title) title.textContent = 'Master Sculptors & Creative Visionaries';
   if (body) {
     body.innerHTML = `
       <div style="line-height:1.7;">
-        <p><strong>Maha Shasthi (Oct 16):</strong> Inauguration ceremony followed by Dhaak Ensemble & Inaugural Baul Sandhya.</p>
-        <p style="margin-top:10px;"><strong>Maha Saptami (Oct 17):</strong> Classical Bengali Modern Songs by prominent artists from Kolkata.</p>
-        <p style="margin-top:10px;"><strong>Maha Ashtami (Oct 18):</strong> Dhunuchi Naach competition & Mega Folk Band live performance.</p>
-        <p style="margin-top:10px;"><strong>Maha Nabami (Oct 19):</strong> Theatrical Drama (Natok) staged by Kamalpur Natyadal followed by Bollywood-Bengali fusion night.</p>
-        <p style="margin-top:10px;"><strong>Vijaya Dashami (Oct 20):</strong> Sindoor Khela, Shobhayatra, and traditional Immersion procession along the Churni river.</p>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px; padding-bottom:14px; border-bottom:1px solid rgba(212,160,23,0.25);">
+          <img src="assets/artist-nitish-munshi-avatar.jpg" alt="Nitish Munshi" style="width:54px; height:54px; border-radius:50%; object-fit:cover; border:2px solid var(--gold, #B45309); flex-shrink:0;">
+          <div>
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-dark, #B45309); font-weight:700;">Pratima Shilpi · প্রধান প্রতিমা শিল্পী</div>
+            <strong style="font-size:16px; color:var(--text-1, #1A1A1A);">Sri Nitish Munshi (শ্রী নীতিশ মুন্সী)</strong>
+            <div style="font-size:13px; color:var(--text-2, #4A5568);">Lead Sculptor crafting Maa Durga's sacred pratima for the 2026 theme <em>&ldquo;গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ&rdquo;</em>.</div>
+          </div>
+        </div>
+        <p><strong>Kumartuli & Krishnanagar Clay Masters:</strong> Hand-sculpting the venerated 117 scriptural forms of Devi Durga across 80 temple pavilions.</p>
+        <p style="margin-top:10px;"><strong>Pandal Architects (Ray & Dey):</strong> Eco-friendly bamboo, terracotta relief, and dokra brass spatial installation across 45,000 sq ft.</p>
+        <p style="margin-top:10px;"><strong>Chandannagar Illumination (Babu Pal & Sridam Das):</strong> 1.5 km animated LED gate avenue along Ranaghat station boulevard.</p>
+        <div style="margin-top:18px; text-align:center;">
+          <a href="artists.html" class="hero-btn primary" style="display:inline-block; padding:10px 22px; font-size:13px; text-decoration:none; border-radius:8px; background:var(--gold-dark, #B45309); color:#fff; font-weight:700;">View Full Master Artisans Directory &rarr;</a>
+        </div>
       </div>
     `;
   }
@@ -754,8 +763,29 @@ function initAdminSeedData() {
       localStorage.setItem('kas_gallery', JSON.stringify(sampleGallery));
     }
 
-    if (localStorage.getItem('kas_artists') === null) {
+    const nitishMunshiArtist = {
+      id: 0,
+      name: 'Nitish Munshi',
+      craft: 'Master Sculptor & Chief Idol Artist (প্রধান প্রতিমা শিল্পী)',
+      region: 'Nadia & Kumartuli Tradition · Maa Durga Pratima Shilpi',
+      era_tag: '2026 Theme Idol',
+      avatar_initials: 'NM',
+      bio: 'Acclaimed master sculptor and idol artisan Nitish Munshi breathes transcendent spiritual majesty and emotional depth into sacred clay. For Kamalpur Abhijan Sangha\'s historic 2026 Durgotsav under the theme "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Nitish Munshi leads the sculpting of the sanctum\'s divine Maa Durga Mahishasuramardini pratima and sacred forms, weaving classical Shastric clay modeling, sacred Ganga silt, and evocative devotional expression.',
+      tradition: 'Sacred Clay Modeling, Shastric Iconography & Chokkhu Daan Artistry',
+      accolades: 'Lead Idol Artisan for 2026 Theme',
+      creations: '117 Forms Sanctum Idols, Mahishasuramardini, Navadurga Sculptural Iconography',
+      philosophy: '"প্রতিমা শুধু মাটির রূপ নয়, মায়ের প্রতি ভক্ত হৃদয়ের নিখাদ ভক্তি আর অনুভবের দৃশ্যমান প্রকাশ। Chokkhu Daan is the supreme moment when clay awakens into divinity, blessing every soul that bows before Her."',
+      img_url: 'assets/artist-nitish-munshi-avatar.jpg'
+    };
+
+    let storedArtists = null;
+    try {
+      storedArtists = JSON.parse(localStorage.getItem('kas_artists') || 'null');
+    } catch (e) {}
+
+    if (!storedArtists || !Array.isArray(storedArtists) || storedArtists.length === 0) {
       const sampleArtists = [
+        nitishMunshiArtist,
         {
           id: 1,
           name: 'Pradip Rudra Pal',
@@ -836,6 +866,11 @@ function initAdminSeedData() {
         }
       ];
       localStorage.setItem('kas_artists', JSON.stringify(sampleArtists));
+    } else {
+      if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('nitish munshi'))) {
+        storedArtists.unshift(nitishMunshiArtist);
+        localStorage.setItem('kas_artists', JSON.stringify(storedArtists));
+      }
     }
   } catch (e) {
     console.error('Seed data error:', e);
@@ -929,6 +964,7 @@ async function initPublicArtists() {
 
   const artistsList = JSON.parse(localStorage.getItem('kas_artists') || '[]');
   if (!artistsList || artistsList.length === 0) {
+    if (grid.querySelectorAll('.artist-card').length > 0) return;
     grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--text-2); font-size: 15px; font-weight: 500;">No master artisan profiles published yet. Check back soon!</div>';
     return;
   }
