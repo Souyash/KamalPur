@@ -808,6 +808,21 @@ function initAdminSeedData() {
       img_url: 'assets/artist-apurba-ray-avatar.jpg'
     };
 
+    const proshantoRoyArtist = {
+      id: 103,
+      name: 'Proshanto Roy',
+      craft: 'Master Artisan & Thematic Sculptor (প্রতিমা ও রূপসজ্জা শিল্পী)',
+      region: 'Nadia & Bengal Artisan Guild · থিম ও প্রতিমা শিল্পী',
+      era_tag: '2026 Theme Artisan',
+      avatar_initials: 'PR',
+      bio: 'Dedicated artisan and sculptor Proshanto Roy co-creates the profound sculptural majesty and sacred cave atmosphere for our historic 2026 Durgotsav presentation "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ". Through exquisite clay modeling and thematic detailing, Sri Proshanto Roy manifests the timeless spiritual grace of the divine Mother.',
+      tradition: 'Sacred Clay Modeling, Sculptural Detailing & Thematic Artistry',
+      accolades: '2026 Theme Master Artisan & Sculptor',
+      creations: 'Thematic Sculpture & Sacred Sanctum Forms for 117 Durga Manifestations',
+      philosophy: '"শিল্প যেখানে ভক্তির রূপ ধারণ করে, মায়ের আশীর্বাদে সেই সৃষ্টি জীবন্ত হয়ে ওঠে।"',
+      img_url: 'assets/artist-proshanto-roy-avatar.jpg'
+    };
+
     let storedArtists = null;
     try {
       storedArtists = JSON.parse(localStorage.getItem('kas_artists') || 'null');
@@ -818,6 +833,7 @@ function initAdminSeedData() {
         nitishMunshiArtist,
         sanjitSarkarArtist,
         apurbaRayArtist,
+        proshantoRoyArtist,
         {
           id: 1,
           name: 'Pradip Rudra Pal',
@@ -900,6 +916,21 @@ function initAdminSeedData() {
       localStorage.setItem('kas_artists', JSON.stringify(sampleArtists));
     } else {
       let updated = false;
+      if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('proshanto roy'))) {
+        const apurbaIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('apurba ray'));
+        const sanjitIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
+        const nitishIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
+        let insertIdx = 0;
+        if (apurbaIdx !== -1) {
+          insertIdx = apurbaIdx + 1;
+        } else if (sanjitIdx !== -1) {
+          insertIdx = sanjitIdx + 1;
+        } else if (nitishIdx !== -1) {
+          insertIdx = nitishIdx + 1;
+        }
+        storedArtists.splice(insertIdx, 0, proshantoRoyArtist);
+        updated = true;
+      }
       if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('apurba ray'))) {
         const sanjitIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
         const nitishIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
@@ -1065,8 +1096,38 @@ async function initPublicArtists() {
     img_url: 'assets/artist-apurba-ray-avatar.jpg'
   };
 
+  const proshantoRoyArtist = {
+    id: 103,
+    name: 'Proshanto Roy',
+    craft: 'Master Artisan & Thematic Sculptor (প্রতিমা ও রূপসজ্জা শিল্পী)',
+    region: 'Nadia & Bengal Artisan Guild · থিম ও প্রতিমা শিল্পী',
+    era_tag: '2026 Theme Artisan',
+    avatar_initials: 'PR',
+    bio: 'Dedicated artisan and sculptor Proshanto Roy co-creates the profound sculptural majesty and sacred cave atmosphere for our historic 2026 Durgotsav presentation "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ". Through exquisite clay modeling and thematic detailing, Sri Proshanto Roy manifests the timeless spiritual grace of the divine Mother.',
+    tradition: 'Sacred Clay Modeling, Sculptural Detailing & Thematic Artistry',
+    accolades: '2026 Theme Master Artisan & Sculptor',
+    creations: 'Thematic Sculpture & Sacred Sanctum Forms for 117 Durga Manifestations',
+    philosophy: '"শিল্প যেখানে ভক্তির রূপ ধারণ করে, মায়ের আশীর্বাদে সেই সৃষ্টি জীবন্ত হয়ে ওঠে।"',
+    img_url: 'assets/artist-proshanto-roy-avatar.jpg'
+  };
+
   if (Array.isArray(artistsList) && artistsList.length > 0) {
     let updated = false;
+    if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('proshanto roy'))) {
+      const apurbaIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('apurba ray'));
+      const sanjitIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
+      const nitishIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
+      let insertIdx = 0;
+      if (apurbaIdx !== -1) {
+        insertIdx = apurbaIdx + 1;
+      } else if (sanjitIdx !== -1) {
+        insertIdx = sanjitIdx + 1;
+      } else if (nitishIdx !== -1) {
+        insertIdx = nitishIdx + 1;
+      }
+      artistsList.splice(insertIdx, 0, proshantoRoyArtist);
+      updated = true;
+    }
     if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('apurba ray'))) {
       const sanjitIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
       const nitishIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
