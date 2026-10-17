@@ -962,7 +962,33 @@ async function initPublicArtists() {
     }
   } catch (e) {}
 
-  const artistsList = JSON.parse(localStorage.getItem('kas_artists') || '[]');
+  let artistsList = [];
+  try {
+    artistsList = JSON.parse(localStorage.getItem('kas_artists') || '[]');
+  } catch (e) {}
+
+  const nitishMunshiArtist = {
+    id: 1,
+    name: 'Nitish Munshi',
+    craft: 'Master Sculptor & Chief Idol Artist (প্রধান প্রতিমা শিল্পী)',
+    region: 'Nadia & Kumartuli Tradition · Maa Durga Pratima Shilpi',
+    era_tag: '2026 Theme Idol',
+    avatar_initials: 'NM',
+    bio: 'Acclaimed master sculptor and idol artisan Nitish Munshi breathes transcendent spiritual majesty and emotional depth into sacred clay. For Kamalpur Abhijan Sangha\'s historic 2026 Durgotsav under the theme "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Nitish Munshi leads the sculpting of the sanctum\'s divine Maa Durga Mahishasuramardini pratima and sacred forms, weaving classical Shastric clay modeling, sacred Ganga silt, and evocative devotional expression.',
+    tradition: 'Sacred Clay Modeling, Shastric Iconography & Chokkhu Daan Artistry',
+    accolades: 'Lead Idol Artisan for 2026 Theme',
+    creations: '117 Forms Sanctum Idols, Mahishasuramardini, Navadurga Sculptural Iconography',
+    philosophy: '"প্রতিমা শুধু মাটির রূপ নয়, মায়ের প্রতি ভক্ত হৃদয়ের নিখাদ ভক্তি আর অনুভবের দৃশ্যমান প্রকাশ। Chokkhu Daan is the supreme moment when clay awakens into divinity, blessing every soul that bows before Her."',
+    img_url: 'assets/artist-nitish-munshi-avatar.jpg'
+  };
+
+  if (Array.isArray(artistsList) && artistsList.length > 0) {
+    if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('nitish munshi'))) {
+      artistsList.unshift(nitishMunshiArtist);
+      localStorage.setItem('kas_artists', JSON.stringify(artistsList));
+    }
+  }
+
   if (!artistsList || artistsList.length === 0) {
     if (grid.querySelectorAll('.artist-card').length > 0) return;
     grid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--text-2); font-size: 15px; font-weight: 500;">No master artisan profiles published yet. Check back soon!</div>';
