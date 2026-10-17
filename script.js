@@ -778,6 +778,21 @@ function initAdminSeedData() {
       img_url: 'assets/artist-nitish-munshi-avatar.jpg'
     };
 
+    const sanjitSarkarArtist = {
+      id: 101,
+      name: 'Sanjit Sarkar',
+      craft: 'Master Sculptor & Idol Artisan (প্রতিমা শিল্পী ও মৃৎশিল্পী)',
+      region: 'Nadia & Bengal Artisan Guild · Maa Durga Pratima Shilpi',
+      era_tag: '2026 Theme Idol',
+      avatar_initials: 'SS',
+      bio: 'Esteemed master sculptor and idol artisan Sanjit Sarkar is dedicated to the classical art of Bengal clay iconography. For Kamalpur Abhijan Sangha\'s 2026 landmark Durgotsav centering on "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Sanjit Sarkar sculpts sacred representations of the divine mother, combining pure alluvial Ganga clay, anatomical perfection, and spiritual facial ornamentation.',
+      tradition: 'Sacred Clay Modeling, Traditional Straw Binding & Divine Visage',
+      accolades: 'Lead Idol Artisan for 2026 Theme',
+      creations: '117 Forms Sanctum Idols, Mahishasuramardini & Scriptural Iconography',
+      philosophy: '"মাটির প্রতিটি ছোঁয়ায় ভক্তি আর নিষ্ঠা মিশে থাকে। মায়ের প্রসন্ন রূপ ফুটিয়ে তোলাই আমাদের পরম সাধনা।"',
+      img_url: 'assets/artist-sanjit-sarkar-avatar.jpg'
+    };
+
     let storedArtists = null;
     try {
       storedArtists = JSON.parse(localStorage.getItem('kas_artists') || 'null');
@@ -786,6 +801,7 @@ function initAdminSeedData() {
     if (!storedArtists || !Array.isArray(storedArtists) || storedArtists.length === 0) {
       const sampleArtists = [
         nitishMunshiArtist,
+        sanjitSarkarArtist,
         {
           id: 1,
           name: 'Pradip Rudra Pal',
@@ -867,8 +883,17 @@ function initAdminSeedData() {
       ];
       localStorage.setItem('kas_artists', JSON.stringify(sampleArtists));
     } else {
+      let updated = false;
+      if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'))) {
+        const insertIdx = storedArtists.some(a => a.name && a.name.toLowerCase().includes('nitish munshi')) ? 1 : 0;
+        storedArtists.splice(insertIdx, 0, sanjitSarkarArtist);
+        updated = true;
+      }
       if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('nitish munshi'))) {
         storedArtists.unshift(nitishMunshiArtist);
+        updated = true;
+      }
+      if (updated) {
         localStorage.setItem('kas_artists', JSON.stringify(storedArtists));
       }
     }
@@ -982,9 +1007,33 @@ async function initPublicArtists() {
     img_url: 'assets/artist-nitish-munshi-avatar.jpg'
   };
 
+  const sanjitSarkarArtist = {
+    id: 101,
+    name: 'Sanjit Sarkar',
+    craft: 'Master Sculptor & Idol Artisan (প্রতিমা শিল্পী ও মৃৎশিল্পী)',
+    region: 'Nadia & Bengal Artisan Guild · Maa Durga Pratima Shilpi',
+    era_tag: '2026 Theme Idol',
+    avatar_initials: 'SS',
+    bio: 'Esteemed master sculptor and idol artisan Sanjit Sarkar is dedicated to the classical art of Bengal clay iconography. For Kamalpur Abhijan Sangha\'s 2026 landmark Durgotsav centering on "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Sanjit Sarkar sculpts sacred representations of the divine mother, combining pure alluvial Ganga clay, anatomical perfection, and spiritual facial ornamentation.',
+    tradition: 'Sacred Clay Modeling, Traditional Straw Binding & Divine Visage',
+    accolades: 'Lead Idol Artisan for 2026 Theme',
+    creations: '117 Forms Sanctum Idols, Mahishasuramardini & Scriptural Iconography',
+    philosophy: '"মাটির প্রতিটি ছোঁয়ায় ভক্তি আর নিষ্ঠা মিশে থাকে। মায়ের প্রসন্ন রূপ ফুটিয়ে তোলাই আমাদের পরম সাধনা।"',
+    img_url: 'assets/artist-sanjit-sarkar-avatar.jpg'
+  };
+
   if (Array.isArray(artistsList) && artistsList.length > 0) {
+    let updated = false;
+    if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'))) {
+      const insertIdx = artistsList.some(a => a.name && a.name.toLowerCase().includes('nitish munshi')) ? 1 : 0;
+      artistsList.splice(insertIdx, 0, sanjitSarkarArtist);
+      updated = true;
+    }
     if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('nitish munshi'))) {
       artistsList.unshift(nitishMunshiArtist);
+      updated = true;
+    }
+    if (updated) {
       localStorage.setItem('kas_artists', JSON.stringify(artistsList));
     }
   }
