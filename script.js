@@ -793,6 +793,21 @@ function initAdminSeedData() {
       img_url: 'assets/artist-sanjit-sarkar-avatar.jpg'
     };
 
+    const apurbaRayArtist = {
+      id: 102,
+      name: 'Apurba Ray',
+      craft: 'Master Artist & Thematic Sculptor (মন্ডপ ও রূপসজ্জা শিল্পী)',
+      region: 'Nadia & Bengal Art Studio · রূপসজ্জা ও থিম শিল্পী',
+      era_tag: '2026 Theme Artisan',
+      avatar_initials: 'AR',
+      bio: 'Master artist Apurba Ray is renowned for his mastery over thematic sacred spatial aesthetics, environmental ornamentation, and classical Bengal artistic craftsmanship. For Kamalpur Abhijan Sangha\'s 2026 landmark celebration of "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Apurba Ray orchestrates the atmospheric ornamentation and sanctum artistic installations that elevate the devotee\'s spiritual journey into the ancient cave sanctum of the Adi Shakti.',
+      tradition: 'Thematic Space Design, Bengal Clay & Sanctum Artistry',
+      accolades: '2026 Theme Master Artisan & Spatial Designer',
+      creations: 'Sanctum Ambience & Aesthetic Ornamentation of 117 Durga Forms',
+      philosophy: '"শিল্প যেখানে ভক্তির রূপ ধারণ করে, সেখানেই সৃষ্টি সার্থক হয়। মায়ের অপরূপ রূপসজ্জায় আমাদের পরম নিষ্ঠা।"',
+      img_url: 'assets/artist-apurba-ray-avatar.jpg'
+    };
+
     let storedArtists = null;
     try {
       storedArtists = JSON.parse(localStorage.getItem('kas_artists') || 'null');
@@ -802,6 +817,7 @@ function initAdminSeedData() {
       const sampleArtists = [
         nitishMunshiArtist,
         sanjitSarkarArtist,
+        apurbaRayArtist,
         {
           id: 1,
           name: 'Pradip Rudra Pal',
@@ -884,6 +900,18 @@ function initAdminSeedData() {
       localStorage.setItem('kas_artists', JSON.stringify(sampleArtists));
     } else {
       let updated = false;
+      if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('apurba ray'))) {
+        const sanjitIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
+        const nitishIdx = storedArtists.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
+        let insertIdx = 0;
+        if (sanjitIdx !== -1) {
+          insertIdx = sanjitIdx + 1;
+        } else if (nitishIdx !== -1) {
+          insertIdx = nitishIdx + 1;
+        }
+        storedArtists.splice(insertIdx, 0, apurbaRayArtist);
+        updated = true;
+      }
       if (!storedArtists.some(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'))) {
         const insertIdx = storedArtists.some(a => a.name && a.name.toLowerCase().includes('nitish munshi')) ? 1 : 0;
         storedArtists.splice(insertIdx, 0, sanjitSarkarArtist);
@@ -1022,8 +1050,35 @@ async function initPublicArtists() {
     img_url: 'assets/artist-sanjit-sarkar-avatar.jpg'
   };
 
+  const apurbaRayArtist = {
+    id: 102,
+    name: 'Apurba Ray',
+    craft: 'Master Artist & Thematic Sculptor (মন্ডপ ও রূপসজ্জা শিল্পী)',
+    region: 'Nadia & Bengal Art Studio · রূপসজ্জা ও থিম শিল্পী',
+    era_tag: '2026 Theme Artisan',
+    avatar_initials: 'AR',
+    bio: 'Master artist Apurba Ray is renowned for his mastery over thematic sacred spatial aesthetics, environmental ornamentation, and classical Bengal artistic craftsmanship. For Kamalpur Abhijan Sangha\'s 2026 landmark celebration of "গর্ভগুহার অন্তরালে আদিশক্তির অনন্ত রূপ", Sri Apurba Ray orchestrates the atmospheric ornamentation and sanctum artistic installations that elevate the devotee\'s spiritual journey into the ancient cave sanctum of the Adi Shakti.',
+    tradition: 'Thematic Space Design, Bengal Clay & Sanctum Artistry',
+    accolades: '2026 Theme Master Artisan & Spatial Designer',
+    creations: 'Sanctum Ambience & Aesthetic Ornamentation of 117 Durga Forms',
+    philosophy: '"শিল্প যেখানে ভক্তির রূপ ধারণ করে, সেখানেই সৃষ্টি সার্থক হয়। মায়ের অপরূপ রূপসজ্জায় আমাদের পরম নিষ্ঠা।"',
+    img_url: 'assets/artist-apurba-ray-avatar.jpg'
+  };
+
   if (Array.isArray(artistsList) && artistsList.length > 0) {
     let updated = false;
+    if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('apurba ray'))) {
+      const sanjitIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'));
+      const nitishIdx = artistsList.findIndex(a => a.name && a.name.toLowerCase().includes('nitish munshi'));
+      let insertIdx = 0;
+      if (sanjitIdx !== -1) {
+        insertIdx = sanjitIdx + 1;
+      } else if (nitishIdx !== -1) {
+        insertIdx = nitishIdx + 1;
+      }
+      artistsList.splice(insertIdx, 0, apurbaRayArtist);
+      updated = true;
+    }
     if (!artistsList.some(a => a.name && a.name.toLowerCase().includes('sanjit sarkar'))) {
       const insertIdx = artistsList.some(a => a.name && a.name.toLowerCase().includes('nitish munshi')) ? 1 : 0;
       artistsList.splice(insertIdx, 0, sanjitSarkarArtist);
