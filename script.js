@@ -396,8 +396,11 @@ function filterHomeGallery(category, btnElement) {
   });
 }
 
-function openLightbox(titleOrEl, caption, icon) {
-  const modal = document.getElementById('lightboxModal');
+let activeLightboxItems = [];
+let activeLightboxIndex = 0;
+
+function populateLightboxFromElement(el) {
+  if (!el || el.nodeType !== 1) return;
   const lbTitle = document.getElementById('lbTitle');
   const lbCaption = document.getElementById('lbCaption');
   const lbIcon = document.getElementById('lbIcon');
@@ -405,40 +408,82 @@ function openLightbox(titleOrEl, caption, icon) {
   const lbImg = document.getElementById('lbImg');
   const lbBadge = document.getElementById('lbBadge');
   const lbYear = document.getElementById('lbYear');
+  const lbCounter = document.getElementById('lbCounter');
+  const prevBtn = document.querySelector('.lb-prev');
+  const nextBtn = document.querySelector('.lb-next');
 
-  if (titleOrEl && titleOrEl.nodeType === 1) {
-    const el = titleOrEl;
-    const t = el.getAttribute('data-title') || el.querySelector('.gi-caption strong')?.textContent || '';
-    const d = el.getAttribute('data-desc') || el.querySelector('.gi-caption span')?.textContent || '';
-    const imgSrc = el.getAttribute('data-img') || el.querySelector('img')?.getAttribute('src');
-    const cat = el.getAttribute('data-cat-label') || el.querySelector('.gi-badge')?.textContent || el.getAttribute('data-cat') || 'Kamalpur Gallery';
-    const yr = el.getAttribute('data-year') || el.querySelector('.gi-year-tag')?.textContent || '2026';
-    const iconEl = el.querySelector('.gi-icon');
+  const t = el.getAttribute('data-title') || el.querySelector('.gi-title, .hgi-title, .gi-caption strong')?.textContent || '';
+  const d = el.getAttribute('data-desc') || el.querySelector('.gi-desc, .hgi-desc, .gi-caption span')?.textContent || '';
+  const imgSrc = el.getAttribute('data-img') || el.querySelector('img')?.getAttribute('src');
+  const cat = el.getAttribute('data-cat-label') || el.querySelector('.gi-badge, .hgi-tags .gi-badge')?.textContent || el.getAttribute('data-cat') || 'Kamalpur Gallery';
+  const yr = el.getAttribute('data-year') || el.querySelector('.gi-year-tag, .hgi-tags .gi-year-tag')?.textContent || '2026';
+  const iconEl = el.querySelector('.gi-icon');
 
-    if (lbTitle) lbTitle.textContent = t;
-    if (lbCaption) lbCaption.textContent = d;
-    if (lbBadge) lbBadge.textContent = cat;
-    if (lbYear) lbYear.textContent = yr;
+  if (lbTitle) lbTitle.textContent = t;
+  if (lbCaption) lbCaption.textContent = d;
+  if (lbBadge) lbBadge.textContent = cat;
+  if (lbYear) lbYear.textContent = yr;
 
-    if (imgSrc && lbImgBox && lbImg) {
-      lbImg.src = imgSrc;
-      lbImg.alt = t || 'Enlarged gallery view';
-      lbImgBox.style.display = 'flex';
-      if (lbIcon) lbIcon.style.display = 'none';
-    } else {
-      if (lbImgBox) lbImgBox.style.display = 'none';
-      if (lbIcon) {
-        lbIcon.style.display = 'inline-flex';
-        if (iconEl) lbIcon.innerHTML = iconEl.innerHTML;
-      }
-    }
+  if (activeLightboxItems.length > 1 && lbCounter) {
+    lbCounter.textContent = `${activeLightboxIndex + 1} / ${activeLightboxItems.length}`;
+    lbCounter.style.display = 'inline-block';
+    if (prevBtn) prevBtn.style.display = 'flex';
+    if (nextBtn) nextBtn.style.display = 'flex';
   } else {
+    if (lbCounter) lbCounter.style.display = 'none';
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+  }
+
+  if (imgSrc && lbImgBox && lbImg) {
+    lbImg.src = imgSrc;
+    lbImg.alt = t || 'Enlarged gallery view';
+    lbImgBox.style.display = 'flex';
+    if (lbIcon) lbIcon.style.display = 'none';
+  } else {
+    if (lbImgBox) lbImgBox.style.display = 'none';
+    if (lbIcon) {
+      lbIcon.style.display = 'inline-flex';
+      if (iconEl) lbIcon.innerHTML = iconEl.innerHTML;
+    }
+  }
+}
+
+function openLightbox(titleOrEl, caption, icon) {
+  const modal = document.getElementById('lightboxModal');
+  if (titleOrEl && titleOrEl.nodeType === 1) {
+    const parentContainer = titleOrEl.closest('#mainGalleryGrid, #homeGalleryGrid, .gallery-grid, .home-gallery-grid');
+    if (parentContainer) {
+      activeLightboxItems = Array.from(parentContainer.querySelectorAll('.gallery-item, .home-gallery-item')).filter(it => it.style.display !== 'none');
+      const idx = activeLightboxItems.indexOf(titleOrEl);
+      activeLightboxIndex = idx >= 0 ? idx : 0;
+    } else {
+      activeLightboxItems = [titleOrEl];
+      activeLightboxIndex = 0;
+    }
+    populateLightboxFromElement(titleOrEl);
+  } else {
+    activeLightboxItems = [];
+    activeLightboxIndex = 0;
+    const lbTitle = document.getElementById('lbTitle');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbIcon = document.getElementById('lbIcon');
+    const lbImgBox = document.getElementById('lbImgBox');
+    const lbBadge = document.getElementById('lbBadge');
+    const lbYear = document.getElementById('lbYear');
+    const lbCounter = document.getElementById('lbCounter');
+    const prevBtn = document.querySelector('.lb-prev');
+    const nextBtn = document.querySelector('.lb-next');
+
     if (lbImgBox) lbImgBox.style.display = 'none';
     if (lbIcon) lbIcon.style.display = 'inline-flex';
     if (lbTitle) lbTitle.textContent = titleOrEl || '';
     if (lbCaption) lbCaption.textContent = caption || '';
     if (lbBadge) lbBadge.textContent = 'Kamalpur Gallery';
     if (lbYear) lbYear.textContent = '2026';
+    if (lbCounter) lbCounter.style.display = 'none';
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
     if (lbIcon && icon) {
       if (typeof icon === 'string' && icon.trim().startsWith('<')) {
         lbIcon.innerHTML = icon;
@@ -451,16 +496,61 @@ function openLightbox(titleOrEl, caption, icon) {
   if (modal) modal.classList.add('open');
 }
 
-function closeModal(modalId) {
-  const modal = document.getElementById(modalId);
+function lightboxNav(delta) {
+  if (!activeLightboxItems || activeLightboxItems.length <= 1) return;
+  activeLightboxIndex = (activeLightboxIndex + delta + activeLightboxItems.length) % activeLightboxItems.length;
+  populateLightboxFromElement(activeLightboxItems[activeLightboxIndex]);
+}
+
+window.openLightbox = openLightbox;
+window.lightboxNav = lightboxNav;
+
+function openVideoModal(videoSrc, title) {
+  const modal = document.getElementById('videoPlayerModal');
+  const player = document.getElementById('videoModalPlayer');
+  const titleEl = document.getElementById('videoModalTitle');
+  if (titleEl) titleEl.textContent = title || 'Kamalpur Video Chronicle';
+  if (player) {
+    player.src = videoSrc;
+    player.play().catch(() => {});
+  }
+  if (modal) modal.classList.add('open');
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById('videoPlayerModal');
+  const player = document.getElementById('videoModalPlayer');
+  if (player) {
+    player.pause();
+    player.src = '';
+  }
   if (modal) modal.classList.remove('open');
 }
 
-// Global escape key listener for modals
+window.openVideoModal = openVideoModal;
+window.closeVideoModal = closeVideoModal;
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) modal.classList.remove('open');
+  if (modalId === 'videoPlayerModal') {
+    const player = document.getElementById('videoModalPlayer');
+    if (player) {
+      player.pause();
+      player.src = '';
+    }
+  }
+}
+
+// Global escape key and arrow keys listener for modals
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    ['eventModal', 'donationModal', 'lightboxModal'].forEach(closeModal);
+    ['eventModal', 'donationModal', 'lightboxModal', 'videoPlayerModal'].forEach(closeModal);
     dismissIntro();
+  }
+  if (document.getElementById('lightboxModal')?.classList.contains('open')) {
+    if (e.key === 'ArrowRight') lightboxNav(1);
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
   }
 });
 
@@ -772,9 +862,87 @@ function initAdminSeedData() {
           year_tag: '44th Edition',
           desc_text: 'Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society.',
           img_url: 'assets/gallery/blood-donation.jpg'
+        },
+        {
+          id: 9,
+          title: 'Devotional Felicitations & Golden Mandap Ambience',
+          category: 'Maha Protima',
+          year_tag: 'Sharodotsav',
+          desc_text: 'Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal.',
+          img_url: 'assets/anant-ambani-honor-1.png'
+        },
+        {
+          id: 10,
+          title: 'Durgotsav Pandal Committee Evening Arati',
+          category: 'Sacred Rituals',
+          year_tag: 'Evening Arati',
+          desc_text: 'Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days.',
+          img_url: 'assets/anant-ambani-honor-2.png'
+        },
+        {
+          id: 11,
+          title: 'Chokkhu Daan & Red Sanctum Iconography',
+          category: 'Theme Architecture',
+          year_tag: '2026 Theme',
+          desc_text: 'Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti.',
+          img_url: 'assets/anant-ambani-honor-3.png'
+        },
+        {
+          id: 12,
+          title: 'Kamalpur Sangha Bhavan Community Assembly',
+          category: 'Social Seva',
+          year_tag: 'Community Seva',
+          desc_text: 'Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare.',
+          img_url: 'assets/kamalpur-social-poster.jpg'
         }
       ];
       localStorage.setItem('kas_gallery', JSON.stringify(sampleGallery));
+    } else {
+      try {
+        let storedGallery = JSON.parse(localStorage.getItem('kas_gallery') || '[]');
+        if (Array.isArray(storedGallery) && storedGallery.length < 12) {
+          const extraGallery = [
+            {
+              id: 9,
+              title: 'Devotional Felicitations & Golden Mandap Ambience',
+              category: 'Maha Protima',
+              year_tag: 'Sharodotsav',
+              desc_text: 'Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal.',
+              img_url: 'assets/anant-ambani-honor-1.png'
+            },
+            {
+              id: 10,
+              title: 'Durgotsav Pandal Committee Evening Arati',
+              category: 'Sacred Rituals',
+              year_tag: 'Evening Arati',
+              desc_text: 'Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days.',
+              img_url: 'assets/anant-ambani-honor-2.png'
+            },
+            {
+              id: 11,
+              title: 'Chokkhu Daan & Red Sanctum Iconography',
+              category: 'Theme Architecture',
+              year_tag: '2026 Theme',
+              desc_text: 'Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti.',
+              img_url: 'assets/anant-ambani-honor-3.png'
+            },
+            {
+              id: 12,
+              title: 'Kamalpur Sangha Bhavan Community Assembly',
+              category: 'Social Seva',
+              year_tag: 'Community Seva',
+              desc_text: 'Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare.',
+              img_url: 'assets/kamalpur-social-poster.jpg'
+            }
+          ];
+          extraGallery.forEach(item => {
+            if (!storedGallery.some(g => g.title === item.title)) {
+              storedGallery.push(item);
+            }
+          });
+          localStorage.setItem('kas_gallery', JSON.stringify(storedGallery));
+        }
+      } catch (e) {}
     }
 
     const nitishMunshiArtist = {
@@ -1030,33 +1198,126 @@ async function initPublicGallery() {
     return;
   }
 
-  grid.innerHTML = galleryList.map(item => {
+  // Update dynamic count tags on filter buttons
+  const counts = { all: galleryList.length, durga: 0, lights: 0, sports: 0, seva: 0, culture: 0 };
+  galleryList.forEach(item => {
+    const k = mapCategoryKey(item.category);
+    if (counts[k] !== undefined) counts[k]++;
+  });
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById('count-' + k);
+    if (el) el.textContent = counts[k];
+  });
+
+  grid.innerHTML = galleryList.map((item, index) => {
     const cat = item.category || 'Maha Protima';
     const catKey = mapCategoryKey(cat);
     const year = item.year_tag || '2025–2026';
     const title = item.title || 'Kamalpur Durgotsav';
     const desc = item.desc_text || '';
     const img = item.img_url || 'assets/durga-scene.jpg';
+    const isFeatured = item.is_featured || index === 0 || index === 2;
 
     return `
-      <div class="gallery-item" data-cat="${escapeAttr(catKey)}" data-cat-label="${escapeAttr(cat)}" data-year="${escapeAttr(year)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)">
+      <div class="gallery-item ${isFeatured ? 'is-featured' : ''}" data-cat="${escapeAttr(catKey)}" data-cat-label="${escapeAttr(cat)}" data-year="${escapeAttr(year)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="${escapeAttr(title)}">
         <div class="gi-photo-wrap">
           <img src="${escapeAttr(img)}" alt="${escapeAttr(title)}" class="gi-photo-img" loading="lazy" onerror="this.src='assets/durga-scene.jpg'">
-          <div class="gi-photo-overlay">
-            <div class="gi-photo-tags">
-              <span class="gi-badge">${escapeHtml(cat)}</span>
-              <span class="gi-year-tag">${escapeHtml(year)}</span>
-            </div>
-            <div class="gi-caption">
-              <strong>${escapeHtml(title)}</strong>
-              <span>${escapeHtml(desc)}</span>
-            </div>
+          <div class="gi-top-tags">
+            <span class="gi-badge">${escapeHtml(cat)}</span>
+            <span class="gi-year-tag">${escapeHtml(year)}</span>
+          </div>
+          <div class="gi-zoom-btn" title="View Fullscreen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+          </div>
+        </div>
+        <div class="gi-body">
+          <div>
+            <h3 class="gi-title">${escapeHtml(title)}</h3>
+            <p class="gi-desc">${escapeHtml(desc)}</p>
+          </div>
+          <div class="gi-footer">
+            <span>Ranaghat, Nadia</span>
+            <span class="gi-action-link">
+              View High-Res
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
           </div>
         </div>
       </div>
     `;
   }).join('');
 }
+
+window.currentGalleryCategory = 'all';
+window.currentGallerySearch = '';
+
+function filterGallery(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window.currentGalleryCategory = category || 'all';
+  applyGalleryFilters();
+}
+
+function handleGallerySearch(query) {
+  window.currentGallerySearch = query || '';
+  const clearBtn = document.getElementById('searchClearBtn');
+  if (clearBtn) clearBtn.style.display = query ? 'inline-block' : 'none';
+  applyGalleryFilters();
+}
+
+function clearGallerySearch() {
+  const input = document.getElementById('gallerySearchInput');
+  if (input) input.value = '';
+  handleGallerySearch('');
+}
+
+function applyGalleryFilters() {
+  const cat = window.currentGalleryCategory || 'all';
+  const q = (window.currentGallerySearch || '').trim().toLowerCase();
+  const items = document.querySelectorAll('#mainGalleryGrid .gallery-item');
+  let visibleCount = 0;
+
+  items.forEach(item => {
+    const itemCat = item.getAttribute('data-cat') || '';
+    const title = (item.getAttribute('data-title') || '').toLowerCase();
+    const desc = (item.getAttribute('data-desc') || '').toLowerCase();
+    const catLabel = (item.getAttribute('data-cat-label') || '').toLowerCase();
+    const year = (item.getAttribute('data-year') || '').toLowerCase();
+
+    const matchesCat = cat === 'all' || itemCat === cat;
+    const matchesSearch = !q || title.includes(q) || desc.includes(q) || catLabel.includes(q) || year.includes(q);
+
+    if (matchesCat && matchesSearch) {
+      item.style.display = '';
+      visibleCount++;
+    } else {
+      item.style.display = 'none';
+    }
+  });
+
+  const noResults = document.getElementById('galleryNoResults');
+  if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+function filterHomeGallery(category, btn) {
+  document.querySelectorAll('.h-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const items = document.querySelectorAll('#homeGalleryGrid .home-gallery-item');
+  items.forEach(item => {
+    if (category === 'all' || item.getAttribute('data-cat') === category) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+window.filterGallery = filterGallery;
+window.handleGallerySearch = handleGallerySearch;
+window.clearGallerySearch = clearGallerySearch;
+window.applyGalleryFilters = applyGalleryFilters;
+window.filterHomeGallery = filterHomeGallery;
 
 function mapCategoryKey(cat) {
   if (!cat) return 'all';

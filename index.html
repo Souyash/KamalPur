@@ -661,6 +661,161 @@
     </div>
   </section>
 
+  <!-- ══════════ GALLERY SHOWCASE SECTION (#gallery) ══════════ -->
+  <section id="gallery" class="gallery-showcase-section">
+    <div class="container">
+      <div class="gallery-showcase-header reveal">
+        <div>
+          <div class="eyebrow">Visual Splendor &amp; Heritage</div>
+          <h2 class="sh2">Glimpses of <em>Devotion</em> &amp; Grandeur</h2>
+          <p class="g-header-desc">
+            Witness the living soul of Ranaghat Durgotsav — from the monumental 117 sacred Durga manifestations to kinetic Chandannagar illuminations, high-voltage football cup finals, and over half a century of community seva.
+          </p>
+        </div>
+        <div>
+          <a href="gallery.html" class="hero-btn primary-btn" style="padding:12px 24px; font-size:13.5px; font-weight:700; white-space:nowrap;">
+            Explore Full 50+ Photo &amp; Video Archive &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Filter Chips for Home Showcase -->
+      <div class="home-gallery-filters reveal">
+        <button type="button" class="h-filter-btn active" onclick="filterHomeGallery('all', this)">🌟 All Highlights</button>
+        <button type="button" class="h-filter-btn" onclick="filterHomeGallery('durga', this)">🪔 Durgotsav &amp; Idols</button>
+        <button type="button" class="h-filter-btn" onclick="filterHomeGallery('lights', this)">💡 Illumination Gates</button>
+        <button type="button" class="h-filter-btn" onclick="filterHomeGallery('sports', this)">⚽ Sports &amp; Seva</button>
+      </div>
+
+      <!-- Curated Showcase Grid -->
+      <div class="home-gallery-grid reveal" id="homeGalleryGrid">
+        <!-- Item 1: 117 Forms Sanctum (Featured Large) -->
+        <div class="home-gallery-item h-featured" data-cat="durga" data-cat-label="Maha Protima" data-year="2025–2026" data-title="117 Forms of Devi Durga — Golden Sanctum" data-desc="Masterpiece sculpture installation depicting 117 scriptural forms of Goddess Durga sculpted from sacred Ganga silt by Kumartuli artisans." data-img="assets/durga-scene.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="117 Forms of Devi Durga — Golden Sanctum">
+          <div class="hgi-photo-box">
+            <img src="assets/durga-scene.jpg" alt="117 Forms of Devi Durga Protima" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Maha Protima</span>
+              <span class="gi-year-tag">2025–2026</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">117 Forms of Devi Durga — Golden Sanctum</h3>
+            <p class="hgi-desc">World-renowned thematic presentation showcasing 117 unique manifestations of Devi Durga within an ancient golden cave aesthetic.</p>
+          </div>
+        </div>
+
+        <!-- Item 2: Chandannagar Lights -->
+        <div class="home-gallery-item" data-cat="lights" data-cat-label="Illumination Gate" data-year="Night View" data-title="Chandannagar 3D Illumination Boulevard" data-desc="1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station." data-img="assets/gallery/chandannagar-lights.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chandannagar 3D Illumination Boulevard">
+          <div class="hgi-photo-box">
+            <img src="assets/gallery/chandannagar-lights.jpg" alt="Chandannagar Light Boulevard" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Illumination Gate</span>
+              <span class="gi-year-tag">Night View</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">Chandannagar 3D Light Boulevard</h3>
+            <p class="hgi-desc">Over 250,000 smart LEDs forming kinetic mythological chariots along the 1.5 km approach road.</p>
+          </div>
+        </div>
+
+        <!-- Item 3: Terracotta & Bamboo Mandap -->
+        <div class="home-gallery-item" data-cat="durga" data-cat-label="Theme Architecture" data-year="2025" data-title="Terracotta &amp; Bamboo Mandap Installation" data-desc="Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum." data-img="assets/durga-papercraft.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Terracotta &amp; Bamboo Mandap Installation">
+          <div class="hgi-photo-box">
+            <img src="assets/durga-papercraft.jpg" alt="Pandal Sculpture Craftsmanship" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Theme Architecture</span>
+              <span class="gi-year-tag">2025</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">Terracotta &amp; Bamboo Mandap</h3>
+            <p class="hgi-desc">Pure sustainable Bengal craftsmanship engineered from 65,000 bamboo poles and hand-carved terracotta tiles.</p>
+          </div>
+        </div>
+
+        <!-- Item 4: Sandhi Puja -->
+        <div class="home-gallery-item" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Maha Ashtami" data-title="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati" data-desc="Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants." data-img="assets/gallery/sandhi-puja.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati">
+          <div class="hgi-photo-box">
+            <img src="assets/gallery/sandhi-puja.jpg" alt="Maha Sandhi Puja 108 Lamps" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Sacred Rituals</span>
+              <span class="gi-year-tag">Maha Ashtami</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">Sandhi Puja 108 Pradip Aarati</h3>
+            <p class="hgi-desc">Sacred dusk transition consecrated with 108 blue lotuses, terracotta lamps, and resonant Sanskrit mantras.</p>
+          </div>
+        </div>
+
+        <!-- Item 5: Football Championship -->
+        <div class="home-gallery-item" data-cat="sports" data-cat-label="Youth Sports" data-year="Sports Meet" data-title="Kamalpur Gold Cup Floodlit Final Match" data-desc="Packed stadium roaring during the knockout football championship under floodlights." data-img="assets/gallery/football-goldcup.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Kamalpur Gold Cup Floodlit Final Match">
+          <div class="hgi-photo-box">
+            <img src="assets/gallery/football-goldcup.jpg" alt="Kamalpur Gold Cup Football" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Youth Sports</span>
+              <span class="gi-year-tag">Sports Meet</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">Kamalpur Gold Cup Final Match</h3>
+            <p class="hgi-desc">12,000 passionate spectators roaring under high-beam floodlights for the annual inter-district football championship.</p>
+          </div>
+        </div>
+
+        <!-- Item 6: Dhunuchi Naach & Dhak Symphony (Featured) -->
+        <div class="home-gallery-item h-featured" data-cat="sports" data-cat-label="Percussion &amp; Dance" data-year="Maha Navami" data-title="Maha Navami Dhunuchi Naach &amp; Dhak Symphony" data-desc="Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe." data-img="assets/gallery/dhunuchi-dance.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Navami Dhunuchi Naach &amp; Dhak Symphony">
+          <div class="hgi-photo-box">
+            <img src="assets/gallery/dhunuchi-dance.jpg" alt="Dhunuchi Naach and Dhak Beats" loading="lazy">
+            <div class="hgi-tags">
+              <span class="gi-badge">Percussion &amp; Dance</span>
+              <span class="gi-year-tag">Maha Navami</span>
+            </div>
+            <div class="gi-zoom-btn" title="View Fullscreen">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+            </div>
+          </div>
+          <div class="hgi-content">
+            <h3 class="hgi-title">Maha Navami Dhunuchi Naach &amp; Dhak Symphony</h3>
+            <p class="hgi-desc">Thunderous polyrhythmic beats from our 60-member Murshidabad dhaki troupe accompanying frenzied devotion.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Homepage Gallery Footer Card -->
+      <div class="home-gallery-footer reveal">
+        <div class="hg-footer-card">
+          <div class="hg-footer-left">
+            <span class="hg-footer-icon">📸</span>
+            <div>
+              <div class="hg-footer-title">Explore Over 50+ High-Resolution Archival Photos &amp; Video Chronicles</div>
+              <div class="hg-footer-sub">Browse categorized albums across 55+ editions of Kamalpur Abhijan Sangha Durgotsav.</div>
+            </div>
+          </div>
+          <a href="gallery.html" class="hg-footer-btn">
+            Open Full Gallery Page &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ PRESIDENT'S DESK (#president) ══════════ -->
   <section id="president">
     <div class="container">
@@ -1397,10 +1552,13 @@
         <div class="lightbox-meta-tags">
           <span class="lightbox-badge" id="lbBadge">Maha Protima</span>
           <span class="lightbox-year" id="lbYear">2026</span>
+          <span class="lightbox-counter" id="lbCounter" style="display:none;">1 / 12</span>
         </div>
       </div>
       <div id="lbImgBox" class="lightbox-img-box">
+        <button type="button" class="lb-nav-btn lb-prev" onclick="lightboxNav(-1)" aria-label="Previous photo">&#10094;</button>
         <img id="lbImg" class="lightbox-img" src="" alt="Enlarged gallery view">
+        <button type="button" class="lb-nav-btn lb-next" onclick="lightboxNav(1)" aria-label="Next photo">&#10095;</button>
       </div>
       <div class="lightbox-hero-icon" id="lbIcon" style="display:none;"></div>
       <div class="lightbox-info">
@@ -1410,7 +1568,20 @@
     </div>
   </div>
 
-  <script src="script.js?v=20261012-fit-v1"></script>
+  <!-- Video Player Modal -->
+  <div class="modal-overlay" id="videoPlayerModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeVideoModal()">
+    <div class="modal-card video-player-card" style="max-width:880px; width:92vw; background:#070B14; border:1px solid var(--gold); padding:24px; border-radius:20px; box-shadow:0 25px 70px rgba(0,0,0,0.85);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; gap:12px;">
+        <h3 id="videoModalTitle" style="color:#FFF; font-family:var(--serif); font-size:22px; font-weight:700; margin:0;">Kamalpur Video Chronicle</h3>
+        <button type="button" class="modal-close" onclick="closeVideoModal()" aria-label="Close video player" style="position:static;">&times;</button>
+      </div>
+      <div style="width:100%; aspect-ratio:16/9; background:#000; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.1);">
+        <video id="videoModalPlayer" controls playsinline style="width:100%; height:100%; object-fit:contain;"></video>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=20261027-gallery-v1"></script>
 </body>
 </html>
 
