@@ -2052,6 +2052,303 @@ svg.kas-icon.solid {
   margin-top: 12px;
 }
 
+/* ══════════════════════════════════════════════════════════════
+   FINE-ART CURATED GALLERY (YESSY DESIGN PATTERN)
+══════════════════════════════════════════════════════════════ */
+.yessy-hero {
+  position: relative;
+  min-height: 480px;
+  background: url('assets/durga-scene.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px 20px 85px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.yessy-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(30, 20, 10, 0.4) 0%, rgba(12, 8, 4, 0.8) 100%),
+              linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(15,10,5,0.75) 100%);
+  pointer-events: none;
+}
+
+.yessy-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.yessy-headline {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5.5vw, 56px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0 0 12px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+  line-height: 1.15;
+}
+
+.yessy-subline {
+  font-family: var(--sans);
+  font-size: clamp(13.5px, 1.8vw, 15px);
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 680px;
+  margin: 0 auto 34px;
+  line-height: 1.6;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Floating Search Bar */
+.yessy-search-bar {
+  display: flex;
+  align-items: stretch;
+  background: #FFFFFF;
+  border-radius: 4px;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  height: 54px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.yessy-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 20px;
+  font-family: var(--sans);
+  font-size: 14.5px;
+  color: #2B2523;
+  background: #FFFFFF;
+}
+
+.yessy-search-input::placeholder {
+  color: #8C827A;
+  font-size: 14px;
+}
+
+.yessy-select-wrap {
+  position: relative;
+  border-left: 1px solid #E5E0DA;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+}
+
+.yessy-cat-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 32px 0 16px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #4A423C;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 100%;
+}
+
+.yessy-select-arrow {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  font-size: 10px;
+  color: #8C827A;
+}
+
+.yessy-search-btn {
+  background: #FFB300;
+  border: none;
+  width: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #FFFFFF;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.yessy-search-btn:hover {
+  background: #F59E0B;
+}
+
+@media (max-width: 600px) {
+  .yessy-search-bar {
+    flex-wrap: wrap;
+    height: auto;
+    border-radius: 6px;
+  }
+  .yessy-search-input {
+    width: 100%;
+    height: 48px;
+  }
+  .yessy-select-wrap {
+    flex: 1;
+    border-left: none;
+    border-top: 1px solid #E5E0DA;
+    height: 44px;
+  }
+  .yessy-search-btn {
+    height: 44px;
+    width: 54px;
+    border-top: 1px solid #E5E0DA;
+  }
+}
+
+/* White Bar with CATEGORIES header */
+.yessy-categories-bar {
+  background: #FFFFFF;
+  border-bottom: 1px solid #EAE5DF;
+  padding: 24px 0 20px;
+}
+
+.yessy-categories-title {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2D2520;
+  margin: 0;
+}
+
+/* 4-Column Framed Category Grid */
+.yessy-category-section {
+  padding: 36px 0 90px;
+  background: #F7F5F2;
+}
+
+.yessy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+@media (max-width: 1080px) {
+  .yessy-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .yessy-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .yessy-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.yessy-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #0B111E;
+  border: 4px solid #FFFFFF;
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  display: block;
+}
+
+.yessy-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(30, 20, 10, 0.22);
+  border-color: #FFB300;
+}
+
+.yessy-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.yessy-card:hover .yessy-card-img {
+  transform: scale(1.08);
+}
+
+.yessy-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(8,5,2,0.4) 60%, rgba(6,3,1,0.92) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px 20px;
+  pointer-events: none;
+}
+
+.yessy-card-title {
+  font-family: var(--serif);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  line-height: 1.15;
+}
+
+.yessy-card-title .line-1 {
+  display: block;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.yessy-card-title .line-2 {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  margin-top: 2px;
+}
+
+.yessy-card-count {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  color: #FFD54F;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.25s ease;
+}
+
+.yessy-card:hover .yessy-card-count {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

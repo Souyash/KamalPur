@@ -55,322 +55,204 @@
     </ul>
   </nav>
 
-  <!-- Subpage Hero -->
-  <header class="subpage-hero">
-    <div class="container">
-      <div class="subpage-hero-inner">
-        <div class="hero-eyebrow">
-          <span class="hero-pill">Visual Archive</span>
-          <span class="hero-eyebrow-txt">কামালপুর অভিযান সংঘ · আলোকচিত্র ভান্ডার</span>
-        </div>
-        <h1 class="subpage-title">Glimpses of <em>Devotion</em>,<br>Festivity &amp; Living Heritage</h1>
-        <p class="subpage-subtitle">
-          Immerse in half a century of sacred archives — from the world-renowned 117 forms of Devi Durga to 1.5 km computer-synchronized Chandannagar light arches, high-octane floodlit football cup finals, and 56+ unbroken years of community seva in Ranaghat.
-        </p>
+  <!-- Yessy-Style Fine-Art Hero Section -->
+  <header class="yessy-hero">
+    <div class="yessy-hero-inner">
+      <h1 class="yessy-headline">SIMPLY ART. SIMPLY BEAUTIFUL.</h1>
+      <p class="yessy-subline">
+        For over fifty-six years, master sculptors, artisans, and millions of devotees have celebrated Kamalpur Abhijan Sangha's monumental Durgotsav. Explore our living visual treasury.
+      </p>
 
-        <!-- Live Visual Metrics Bar -->
-        <div class="gallery-hero-metrics">
-          <div class="ghm-item">
-            <div class="ghm-icon">📸</div>
-            <div>
-              <div class="ghm-val">50+</div>
-              <div class="ghm-label">Archival Photos</div>
-            </div>
-          </div>
-          <div class="ghm-item">
-            <div class="ghm-icon">🪔</div>
-            <div>
-              <div class="ghm-val">117</div>
-              <div class="ghm-label">Sacred Durga Forms</div>
-            </div>
-          </div>
-          <div class="ghm-item">
-            <div class="ghm-icon">💡</div>
-            <div>
-              <div class="ghm-val">1.5 KM</div>
-              <div class="ghm-label">LED Illumination</div>
-            </div>
-          </div>
-          <div class="ghm-item">
-            <div class="ghm-icon">🩸</div>
-            <div>
-              <div class="ghm-val">44+ Yrs</div>
-              <div class="ghm-label">Community Seva</div>
-            </div>
-          </div>
+      <!-- Signature Floating Search Bar -->
+      <div class="yessy-search-bar">
+        <input type="text" id="yessySearchInput" class="yessy-search-input" placeholder="Enter Keywords (e.g. 117 forms, lights, sandhi puja, football)..." oninput="handleGallerySearch(this.value)">
+        <div class="yessy-select-wrap">
+          <select id="yessyCatSelect" class="yessy-cat-select" onchange="filterGallery(this.value)">
+            <option value="all">All Art &nbsp;&#x25BE;</option>
+            <option value="durga">Maha Protima &amp; Idols</option>
+            <option value="architecture">Theme Architecture</option>
+            <option value="lights">Chandannagar Lights</option>
+            <option value="rituals">Sacred Rituals</option>
+            <option value="culture">Percussion &amp; Dhak</option>
+            <option value="sports">Athletics &amp; Football</option>
+            <option value="seva">Social Seva &amp; Health</option>
+          </select>
         </div>
+        <button type="button" class="yessy-search-btn" onclick="executeHeroSearch()" aria-label="Search gallery">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="page-content-wrap">
+  <!-- Clean White Header Bar: CATEGORIES -->
+  <div class="yessy-categories-bar">
     <div class="container">
-      <!-- Gallery Filter Toolbar & Live Search -->
-      <div class="gallery-filter-toolbar">
-        <div class="filter-tabs" role="tablist">
-          <button type="button" class="filter-btn active" onclick="filterGallery('all', this)">
-            <span>🌟 All Moments</span>
-            <span class="filter-count" id="count-all">12</span>
-          </button>
-          <button type="button" class="filter-btn" onclick="filterGallery('durga', this)">
-            <span>🪔 Durgotsav &amp; Idols</span>
-            <span class="filter-count" id="count-durga">5</span>
-          </button>
-          <button type="button" class="filter-btn" onclick="filterGallery('lights', this)">
-            <span>💡 Illumination Gates</span>
-            <span class="filter-count" id="count-lights">2</span>
-          </button>
-          <button type="button" class="filter-btn" onclick="filterGallery('sports', this)">
-            <span>⚽ Football &amp; Athletics</span>
-            <span class="filter-count" id="count-sports">2</span>
-          </button>
-          <button type="button" class="filter-btn" onclick="filterGallery('seva', this)">
-            <span>❤️ Social Seva &amp; Health</span>
-            <span class="filter-count" id="count-seva">2</span>
-          </button>
-          <button type="button" class="filter-btn" onclick="filterGallery('culture', this)">
-            <span>🎭 Cultural &amp; Dhak</span>
-            <span class="filter-count" id="count-culture">1</span>
-          </button>
-        </div>
+      <h2 class="yessy-categories-title">CATEGORIES</h2>
+    </div>
+  </div>
 
-        <div class="gallery-search-wrap">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="gallerySearchInput" class="gallery-search-input" placeholder="Search archive (e.g. 117 forms, lights, football, puja)..." oninput="handleGallerySearch(this.value)">
-          <button type="button" class="search-clear-btn" id="searchClearBtn" onclick="clearGallerySearch()" aria-label="Clear search" style="display:none;">&times;</button>
-        </div>
-      </div>
+  <!-- The 4-Column Framed Visual Category Grid (12 Cards in 4x3 Grid) -->
+  <main class="yessy-category-section">
+    <div class="container">
 
       <!-- No Results Placeholder (hidden by default) -->
-      <div id="galleryNoResults" style="display:none; text-align:center; padding:60px 20px; background:var(--white); border:1.5px dashed var(--border); border-radius:18px; margin-bottom:40px;">
+      <div id="galleryNoResults" style="display:none; text-align:center; padding:60px 20px; background:var(--white); border:1.5px dashed var(--border); border-radius:12px; margin-bottom:40px;">
         <div style="font-size:42px; margin-bottom:12px;">🔍</div>
-        <h3 style="font-family:var(--serif); font-size:22px; color:var(--eg-dark); margin-bottom:8px;">No matching photos found</h3>
-        <p style="font-size:14px; color:var(--text-2); max-width:440px; margin:0 auto 16px;">We couldn't find any archival items matching your query. Try searching for "Durga", "lights", "football", or "seva".</p>
+        <h3 style="font-family:var(--serif); font-size:22px; color:var(--eg-dark); margin-bottom:8px;">No matching art collections found</h3>
+        <p style="font-size:14px; color:var(--text-2); max-width:440px; margin:0 auto 16px;">We couldn't find any archival photos matching your query. Try searching for "Durga", "lights", "football", or "seva".</p>
         <button type="button" class="filter-btn" onclick="clearGallerySearch()" style="margin:0 auto;">Clear Search Query</button>
       </div>
 
-      <!-- Gallery Grid -->
-      <div class="gallery-grid" id="mainGalleryGrid">
-        <!-- Item 1: Durga Protima (Featured Masterpiece) -->
-        <div class="gallery-item is-featured" data-cat="durga" data-cat-label="Maha Protima" data-year="2025–2026" data-title="117 Forms of Devi Durga — Golden Sanctum" data-desc="Masterpiece sculpture installation depicting 117 scriptural forms of Goddess Durga sculpted from sacred Ganga silt by master clay artisans." data-img="assets/durga-scene.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="117 Forms of Devi Durga — Golden Sanctum">
-          <div class="gi-photo-wrap">
-            <img src="assets/durga-scene.jpg" alt="117 Forms of Devi Durga Protima" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Maha Protima</span>
-              <span class="gi-year-tag">2025–2026</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+      <!-- 12 Fine-Art Framed Visual Category Cards -->
+      <div class="yessy-grid" id="mainGalleryGrid">
+        <!-- Card 1 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Maha Protima" data-year="2025–2026" data-title="117 Forms of Devi Durga — Golden Sanctum" data-desc="Masterpiece sculpture installation depicting 117 scriptural forms of Goddess Durga sculpted from sacred Ganga silt by Kumartuli artisans." data-img="assets/durga-scene.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Protima & 117 Forms">
+          <img src="assets/durga-scene.jpg" alt="117 Forms of Devi Durga" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">MAHA PROTIMA</span>
+              <span class="line-2">&amp; 117 FORMS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">117 Forms of Devi Durga — Golden Sanctum</h3>
-              <p class="gi-desc">World-acclaimed landmark thematic display featuring 117 distinct Shastric forms sculpted with classical Kumartuli clay mastery.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Ranaghat, Nadia</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">2025–2026</span>
         </div>
 
-        <!-- Item 2: Pandal Craft -->
-        <div class="gallery-item" data-cat="durga" data-cat-label="Theme Architecture" data-year="2025" data-title="Terracotta &amp; Bamboo Mandap Installation" data-desc="Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum." data-img="assets/durga-papercraft.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Terracotta &amp; Bamboo Mandap Installation">
-          <div class="gi-photo-wrap">
-            <img src="assets/durga-papercraft.jpg" alt="Pandal Sculpture Craftsmanship" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Theme Architecture</span>
-              <span class="gi-year-tag">2025</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 2 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Theme Architecture" data-year="2025" data-title="Terracotta &amp; Bamboo Mandap Installation" data-desc="Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum." data-img="assets/durga-papercraft.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Theme Pandal & Architecture">
+          <img src="assets/durga-papercraft.jpg" alt="Theme Pandal Architecture" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">THEME PANDAL</span>
+              <span class="line-2">&amp; ARCHITECTURE</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Terracotta &amp; Bamboo Mandap Installation</h3>
-              <p class="gi-desc">Heritage Bengal spatial artistry engineered from over 65,000 seasoned bamboo poles and hand-crafted clay reliefs.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Main Pandal Grounds</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">2025</span>
         </div>
 
-        <!-- Item 3: Chandannagar Lights (Featured) -->
-        <div class="gallery-item is-featured" data-cat="lights" data-cat-label="Illumination Gate" data-year="Night View" data-title="Chandannagar 3D Illumination Boulevard" data-desc="1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station." data-img="assets/gallery/chandannagar-lights.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chandannagar 3D Illumination Boulevard">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/chandannagar-lights.jpg" alt="Chandannagar Light Boulevard" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Illumination Gate</span>
-              <span class="gi-year-tag">Night View</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 3 -->
+        <div class="yessy-card" data-cat="lights" data-cat-label="Illumination Gate" data-year="Night View" data-title="Chandannagar 3D Illumination Boulevard" data-desc="1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station." data-img="assets/gallery/chandannagar-lights.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chandannagar & 3D Lights">
+          <img src="assets/gallery/chandannagar-lights.jpg" alt="Chandannagar 3D Illumination" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">CHANDANNAGAR</span>
+              <span class="line-2">&amp; 3D LIGHTS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Chandannagar 3D Illumination Boulevard</h3>
-              <p class="gi-desc">Over 250,000 animated smart LEDs forming dazzling 3D mythological chariots and peacocks along the 1.5 km approach road.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Station Boulevard</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">Night View</span>
         </div>
 
-        <!-- Item 4: Sandhi Puja -->
-        <div class="gallery-item" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Maha Ashtami" data-title="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati" data-desc="Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants." data-img="assets/gallery/sandhi-puja.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/sandhi-puja.jpg" alt="Maha Sandhi Puja 108 Lamps" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Sacred Rituals</span>
-              <span class="gi-year-tag">Maha Ashtami</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 4 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Maha Ashtami" data-title="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati" data-desc="Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants." data-img="assets/gallery/sandhi-puja.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sandhi Puja & 108 Pradips">
+          <img src="assets/gallery/sandhi-puja.jpg" alt="Sandhi Puja 108 Pradip Aarati" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">SANDHI PUJA</span>
+              <span class="line-2">&amp; 108 PRADIPS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati</h3>
-              <p class="gi-desc">The sacred transition hour between Ashtami and Navami marked by glowing pradips and divine Vedic Chandi stotrams.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Sacred Sanctum</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">Ashtami</span>
         </div>
 
-        <!-- Item 5: Sindoor Khela -->
-        <div class="gallery-item" data-cat="durga" data-cat-label="Vijaya Dashami" data-year="Farewell Seva" data-title="Vijaya Dashami Sindoor Khela &amp; Shobhayatra" data-desc="Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats." data-img="assets/gallery/sindoor-khela.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Vijaya Dashami Sindoor Khela &amp; Shobhayatra">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/sindoor-khela.jpg" alt="Vijaya Dashami Sindoor Khela" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Vijaya Dashami</span>
-              <span class="gi-year-tag">Farewell Seva</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 5 -->
+        <div class="yessy-card" data-cat="culture" data-cat-label="Percussion &amp; Dance" data-year="Maha Navami" data-title="Maha Navami Dhunuchi Naach &amp; Dhak Symphony" data-desc="Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe." data-img="assets/gallery/dhunuchi-dance.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Dhunuchi Naach & Dhak Beats">
+          <img src="assets/gallery/dhunuchi-dance.jpg" alt="Dhunuchi Naach and Dhak Beats" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">DHUNUCHI NAACH</span>
+              <span class="line-2">&amp; DHAK BEATS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Vijaya Dashami Sindoor Khela &amp; Shobhayatra</h3>
-              <p class="gi-desc">Heartwarming vermilion farewell celebrations led by our women devotee wing before the grand Churni river immersion.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Ranaghat Ghat</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">Navami</span>
         </div>
 
-        <!-- Item 6: Dhunuchi Naach -->
-        <div class="gallery-item" data-cat="culture" data-cat-label="Percussion &amp; Dance" data-year="Maha Navami" data-title="Maha Navami Dhunuchi Naach &amp; Dhak Symphony" data-desc="Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe." data-img="assets/gallery/dhunuchi-dance.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Navami Dhunuchi Naach &amp; Dhak Symphony">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/dhunuchi-dance.jpg" alt="Dhunuchi Naach and Dhak Beats" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Percussion &amp; Dance</span>
-              <span class="gi-year-tag">Maha Navami</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 6 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Vijaya Dashami" data-year="Farewell Seva" data-title="Vijaya Dashami Sindoor Khela &amp; Shobhayatra" data-desc="Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats." data-img="assets/gallery/sindoor-khela.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sindoor Khela & Shobhayatra">
+          <img src="assets/gallery/sindoor-khela.jpg" alt="Sindoor Khela and Shobhayatra" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">SINDOOR KHELA</span>
+              <span class="line-2">&amp; SHOBHAYATRA</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Maha Navami Dhunuchi Naach &amp; Dhak Symphony</h3>
-              <p class="gi-desc">Devotional frenzied incense dance accompanied by thunderous polyrhythms of Bengal mango-wood dhaks.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Festival Courtyard</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">Dashami</span>
         </div>
 
-        <!-- Item 7: Football -->
-        <div class="gallery-item" data-cat="sports" data-cat-label="Youth Sports" data-year="Sports Meet" data-title="Kamalpur Gold Cup Final Match" data-desc="Packed stadium roaring during the knockout football championship under floodlights." data-img="assets/gallery/football-goldcup.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Kamalpur Gold Cup Final Match">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/football-goldcup.jpg" alt="Kamalpur Gold Cup Football" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Youth Sports</span>
-              <span class="gi-year-tag">Sports Meet</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 7 -->
+        <div class="yessy-card" data-cat="sports" data-cat-label="Youth Sports" data-year="Sports Meet" data-title="Kamalpur Gold Cup Floodlit Final Match" data-desc="Packed stadium roaring during the knockout football championship under floodlights." data-img="assets/gallery/football-goldcup.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Kamalpur Cup & Athletics">
+          <img src="assets/gallery/football-goldcup.jpg" alt="Kamalpur Gold Cup Football" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">KAMALPUR CUP</span>
+              <span class="line-2">&amp; ATHLETICS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Kamalpur Gold Cup Floodlit Final Match</h3>
-              <p class="gi-desc">A packed stadium with 12,000 cheering spectators witnessing the legendary knockout championship under floodlights.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Sangha Stadium Ground</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
-            </div>
-          </div>
+          <span class="yessy-card-count">Floodlit Cup</span>
         </div>
 
-        <!-- Item 8: Blood Donation -->
-        <div class="gallery-item" data-cat="seva" data-cat-label="Social Seva" data-year="44th Edition" data-title="Annual Mega Blood Donation Drive" data-desc="Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society." data-img="assets/gallery/blood-donation.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Annual Mega Blood Donation Drive">
-          <div class="gi-photo-wrap">
-            <img src="assets/gallery/blood-donation.jpg" alt="Annual Blood Donation Camp" class="gi-photo-img" loading="lazy">
-            <div class="gi-top-tags">
-              <span class="gi-badge">Social Seva</span>
-              <span class="gi-year-tag">44th Edition</span>
-            </div>
-            <div class="gi-zoom-btn" title="View Fullscreen">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <!-- Card 8 -->
+        <div class="yessy-card" data-cat="seva" data-cat-label="Social Seva" data-year="44th Edition" data-title="Annual Mega Blood Donation Drive" data-desc="Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society." data-img="assets/gallery/blood-donation.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Social Seva & Blood Camps">
+          <img src="assets/gallery/blood-donation.jpg" alt="Blood Donation Camp" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">SOCIAL SEVA</span>
+              <span class="line-2">&amp; BLOOD CAMPS</span>
             </div>
           </div>
-          <div class="gi-body">
-            <div>
-              <h3 class="gi-title">Annual Mega Blood Donation Drive</h3>
-              <p class="gi-desc">Unbroken tradition of life-saving community healthcare with 350+ units donated annually for Nadia blood banks.</p>
-            </div>
-            <div class="gi-footer">
-              <span>Sangha Bhavan</span>
-              <span class="gi-action-link">
-                View High-Res
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </span>
+          <span class="yessy-card-count">38+ Yrs</span>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Maha Protima" data-year="Sharodotsav" data-title="Devotional Felicitations &amp; Golden Mandap Ambience" data-desc="Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal." data-img="assets/anant-ambani-honor-1.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Devotional Felicitations">
+          <img src="assets/anant-ambani-honor-1.png" alt="Devotional Felicitations" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">DEVOTIONAL</span>
+              <span class="line-2">&amp; FELICITATIONS</span>
             </div>
           </div>
+          <span class="yessy-card-count">Honors</span>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Evening Arati" data-title="Durgotsav Pandal Committee Evening Arati" data-desc="Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days." data-img="assets/anant-ambani-honor-2.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Evening Arati & Temple Rites">
+          <img src="assets/anant-ambani-honor-2.png" alt="Evening Arati" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">EVENING ARATI</span>
+              <span class="line-2">&amp; TEMPLE RITES</span>
+            </div>
+          </div>
+          <span class="yessy-card-count">Arati</span>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="yessy-card" data-cat="durga" data-cat-label="Theme Architecture" data-year="2026 Theme" data-title="Chokkhu Daan &amp; Red Sanctum Iconography" data-desc="Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti." data-img="assets/anant-ambani-honor-3.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chokkhu Daan & Cave Sanctum">
+          <img src="assets/anant-ambani-honor-3.png" alt="Chokkhu Daan Cave Sanctum" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">CHOKKHU DAAN</span>
+              <span class="line-2">&amp; CAVE SANCTUM</span>
+            </div>
+          </div>
+          <span class="yessy-card-count">2026</span>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="yessy-card" data-cat="seva" data-cat-label="Social Seva" data-year="Community Seva" data-title="Kamalpur Sangha Bhavan Community Assembly" data-desc="Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare." data-img="assets/kamalpur-social-poster.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sangha Bhavan & Community">
+          <img src="assets/kamalpur-social-poster.jpg" alt="Sangha Bhavan Community" class="yessy-card-img" loading="lazy">
+          <div class="yessy-card-overlay">
+            <div class="yessy-card-title">
+              <span class="line-1">SANGHA BHAVAN</span>
+              <span class="line-2">&amp; COMMUNITY</span>
+            </div>
+          </div>
+          <span class="yessy-card-count">Sangha</span>
         </div>
       </div>
 
       <!-- Video Documentaries & Chronicles Box -->
-      <div class="gallery-video-section">
+      <div class="gallery-video-section" style="margin-top:64px;">
         <div class="eyebrow">Video Chronicles &amp; Documentaries</div>
         <h2 class="sh2">Watch <em>Kamalpur</em> in Motion</h2>
         <p class="section-desc" style="font-family:var(--sans); font-size:15px; color:var(--text-2); margin-top:10px; margin-bottom:28px;">

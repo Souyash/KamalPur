@@ -412,11 +412,11 @@ function populateLightboxFromElement(el) {
   const prevBtn = document.querySelector('.lb-prev');
   const nextBtn = document.querySelector('.lb-next');
 
-  const t = el.getAttribute('data-title') || el.querySelector('.gi-title, .hgi-title, .gi-caption strong')?.textContent || '';
-  const d = el.getAttribute('data-desc') || el.querySelector('.gi-desc, .hgi-desc, .gi-caption span')?.textContent || '';
+  const t = el.getAttribute('data-title') || el.querySelector('.line-1, .gi-title, .hgi-title, .gi-caption strong')?.textContent || '';
+  const d = el.getAttribute('data-desc') || el.querySelector('.line-2, .gi-desc, .hgi-desc, .gi-caption span')?.textContent || '';
   const imgSrc = el.getAttribute('data-img') || el.querySelector('img')?.getAttribute('src');
   const cat = el.getAttribute('data-cat-label') || el.querySelector('.gi-badge, .hgi-tags .gi-badge')?.textContent || el.getAttribute('data-cat') || 'Kamalpur Gallery';
-  const yr = el.getAttribute('data-year') || el.querySelector('.gi-year-tag, .hgi-tags .gi-year-tag')?.textContent || '2026';
+  const yr = el.getAttribute('data-year') || el.querySelector('.yessy-card-count, .gi-year-tag, .hgi-tags .gi-year-tag')?.textContent || '2026';
   const iconEl = el.querySelector('.gi-icon');
 
   if (lbTitle) lbTitle.textContent = t;
@@ -1209,40 +1209,41 @@ async function initPublicGallery() {
     if (el) el.textContent = counts[k];
   });
 
-  grid.innerHTML = galleryList.map((item, index) => {
+  grid.innerHTML = galleryList.map((item) => {
     const cat = item.category || 'Maha Protima';
     const catKey = mapCategoryKey(cat);
     const year = item.year_tag || '2025–2026';
     const title = item.title || 'Kamalpur Durgotsav';
     const desc = item.desc_text || '';
     const img = item.img_url || 'assets/durga-scene.jpg';
-    const isFeatured = item.is_featured || index === 0 || index === 2;
+
+    // Format line 1 and line 2 for the fine-art framed card title
+    let line1 = title;
+    let line2 = cat;
+    if (title.includes('—')) {
+      const parts = title.split('—');
+      line1 = parts[0].trim();
+      line2 = parts[1].trim();
+    } else if (title.includes('&amp;')) {
+      const parts = title.split('&amp;');
+      line1 = parts[0].trim();
+      line2 = '&amp; ' + parts[1].trim();
+    } else if (title.includes('&')) {
+      const parts = title.split('&');
+      line1 = parts[0].trim();
+      line2 = '&amp; ' + parts[1].trim();
+    }
 
     return `
-      <div class="gallery-item ${isFeatured ? 'is-featured' : ''}" data-cat="${escapeAttr(catKey)}" data-cat-label="${escapeAttr(cat)}" data-year="${escapeAttr(year)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="${escapeAttr(title)}">
-        <div class="gi-photo-wrap">
-          <img src="${escapeAttr(img)}" alt="${escapeAttr(title)}" class="gi-photo-img" loading="lazy" onerror="this.src='assets/durga-scene.jpg'">
-          <div class="gi-top-tags">
-            <span class="gi-badge">${escapeHtml(cat)}</span>
-            <span class="gi-year-tag">${escapeHtml(year)}</span>
-          </div>
-          <div class="gi-zoom-btn" title="View Fullscreen">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+      <div class="yessy-card" data-cat="${escapeAttr(catKey)}" data-cat-label="${escapeAttr(cat)}" data-year="${escapeAttr(year)}" data-title="${escapeAttr(title)}" data-desc="${escapeAttr(desc)}" data-img="${escapeAttr(img)}" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="${escapeAttr(title)}">
+        <img src="${escapeAttr(img)}" alt="${escapeAttr(title)}" class="yessy-card-img" loading="lazy" onerror="this.src='assets/durga-scene.jpg'">
+        <div class="yessy-card-overlay">
+          <div class="yessy-card-title">
+            <span class="line-1">${escapeHtml(line1)}</span>
+            <span class="line-2">${escapeHtml(line2)}</span>
           </div>
         </div>
-        <div class="gi-body">
-          <div>
-            <h3 class="gi-title">${escapeHtml(title)}</h3>
-            <p class="gi-desc">${escapeHtml(desc)}</p>
-          </div>
-          <div class="gi-footer">
-            <span>Ranaghat, Nadia</span>
-            <span class="gi-action-link">
-              View High-Res
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </span>
-          </div>
-        </div>
+        <span class="yessy-card-count">${escapeHtml(year)}</span>
       </div>
     `;
   }).join('');
@@ -1252,8 +1253,11 @@ window.currentGalleryCategory = 'all';
 window.currentGallerySearch = '';
 
 function filterGallery(category, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.filter-btn, .h-filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn && btn.nodeType === 1) btn.classList.add('active');
+  const catSelect = document.getElementById('yessyCatSelect');
+  if (catSelect && typeof category === 'string') catSelect.value = category;
+
   window.currentGalleryCategory = category || 'all';
   applyGalleryFilters();
 }
@@ -1266,15 +1270,31 @@ function handleGallerySearch(query) {
 }
 
 function clearGallerySearch() {
-  const input = document.getElementById('gallerySearchInput');
+  const input = document.getElementById('gallerySearchInput') || document.getElementById('yessySearchInput');
   if (input) input.value = '';
   handleGallerySearch('');
+}
+
+function executeHeroSearch() {
+  const input = document.getElementById('yessySearchInput');
+  const select = document.getElementById('yessyCatSelect');
+  const query = input ? input.value : '';
+  const cat = select ? select.value : 'all';
+
+  window.currentGalleryCategory = cat;
+  window.currentGallerySearch = query;
+  applyGalleryFilters();
+
+  const target = document.getElementById('mainGalleryGrid') || document.querySelector('.yessy-category-section');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function applyGalleryFilters() {
   const cat = window.currentGalleryCategory || 'all';
   const q = (window.currentGallerySearch || '').trim().toLowerCase();
-  const items = document.querySelectorAll('#mainGalleryGrid .gallery-item');
+  const items = document.querySelectorAll('#mainGalleryGrid .yessy-card, #mainGalleryGrid .gallery-item');
   let visibleCount = 0;
 
   items.forEach(item => {
@@ -1298,6 +1318,8 @@ function applyGalleryFilters() {
   const noResults = document.getElementById('galleryNoResults');
   if (noResults) noResults.style.display = visibleCount === 0 ? 'block' : 'none';
 }
+
+window.executeHeroSearch = executeHeroSearch;
 
 function filterHomeGallery(category, btn) {
   document.querySelectorAll('.h-filter-btn').forEach(b => b.classList.remove('active'));
