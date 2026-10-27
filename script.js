@@ -197,6 +197,33 @@ function moveCarousel(id, dir) {
 
 /* ── 5. Event Data & Modals ── */
 const eventDatabase = {
+  inauguration: {
+    badge: 'GRAND INAUGURATION & SEVA · OCT 13, 2026',
+    title: 'Grand Inauguration Ceremony of Saree Bitoron & Durga Puja 2026',
+    html: `
+      <p><strong>Date &amp; Time:</strong> October 13, 2026 | 5:00 PM</p>
+      <p><strong>Venue:</strong> Kamalpur Sangha Prangon (Near Primary Health Centre), Ranaghat, Nadia</p>
+      
+      <div style="background:#FFF8E7; padding:16px; border-radius:12px; margin:14px 0; border:1px solid #FFE082;">
+        <h4 style="color:#B45309; margin:0 0 8px; font-family:var(--serif); font-size:17px;">Distinguished Chief Guests &amp; Dignitaries:</h4>
+        <ul style="padding-left:20px; line-height:1.7; margin:0;">
+          <li><strong>Shri Ashok Kirtania:</strong> Hon'ble Minister of Food and Supplies, Govt. of West Bengal &amp; Renowned Philanthropist <em>(Chief Guest &amp; Coordinator)</em></li>
+          <li><strong>Shri Ashim Biswas:</strong> Hon'ble MLA, Ranaghat Uttar Purba Constituency &amp; President, Kamalpur Abhijan Sangha</li>
+        </ul>
+      </div>
+
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:17px;">Major Event Highlights &amp; Announcements:</h4>
+        <ul style="padding-left:20px; line-height:1.7; margin:0;">
+          <li>🌟 <strong>4,000 Saree Bitoron (বস্ত্র বিতরণ):</strong> Monumental free saree distribution ceremony empowering 4,000 underprivileged mothers and sisters across Nadia.</li>
+          <li>🛕 <strong>Inauguration of Kamalpur Durga Puja:</strong> Auspicious formal opening and lamp-lighting for Ranaghat's premier 117-Durga festival.</li>
+          <li>📜 <strong>Special Grants Announcement:</strong> Announcements of Special Grants &amp; governmental development allocations for Kamalpur Abhijan Sangha.</li>
+        </ul>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-3); margin-top:12px;">Devotees, pilgrims, and respected residents across Bengal are warmly welcomed to attend this grand inaugurative gathering.</p>
+    `
+  },
   durga: {
     badge: 'SHARODOTSAV 2026',
     title: 'Ranaghat Durgotsav 2026 (Conducted by Kamalpur Abhijan Sangha)',
@@ -228,11 +255,20 @@ const eventDatabase = {
     `
   },
   laxmi: {
-    badge: 'TRADITIONAL WORSHIP',
-    title: 'Kojagori Lakshmi & Kali Puja',
+    badge: 'TRADITIONAL WORSHIP · 2026',
+    title: 'Banner Lakshmi Puja (Kojagori Purnima)',
     html: `
-      <p><strong>Dates:</strong> Lakshmi Puja (Nov 1) & Shyama Puja (Nov 10)</p>
-      <p>A sacred community observation with midnight aarti, traditional alpana art created by local women, and distribution of special prasad.</p>
+      <p><strong>Date:</strong> October 25, 2026 (Kojagori Purnima) | Auspicious Evening Puja</p>
+      <p><strong>Venue:</strong> Kamalpur Sangha Mandir &amp; Prangon, Ranaghat</p>
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:17px;">Rituals &amp; Highlights:</h4>
+        <ul style="padding-left:20px; line-height:1.7; margin:0;">
+          <li><strong>Banner Lakshmi Puja:</strong> Auspicious sacred worship of Maa Lakshmi under the festival banner on Kojagori Purnima night.</li>
+          <li>Traditional intricate alpana art drawn by neighborhood women across the temple steps.</li>
+          <li>Midnight Maha Aarti, conch-shell dhwani, sacred shital prasad, and khichuri bhog distribution for hundreds of devotees.</li>
+          <li>Followed by Shyama Puja (Kali Puja) with deepavali lamps and devotional midnight offering.</li>
+        </ul>
+      </div>
     `
   },
   saraswati: {
