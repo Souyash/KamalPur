@@ -502,7 +502,35 @@ function lightboxNav(delta) {
   populateLightboxFromElement(activeLightboxItems[activeLightboxIndex]);
 }
 
+function openImageLightbox(src, title, caption, badge, year) {
+  const modal = document.getElementById('lightboxModal');
+  const lbImgBox = document.getElementById('lbImgBox');
+  const lbImg = document.getElementById('lbImg');
+  const lbIcon = document.getElementById('lbIcon');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbCaption = document.getElementById('lbCaption');
+  const lbBadge = document.getElementById('lbBadge');
+  const lbYear = document.getElementById('lbYear');
+  const lbCounter = document.getElementById('lbCounter');
+  const prevBtn = document.querySelector('.lb-prev');
+  const nextBtn = document.querySelector('.lb-next');
+
+  if (lbImg && src) lbImg.src = src;
+  if (lbImgBox) lbImgBox.style.display = 'block';
+  if (lbIcon) lbIcon.style.display = 'none';
+  if (lbTitle) lbTitle.textContent = title || 'Official Sangha Panorama';
+  if (lbCaption) lbCaption.textContent = caption || 'Kamalpur Abhijan Sangha — Our Culture, Our Pride, Our Community.';
+  if (lbBadge) lbBadge.textContent = badge || 'Official Canvas';
+  if (lbYear) lbYear.textContent = year || '2026';
+  if (lbCounter) lbCounter.style.display = 'none';
+  if (prevBtn) prevBtn.style.display = 'none';
+  if (nextBtn) nextBtn.style.display = 'none';
+
+  if (modal) modal.classList.add('open');
+}
+
 window.openLightbox = openLightbox;
+window.openImageLightbox = openImageLightbox;
 window.lightboxNav = lightboxNav;
 
 function openVideoModal(videoSrc, title) {
