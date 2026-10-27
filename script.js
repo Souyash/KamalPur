@@ -634,6 +634,20 @@ function showCopiedFeedback(btnElement) {
   }, 2200);
 }
 
+function copyBankField(text, btnElement) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopiedFeedback(btnElement);
+    }).catch(() => {
+      fallbackCopyText(text, btnElement);
+    });
+  } else {
+    fallbackCopyText(text, btnElement);
+  }
+}
+window.copyBankField = copyBankField;
+window.copyText = copyBankField;
+
 /* ── 7. Membership Application Submit ── */
 function handleMembershipSubmit(event) {
   event.preventDefault();
