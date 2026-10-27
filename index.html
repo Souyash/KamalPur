@@ -788,7 +788,7 @@
           <svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10s3-3 7-3 7 3 7 3v6s-3 3-7 3-7-3-7-3v-6Z"/><circle cx="6" cy="11" r="1" class="kas-icon solid"/><circle cx="12" cy="11" r="1" class="kas-icon solid"/><path d="M6 14c1 1 3 1 4 0"/><path d="M16 14c1.5 0 3-1 4-2.5V8s-2-2-5-2"/></svg> &nbsp;Cultural &amp; Festival Calendar
         </button>
         <button type="button" class="etab" id="tab-s" onclick="switchTab('s')">
-          <svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2"/><path d="m7 11 5-5 5 5"/><path d="m12 6 3 3-5 5-3-3"/><path d="M18 14v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4"/></svg> &nbsp;Sports &amp; Social Welfare
+          <svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2"/><path d="m7 11 5-5 5 5"/><path d="m12 6 3 3-5 5-3-3"/><path d="M18 14v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4"/></svg> &nbsp;Education &amp; Social Welfare
         </button>
       </div>
 
@@ -905,48 +905,112 @@
         </div>
       </div>
 
-      <!-- Panel 2: Sports & Community Welfare -->
+      <!-- Panel 2: Education & Social Welfare -->
       <div class="tab-panel" id="panel-s">
         <div class="carousel-wrap">
           <div class="c-arrows">
-            <button type="button" class="c-arrow gold-arr" onclick="moveCarousel('sc', -1)" aria-label="Previous sports event">&#8592;</button>
-            <button type="button" class="c-arrow gold-arr" onclick="moveCarousel('sc', 1)" aria-label="Next sports event">&#8594;</button>
+            <button type="button" class="c-arrow gold-arr" onclick="moveCarousel('sc', -1)" aria-label="Previous welfare initiative">&#8592;</button>
+            <button type="button" class="c-arrow gold-arr" onclick="moveCarousel('sc', 1)" aria-label="Next welfare initiative">&#8594;</button>
           </div>
           <div class="carousel-viewport">
             <div class="carousel-track" id="sc">
-              <!-- Slide 1: 4,000 Saree Bitoron & Inauguration -->
-              <div class="carousel-slide">
-                <div class="ev-card" tabindex="0" onclick="openEventModal('inauguration')">
-                  <div class="ev-card-top gold-top">
-                    <div class="date-chip gold-chip"><span class="dm">Oct</span><span class="dd">13</span></div>
-                    <span class="ev-card-label">Philanthropic Seva · 2026</span>
-                  </div>
-                  <div class="ev-card-body theme-blood">
-                    <div class="ev-cat">Mass Social Upliftment</div>
-                    <div class="ev-name">4,000 Saree Bitoron &amp; Special Grants</div>
-                    <p class="ev-desc">Inaugurated by Minister Shri Ashok Kirtania &amp; MLA Shri Ashim Biswas. Free distribution of 4,000 festive sarees alongside Special Grants announcements.</p>
-                    <span class="ev-link">View inauguration pop-up &rarr;</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slide 2: Blood Donation -->
+              <!-- Slide 1: Blood Donation Camp Twice a year -->
               <div class="carousel-slide">
                 <div class="ev-card" tabindex="0" onclick="openEventModal('blood')">
                   <div class="ev-card-top gold-top">
-                    <div class="date-chip"><span class="dm">Annual</span><span class="dd"><svg class="kas-icon solid" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="color:#E53935;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span></div>
-                    <span class="ev-card-label">Giving Back · Life Seva</span>
+                    <div class="date-chip gold-chip"><span class="dm">Bi-Annual</span><span class="dd"><svg class="kas-icon solid" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="color:#E53935;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span></div>
+                    <span class="ev-card-label">Healthcare Seva · 2x / Year</span>
                   </div>
                   <div class="ev-card-body theme-blood">
                     <div class="ev-cat">Community Healthcare</div>
-                    <div class="ev-name">Annual Mega Blood Donation Camp</div>
-                    <p class="ev-desc">Recognized by Nadia District Red Cross &amp; Health Dept. Over 300+ units collected annually to support thalassemia patients and local blood banks.</p>
-                    <span class="ev-link">Register as a donor &rarr;</span>
+                    <div class="ev-name">1. Blood Donation Camp (Twice a Year)</div>
+                    <p class="ev-desc">Organized twice every year in partnership with Nadia District Red Cross &amp; Ranaghat Sub-Divisional Hospital. Mobilizing 600+ units of life-saving blood annually with complete health checkups.</p>
+                    <span class="ev-link">View camp schedule &amp; donor details &rarr;</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Slide 2 -->
+              <!-- Slide 2: Bostro Bitoron & Kombol Bitoron -->
+              <div class="carousel-slide">
+                <div class="ev-card" tabindex="0" onclick="openEventModal('bostro_kombol')">
+                  <div class="ev-card-top gold-top">
+                    <div class="date-chip gold-chip"><span class="dm">Festive</span><span class="dd">Seva</span></div>
+                    <span class="ev-card-label">Humanitarian Relief · 2026</span>
+                  </div>
+                  <div class="ev-card-body theme-durga">
+                    <div class="ev-cat">Mass Social Upliftment</div>
+                    <div class="ev-name">2. Bostro Bitoron &amp; Kombol Bitoron</div>
+                    <p class="ev-desc">Grand distribution of 4,000+ festive sarees ahead of Durga Puja (inaugurated with State Dignitaries) and 1,500+ thick winter blankets and woolens every December for underprivileged families.</p>
+                    <span class="ev-link">Distribution details &amp; relief history &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Spoken English & Ai Coaching Class -->
+              <div class="carousel-slide">
+                <div class="ev-card" tabindex="0" onclick="openEventModal('spoken_ai')">
+                  <div class="ev-card-top dark-top">
+                    <div class="date-chip gold-chip"><span class="dm">Weekend</span><span class="dd">Lab</span></div>
+                    <span class="ev-card-label inv">Youth Skills &amp; Tech</span>
+                  </div>
+                  <div class="ev-card-body theme-toastmasters">
+                    <div class="ev-cat">Digital Skills Academy</div>
+                    <div class="ev-name">3. Spoken English &amp; AI Coaching Class</div>
+                    <p class="ev-desc">Free weekend classes for local youth and job aspirants focusing on conversational English fluency, professional presentations, and practical Generative AI tools (Gemini, ChatGPT) for office productivity.</p>
+                    <span class="ev-link">Course syllabus &amp; enrollment &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4: Competitive Job Coaching class -->
+              <div class="carousel-slide">
+                <div class="ev-card" tabindex="0" onclick="openEventModal('job_coaching')">
+                  <div class="ev-card-top dark-top">
+                    <div class="date-chip gold-chip"><span class="dm">Career</span><span class="dd">Hub</span></div>
+                    <span class="ev-card-label inv">Public Service Guidance</span>
+                  </div>
+                  <div class="ev-card-body theme-youth">
+                    <div class="ev-cat">Career Guidance</div>
+                    <div class="ev-name">4. Competitive Job Coaching Class</div>
+                    <p class="ev-desc">Specialized coaching for WBCS, West Bengal Police (SI &amp; Constable), SSC, Indian Railways, Banking, and Primary TET, featuring weekly mock tests, current affairs digests, and library book lending.</p>
+                    <span class="ev-link">Exam schedule &amp; free study material &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 5: Job hub for all kinds of People 4times a year -->
+              <div class="carousel-slide">
+                <div class="ev-card" tabindex="0" onclick="openEventModal('job_hub')">
+                  <div class="ev-card-top gold-top">
+                    <div class="date-chip gold-chip"><span class="dm">Quarterly</span><span class="dd">4x</span></div>
+                    <span class="ev-card-label">Employment &amp; Livelihood</span>
+                  </div>
+                  <div class="ev-card-body theme-picnic">
+                    <div class="ev-cat">Livelihood &amp; Job Fair</div>
+                    <div class="ev-name">5. Job Hub for All Kinds of People (4x a Year)</div>
+                    <p class="ev-desc">Inclusive quarterly job fairs held four times annually connecting 40+ regional enterprises with graduates, technical diploma holders, drivers, retail associates, and logistics personnel with on-spot interviews.</p>
+                    <span class="ev-link">Next job fair schedule &amp; registration &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 6: BoroDurga Art Village -->
+              <div class="carousel-slide">
+                <div class="ev-card" tabindex="0" onclick="openEventModal('borodurga_art')">
+                  <div class="ev-card-top gold-top">
+                    <div class="date-chip gold-chip"><span class="dm">Living</span><span class="dd">Art</span></div>
+                    <span class="ev-card-label">Artisanal Heritage</span>
+                  </div>
+                  <div class="ev-card-body theme-durga">
+                    <div class="ev-cat">Artisanal &amp; Heritage Hub</div>
+                    <div class="ev-name">6. BoroDurga Art Village</div>
+                    <p class="ev-desc">A year-round creative sanctuary in Ranaghat nurturing Krishnanagar clay artisans, Chandannagar illumination artists, dokra casting, and sholapith craft with public art galleries and workshops.</p>
+                    <span class="ev-link">Explore art village &amp; master workshops &rarr;</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 7: Football Tournament -->
               <div class="carousel-slide">
                 <div class="ev-card" tabindex="0" onclick="openEventModal('football')">
                   <div class="ev-card-top dark-top">
@@ -962,39 +1026,7 @@
                 </div>
               </div>
 
-              <!-- Slide 3 -->
-              <div class="carousel-slide">
-                <div class="ev-card" tabindex="0" onclick="openEventModal('health')">
-                  <div class="ev-card-top gold-top">
-                    <div class="date-chip gold-chip"><span class="dm">Ongoing</span><span class="dd"><svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 3v6a5.5 5.5 0 0 0 11 0V3"/><path d="M10 14.5v3.5a3.5 3.5 0 0 0 7 0v-2"/><circle cx="17" cy="14" r="2"/><path d="M3 3h3"/><path d="M14 3h3"/></svg></span></div>
-                    <span class="ev-card-label">Free Seva Clinic</span>
-                  </div>
-                  <div class="ev-card-body theme-toastmasters">
-                    <div class="ev-cat">Public Health Service</div>
-                    <div class="ev-name">Free Eye &amp; Diagnostic Checkup Camp</div>
-                    <p class="ev-desc">Quarterly medical checkups with specialist doctors, free prescription glasses distribution, and cataract screening for elderly residents.</p>
-                    <span class="ev-link">View upcoming clinic dates &rarr;</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slide 4 -->
-              <div class="carousel-slide">
-                <div class="ev-card" tabindex="0" onclick="openEventModal('relief')">
-                  <div class="ev-card-top dark-top">
-                    <div class="date-chip"><span class="dm">Winter</span><span class="dd"><svg class="kas-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h4l4 4 4-4h4v16H4V4z"/><path d="M12 8v12"/></svg></span></div>
-                    <span class="ev-card-label inv">Social Aid</span>
-                  </div>
-                  <div class="ev-card-body theme-bijoya">
-                    <div class="ev-cat">Welfare Initiative</div>
-                    <div class="ev-name">Winter Blanket &amp; Cloth Distribution</div>
-                    <p class="ev-desc">Annual drive delivering warm blankets, sweaters, and rations to destitute families, street vendors, and tea-stall workers in Ranaghat.</p>
-                    <span class="ev-link">Participate &amp; donate &rarr;</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Slide 5 -->
+              <!-- Slide 8: Sports Meet -->
               <div class="carousel-slide">
                 <div class="ev-card" tabindex="0" onclick="openEventModal('sports_meet')">
                   <div class="ev-card-top gold-top">
@@ -1004,7 +1036,7 @@
                   <div class="ev-card-body theme-picnic">
                     <div class="ev-cat">Community Sports</div>
                     <div class="ev-name">Annual Athletic Sports Meet &amp; Marathon</div>
-                    <p class="ev-desc">Sprint races, high jump, lemon-spoon races for children, and tug-of-war for all age categories. A joyous day of neighborhood competition.</p>
+                    <p class="ev-desc">Sprint races, high jump, lemon-spoon races for children, and the 5 km Ranaghat Friendship Mini Marathon celebrating sportsmanship.</p>
                     <span class="ev-link">Participant registration &rarr;</span>
                   </div>
                 </div>
@@ -1016,6 +1048,111 @@
         <div class="tab-footer reveal">
           <a href="#join" class="gold-foot">Get Involved in Sangha Social Seva &rarr;</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EDUCATION & SOCIAL WELFARE SHOWCASE (#education-welfare) ══════════ -->
+  <section id="education-welfare" class="welfare-section" style="padding: 85px 0 80px; background: #FAF7F2; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="reveal" style="text-align: center; max-width: 820px; margin: 0 auto 50px;">
+        <div class="eyebrow" style="color: var(--crimson); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; font-size: 12px; margin-bottom: 8px;">Humanitarian Seva &amp; Youth Empowerment</div>
+        <h2 class="sh2" style="font-size: clamp(28px, 4vw, 42px); line-height: 1.25; margin-bottom: 14px;">Education &amp; <em>Social Welfare</em> Initiatives</h2>
+        <p style="font-family: var(--sans); font-size: 16px; color: var(--text-2); line-height: 1.75; margin: 0 auto;">
+          Beyond Bengal's grandest Durgotsav, Kamalpur Abhijan Sangha works 365 days a year for community upliftment — empowering youth through free tech education, life-saving health camps, competitive coaching, inclusive career hubs, and artisanal folk heritage.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;">
+        <!-- Card 1: Blood Donation Camp Twice a year -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('blood')">
+          <div class="ev-card-top gold-top">
+            <div class="date-chip gold-chip"><span class="dm">Bi-Annual</span><span class="dd"><svg class="kas-icon solid" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="color:#E53935;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span></div>
+            <span class="ev-card-label">Healthcare Seva · 2x / Year</span>
+          </div>
+          <div class="ev-card-body theme-blood">
+            <div class="ev-cat">Community Healthcare</div>
+            <div class="ev-name">1. Blood Donation Camp Twice a Year</div>
+            <p class="ev-desc">Organized twice every year in partnership with Nadia District Red Cross &amp; Ranaghat Sub-Divisional Hospital. Mobilizing 600+ units of life-saving blood annually with complete health checkups.</p>
+            <span class="ev-link">View camp schedule &amp; donor details &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Bostro Bitoron & Kombol Bitoron -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('bostro_kombol')">
+          <div class="ev-card-top gold-top">
+            <div class="date-chip gold-chip"><span class="dm">Festive</span><span class="dd">Seva</span></div>
+            <span class="ev-card-label">Humanitarian Relief · 2026</span>
+          </div>
+          <div class="ev-card-body theme-durga">
+            <div class="ev-cat">Mass Social Upliftment</div>
+            <div class="ev-name">2. Bostro Bitoron &amp; Kombol Bitoron</div>
+            <p class="ev-desc">Grand distribution of 4,000+ festive sarees ahead of Durga Puja (inaugurated with State Dignitaries) and 1,500+ thick winter blankets and woolens every December for underprivileged families.</p>
+            <span class="ev-link">Distribution details &amp; relief history &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Spoken English & Ai Coaching Class -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('spoken_ai')">
+          <div class="ev-card-top dark-top">
+            <div class="date-chip gold-chip"><span class="dm">Weekend</span><span class="dd">Lab</span></div>
+            <span class="ev-card-label inv">Youth Skills &amp; Tech</span>
+          </div>
+          <div class="ev-card-body theme-toastmasters">
+            <div class="ev-cat">Digital Skills Academy</div>
+            <div class="ev-name">3. Spoken English &amp; AI Coaching Class</div>
+            <p class="ev-desc">Free weekend classes for local youth and job aspirants focusing on conversational English fluency, professional presentations, and practical Generative AI tools (Gemini, ChatGPT) for office productivity.</p>
+            <span class="ev-link">Course syllabus &amp; enrollment &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Competitive Job Coaching class -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('job_coaching')">
+          <div class="ev-card-top dark-top">
+            <div class="date-chip gold-chip"><span class="dm">Career</span><span class="dd">Hub</span></div>
+            <span class="ev-card-label inv">Public Service Guidance</span>
+          </div>
+          <div class="ev-card-body theme-youth">
+            <div class="ev-cat">Career Guidance</div>
+            <div class="ev-name">4. Competitive Job Coaching Class</div>
+            <p class="ev-desc">Specialized coaching for WBCS, West Bengal Police (SI &amp; Constable), SSC, Indian Railways, Banking, and Primary TET, featuring weekly mock tests, current affairs digests, and library book lending.</p>
+            <span class="ev-link">Exam schedule &amp; free study material &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Job hub for all kinds of People 4times a year -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('job_hub')">
+          <div class="ev-card-top gold-top">
+            <div class="date-chip gold-chip"><span class="dm">Quarterly</span><span class="dd">4x</span></div>
+            <span class="ev-card-label">Employment &amp; Livelihood</span>
+          </div>
+          <div class="ev-card-body theme-picnic">
+            <div class="ev-cat">Livelihood &amp; Job Fair</div>
+            <div class="ev-name">5. Job Hub for All Kinds of People (4x a Year)</div>
+            <p class="ev-desc">Inclusive quarterly job fairs held four times annually connecting 40+ regional enterprises with graduates, technical diploma holders, drivers, retail associates, and logistics personnel with on-spot interviews.</p>
+            <span class="ev-link">Next job fair schedule &amp; registration &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Card 6: BoroDurga Art Village -->
+        <div class="ev-card" tabindex="0" onclick="openEventModal('borodurga_art')">
+          <div class="ev-card-top gold-top">
+            <div class="date-chip gold-chip"><span class="dm">Living</span><span class="dd">Art</span></div>
+            <span class="ev-card-label">Artisanal Heritage</span>
+          </div>
+          <div class="ev-card-body theme-durga">
+            <div class="ev-cat">Artisanal &amp; Heritage Hub</div>
+            <div class="ev-name">6. BoroDurga Art Village</div>
+            <p class="ev-desc">A year-round creative sanctuary in Ranaghat nurturing Krishnanagar clay artisans, Chandannagar illumination artists, dokra casting, and sholapith craft with public art galleries and workshops.</p>
+            <span class="ev-link">Explore art village &amp; master workshops &rarr;</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 45px; text-align: center;">
+        <a href="events.html" class="hero-btn primary-btn" style="padding: 13px 28px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+          View Complete Annual Events Calendar &rarr;
+        </a>
       </div>
     </div>
   </section>

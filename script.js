@@ -288,13 +288,106 @@ const eventDatabase = {
     `
   },
   blood: {
-    badge: 'HEALTHCARE SEVA',
-    title: 'Annual Mega Blood Donation Drive',
+    badge: 'HEALTHCARE SEVA · BI-ANNUAL',
+    title: 'Blood Donation Camp (Twice a Year)',
     html: `
-      <p><strong>Organized with:</strong> Nadia District Red Cross & Ranaghat Sub-Divisional Hospital Blood Bank</p>
-      <p>Our flagship social initiative running for over 38 consecutive years. Over 300 units of blood are donated annually. Free hemoglobin and blood-group testing provided to all participants.</p>
-      <div style="margin-top:14px; padding:12px; background:var(--gold-pale); border-radius:8px;">
-        <strong>Want to volunteer or donate?</strong> Contact our Health Cell at +91 8637578740.
+      <p><strong>Frequency:</strong> Organized Twice Every Year (Summer &amp; Pre-Puja Drives)</p>
+      <p><strong>Partners:</strong> Nadia District Red Cross &amp; Ranaghat Sub-Divisional Hospital Blood Bank</p>
+      <p>Kamalpur Abhijan Sangha's premier healthcare initiative running for over 38 consecutive years. By hosting camps twice a year, we mobilize over 600+ units of life-saving blood to support thalassemia patients, emergency trauma centers, and maternity wards across Ranaghat.</p>
+      <div style="background:var(--eg-lighter); padding:14px; border-radius:10px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 6px; font-family:var(--serif); font-size:16px;">Donor Amenities &amp; Health Checks:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li>Free hemoglobin, blood-grouping, and vitals screening for every volunteer.</li>
+          <li>Nutrition refreshment kits (fruits, eggs, milk, juice) and donor certificate of recognition.</li>
+          <li>Emergency blood donor registry accessible 24/7 for local residents in distress.</li>
+        </ul>
+      </div>
+      <div style="margin-top:12px; padding:12px; background:var(--gold-pale); border-radius:8px; font-size:13.5px;">
+        <strong>Want to volunteer or donate?</strong> Contact our Health &amp; Seva Cell at +91 8637578740.
+      </div>
+    `
+  },
+  bostro_kombol: {
+    badge: 'COMMUNITY SEVA & RELIEF',
+    title: 'Bostro Bitoron & Kombol Bitoron Seva',
+    html: `
+      <p><strong>Frequency:</strong> Twice Annually (Autumn Sharodotsav Saree Drive &amp; Winter Blanket Distribution)</p>
+      <p><strong>Venue:</strong> Sangha Bhavan &amp; Neighborhood Outreach Centers, Kamalpur</p>
+      <div style="background:#FFF8E7; padding:15px; border-radius:10px; margin:14px 0; border:1px solid #FFE082;">
+        <h4 style="color:#B45309; margin:0 0 8px; font-family:var(--serif); font-size:16px;">Two Pillars of Warmth &amp; Dignity:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li>🌟 <strong>Bostro Bitoron (বস্ত্র বিতরণ):</strong> Over 4,000 festive new sarees and children's apparel distributed ahead of Durga Puja to ensure every mother and child celebrates with pride.</li>
+          <li>❄️ <strong>Kombol Bitoron (কম্বল বিতরণ):</strong> Every December, volunteers distribute 1,500+ thick winter blankets and woolen sweaters to low-income elders, rickshaw pullers, and shelterless families.</li>
+        </ul>
+      </div>
+      <p style="font-size:13.5px; color:var(--text-2);">Supported by government dignitaries, patron donations, and voluntary youth distribution brigades.</p>
+    `
+  },
+  spoken_ai: {
+    badge: 'YOUTH SKILLS & MODERN TECH',
+    title: 'Spoken English & AI Coaching Class',
+    html: `
+      <p><strong>Initiative:</strong> Free Youth Digital Empowerment &amp; Language Academy</p>
+      <p><strong>Target Group:</strong> High School Students, College Undergraduates, and Job Aspirants</p>
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:16px;">Curriculum &amp; Hands-On Training:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li>🗣️ <strong>Spoken English Fluency:</strong> Everyday conversational English, corporate email drafting, pronunciation correction, and confident interview presentation skills.</li>
+          <li>🤖 <strong>Artificial Intelligence (AI) Literacy:</strong> Practical usage of generative AI tools (Gemini, ChatGPT) for research, academic writing, presentation building, and office automation.</li>
+          <li>💻 <strong>Digital Workspace Skills:</strong> Professional typing, Google Workspace/Docs/Sheets, and digital resume creation.</li>
+        </ul>
+      </div>
+      <p style="font-size:13.5px; color:var(--text-3);">Classes conducted in the Sangha Library &amp; Computer Lab on weekends by corporate professionals and volunteer educators.</p>
+    `
+  },
+  job_coaching: {
+    badge: 'CAREER GUIDANCE & PUBLIC SERVICE',
+    title: 'Competitive Job Coaching Class',
+    html: `
+      <p><strong>Objective:</strong> Preparing Rural &amp; Semi-Urban Youth for Secure Public Sector Careers</p>
+      <p><strong>Class Schedule:</strong> Regular Weekend Batches &amp; Evening Doubt-Clearing Sessions</p>
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:16px;">Covered Examinations &amp; Resources:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li><strong>State Government:</strong> WBCS (Prelims + Mains), West Bengal Police (Constable &amp; SI), Kolkata Police, and WBPSC Clerkship/Misc.</li>
+          <li><strong>Central Government:</strong> Staff Selection Commission (SSC CGL/CHSL/MTS), Indian Railways (RRB NTPC &amp; Group D), and IBPS Banking.</li>
+          <li><strong>Teaching &amp; Defense:</strong> WB Primary TET, Upper Primary, Army, Navy, and Air Force recruitment.</li>
+          <li><strong>Free Study Material:</strong> Weekly mock test series, current affairs booklets, and full lending access to Sangha's competitive exam library.</li>
+        </ul>
+      </div>
+    `
+  },
+  job_hub: {
+    badge: 'EMPLOYMENT & LIVELIHOOD',
+    title: 'Job Hub for All Kinds of People (4 Times a Year)',
+    html: `
+      <p><strong>Frequency:</strong> Organized Quarterly (4 Times a Year — January, April, July, October)</p>
+      <p><strong>Venue:</strong> Sangha Prangon &amp; Community Hall, Kamalpur, Ranaghat</p>
+      <div style="background:#FFF8E7; padding:16px; border-radius:12px; margin:14px 0; border:1px solid #FFE082;">
+        <h4 style="color:#B45309; margin:0 0 8px; font-family:var(--serif); font-size:16px;">Inclusive Employment for Every Skill Category:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li>💼 <strong>White-Collar &amp; Graduates:</strong> IT support, data entry, customer service, retail managers, sales executives, and accountants.</li>
+          <li>🔧 <strong>Skilled &amp; Technical:</strong> Electricians, plumbers, solar technicians, CNC operators, healthcare assistants, and lab technicians.</li>
+          <li>🚚 <strong>Field &amp; Support:</strong> Commercial drivers, logistics dispatchers, delivery associates, security personnel, and warehouse staff.</li>
+        </ul>
+      </div>
+      <p style="font-size:13.5px; color:var(--text-2);">Over 40+ regional enterprises, MSMEs, hospitals, and logistics partners participate in each quarterly job fair. On-the-spot interviews and offer letters distributed.</p>
+    `
+  },
+  borodurga_art: {
+    badge: 'ARTISANAL HERITAGE & CREATIVE HUB',
+    title: 'BoroDurga Art Village',
+    html: `
+      <p><strong>Location:</strong> Kamalpur Cultural Precinct, Ranaghat, Nadia</p>
+      <p><strong>Vision:</strong> A year-round living art hub nurturing master clay artisans, sculptors, and folk craftsmen of Bengal.</p>
+      <div style="background:var(--eg-lighter); padding:16px; border-radius:12px; margin:14px 0; border:1px solid var(--border);">
+        <h4 style="color:var(--eg); margin:0 0 8px; font-family:var(--serif); font-size:16px;">Artisanal Wings &amp; Craft Workshops:</h4>
+        <ul style="padding-left:18px; line-height:1.7; margin:0;">
+          <li>🏺 <strong>Krishnanagar &amp; Kumartuli Clay Studio:</strong> Traditional clay idol sculpting studio where master artisans teach youth sacred pratima sculpting.</li>
+          <li>🕯️ <strong>Chandannagar Light Design Lab:</strong> Technical training in dynamic LED gate sequencing, kinetic illumination, and safety engineering.</li>
+          <li>🌾 <strong>Folk Crafts &amp; Sholapith:</strong> Preserving ancient dokra brass casting, terracotta temple murals, and shola daker saaj decorative ornaments.</li>
+          <li>🎨 <strong>Public Art Exhibitions:</strong> Regular weekend display gallery attracting art historians, tourists, and cultural patrons.</li>
+        </ul>
       </div>
     `
   },
