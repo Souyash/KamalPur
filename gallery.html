@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gallery — Kamalpur Abhijan Sangha | Ranaghat Durgotsav</title>
-  <meta name="description" content="View photography and video archives of Kamalpur Abhijan Sangha: Ranaghat's historic Durga Puja pandals, 117 forms of Durga, Chandannagar lights, and football tournaments.">
+  <meta name="description" content="View photography and video archives of Kamalpur Abhijan Sangha: Ranaghat's historic Durga Puja pandals, 117 forms of Durga, Chandannagar lights, and community seva.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,7 @@
 
       <!-- Signature Floating Search Bar -->
       <div class="yessy-search-bar">
-        <input type="text" id="yessySearchInput" class="yessy-search-input" placeholder="Enter Keywords (e.g. 117 forms, lights, sandhi puja, football)..." oninput="handleGallerySearch(this.value)">
+        <input type="text" id="yessySearchInput" class="yessy-search-input" placeholder="Enter Keywords (e.g. 117 forms, lights, sandhi puja, seva)..." oninput="handleGallerySearch(this.value)">
         <div class="yessy-select-wrap">
           <select id="yessyCatSelect" class="yessy-cat-select" onchange="filterGallery(this.value)">
             <option value="all">All Art &nbsp;&#x25BE;</option>
@@ -74,7 +74,7 @@
             <option value="lights">Chandannagar Lights</option>
             <option value="rituals">Sacred Rituals</option>
             <option value="culture">Percussion &amp; Dhak</option>
-            <option value="sports">Athletics &amp; Football</option>
+            <option value="education">Education &amp; AI Academy</option>
             <option value="seva">Social Seva &amp; Health</option>
           </select>
         </div>
@@ -100,7 +100,7 @@
       <div id="galleryNoResults" style="display:none; text-align:center; padding:60px 20px; background:var(--white); border:1.5px dashed var(--border); border-radius:12px; margin-bottom:40px;">
         <div style="font-size:42px; margin-bottom:12px;">🔍</div>
         <h3 style="font-family:var(--serif); font-size:22px; color:var(--eg-dark); margin-bottom:8px;">No matching art collections found</h3>
-        <p style="font-size:14px; color:var(--text-2); max-width:440px; margin:0 auto 16px;">We couldn't find any archival photos matching your query. Try searching for "Durga", "lights", "football", or "seva".</p>
+        <p style="font-size:14px; color:var(--text-2); max-width:440px; margin:0 auto 16px;">We couldn't find any archival photos matching your query. Try searching for "Durga", "lights", "education", or "seva".</p>
         <button type="button" class="filter-btn" onclick="clearGallerySearch()" style="margin:0 auto;">Clear Search Query</button>
       </div>
 
@@ -178,16 +178,16 @@
           <span class="yessy-card-count">Dashami</span>
         </div>
 
-        <!-- Card 7 -->
-        <div class="yessy-card" data-cat="sports" data-cat-label="Youth Sports" data-year="Sports Meet" data-title="Kamalpur Gold Cup Floodlit Final Match" data-desc="Packed stadium roaring during the knockout football championship under floodlights." data-img="assets/gallery/football-goldcup.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Kamalpur Cup & Athletics">
-          <img src="assets/gallery/football-goldcup.jpg" alt="Kamalpur Gold Cup Football" class="yessy-card-img" loading="lazy">
+        <!-- Card 7: Education & Youth Empowerment -->
+        <div class="yessy-card" data-cat="education" data-cat-label="Youth Education" data-year="Academy" data-title="Spoken English &amp; AI Youth Coaching Lab" data-desc="Empowering local youth with modern digital skills, AI literacy, conversational English, and competitive exam preparation." data-img="assets/kamalpur-social-poster.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Education &amp; Youth Empowerment">
+          <img src="assets/kamalpur-social-poster.jpg" alt="Youth Education Academy" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">KAMALPUR CUP</span>
-              <span class="line-2">&amp; ATHLETICS</span>
+              <span class="line-1">EDUCATION &amp; AI</span>
+              <span class="line-2">&amp; YOUTH LAB</span>
             </div>
           </div>
-          <span class="yessy-card-count">Floodlit Cup</span>
+          <span class="yessy-card-count">Digital Lab</span>
         </div>
 
         <!-- Card 8 -->
@@ -306,7 +306,7 @@
             <div class="vc-info">
               <div class="vc-tag" style="color:#ED232A;">Live Streams &amp; Full Archives</div>
               <h3 class="vc-title">Official YouTube Broadcasts &amp; Immersion</h3>
-              <p class="vc-desc">Watch our full Shobhayatra processions, Sandhi Puja arati streams, and football match broadcasts.</p>
+              <p class="vc-desc">Watch our full Shobhayatra processions, Sandhi Puja arati streams, and community seva chronicles.</p>
               <span class="vc-cta" style="color:#ED232A;">Open YouTube Channel ↗</span>
             </div>
           </a>
@@ -406,7 +406,7 @@
           <ul class="footer-menu">
             <li><a href="durgotsav.html">Ranaghat Durga Puja</a></li>
             <li><a href="events.html">Grand Bijoya Sammilanee</a></li>
-            <li><a href="events.html">Kamalpur Football Cup</a></li>
+            <li><a href="events.html">Education &amp; Social Welfare</a></li>
             <li><a href="events.html">Free Health Clinic</a></li>
             <li><a href="events.html">Winter Blanket Drive</a></li>
           </ul>

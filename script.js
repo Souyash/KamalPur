@@ -391,12 +391,12 @@ const eventDatabase = {
       </div>
     `
   },
-  football: {
-    badge: 'ATHLETICS & SPORTS',
-    title: 'Kamalpur Gold Cup Football Tournament',
+  youth_skills: {
+    badge: 'YOUTH EDUCATION',
+    title: 'Youth Education & Career Hub',
     html: `
-      <p><strong>Location:</strong> Kamalpur Sangha Athletic Stadium</p>
-      <p>16 renowned football clubs from Nadia, North 24 Parganas, and Kolkata compete for the prestigious Kamalpur Gold Cup. Matches are played under floodlights with commentary, medical support, and huge spectator attendance.</p>
+      <p><strong>Location:</strong> Sangha Bhavan, Kamalpur</p>
+      <p>Free youth training programs focusing on spoken English fluency, generative AI tools, and competitive examination coaching empowering local students and job seekers.</p>
     `
   },
   health: {
@@ -414,10 +414,10 @@ const eventDatabase = {
     `
   },
   sports_meet: {
-    badge: 'ANNUAL MEET',
-    title: 'Annual Sports Day & Mini Marathon',
+    badge: 'COMMUNITY SEVA',
+    title: 'Annual Community Seva & Health Meet',
     html: `
-      <p>Full day of sports featuring track events, lemon-and-spoon race for children, musical chairs, veteran's walk, and the 5-kilometer Ranaghat Friendship Mini Marathon.</p>
+      <p>Annual community gathering featuring free preventive health checkups, educational student awards, and social welfare distribution for residents.</p>
     `
   },
   manager: {
@@ -1006,11 +1006,11 @@ function initAdminSeedData() {
         },
         {
           id: 7,
-          title: 'Kamalpur Gold Cup Final Match',
-          category: 'Youth Sports',
-          year_tag: 'Sports Meet',
-          desc_text: 'Packed stadium roaring during the knockout football championship under floodlights.',
-          img_url: 'assets/gallery/football-goldcup.jpg'
+          title: 'Spoken English & AI Youth Coaching Lab',
+          category: 'Youth Education',
+          year_tag: 'Academy',
+          desc_text: 'Empowering local youth with modern digital skills, AI literacy, conversational English, and competitive exam preparation.',
+          img_url: 'assets/kamalpur-social-poster.jpg'
         },
         {
           id: 8,
@@ -1356,7 +1356,7 @@ async function initPublicGallery() {
   }
 
   // Update dynamic count tags on filter buttons
-  const counts = { all: galleryList.length, durga: 0, lights: 0, sports: 0, seva: 0, culture: 0 };
+  const counts = { all: galleryList.length, durga: 0, lights: 0, seva: 0, culture: 0 };
   galleryList.forEach(item => {
     const k = mapCategoryKey(item.category);
     if (counts[k] !== undefined) counts[k]++;
@@ -1503,8 +1503,7 @@ function mapCategoryKey(cat) {
   const c = cat.toLowerCase();
   if (c.includes('protima') || c.includes('durga') || c.includes('architecture') || c.includes('mandap') || c.includes('ritual') || c.includes('dashami')) return 'durga';
   if (c.includes('light') || c.includes('gate') || c.includes('illumination')) return 'lights';
-  if (c.includes('sport') || c.includes('football')) return 'sports';
-  if (c.includes('seva') || c.includes('blood') || c.includes('health')) return 'seva';
+  if (c.includes('seva') || c.includes('blood') || c.includes('health') || c.includes('educat') || c.includes('coaching') || c.includes('class') || c.includes('career')) return 'seva';
   if (c.includes('culture') || c.includes('natok') || c.includes('dance') || c.includes('dhak') || c.includes('percussion')) return 'culture';
   return 'all';
 }
