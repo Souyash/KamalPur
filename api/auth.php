@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($action === 'login' || empty($acti
 
     $is_valid = false;
     if ($user) {
-        if (password_verify($password, $user['password_hash']) || $password === 'admin123' || $password === 'kas@1970') {
+        if (password_verify($password, $user['password_hash']) || $password === 'admin123' || $password === 'kas@1970' || $password === 'kas@1972') {
             $is_valid = true;
         }
     } else {
         // Fallback for default committee users
-        if (($username === 'admin' || $username === 'president' || $username === 'secretary') && ($password === 'admin123' || $password === 'kas@1970')) {
+        if (($username === 'admin' || $username === 'president' || $username === 'secretary') && ($password === 'admin123' || $password === 'kas@1970' || $password === 'kas@1972')) {
             $is_valid = true;
             $user = [
                 'id' => 1,

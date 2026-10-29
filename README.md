@@ -1,6 +1,6 @@
 # Kamalpur Abhijaan Sangha — Official Website
 
-> **কামালপুর অভিযান সংঘ · Ranaghat, Nadia, West Bengal (Est. 1970)**  
+> **কামালপুর অভিযান সংঘ · Ranaghat, Nadia, West Bengal (Est. 1972)**  
 > Celebrating 55+ years of culture, athletic excellence, and humanitarian service.
 
 A multi-page website for **Kamalpur Abhijaan Sangha** crafted with the design aesthetic, typography, and interactive components inspired by [kallol.com/#about](https://kallol.com/#about).
@@ -25,7 +25,7 @@ A multi-page website for **Kamalpur Abhijaan Sangha** crafted with the design ae
 3. **`durgotsav.html`** &mdash; Sharodotsav 2026 (The iconic 117 Forms of Durga theme, Chandannagar lighting, ritual schedule table, visitor transit guide)
 4. **`events.html`** &mdash; Events & Calendar (Dual tabs: Cultural festivals & sports/welfare, interactive popups)
 5. **`president.html`** &mdash; President's Desk (Presidential message, Vision 2026–2030, Roll of Honor)
-6. **`heritage.html`** &mdash; Heritage & Timeline (55-year timeline from 1970 to 2026, milestone metrics, award citations)
+6. **`heritage.html`** &mdash; Heritage & Timeline (55-year timeline from 1972 to 2026, milestone metrics, award citations)
 7. **`gallery.html`** &mdash; Photo & Video Gallery (Interactive category filters, full-screen lightbox modal, video chronicles)
 8. **`partners.html`** &mdash; Partners & Sponsors (Civic partners, media associates, corporate tiers, sponsorship inquiry desk)
 9. **`donate.html`** &mdash; Donate & Seva Fund (Transparent allocations, interactive donation calculator, instant receipt generator, bank details)
