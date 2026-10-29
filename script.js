@@ -583,7 +583,7 @@ function openLightbox(titleOrEl, caption, icon) {
   if (titleOrEl && titleOrEl.nodeType === 1) {
     const parentContainer = titleOrEl.closest('#mainGalleryGrid, #homeGalleryGrid, .gallery-grid, .home-gallery-grid');
     if (parentContainer) {
-      activeLightboxItems = Array.from(parentContainer.querySelectorAll('.gallery-item, .home-gallery-item')).filter(it => it.style.display !== 'none');
+      activeLightboxItems = Array.from(parentContainer.querySelectorAll('.gallery-item, .home-gallery-item, .yessy-card')).filter(it => it.style.display !== 'none');
       const idx = activeLightboxItems.indexOf(titleOrEl);
       activeLightboxIndex = idx >= 0 ? idx : 0;
     } else {
@@ -954,152 +954,53 @@ function initAdminSeedData() {
       localStorage.setItem('kas_members', JSON.stringify([]));
     }
 
-    if (localStorage.getItem('kas_gallery') === null) {
-      const sampleGallery = [
-        {
-          id: 1,
-          title: '117 Forms of Devi Durga — Golden Sanctum',
-          category: 'Maha Protima',
-          year_tag: '2025–2026',
-          desc_text: 'Monumental sanctum featuring 117 unique classical scriptural forms of Devi Durga sculpted from Ganga clay by master artisans of Kumartuli.',
-          img_url: 'assets/durga-scene.jpg'
-        },
-        {
-          id: 2,
-          title: 'Terracotta & Bamboo Mandap Installation',
-          category: 'Theme Architecture',
-          year_tag: '2025',
-          desc_text: 'Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum.',
-          img_url: 'assets/durga-papercraft.jpg'
-        },
-        {
-          id: 3,
-          title: 'Chandannagar 3D Illumination Boulevard',
-          category: 'Illumination Gate',
-          year_tag: 'Night View',
-          desc_text: '1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station.',
-          img_url: 'assets/gallery/chandannagar-lights.jpg'
-        },
-        {
-          id: 4,
-          title: 'Maha Ashtami Sandhi Puja & 108 Pradip Aarati',
-          category: 'Sacred Rituals',
-          year_tag: 'Maha Ashtami',
-          desc_text: 'Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants.',
-          img_url: 'assets/gallery/sandhi-puja.jpg'
-        },
-        {
-          id: 5,
-          title: 'Vijaya Dashami Sindoor Khela & Shobhayatra',
-          category: 'Vijaya Dashami',
-          year_tag: 'Farewell Seva',
-          desc_text: 'Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats by women devotee wing.',
-          img_url: 'assets/gallery/sindoor-khela.jpg'
-        },
-        {
-          id: 6,
-          title: 'Maha Navami Dhunuchi Naach & Dhak Symphony',
-          category: 'Percussion & Dance',
-          year_tag: 'Maha Navami',
-          desc_text: 'Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe.',
-          img_url: 'assets/gallery/dhunuchi-dance.jpg'
-        },
-        {
-          id: 7,
-          title: 'Spoken English & AI Youth Coaching Lab',
-          category: 'Youth Education',
-          year_tag: 'Academy',
-          desc_text: 'Empowering local youth with modern digital skills, AI literacy, conversational English, and competitive exam preparation.',
-          img_url: 'assets/kamalpur-social-poster.jpg'
-        },
-        {
-          id: 8,
-          title: 'Annual Mega Blood Donation Drive',
-          category: 'Social Seva',
-          year_tag: '44th Edition',
-          desc_text: 'Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society.',
-          img_url: 'assets/gallery/blood-donation.jpg'
-        },
-        {
-          id: 9,
-          title: 'Devotional Felicitations & Golden Mandap Ambience',
-          category: 'Maha Protima',
-          year_tag: 'Sharodotsav',
-          desc_text: 'Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal.',
-          img_url: 'assets/anant-ambani-honor-1.png'
-        },
-        {
-          id: 10,
-          title: 'Durgotsav Pandal Committee Evening Arati',
-          category: 'Sacred Rituals',
-          year_tag: 'Evening Arati',
-          desc_text: 'Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days.',
-          img_url: 'assets/anant-ambani-honor-2.png'
-        },
-        {
-          id: 11,
-          title: 'Chokkhu Daan & Red Sanctum Iconography',
-          category: 'Theme Architecture',
-          year_tag: '2026 Theme',
-          desc_text: 'Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti.',
-          img_url: 'assets/anant-ambani-honor-3.png'
-        },
-        {
-          id: 12,
-          title: 'Kamalpur Sangha Bhavan Community Assembly',
-          category: 'Social Seva',
-          year_tag: 'Community Seva',
-          desc_text: 'Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare.',
-          img_url: 'assets/kamalpur-social-poster.jpg'
-        }
-      ];
+    const sampleGallery = [
+      {
+        id: 1,
+        title: '1. Mahishasuramardini — Terracotta Clay Sanctum',
+        category: 'Terracotta Form',
+        year_tag: 'Form #1',
+        desc_text: 'Sacred classical terracotta clay sculpture of Devi Durga in dynamic battle posture, subduing the Asura with divine weapons crafted from sacred soil.',
+        img_url: 'assets/gallery/durga-form-1.jpg'
+      },
+      {
+        id: 2,
+        title: '2. Devi Katyayani — Green Stone Patina Form',
+        category: 'Stone Patina',
+        year_tag: 'Form #2',
+        desc_text: 'Serene celestial manifestation of Devi Katyayani draped in sacred robes, standing poised on the ferocious lion above the buffalo altar.',
+        img_url: 'assets/gallery/durga-form-2.jpg'
+      },
+      {
+        id: 3,
+        title: '3. Devi Chandraghanta — Golden Swarna Varna Form',
+        category: 'Swarna Varna',
+        year_tag: 'Form #3',
+        desc_text: 'Radiant golden-visaged manifestation of Devi Chandraghanta adorned in vermilion and crimson drape, seated atop the roaring lion.',
+        img_url: 'assets/gallery/durga-form-3.jpg'
+      },
+      {
+        id: 4,
+        title: '4. Devi Skandamata & Gajaraj — Antique Bronze Form',
+        category: 'Bronze Patina',
+        year_tag: 'Form #4',
+        desc_text: 'Monumental bronze-patina sculpture featuring Devi Durga flanked by the sacred royal elephant and lion, conquering the forces of darkness.',
+        img_url: 'assets/gallery/durga-form-4.jpg'
+      },
+      {
+        id: 5,
+        title: '5. Devi Kushmanda — Illuminated Cosmic Aura Form',
+        category: 'Cosmic Aura',
+        year_tag: 'Form #5',
+        desc_text: 'Divine manifestation of Devi Kushmanda enclosed within a luminous cosmic halo rising above the demon head, glowing under sacred temple illumination.',
+        img_url: 'assets/gallery/durga-form-5.jpg'
+      }
+    ];
+
+    const GALLERY_SYNC_KEY = 'kas_gallery_ver_5forms_2026';
+    if (localStorage.getItem('kas_gallery_sync') !== GALLERY_SYNC_KEY || localStorage.getItem('kas_gallery') === null) {
+      localStorage.setItem('kas_gallery_sync', GALLERY_SYNC_KEY);
       localStorage.setItem('kas_gallery', JSON.stringify(sampleGallery));
-    } else {
-      try {
-        let storedGallery = JSON.parse(localStorage.getItem('kas_gallery') || '[]');
-        if (Array.isArray(storedGallery) && storedGallery.length < 12) {
-          const extraGallery = [
-            {
-              id: 9,
-              title: 'Devotional Felicitations & Golden Mandap Ambience',
-              category: 'Maha Protima',
-              year_tag: 'Sharodotsav',
-              desc_text: 'Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal.',
-              img_url: 'assets/anant-ambani-honor-1.png'
-            },
-            {
-              id: 10,
-              title: 'Durgotsav Pandal Committee Evening Arati',
-              category: 'Sacred Rituals',
-              year_tag: 'Evening Arati',
-              desc_text: 'Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days.',
-              img_url: 'assets/anant-ambani-honor-2.png'
-            },
-            {
-              id: 11,
-              title: 'Chokkhu Daan & Red Sanctum Iconography',
-              category: 'Theme Architecture',
-              year_tag: '2026 Theme',
-              desc_text: 'Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti.',
-              img_url: 'assets/anant-ambani-honor-3.png'
-            },
-            {
-              id: 12,
-              title: 'Kamalpur Sangha Bhavan Community Assembly',
-              category: 'Social Seva',
-              year_tag: 'Community Seva',
-              desc_text: 'Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare.',
-              img_url: 'assets/kamalpur-social-poster.jpg'
-            }
-          ];
-          extraGallery.forEach(item => {
-            if (!storedGallery.some(g => g.title === item.title)) {
-              storedGallery.push(item);
-            }
-          });
-          localStorage.setItem('kas_gallery', JSON.stringify(storedGallery));
-        }
-      } catch (e) {}
     }
 
     const nitishMunshiArtist = {
@@ -1455,14 +1356,14 @@ function applyGalleryFilters() {
   let visibleCount = 0;
 
   items.forEach(item => {
-    const itemCat = item.getAttribute('data-cat') || '';
+    const itemCat = (item.getAttribute('data-cat') || '').toLowerCase();
     const title = (item.getAttribute('data-title') || '').toLowerCase();
     const desc = (item.getAttribute('data-desc') || '').toLowerCase();
     const catLabel = (item.getAttribute('data-cat-label') || '').toLowerCase();
     const year = (item.getAttribute('data-year') || '').toLowerCase();
 
-    const matchesCat = cat === 'all' || itemCat === cat;
-    const matchesSearch = !q || title.includes(q) || desc.includes(q) || catLabel.includes(q) || year.includes(q);
+    const matchesCat = cat === 'all' || itemCat.includes(cat) || catLabel.includes(cat);
+    const matchesSearch = !q || title.includes(q) || desc.includes(q) || catLabel.includes(q) || year.includes(q) || itemCat.includes(q);
 
     if (matchesCat && matchesSearch) {
       item.style.display = '';
@@ -1484,7 +1385,8 @@ function filterHomeGallery(category, btn) {
 
   const items = document.querySelectorAll('#homeGalleryGrid .home-gallery-item');
   items.forEach(item => {
-    if (category === 'all' || item.getAttribute('data-cat') === category) {
+    const itemCat = (item.getAttribute('data-cat') || '').toLowerCase();
+    if (category === 'all' || itemCat.includes(category)) {
       item.style.display = '';
     } else {
       item.style.display = 'none';
@@ -1501,10 +1403,12 @@ window.filterHomeGallery = filterHomeGallery;
 function mapCategoryKey(cat) {
   if (!cat) return 'all';
   const c = cat.toLowerCase();
-  if (c.includes('protima') || c.includes('durga') || c.includes('architecture') || c.includes('mandap') || c.includes('ritual') || c.includes('dashami')) return 'durga';
-  if (c.includes('light') || c.includes('gate') || c.includes('illumination')) return 'lights';
-  if (c.includes('seva') || c.includes('blood') || c.includes('health') || c.includes('educat') || c.includes('coaching') || c.includes('class') || c.includes('career')) return 'seva';
-  if (c.includes('culture') || c.includes('natok') || c.includes('dance') || c.includes('dhak') || c.includes('percussion')) return 'culture';
+  if (c.includes('terracotta') || c.includes('clay')) return 'terracotta';
+  if (c.includes('stone') || (c.includes('patina') && !c.includes('bronze'))) return 'stone';
+  if (c.includes('swarna') || c.includes('gold') || c.includes('yellow')) return 'swarna';
+  if (c.includes('bronze') || c.includes('gajaraj') || c.includes('elephant')) return 'bronze';
+  if (c.includes('aura') || c.includes('cosmic') || c.includes('kushmanda')) return 'aura';
+  if (c.includes('protima') || c.includes('durga')) return 'durga';
   return 'all';
 }
 

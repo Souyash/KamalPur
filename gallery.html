@@ -65,17 +65,15 @@
 
       <!-- Signature Floating Search Bar -->
       <div class="yessy-search-bar">
-        <input type="text" id="yessySearchInput" class="yessy-search-input" placeholder="Enter Keywords (e.g. 117 forms, lights, sandhi puja, seva)..." oninput="handleGallerySearch(this.value)">
+        <input type="text" id="yessySearchInput" class="yessy-search-input" placeholder="Search forms (e.g. Mahishasuramardini, terracotta, Katyayani, bronze)..." oninput="handleGallerySearch(this.value)">
         <div class="yessy-select-wrap">
           <select id="yessyCatSelect" class="yessy-cat-select" onchange="filterGallery(this.value)">
-            <option value="all">All Art &nbsp;&#x25BE;</option>
-            <option value="durga">Maha Protima &amp; Idols</option>
-            <option value="architecture">Theme Architecture</option>
-            <option value="lights">Chandannagar Lights</option>
-            <option value="rituals">Sacred Rituals</option>
-            <option value="culture">Percussion &amp; Dhak</option>
-            <option value="education">Education &amp; AI Academy</option>
-            <option value="seva">Social Seva &amp; Health</option>
+            <option value="all">All 5 Manifestations &nbsp;&#x25BE;</option>
+            <option value="terracotta">1. Mahishasuramardini (Terracotta)</option>
+            <option value="stone">2. Devi Katyayani (Stone Patina)</option>
+            <option value="swarna">3. Devi Chandraghanta (Swarna Varna)</option>
+            <option value="bronze">4. Devi Skandamata (Bronze Patina)</option>
+            <option value="aura">5. Devi Kushmanda (Cosmic Aura)</option>
           </select>
         </div>
         <button type="button" class="yessy-search-btn" onclick="executeHeroSearch()" aria-label="Search gallery">
@@ -88,7 +86,7 @@
   <!-- Clean White Header Bar: CATEGORIES -->
   <div class="yessy-categories-bar">
     <div class="container">
-      <h2 class="yessy-categories-title">CATEGORIES</h2>
+      <h2 class="yessy-categories-title">DIVINE FORMS ARCHIVE &bull; 2026 EDITION</h2>
     </div>
   </div>
 
@@ -104,150 +102,66 @@
         <button type="button" class="filter-btn" onclick="clearGallerySearch()" style="margin:0 auto;">Clear Search Query</button>
       </div>
 
-      <!-- 12 Fine-Art Framed Visual Category Cards -->
+      <!-- 5 Masterpiece Fine-Art Framed Visual Category Cards -->
       <div class="yessy-grid" id="mainGalleryGrid">
-        <!-- Card 1 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Maha Protima" data-year="2025–2026" data-title="117 Forms of Devi Durga — Golden Sanctum" data-desc="Masterpiece sculpture installation depicting 117 scriptural forms of Goddess Durga sculpted from sacred Ganga silt by Kumartuli artisans." data-img="assets/durga-scene.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Maha Protima & 117 Forms">
-          <img src="assets/durga-scene.jpg" alt="117 Forms of Devi Durga" class="yessy-card-img" loading="lazy">
+        <!-- Card 1: Mahishasuramardini -->
+        <div class="yessy-card" data-cat="terracotta" data-cat-label="Maha Protima · Form #1" data-year="Form #1" data-title="1. Mahishasuramardini — Terracotta Clay Sanctum" data-desc="Sacred classical terracotta clay sculpture of Devi Durga in dynamic battle posture, subduing the Asura with divine weapons crafted from sacred soil." data-img="assets/gallery/durga-form-1.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="1. Mahishasuramardini — Terracotta Clay Sanctum">
+          <img src="assets/gallery/durga-form-1.jpg" alt="1. Mahishasuramardini — Terracotta Clay Sanctum" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">MAHA PROTIMA</span>
-              <span class="line-2">&amp; 117 FORMS</span>
+              <span class="line-1">MAHISHASURAMARDINI</span>
+              <span class="line-2">&amp; TERRACOTTA SANCTUM</span>
             </div>
           </div>
-          <span class="yessy-card-count">2025–2026</span>
+          <span class="yessy-card-count">Form #1</span>
         </div>
 
-        <!-- Card 2 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Theme Architecture" data-year="2025" data-title="Terracotta &amp; Bamboo Mandap Installation" data-desc="Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum." data-img="assets/durga-papercraft.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Theme Pandal & Architecture">
-          <img src="assets/durga-papercraft.jpg" alt="Theme Pandal Architecture" class="yessy-card-img" loading="lazy">
+        <!-- Card 2: Devi Katyayani -->
+        <div class="yessy-card" data-cat="stone" data-cat-label="Maha Protima · Form #2" data-year="Form #2" data-title="2. Devi Katyayani — Green Stone Patina Form" data-desc="Serene celestial manifestation of Devi Katyayani draped in sacred robes, standing poised on the ferocious lion above the buffalo altar." data-img="assets/gallery/durga-form-2.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="2. Devi Katyayani — Green Stone Patina Form">
+          <img src="assets/gallery/durga-form-2.jpg" alt="2. Devi Katyayani — Green Stone Patina Form" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">THEME PANDAL</span>
-              <span class="line-2">&amp; ARCHITECTURE</span>
+              <span class="line-1">DEVI KATYAYANI</span>
+              <span class="line-2">&amp; STONE PATINA PROTIMA</span>
             </div>
           </div>
-          <span class="yessy-card-count">2025</span>
+          <span class="yessy-card-count">Form #2</span>
         </div>
 
-        <!-- Card 3 -->
-        <div class="yessy-card" data-cat="lights" data-cat-label="Illumination Gate" data-year="Night View" data-title="Chandannagar 3D Illumination Boulevard" data-desc="1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station." data-img="assets/gallery/chandannagar-lights.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chandannagar & 3D Lights">
-          <img src="assets/gallery/chandannagar-lights.jpg" alt="Chandannagar 3D Illumination" class="yessy-card-img" loading="lazy">
+        <!-- Card 3: Devi Chandraghanta -->
+        <div class="yessy-card" data-cat="swarna" data-cat-label="Maha Protima · Form #3" data-year="Form #3" data-title="3. Devi Chandraghanta — Golden Swarna Varna Form" data-desc="Radiant golden-visaged manifestation of Devi Chandraghanta adorned in vermilion and crimson drape, seated atop the roaring lion." data-img="assets/gallery/durga-form-3.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="3. Devi Chandraghanta — Golden Swarna Varna Form">
+          <img src="assets/gallery/durga-form-3.jpg" alt="3. Devi Chandraghanta — Golden Swarna Varna Form" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">CHANDANNAGAR</span>
-              <span class="line-2">&amp; 3D LIGHTS</span>
+              <span class="line-1">DEVI CHANDRAGHANTA</span>
+              <span class="line-2">&amp; SWARNA VARNA PROTIMA</span>
             </div>
           </div>
-          <span class="yessy-card-count">Night View</span>
+          <span class="yessy-card-count">Form #3</span>
         </div>
 
-        <!-- Card 4 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Maha Ashtami" data-title="Maha Ashtami Sandhi Puja &amp; 108 Pradip Aarati" data-desc="Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants." data-img="assets/gallery/sandhi-puja.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sandhi Puja & 108 Pradips">
-          <img src="assets/gallery/sandhi-puja.jpg" alt="Sandhi Puja 108 Pradip Aarati" class="yessy-card-img" loading="lazy">
+        <!-- Card 4: Devi Skandamata & Gajaraj -->
+        <div class="yessy-card" data-cat="bronze" data-cat-label="Maha Protima · Form #4" data-year="Form #4" data-title="4. Devi Skandamata &amp; Gajaraj — Antique Bronze Form" data-desc="Monumental bronze-patina sculpture featuring Devi Durga flanked by the sacred royal elephant and lion, conquering the forces of darkness." data-img="assets/gallery/durga-form-4.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="4. Devi Skandamata &amp; Gajaraj — Antique Bronze Form">
+          <img src="assets/gallery/durga-form-4.jpg" alt="4. Devi Skandamata &amp; Gajaraj — Antique Bronze Form" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">SANDHI PUJA</span>
-              <span class="line-2">&amp; 108 PRADIPS</span>
+              <span class="line-1">DEVI SKANDAMATA</span>
+              <span class="line-2">&amp; GAJARAJ BRONZE PATINA</span>
             </div>
           </div>
-          <span class="yessy-card-count">Ashtami</span>
+          <span class="yessy-card-count">Form #4</span>
         </div>
 
-        <!-- Card 5 -->
-        <div class="yessy-card" data-cat="culture" data-cat-label="Percussion &amp; Dance" data-year="Maha Navami" data-title="Maha Navami Dhunuchi Naach &amp; Dhak Symphony" data-desc="Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe." data-img="assets/gallery/dhunuchi-dance.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Dhunuchi Naach & Dhak Beats">
-          <img src="assets/gallery/dhunuchi-dance.jpg" alt="Dhunuchi Naach and Dhak Beats" class="yessy-card-img" loading="lazy">
+        <!-- Card 5: Devi Kushmanda -->
+        <div class="yessy-card" data-cat="aura" data-cat-label="Maha Protima · Form #5" data-year="Form #5" data-title="5. Devi Kushmanda — Illuminated Cosmic Aura Form" data-desc="Divine manifestation of Devi Kushmanda enclosed within a luminous cosmic halo rising above the demon head, glowing under sacred temple illumination." data-img="assets/gallery/durga-form-5.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="5. Devi Kushmanda — Illuminated Cosmic Aura Form">
+          <img src="assets/gallery/durga-form-5.jpg" alt="5. Devi Kushmanda — Illuminated Cosmic Aura Form" class="yessy-card-img" loading="lazy">
           <div class="yessy-card-overlay">
             <div class="yessy-card-title">
-              <span class="line-1">DHUNUCHI NAACH</span>
-              <span class="line-2">&amp; DHAK BEATS</span>
+              <span class="line-1">DEVI KUSHMANDA</span>
+              <span class="line-2">&amp; COSMIC AURA SANCTUM</span>
             </div>
           </div>
-          <span class="yessy-card-count">Navami</span>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Vijaya Dashami" data-year="Farewell Seva" data-title="Vijaya Dashami Sindoor Khela &amp; Shobhayatra" data-desc="Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats." data-img="assets/gallery/sindoor-khela.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sindoor Khela & Shobhayatra">
-          <img src="assets/gallery/sindoor-khela.jpg" alt="Sindoor Khela and Shobhayatra" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">SINDOOR KHELA</span>
-              <span class="line-2">&amp; SHOBHAYATRA</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">Dashami</span>
-        </div>
-
-        <!-- Card 7: Education & Youth Empowerment -->
-        <div class="yessy-card" data-cat="education" data-cat-label="Youth Education" data-year="Academy" data-title="Spoken English &amp; AI Youth Coaching Lab" data-desc="Empowering local youth with modern digital skills, AI literacy, conversational English, and competitive exam preparation." data-img="assets/kamalpur-social-poster.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Education &amp; Youth Empowerment">
-          <img src="assets/kamalpur-social-poster.jpg" alt="Youth Education Academy" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">EDUCATION &amp; AI</span>
-              <span class="line-2">&amp; YOUTH LAB</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">Digital Lab</span>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="yessy-card" data-cat="seva" data-cat-label="Social Seva" data-year="44th Edition" data-title="Annual Mega Blood Donation Drive" data-desc="Over 350 voluntary donors participating at the Sangha Community Hall in partnership with the Indian Red Cross Society." data-img="assets/gallery/blood-donation.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Social Seva & Blood Camps">
-          <img src="assets/gallery/blood-donation.jpg" alt="Blood Donation Camp" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">SOCIAL SEVA</span>
-              <span class="line-2">&amp; BLOOD CAMPS</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">38+ Yrs</span>
-        </div>
-
-        <!-- Card 9 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Maha Protima" data-year="Sharodotsav" data-title="Devotional Felicitations &amp; Golden Mandap Ambience" data-desc="Auspicious celebrations, traditional Dhunuchi dance, and festive tribute honours welcoming pilgrims from across Bengal." data-img="assets/anant-ambani-honor-1.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Devotional Felicitations">
-          <img src="assets/anant-ambani-honor-1.png" alt="Devotional Felicitations" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">DEVOTIONAL</span>
-              <span class="line-2">&amp; FELICITATIONS</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">Honors</span>
-        </div>
-
-        <!-- Card 10 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Sacred Rituals" data-year="Evening Arati" data-title="Durgotsav Pandal Committee Evening Arati" data-desc="Evening pradip arati and divine Dhak resonance welcoming devotees during the auspicious Durga Puja days." data-img="assets/anant-ambani-honor-2.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Evening Arati & Temple Rites">
-          <img src="assets/anant-ambani-honor-2.png" alt="Evening Arati" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">EVENING ARATI</span>
-              <span class="line-2">&amp; TEMPLE RITES</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">Arati</span>
-        </div>
-
-        <!-- Card 11 -->
-        <div class="yessy-card" data-cat="durga" data-cat-label="Theme Architecture" data-year="2026 Theme" data-title="Chokkhu Daan &amp; Red Sanctum Iconography" data-desc="Sacred Chokkhu Daan rituals and intricate vermilion wall reliefs inside the cave sanctum of the Adi Shakti." data-img="assets/anant-ambani-honor-3.png" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Chokkhu Daan & Cave Sanctum">
-          <img src="assets/anant-ambani-honor-3.png" alt="Chokkhu Daan Cave Sanctum" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">CHOKKHU DAAN</span>
-              <span class="line-2">&amp; CAVE SANCTUM</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">2026</span>
-        </div>
-
-        <!-- Card 12 -->
-        <div class="yessy-card" data-cat="seva" data-cat-label="Social Seva" data-year="Community Seva" data-title="Kamalpur Sangha Bhavan Community Assembly" data-desc="Historic gathering of Sangha members, social volunteers, and youth organizers uniting for Ranaghat welfare." data-img="assets/kamalpur-social-poster.jpg" onclick="openLightbox(this)" tabindex="0" role="button" aria-label="Sangha Bhavan & Community">
-          <img src="assets/kamalpur-social-poster.jpg" alt="Sangha Bhavan Community" class="yessy-card-img" loading="lazy">
-          <div class="yessy-card-overlay">
-            <div class="yessy-card-title">
-              <span class="line-1">SANGHA BHAVAN</span>
-              <span class="line-2">&amp; COMMUNITY</span>
-            </div>
-          </div>
-          <span class="yessy-card-count">Sangha</span>
+          <span class="yessy-card-count">Form #5</span>
         </div>
       </div>
 

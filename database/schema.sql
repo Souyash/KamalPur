@@ -36,16 +36,13 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Seed initial Gallery Posts
+-- Seed initial Gallery Posts (5 Divine Forms)
 INSERT INTO `gallery` (`title`, `category`, `year_tag`, `desc_text`, `img_url`) VALUES
-('117 Divine Forms of Durga', 'Maha Protima', '2025–2026', 'Monumental sanctum featuring 117 unique classical scriptural forms of Devi Durga sculpted from Ganga clay by master artisans of Kumartuli.', 'assets/durga-scene.jpg'),
-('Terracotta & Bamboo Mandap Installation', 'Theme Architecture', '2025', 'Intricate hand-sculpted temple motifs, bamboo filigree, and sustainable artisan handicrafts adorning the main sanctum.', 'assets/durga-papercraft.jpg'),
-('Chandannagar 3D Illumination Boulevard', 'Illumination Gate', 'Night View', '1.5 kilometers of computer-synchronized illuminated 3D LED arches lighting the grand approach from Ranaghat railway station.', 'assets/gallery/chandannagar-lights.jpg'),
-('Maha Ashtami Sandhi Puja & 108 Pradip Aarati', 'Sacred Rituals', 'Maha Ashtami', 'Auspicious Sandhi Puja rituals performed with 108 blue lotuses, sacred clay lamps, and Vedic chants.', 'assets/gallery/sandhi-puja.jpg'),
-('Vijaya Dashami Sindoor Khela & Shobhayatra', 'Vijaya Dashami', 'Farewell Seva', 'Joyous vermilion farewell to Maa Durga with traditional sweet offerings and Dhak beats by women devotee wing.', 'assets/gallery/sindoor-khela.jpg'),
-('Maha Navami Dhunuchi Naach & Dhak Symphony', 'Percussion & Dance', 'Maha Navami', 'Spiritual performance with fragrant coconut-husk incense and thunderous rhythmic beats by our 60-member Dhaki troupe.', 'assets/gallery/dhunuchi-dance.jpg'),
-('Free Mega Blood Donation Camp', 'Social Seva', 'Year-Round', 'Annual voluntary blood donation drive organized in association with Ranaghat Sub-Divisional Hospital Blood Bank.', 'assets/gallery/blood-donation.jpg'),
-('Kamalpur Gold Cup Football Tournament', 'Youth Sports', 'Sports Meet', 'Our flagship 16-team knockout football championship fostering sportsmanship and youth athletics across Nadia.', 'assets/gallery/football-goldcup.jpg');
+('1. Mahishasuramardini — Terracotta Clay Sanctum', 'Terracotta Form', 'Form #1', 'Sacred classical terracotta clay sculpture of Devi Durga in dynamic battle posture, subduing the Asura with divine weapons crafted from sacred soil.', 'assets/gallery/durga-form-1.jpg'),
+('2. Devi Katyayani — Green Stone Patina Form', 'Stone Patina', 'Form #2', 'Serene celestial manifestation of Devi Katyayani draped in sacred robes, standing poised on the ferocious lion above the buffalo altar.', 'assets/gallery/durga-form-2.jpg'),
+('3. Devi Chandraghanta — Golden Swarna Varna Form', 'Swarna Varna', 'Form #3', 'Radiant golden-visaged manifestation of Devi Chandraghanta adorned in vermilion and crimson drape, seated atop the roaring lion.', 'assets/gallery/durga-form-3.jpg'),
+('4. Devi Skandamata & Gajaraj — Antique Bronze Form', 'Bronze Patina', 'Form #4', 'Monumental bronze-patina sculpture featuring Devi Durga flanked by the sacred royal elephant and lion, conquering the forces of darkness.', 'assets/gallery/durga-form-4.jpg'),
+('5. Devi Kushmanda — Illuminated Cosmic Aura Form', 'Cosmic Aura', 'Form #5', 'Divine manifestation of Devi Kushmanda enclosed within a luminous cosmic halo rising above the demon head, glowing under sacred temple illumination.', 'assets/gallery/durga-form-5.jpg');
 
 -- 3. Artists Table
 CREATE TABLE IF NOT EXISTS `artists` (
