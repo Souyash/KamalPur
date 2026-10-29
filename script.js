@@ -425,7 +425,7 @@ const eventDatabase = {
     title: 'Lead Event Manager: Subha Kumar Mandal (SUBHA-ARTHA)',
     html: `
       <div style="display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
-        <img src="assets/event-manager-avatar.jpg" alt="Subha Kumar Mandal" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:2.5px solid var(--gold); box-shadow:0 6px 18px rgba(0,0,0,0.15);">
+        <img src="assets/event-manager-avatar.jpg?v=20261030-subha" alt="Subha Kumar Mandal" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:2.5px solid var(--gold); box-shadow:0 6px 18px rgba(0,0,0,0.15);">
         <div>
           <h4 style="font-family:var(--serif); font-size:22px; color:var(--eg-dark); margin:0 0 4px;">SUBHA Kumar MANDAL</h4>
           <p style="margin:0 0 4px; color:var(--gold-dark); font-weight:700; font-size:13.5px;">Civil Engineering · CA (Inter)</p>
