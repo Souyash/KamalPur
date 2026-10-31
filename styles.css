@@ -11524,10 +11524,78 @@ footer {
   }
 }
 
+/* ══════════ PROTECTED BANK DETAILS WITH ID & PASSWORD ══════════ */
+.bank-secure-field {
+  position: relative;
+  transition: all 0.3s ease;
+}
 
+.bank-blur-protected {
+  transition: filter 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  display: inline-block;
+}
 
+.bank-blur-protected.is-blurred {
+  filter: blur(6px) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  opacity: 0.55 !important;
+  cursor: pointer !important;
+}
 
+.bank-blur-protected.is-unblurred {
+  filter: none !important;
+  user-select: text !important;
+  opacity: 1 !important;
+}
 
+.bank-lock-overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(91, 11, 20, 0.08);
+  border: 1px dashed var(--crimson);
+  color: var(--crimson);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
 
+.bank-lock-overlay-btn:hover {
+  background: var(--crimson);
+  color: #FFFFFF;
+}
 
+.bank-lock-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  background: #FFFDF5;
+  border: 1px solid #FDE68A;
+  color: #92400E;
+  transition: all 0.3s ease;
+}
+
+.bank-auth-modal-card {
+  max-width: 440px;
+  width: 92vw;
+  background: #FFFFFF;
+  border-radius: 18px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+  padding: 30px 26px;
+  position: relative;
+  text-align: left;
+  box-sizing: border-box;
+}
 

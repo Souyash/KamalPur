@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminSeedData();
   initPublicGallery();
   initPublicArtists();
+  initProtectedBankDetails();
 });
 
 /* ── 2. Sticky Nav & Mobile Menu ── */
@@ -882,6 +883,12 @@ function showCopiedFeedback(btnElement) {
 }
 
 function copyBankField(text, btnElement) {
+  if (!isBankUnlocked()) {
+    openBankAuthModal(() => {
+      copyBankField(text, btnElement);
+    });
+    return;
+  }
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
       showCopiedFeedback(btnElement);
@@ -894,6 +901,205 @@ function copyBankField(text, btnElement) {
 }
 window.copyBankField = copyBankField;
 window.copyText = copyBankField;
+
+/* ── Protected Bank Details Authentication & Blur Controller ── */
+let bankAuthPendingAction = null;
+
+function isBankUnlocked() {
+  try {
+    return sessionStorage.getItem('kas_bank_auth') === 'unlocked';
+  } catch (e) {
+    return false;
+  }
+}
+
+function updateBankBlurState() {
+  const unlocked = isBankUnlocked();
+
+  // Toggle blur class on all protected elements
+  document.querySelectorAll('.bank-blur-protected').forEach(el => {
+    if (unlocked) {
+      el.classList.remove('is-blurred');
+      el.classList.add('is-unblurred');
+      el.title = 'Bank details verified and active';
+    } else {
+      el.classList.add('is-blurred');
+      el.classList.remove('is-unblurred');
+      el.title = 'Click to unlock protected bank details with ID & Password';
+    }
+  });
+
+  // Update dynamic banners if present (e.g. in donate.html)
+  const banner = document.getElementById('bankLockBanner');
+  const bannerIcon = document.getElementById('bankLockIcon');
+  const bannerText = document.getElementById('bankLockStatusText');
+  const toggleBtn = document.getElementById('bankLockToggleBtn');
+
+  if (banner && toggleBtn) {
+    if (unlocked) {
+      banner.style.background = '#ECFDF5';
+      banner.style.borderColor = '#A7F3D0';
+      banner.style.color = '#065F46';
+      if (bannerIcon) bannerIcon.textContent = '🔓';
+      if (bannerText) bannerText.innerHTML = '<strong>Verified Access Active:</strong> Full institutional bank details unlocked for this session.';
+      toggleBtn.innerHTML = '🔒 Lock Details';
+      toggleBtn.style.color = '#065F46';
+      toggleBtn.style.borderColor = '#059669';
+      toggleBtn.style.background = 'rgba(5, 150, 105, 0.1)';
+    } else {
+      banner.style.background = '#FFFDF5';
+      banner.style.borderColor = '#FDE68A';
+      banner.style.color = '#92400E';
+      if (bannerIcon) bannerIcon.textContent = '🔒';
+      if (bannerText) bannerText.innerHTML = '<strong>Protected Banking Details:</strong> Sensitive account numbers and IFSC are blurred for security.';
+      toggleBtn.innerHTML = '🔓 Unlock with ID &amp; Password';
+      toggleBtn.style.color = 'var(--crimson, #8B1116)';
+      toggleBtn.style.borderColor = 'var(--crimson, #8B1116)';
+      toggleBtn.style.background = 'rgba(91, 11, 20, 0.08)';
+    }
+  }
+
+  // Update quick toggle text spans on home & partner pages
+  document.querySelectorAll('.bank-quick-toggle-text').forEach(el => {
+    el.textContent = unlocked ? '🔒 Lock Details' : '🔓 Unlock';
+  });
+}
+
+function openBankAuthModal(onSuccessCallback) {
+  bankAuthPendingAction = (typeof onSuccessCallback === 'function') ? onSuccessCallback : null;
+  const modal = document.getElementById('bankAuthModal');
+  if (modal) {
+    modal.classList.add('open');
+    const err = document.getElementById('bankAuthError');
+    if (err) err.style.display = 'none';
+    const form = document.getElementById('bankAuthForm');
+    if (form) form.reset();
+    setTimeout(() => {
+      const idInput = document.getElementById('bankAuthId');
+      if (idInput) idInput.focus();
+    }, 120);
+  } else {
+    const user = prompt('Enter Authorized Access ID (e.g. admin):', '');
+    if (!user) return;
+    const pass = prompt('Enter Security Password:', '');
+    if (validateBankCredentials(user, pass)) {
+      try { sessionStorage.setItem('kas_bank_auth', 'unlocked'); } catch(e) {}
+      updateBankBlurState();
+      alert('Access verified. Full bank details revealed.');
+      if (bankAuthPendingAction) {
+        const fn = bankAuthPendingAction;
+        bankAuthPendingAction = null;
+        fn();
+      }
+    } else {
+      alert('Invalid credentials. (Authorized ID: admin | Password: kas@1972)');
+    }
+  }
+}
+
+function closeBankAuthModal() {
+  const modal = document.getElementById('bankAuthModal');
+  if (modal) modal.classList.remove('open');
+  bankAuthPendingAction = null;
+}
+
+function toggleBankPassVisibility() {
+  const pass = document.getElementById('bankAuthPass');
+  if (pass) {
+    pass.type = pass.type === 'password' ? 'text' : 'password';
+  }
+}
+
+function validateBankCredentials(id, pass) {
+  const cleanId = (id || '').trim().toLowerCase();
+  const cleanPass = (pass || '').trim();
+  const validIds = ['admin', 'kas', 'member', 'donor', 'president', 'secretary', 'treasurer', 'partner', 'subha'];
+  const validPass = ['kas@1972', 'admin123', 'kamalpur1972', 'kas@1970', 'subha123'];
+  return validIds.includes(cleanId) && validPass.includes(cleanPass);
+}
+
+function handleBankAuthSubmit(event) {
+  if (event) event.preventDefault();
+  const idEl = document.getElementById('bankAuthId');
+  const passEl = document.getElementById('bankAuthPass');
+  const errEl = document.getElementById('bankAuthError');
+
+  const id = idEl ? idEl.value : '';
+  const pass = passEl ? passEl.value : '';
+
+  if (validateBankCredentials(id, pass)) {
+    try {
+      sessionStorage.setItem('kas_bank_auth', 'unlocked');
+    } catch(e) {}
+    updateBankBlurState();
+    closeBankAuthModal();
+    if (typeof bankAuthPendingAction === 'function') {
+      const fn = bankAuthPendingAction;
+      bankAuthPendingAction = null;
+      fn();
+    }
+  } else {
+    if (errEl) {
+      errEl.style.display = 'block';
+    } else {
+      alert('Invalid Access ID or Password. Default ID: admin | Password: kas@1972');
+    }
+  }
+}
+
+function toggleBankAuthAction() {
+  if (isBankUnlocked()) {
+    try {
+      sessionStorage.removeItem('kas_bank_auth');
+    } catch(e) {}
+    updateBankBlurState();
+  } else {
+    openBankAuthModal();
+  }
+}
+
+function safeCopyBankField(text, btnElement, fieldName) {
+  if (!isBankUnlocked()) {
+    openBankAuthModal(() => {
+      copyBankField(text, btnElement);
+    });
+    return;
+  }
+  copyBankField(text, btnElement);
+}
+
+function viewProtectedBankDoc(btnElement) {
+  if (!isBankUnlocked()) {
+    openBankAuthModal(() => {
+      openLightbox(btnElement);
+    });
+    return;
+  }
+  openLightbox(btnElement);
+}
+
+function initProtectedBankDetails() {
+  updateBankBlurState();
+
+  // Clicking on any blurred item triggers unlock modal
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('.bank-blur-protected.is-blurred');
+    if (target && !isBankUnlocked()) {
+      openBankAuthModal();
+    }
+  });
+}
+
+window.isBankUnlocked = isBankUnlocked;
+window.updateBankBlurState = updateBankBlurState;
+window.openBankAuthModal = openBankAuthModal;
+window.closeBankAuthModal = closeBankAuthModal;
+window.toggleBankPassVisibility = toggleBankPassVisibility;
+window.handleBankAuthSubmit = handleBankAuthSubmit;
+window.toggleBankAuthAction = toggleBankAuthAction;
+window.safeCopyBankField = safeCopyBankField;
+window.viewProtectedBankDoc = viewProtectedBankDoc;
+window.initProtectedBankDetails = initProtectedBankDetails;
 
 /* ── 7. Membership Application Submit ── */
 function handleMembershipSubmit(event) {
